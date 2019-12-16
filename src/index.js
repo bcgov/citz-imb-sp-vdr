@@ -2,12 +2,12 @@ import 'react-app-polyfill/ie9';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './script/App';
+import App from './App';
 import * as serviceWorker from './serviceWorker';
 import $ from 'jquery'
 
 $(document).ready(function () {
-    ReactDOM.render(<App />, document.getElementById('app-root'));
+    ReactDOM.render(<App value='test'/>, document.getElementById('app-root'));
     var head = document.getElementsByTagName('head')[0]
     var vdrStyle = document.createElement('link')
     vdrStyle.type = 'text/css'

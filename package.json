@@ -39,6 +39,7 @@
     "datatables.net-editor": "^1.6.5",
     "datatables.net-jqui": "^1.10.20",
     "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
     "react-tabs": "^3.0.0"
