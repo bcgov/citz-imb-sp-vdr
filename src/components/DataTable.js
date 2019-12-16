@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import $ from 'jquery'
+import 'datatables.net'
+import 'datatables.net-buttons'
+import 'datatables.net-editor'
+import 'datatables.net-jqui'
 
 class DataTable extends Component {
     componentDidMount() {
