@@ -1,6 +1,4 @@
 export function getCookie(cookieName) {
-    console.log("-- getting cookie");
-
     var name = cookieName + "=";
     var ca = document.cookie.split(';');
 
@@ -12,16 +10,10 @@ export function getCookie(cookieName) {
     return "";
 }
 
-export function setCookie(cookieName, cookieValue, cookieDays, cookiePath) {
-    console.log("-- setting cookie");
-
+export function setCookie(cookieName, cookieValue, cookieDays) {
     var d = new Date();
     d.setTime(d.getTime() + (cookieDays * 24 * 60 * 60 * 1000));
     var expires = "expires=" + d.toUTCString();
-
-    if (cookiePath === undefined) {
-        cookiePath = "";
-    }
 
     document.cookie = cookieName + "=" + cookieValue + "; " + expires + "; " + "path=/";
 }

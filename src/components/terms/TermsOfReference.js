@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Dialog, DialogActions, DialogTitle, DialogContent, Button} from '@material-ui/core'
+import { Dialog, DialogActions, DialogTitle, DialogContent, Button } from '@material-ui/core'
 
 export class TermsOfReference extends Component {
     constructor(props) {
@@ -10,7 +10,7 @@ export class TermsOfReference extends Component {
     }
 
     handleAgree = () => {
-        this.props.agreementCallback(false)
+        this.props.agreementCallback()
     }
 
     handleDisagree = () => {
@@ -18,7 +18,7 @@ export class TermsOfReference extends Component {
         window.location = '/_layouts/signout.aspx'
     }
 
-        render() {
+    render() {
         return (
             <Dialog
                 open={true}
@@ -34,7 +34,7 @@ export class TermsOfReference extends Component {
                 <DialogContent
                     dividers={true}
                 >
-                    <div dangerouslySetInnerHTML={{ __html: this.props.body}}/>
+                    <div dangerouslySetInnerHTML={{ __html: this.props.body }} />
                 </DialogContent>
 
                 <DialogActions>
