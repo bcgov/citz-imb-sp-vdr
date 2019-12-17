@@ -30,5 +30,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@material-ui/core": "^4.7.2",
+    "@material-ui/icons": "^4.5.1",
+    "datatables.net": "^1.10.20",
+    "datatables.net-buttons": "^1.6.1",
+    "datatables.net-editor": "^1.6.5",
+    "datatables.net-jqui": "^1.10.20",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "jquery": "^3.4.1",
+    "jquery-ui": "^1.12.1",
+    "react-tabs": "^3.0.0"
   }
 }
