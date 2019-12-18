@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import DataTable from '../components/DataTable.js'
+import MaterialTable from "material-table"
 import $ from 'jquery'
 
 class PublicQuestions extends Component {
@@ -7,21 +7,16 @@ class PublicQuestions extends Component {
         super(props)
 
         this.state = {
-            data: [],
-            columns: [
+            data: [
                 {
-                    title: "Questions",
-                    data: "Question"
-                },
-                {
-                    title: "Answers",
-                    data: "Answer"
+                    Question: "What am I doing?",
+                    Answer: "Nothing.",
+                    Category: "Do it"
                 }
-            ],
-            dom: 'ftp'
+            ]
         }
     }
-    
+
     componentWillMount() {
         //get public question list data
         let _this = this;
@@ -42,14 +37,20 @@ class PublicQuestions extends Component {
 
     render() {
         return (
-            <div>
-                <DataTable
-                    data={this.state.data}
-                    buttons={this.state.buttons}
-                    columns={this.state.columns}
-                    dom={this.state.dom}
-                ></DataTable>
-            </div>
+            <MaterialTable
+                options={{
+                    search: false,
+                    paging: false,
+                    sorting: false,
+                    draggable: false
+                }}
+                columns={[
+                    { title: "Question", field: "Question" },
+                    { title: "Answer", field: "Answer" }
+                ]}
+                data={this.state.data}
+                title="Public Questions"
+            />
 
         )
     }

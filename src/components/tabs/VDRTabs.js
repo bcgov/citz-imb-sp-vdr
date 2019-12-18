@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import HomeIcon from '@material-ui/icons/Home';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import SettingsIcon from '@material-ui/icons/Settings';
+import QuestionTabContent from './QuestionTabContent'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -67,10 +68,10 @@ export default function VDRTabs() {
             </AppBar>
             <TabPanel value={value} index={0}>
                 Home
-      </TabPanel>
+            </TabPanel>
             <TabPanel value={value} index={1}>
-                Questions
-      </TabPanel>
+                <QuestionTabContent />
+            </TabPanel>
             <TabPanel value={value} index={2}>
                 Site Management
       </TabPanel>

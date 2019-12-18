@@ -39,6 +39,7 @@ class AppContent extends Component {
     }
 
     agreementCallback = () => {
+        console.log("agreementCallback")
         this.setState({
             cookie: "TORAgreement" + this.state.modified
         })
