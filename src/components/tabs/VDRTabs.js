@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { AppBar, Typography, Box, Tabs } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 
 import HomeIcon from '@material-ui/icons/Home';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import SettingsIcon from '@material-ui/icons/Settings';
+
+import SiteManagement from './sitemanagement/SiteManagement.js';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -66,14 +65,14 @@ export default function VDRTabs() {
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
-                Home
-      </TabPanel>
+                <SiteManagement />
+            </TabPanel>
             <TabPanel value={value} index={1}>
                 Questions
-      </TabPanel>
+            </TabPanel>
             <TabPanel value={value} index={2}>
-                Site Management
-      </TabPanel>
+                    Site Management
+            </TabPanel>
         </div>
     );
 }
