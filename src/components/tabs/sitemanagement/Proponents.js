@@ -3,6 +3,7 @@ import MaterialTable from 'material-table'
 import $ from 'jquery'
 
 import { forwardRef } from 'react';
+import Users from './Users.js'
 
 import Add from '@material-ui/icons/Add';
 import AddBox from '@material-ui/icons/AddBox';
@@ -42,7 +43,7 @@ const tableIcons = {
     SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
     ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
-  };
+};
 
 class Proponents extends Component {
     constructor(props) {
@@ -126,7 +127,75 @@ class Proponents extends Component {
                     "GUID": "320704cf-5ad7-473e-875e-259c8a947edf",
                     "UUID": "V123456",
                     "Active": true,
-                    "GroupId": 0
+                    "GroupId": 242,
+                    "Group": {
+                        "__metadata": {
+                            "id": "https://citz.sp.gov.bc.ca/sites/DEV/VDRoom/_api/Web/RoleAssignments/GetByPrincipalId(242)",
+                            "uri": "https://citz.sp.gov.bc.ca/sites/DEV/VDRoom/_api/Web/RoleAssignments/GetByPrincipalId(242)",
+                            "type": "SP.RoleAssignment"
+                        },
+                        "Member": {
+                            "__metadata": {
+                                "id": "https://citz.sp.gov.bc.ca/sites/DEV/VDRoom/_api/Web/RoleAssignments/GetByPrincipalId(242)/Member",
+                                "uri": "https://citz.sp.gov.bc.ca/sites/DEV/VDRoom/_api/Web/RoleAssignments/GetByPrincipalId(242)/Member",
+                                "type": "SP.Group"
+                            },
+                            "Owner": {
+                                "__deferred": {
+                                    "uri": "https://citz.sp.gov.bc.ca/sites/DEV/VDRoom/_api/Web/RoleAssignments/GetByPrincipalId(242)/Member/Owner"
+                                }
+                            },
+                            "Users": {
+                                "results": [
+                                    {
+                                        "__metadata": {
+                                            "id": "https://citz.sp.gov.bc.ca/sites/DEV/VDRoom/_api/Web/GetUserById(6)",
+                                            "uri": "https://citz.sp.gov.bc.ca/sites/DEV/VDRoom/_api/Web/GetUserById(6)",
+                                            "type": "SP.User"
+                                        },
+                                        "Groups": {
+                                            "__deferred": {
+                                                "uri": "https://citz.sp.gov.bc.ca/sites/DEV/VDRoom/_api/Web/GetUserById(6)/Groups"
+                                            }
+                                        },
+                                        "Id": 6,
+                                        "IsHiddenInUI": false,
+                                        "LoginName": "i:0ǵ.t|bcgovidp|a32d6f859c66450ca4995b0b2bf0a844",
+                                        "Title": "Toews, Scott D CITZ:EX",
+                                        "PrincipalType": 1,
+                                        "Email": "Scott.Toews@gov.bc.ca",
+                                        "IsShareByEmailGuestUser": false,
+                                        "IsSiteAdmin": true,
+                                        "UserId": {
+                                            "__metadata": {
+                                                "type": "SP.UserIdInfo"
+                                            },
+                                            "NameId": "a32d6f859c66450ca4995b0b2bf0a844",
+                                            "NameIdIssuer": "TrustedProvider:bcgovidp"
+                                        }
+                                    }
+                                ]
+                            },
+                            "Id": 242,
+                            "IsHiddenInUI": false,
+                            "LoginName": "VICO Template Owners",
+                            "Title": "VICO Template Owners",
+                            "PrincipalType": 8,
+                            "AllowMembersEditMembership": false,
+                            "AllowRequestToJoinLeave": false,
+                            "AutoAcceptRequestToJoinLeave": false,
+                            "Description": "Use this group to grant people full control permissions to the SharePoint site: VICO Template",
+                            "OnlyAllowMembersViewMembership": false,
+                            "OwnerTitle": "VICO Template Owners",
+                            "RequestToJoinLeaveEmailSetting": null
+                        },
+                        "RoleDefinitionBindings": {
+                            "__deferred": {
+                                "uri": "https://citz.sp.gov.bc.ca/sites/DEV/VDRoom/_api/Web/RoleAssignments/GetByPrincipalId(242)/RoleDefinitionBindings"
+                            }
+                        },
+                        "PrincipalId": 242
+                    }
                 }
             ],
             actions: [
@@ -146,6 +215,14 @@ class Proponents extends Component {
                         console.log(event, rowdata)
                         alert("disable proponent");
                     }
+                },
+                {
+                    icon: tableIcons.Add,
+                    tooltip: 'Add user to  Proponent',
+                    onClick: (event, rowdata) => {
+                        console.log(event, rowdata)
+                        alert("add a user to proponent");
+                    }
                 }
             ],
             columns: [
@@ -157,9 +234,7 @@ class Proponents extends Component {
                     title: "Unique ID",
                     field: "UUID"
                 }
-            ],
-            detailPanel: []
-               
+            ]
         }
         //get proponent list data
         let _this = this;
@@ -173,36 +248,67 @@ class Proponents extends Component {
             }
         }).done(function (result) {
             _this.state.data = result.d.results
+
+            $.ajax({
+                url: "../_api/web/RoleAssignments?$expand=Member,Member/Users",
+                type: "GET",
+                async: false,
+                headers: {
+                    'Accept': 'application/json;odata=verbose'
+                }
+            }).done(function (groupResult) {
+                for (let i = 0; i < groupResult.d.results.length; i++) {
+                    for (let j = 0; j < _this.state.data.length; j++) {
+                        if (_this.state.data[j].GroupId === groupResult.d.results[i].Member.Id) {
+                            _this.state.data[j].Group = groupResult.d.results[i]
+                        }
+                    }
+                }
+                _this.state.groups = result.d.results
+            }).fail(function (err) {
+                window.console && console.warn("Error is expected if page loaded outside of SharePoint", err)
+            })
+
         }).fail(function (err) {
-            window.console && console.log("failure is expected outside of SharePoint", err)
+            window.console && console.warn("Error is expected if page loaded outside of SharePoint", err)
         })
+
     }
 
     componentDidMount() {
         //TODO: proper deactivation functionalitiy 
         $(".proponentDeactivate").click(function () {
-            const table = $(this).closest('table').DataTable()
-
             alert('I am the Proponent handler')
         })
     }
 
     render() {
+        console.log('Data', this.state.data)
         return (
-                <MaterialTable
-                    title='Proponents'
-                    options={{
-                        search: false,
-                        sorting: false,
-                        paging: false,
-                        pageSize: 20,
-                        draggable: false
-                    }}
-                    icons={tableIcons}
-                    data={this.state.data}
-                    actions={this.state.actions}
-                    columns={this.state.columns}
-                ></MaterialTable>
+            <MaterialTable
+                title='Proponents'
+                options={{
+                    search: false,
+                    sorting: false,
+                    paging: false,
+                    pageSize: 20,
+                    draggable: false,
+                    rowStyle: rowData => ({
+                        backgroundColor: (this.state.selectedRow && this.state.selectedRow.tableData.id === rowData.tableData.id) ? '#EEE' : '#FFF'
+                    })
+                }}
+                icons={tableIcons}
+                data={this.state.data}
+                actions={this.state.actions}
+                columns={this.state.columns}
+                detailPanel={rowData => {
+                    return (
+                        <Users
+                            group={this.state.data[rowData.tableData.id].Group}
+                        />
+                    )
+                }}
+            ></MaterialTable>
         )
     }
 }
