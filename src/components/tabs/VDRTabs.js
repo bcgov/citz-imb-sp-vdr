@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { AppBar, Typography, Box, Tabs, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 
 import HomeIcon from '@material-ui/icons/Home';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import SettingsIcon from '@material-ui/icons/Settings';
 import QuestionTabContent from './QuestionTabContent'
+
+import Proponents from './sitemanagement/Proponents'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -63,7 +62,7 @@ export default function VDRTabs() {
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="Home" icon={<HomeIcon />} {...a11yProps(0)} />
                     <Tab label="Questions" icon={<QuestionAnswerIcon />} {...a11yProps(1)} />
-                    <Tab label="Site Management" icon={<SettingsIcon />} {...a11yProps(2)} />
+                    <Tab label="Proponent Management" icon={<SettingsIcon />} {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
@@ -71,10 +70,17 @@ export default function VDRTabs() {
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <QuestionTabContent />
+                <Paper>
+                    <h2>Proponent Management</h2>
+                    <Proponents />
+                </Paper>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                Questions
             </TabPanel>
             <TabPanel value={value} index={2}>
                 Site Management
-      </TabPanel>
+            </TabPanel>
         </div>
     );
 }

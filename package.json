@@ -42,7 +42,7 @@
     "gulp-concat": "^2.6.1",
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
-    "material-table": "^1.54.2",
+    "material-table": "^1.55.0",
     "react-tabs": "^3.0.0"
   }
 }
