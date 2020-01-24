@@ -65,12 +65,12 @@ class Proponents extends Component {
     super(props);
 
     const addProponent = (event, rowdata) => {
-      console.log(event, rowdata);
+      console.debug("addProponent", event, rowdata);
       this.setState({ dialog: { open: true } });
     };
 
     const handleClose = () => {
-      console.log("handleclose");
+      console.debug("handleclose");
       this.setState({ dialog: { open: false } });
     };
 
@@ -252,6 +252,7 @@ class Proponents extends Component {
           tooltip: "Add a Proponent",
           isFreeAction: true,
           onClick: (event, rowdata) => {
+            console.debug("Add a Proponent", event, rowdata);
             addProponent(event, rowdata);
           }
         },
@@ -259,7 +260,7 @@ class Proponents extends Component {
           icon: tableIcons.NotInterested,
           tooltip: "Disable Proponent",
           onClick: (event, rowdata) => {
-            console.log(event, rowdata);
+            console.debug("Disable Proponent", event, rowdata);
             alert("disable proponent");
           }
         },
@@ -267,7 +268,7 @@ class Proponents extends Component {
           icon: tableIcons.Add,
           tooltip: "Add user to  Proponent",
           onClick: (event, rowdata) => {
-            console.log(event, rowdata);
+            console.debug("Add user to  Proponent", event, rowdata);
             alert("add a user to proponent");
           }
         }
@@ -287,7 +288,11 @@ class Proponents extends Component {
       }
     };
 
-    
+
+
+  }
+
+  componentDidMount() {
     //get proponent list data
     let _this = this;
 
@@ -299,8 +304,8 @@ class Proponents extends Component {
         Accept: "application/json;odata=verbose"
       }
     })
-      .done(function(result) {
-        _this.state.data = result.d.results;
+      .done(function (proponentResults) {
+
 
         $.ajax({
           url: "../_api/web/RoleAssignments?$expand=Member,Member/Users",
@@ -310,20 +315,22 @@ class Proponents extends Component {
             Accept: "application/json;odata=verbose"
           }
         })
-          .done(function(groupResult) {
+          .done(function (groupResult) {
             for (let i = 0; i < groupResult.d.results.length; i++) {
-              for (let j = 0; j < _this.state.data.length; j++) {
+              for (let j = 0; j < proponentResults.d.results.length; j++) {
                 if (
-                  _this.state.data[j].GroupId ===
+                  proponentResults.d.results[j].GroupId ===
                   groupResult.d.results[i].Member.Id
                 ) {
-                  _this.state.data[j].Group = groupResult.d.results[i];
+                  proponentResults.d.results[j].Group = groupResult.d.results[i];
                 }
               }
             }
-            _this.state.groups = result.d.results;
+            _this.setState({
+              data: proponentResults.d.results
+            })
           })
-          .fail(function(err) {
+          .fail(function (err) {
             window.console &&
               console.warn(
                 "Error is expected if page loaded outside of SharePoint",
@@ -331,7 +338,7 @@ class Proponents extends Component {
               );
           });
       })
-      .fail(function(err) {
+      .fail(function (err) {
         window.console &&
           console.warn(
             "Error is expected if page loaded outside of SharePoint",
@@ -340,15 +347,7 @@ class Proponents extends Component {
       });
   }
 
-  componentDidMount() {
-    //TODO: proper deactivation functionalitiy
-    $(".proponentDeactivate").click(function() {
-      alert("I am the Proponent handler");
-    });
-  }
-
   render() {
-    console.log("Data", this.state.data);
     return (
       <Fragment>
         <MaterialTable
@@ -362,7 +361,7 @@ class Proponents extends Component {
             rowStyle: rowData => ({
               backgroundColor:
                 this.state.selectedRow &&
-                this.state.selectedRow.tableData.id === rowData.tableData.id
+                  this.state.selectedRow.tableData.id === rowData.tableData.id
                   ? "#EEE"
                   : "#FFF"
             })
@@ -390,7 +389,7 @@ class Proponents extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={this.handleClose} color="primary">
               Save
             </Button>
             <Button onClick={this.handleClose} color="primary">
