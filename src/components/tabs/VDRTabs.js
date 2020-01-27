@@ -83,10 +83,6 @@ export default function VDRTabs() {
           <h2>Home</h2>
           <Home />
         </Paper>
-        <Paper>
-          <h2>Proponent Management</h2>
-          <Proponents />
-        </Paper>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Paper>

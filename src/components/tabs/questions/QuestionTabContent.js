@@ -1,19 +1,22 @@
 import React from 'react'
 import PublicQuestions from './PublicQuestions'
 import PrivateQuestions from './PrivateQuestions'
+import { Paper, Grid } from '@material-ui/core'
 
 function QuestionTabContent() {
     return (
-        <div>
-            <div className='row'>
-                <div className='column'>
+        <Grid container spacing={3}>
+            <Grid item xs={6}>
+                <Paper>
                     <PublicQuestions />
-                </div>
-                <div className='column'>
+                </Paper>
+            </Grid>
+            <Grid item xs={6}>
+                <Paper>
                     <PrivateQuestions />
-                </div>
-            </div>
-        </div>
+                </Paper>
+            </Grid>
+        </Grid>
     )
 }
 

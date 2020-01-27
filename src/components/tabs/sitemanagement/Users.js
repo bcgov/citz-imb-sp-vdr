@@ -55,11 +55,11 @@ export class Users extends Component {
             ],
             actions: [
                 {
-                    icon: tableIcons.Add,
-                    tooltip: 'Edit User',
+                    icon: tableIcons.Clear,
+                    tooltip: 'Remove User',
                     onClick: (event, rowdata) => {
                         console.log(event, rowdata)
-                        alert("Edit a User");
+                        alert("Remove a User");
                     }
                 }
             ]

@@ -69,7 +69,7 @@ class Proponents extends Component {
       this.setState({ dialog: { open: true } });
     };
 
-    const handleClose = () => {
+    this.handleClose = () => {
       console.debug("handleclose");
       this.setState({ dialog: { open: false } });
     };
