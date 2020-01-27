@@ -8,13 +8,20 @@
 }
 
 .row:after {
-  content: '';
+  content: "";
   display: table;
   clear: both;
 }
 
-@media screen and {max-width: 600px}{
-  .column{
+.MuiIconButton-root {
+  min-width: auto;
+}
+
+@media screen and {
+  max-width: 600px;
+}
+ {
+  .column {
     width: 100%;
   }
 }
