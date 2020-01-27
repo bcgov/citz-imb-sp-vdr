@@ -34,12 +34,11 @@ class AppContent extends Component {
                 cookieDays: data.d.results[0].NumberValue
             })
         }).fail(function (err) {
-            window.console && console.warn("Error is Expected if page loaded outside sharepoint", err);
+            window.console && console.log(err);
         });
     }
 
     agreementCallback = () => {
-        console.log("agreementCallback")
         this.setState({
             cookie: "TORAgreement" + this.state.modified
         })

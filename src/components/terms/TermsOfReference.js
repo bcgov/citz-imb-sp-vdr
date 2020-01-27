@@ -10,7 +10,6 @@ export class TermsOfReference extends Component {
     }
 
     handleAgree = () => {
-        console.log("handleAgree")
         this.props.agreementCallback()
     }
 
