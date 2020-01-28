@@ -19,8 +19,6 @@ $(document).ready(function () {
     vdrStyle.href = '../SiteAssets/css/vdr.css'
     head.appendChild(vdrStyle)
 
-
-
     ReactDOM.render(<App value='test' />, document.getElementById('app-root'));
 
     // If you want your app to work offline and load faster, you can change

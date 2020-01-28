@@ -3,269 +3,727 @@
 		<Data>
 			<Rows>
 				<Row>
-					<Field Name="ID">1</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Current</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">100.000000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">1_.000</Field>
-					<Field Name="MetaInfo">1;#</Field>
-					<Field Name="Name">Current</Field>
-					<Field Name="DisplayOrder">0</Field>
+					<Field Name="ID">
+						1
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Current
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						100.000000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						1_.000
+					</Field>
+					<Field Name="MetaInfo">
+						1;#
+					</Field>
+					<Field Name="Name">
+						Current
+					</Field>
+					<Field Name="DisplayOrder">
+						0
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">2</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Orange</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">200.000000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">2_.000</Field>
-					<Field Name="MetaInfo">2;#</Field>
-					<Field Name="Name">Orange</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette015.spcolor, /sites/DEV/_catalogs/theme/15/palette015.spcolor</Field>
-					<Field Name="DisplayOrder">10.0000000000000</Field>
+					<Field Name="ID">
+						2
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Orange
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						200.000000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						2_.000
+					</Field>
+					<Field Name="MetaInfo">
+						2;#
+					</Field>
+					<Field Name="Name">
+						Orange
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette015.spcolor, /sites/DEV/_catalogs/theme/15/palette015.spcolor
+					</Field>
+					<Field Name="DisplayOrder">
+						10.0000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">3</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Sea Monster</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">300.000000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">3_.000</Field>
-					<Field Name="MetaInfo">3;#</Field>
-					<Field Name="Name">Sea Monster</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/oslo.master, /sites/DEV/vt/_catalogs/masterpage/oslo.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette005.spcolor, /sites/DEV/_catalogs/theme/15/palette005.spcolor</Field>
-					<Field Name="ImageUrl">https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg005.jpg, /_layouts/15/images/image_bg005.jpg</Field>
-					<Field Name="FontSchemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/fontscheme003.spfont, /sites/DEV/_catalogs/theme/15/fontscheme003.spfont</Field>
-					<Field Name="DisplayOrder">20.0000000000000</Field>
+					<Field Name="ID">
+						3
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Sea Monster
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						300.000000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						3_.000
+					</Field>
+					<Field Name="MetaInfo">
+						3;#
+					</Field>
+					<Field Name="Name">
+						Sea Monster
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/oslo.master, /sites/DEV/vt/_catalogs/masterpage/oslo.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette005.spcolor, /sites/DEV/_catalogs/theme/15/palette005.spcolor
+					</Field>
+					<Field Name="ImageUrl">
+						https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg005.jpg, /_layouts/15/images/image_bg005.jpg
+					</Field>
+					<Field Name="FontSchemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/fontscheme003.spfont, /sites/DEV/_catalogs/theme/15/fontscheme003.spfont
+					</Field>
+					<Field Name="DisplayOrder">
+						20.0000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">4</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Green</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">400.000000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">4_.000</Field>
-					<Field Name="MetaInfo">4;#</Field>
-					<Field Name="Name">Green</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette013.spcolor, /sites/DEV/_catalogs/theme/15/palette013.spcolor</Field>
-					<Field Name="DisplayOrder">30.0000000000000</Field>
+					<Field Name="ID">
+						4
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Green
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						400.000000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						4_.000
+					</Field>
+					<Field Name="MetaInfo">
+						4;#
+					</Field>
+					<Field Name="Name">
+						Green
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette013.spcolor, /sites/DEV/_catalogs/theme/15/palette013.spcolor
+					</Field>
+					<Field Name="DisplayOrder">
+						30.0000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">5</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Lime</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">500.000000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">5_.000</Field>
-					<Field Name="MetaInfo">5;#</Field>
-					<Field Name="Name">Lime</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette026.spcolor, /sites/DEV/_catalogs/theme/15/palette026.spcolor</Field>
-					<Field Name="DisplayOrder">40.0000000000000</Field>
+					<Field Name="ID">
+						5
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Lime
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						500.000000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						5_.000
+					</Field>
+					<Field Name="MetaInfo">
+						5;#
+					</Field>
+					<Field Name="Name">
+						Lime
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette026.spcolor, /sites/DEV/_catalogs/theme/15/palette026.spcolor
+					</Field>
+					<Field Name="DisplayOrder">
+						40.0000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">6</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Nature</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">600.000000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">6_.000</Field>
-					<Field Name="MetaInfo">6;#</Field>
-					<Field Name="Name">Nature</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette006.spcolor, /sites/DEV/_catalogs/theme/15/palette006.spcolor</Field>
-					<Field Name="ImageUrl">https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg006.jpg, /_layouts/15/images/image_bg006.jpg</Field>
-					<Field Name="FontSchemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/fontscheme001.spfont, /sites/DEV/_catalogs/theme/15/fontscheme001.spfont</Field>
-					<Field Name="DisplayOrder">50.0000000000000</Field>
+					<Field Name="ID">
+						6
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Nature
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						600.000000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						6_.000
+					</Field>
+					<Field Name="MetaInfo">
+						6;#
+					</Field>
+					<Field Name="Name">
+						Nature
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette006.spcolor, /sites/DEV/_catalogs/theme/15/palette006.spcolor
+					</Field>
+					<Field Name="ImageUrl">
+						https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg006.jpg, /_layouts/15/images/image_bg006.jpg
+					</Field>
+					<Field Name="FontSchemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/fontscheme001.spfont, /sites/DEV/_catalogs/theme/15/fontscheme001.spfont
+					</Field>
+					<Field Name="DisplayOrder">
+						50.0000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">7</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Blossom</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">700.000000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">7_.000</Field>
-					<Field Name="MetaInfo">7;#</Field>
-					<Field Name="Name">Blossom</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette002.spcolor, /sites/DEV/_catalogs/theme/15/palette002.spcolor</Field>
-					<Field Name="ImageUrl">https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg002.jpg, /_layouts/15/images/image_bg002.jpg</Field>
-					<Field Name="DisplayOrder">60.0000000000000</Field>
+					<Field Name="ID">
+						7
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Blossom
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						700.000000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						7_.000
+					</Field>
+					<Field Name="MetaInfo">
+						7;#
+					</Field>
+					<Field Name="Name">
+						Blossom
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette002.spcolor, /sites/DEV/_catalogs/theme/15/palette002.spcolor
+					</Field>
+					<Field Name="ImageUrl">
+						https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg002.jpg, /_layouts/15/images/image_bg002.jpg
+					</Field>
+					<Field Name="DisplayOrder">
+						60.0000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">8</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Sketch</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">800.000000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">8_.000</Field>
-					<Field Name="MetaInfo">8;#</Field>
-					<Field Name="Name">Sketch</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/oslo.master, /sites/DEV/vt/_catalogs/masterpage/oslo.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette008.spcolor, /sites/DEV/_catalogs/theme/15/palette008.spcolor</Field>
-					<Field Name="ImageUrl">https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg008.jpg, /_layouts/15/images/image_bg008.jpg</Field>
-					<Field Name="FontSchemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/fontscheme003.spfont, /sites/DEV/_catalogs/theme/15/fontscheme003.spfont</Field>
-					<Field Name="DisplayOrder">70.0000000000000</Field>
+					<Field Name="ID">
+						8
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Sketch
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						800.000000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						8_.000
+					</Field>
+					<Field Name="MetaInfo">
+						8;#
+					</Field>
+					<Field Name="Name">
+						Sketch
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/oslo.master, /sites/DEV/vt/_catalogs/masterpage/oslo.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette008.spcolor, /sites/DEV/_catalogs/theme/15/palette008.spcolor
+					</Field>
+					<Field Name="ImageUrl">
+						https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg008.jpg, /_layouts/15/images/image_bg008.jpg
+					</Field>
+					<Field Name="FontSchemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/fontscheme003.spfont, /sites/DEV/_catalogs/theme/15/fontscheme003.spfont
+					</Field>
+					<Field Name="DisplayOrder">
+						70.0000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">9</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">City</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">900.000000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">9_.000</Field>
-					<Field Name="MetaInfo">9;#</Field>
-					<Field Name="Name">City</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette004.spcolor, /sites/DEV/_catalogs/theme/15/palette004.spcolor</Field>
-					<Field Name="ImageUrl">https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg004.jpg, /_layouts/15/images/image_bg004.jpg</Field>
-					<Field Name="DisplayOrder">80.0000000000000</Field>
+					<Field Name="ID">
+						9
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						City
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						900.000000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						9_.000
+					</Field>
+					<Field Name="MetaInfo">
+						9;#
+					</Field>
+					<Field Name="Name">
+						City
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette004.spcolor, /sites/DEV/_catalogs/theme/15/palette004.spcolor
+					</Field>
+					<Field Name="ImageUrl">
+						https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg004.jpg, /_layouts/15/images/image_bg004.jpg
+					</Field>
+					<Field Name="DisplayOrder">
+						80.0000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">10</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Orbit</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">1000.00000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">10_.000</Field>
-					<Field Name="MetaInfo">10;#</Field>
-					<Field Name="Name">Orbit</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette009.spcolor, /sites/DEV/_catalogs/theme/15/palette009.spcolor</Field>
-					<Field Name="ImageUrl">https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg009.jpg, /_layouts/15/images/image_bg009.jpg</Field>
-					<Field Name="DisplayOrder">90.0000000000000</Field>
+					<Field Name="ID">
+						10
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Orbit
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						1000.00000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						10_.000
+					</Field>
+					<Field Name="MetaInfo">
+						10;#
+					</Field>
+					<Field Name="Name">
+						Orbit
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette009.spcolor, /sites/DEV/_catalogs/theme/15/palette009.spcolor
+					</Field>
+					<Field Name="ImageUrl">
+						https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg009.jpg, /_layouts/15/images/image_bg009.jpg
+					</Field>
+					<Field Name="DisplayOrder">
+						90.0000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">11</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Grey</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">1100.00000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">11_.000</Field>
-					<Field Name="MetaInfo">11;#</Field>
-					<Field Name="Name">Grey</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette032.spcolor, /sites/DEV/_catalogs/theme/15/palette032.spcolor</Field>
-					<Field Name="DisplayOrder">100.000000000000</Field>
+					<Field Name="ID">
+						11
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Grey
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						1100.00000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						11_.000
+					</Field>
+					<Field Name="MetaInfo">
+						11;#
+					</Field>
+					<Field Name="Name">
+						Grey
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette032.spcolor, /sites/DEV/_catalogs/theme/15/palette032.spcolor
+					</Field>
+					<Field Name="DisplayOrder">
+						100.000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">12</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Characters</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">1200.00000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">12_.000</Field>
-					<Field Name="MetaInfo">12;#</Field>
-					<Field Name="Name">Characters</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette007.spcolor, /sites/DEV/_catalogs/theme/15/palette007.spcolor</Field>
-					<Field Name="ImageUrl">https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg007.jpg, /_layouts/15/images/image_bg007.jpg</Field>
-					<Field Name="FontSchemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/fontscheme002.spfont, /sites/DEV/_catalogs/theme/15/fontscheme002.spfont</Field>
-					<Field Name="DisplayOrder">110.000000000000</Field>
+					<Field Name="ID">
+						12
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Characters
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						1200.00000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						12_.000
+					</Field>
+					<Field Name="MetaInfo">
+						12;#
+					</Field>
+					<Field Name="Name">
+						Characters
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette007.spcolor, /sites/DEV/_catalogs/theme/15/palette007.spcolor
+					</Field>
+					<Field Name="ImageUrl">
+						https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg007.jpg, /_layouts/15/images/image_bg007.jpg
+					</Field>
+					<Field Name="FontSchemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/fontscheme002.spfont, /sites/DEV/_catalogs/theme/15/fontscheme002.spfont
+					</Field>
+					<Field Name="DisplayOrder">
+						110.000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">13</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Office</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">1300.00000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">13_.000</Field>
-					<Field Name="MetaInfo">13;#</Field>
-					<Field Name="Name">Office</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette001.spcolor, /sites/DEV/_catalogs/theme/15/palette001.spcolor</Field>
-					<Field Name="DisplayOrder">120.000000000000</Field>
+					<Field Name="ID">
+						13
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Office
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						1300.00000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						13_.000
+					</Field>
+					<Field Name="MetaInfo">
+						13;#
+					</Field>
+					<Field Name="Name">
+						Office
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette001.spcolor, /sites/DEV/_catalogs/theme/15/palette001.spcolor
+					</Field>
+					<Field Name="DisplayOrder">
+						120.000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">14</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Breeze</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">1400.00000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">14_.000</Field>
-					<Field Name="MetaInfo">14;#</Field>
-					<Field Name="Name">Breeze</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette003.spcolor, /sites/DEV/_catalogs/theme/15/palette003.spcolor</Field>
-					<Field Name="ImageUrl">https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg003.jpg, /_layouts/15/images/image_bg003.jpg</Field>
-					<Field Name="DisplayOrder">130.000000000000</Field>
+					<Field Name="ID">
+						14
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Breeze
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						1400.00000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						14_.000
+					</Field>
+					<Field Name="MetaInfo">
+						14;#
+					</Field>
+					<Field Name="Name">
+						Breeze
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette003.spcolor, /sites/DEV/_catalogs/theme/15/palette003.spcolor
+					</Field>
+					<Field Name="ImageUrl">
+						https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg003.jpg, /_layouts/15/images/image_bg003.jpg
+					</Field>
+					<Field Name="DisplayOrder">
+						130.000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">15</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Immerse</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">1500.00000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">15_.000</Field>
-					<Field Name="MetaInfo">15;#</Field>
-					<Field Name="Name">Immerse</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/oslo.master, /sites/DEV/vt/_catalogs/masterpage/oslo.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette010.spcolor, /sites/DEV/_catalogs/theme/15/palette010.spcolor</Field>
-					<Field Name="ImageUrl">https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg010.jpg, /_layouts/15/images/image_bg010.jpg</Field>
-					<Field Name="DisplayOrder">140.000000000000</Field>
+					<Field Name="ID">
+						15
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Immerse
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						1500.00000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						15_.000
+					</Field>
+					<Field Name="MetaInfo">
+						15;#
+					</Field>
+					<Field Name="Name">
+						Immerse
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/oslo.master, /sites/DEV/vt/_catalogs/masterpage/oslo.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette010.spcolor, /sites/DEV/_catalogs/theme/15/palette010.spcolor
+					</Field>
+					<Field Name="ImageUrl">
+						https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg010.jpg, /_layouts/15/images/image_bg010.jpg
+					</Field>
+					<Field Name="DisplayOrder">
+						140.000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">16</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Red</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">1600.00000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">16_.000</Field>
-					<Field Name="MetaInfo">16;#</Field>
-					<Field Name="Name">Red</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette022.spcolor, /sites/DEV/_catalogs/theme/15/palette022.spcolor</Field>
-					<Field Name="DisplayOrder">150.000000000000</Field>
+					<Field Name="ID">
+						16
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Red
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						1600.00000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						16_.000
+					</Field>
+					<Field Name="MetaInfo">
+						16;#
+					</Field>
+					<Field Name="Name">
+						Red
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette022.spcolor, /sites/DEV/_catalogs/theme/15/palette022.spcolor
+					</Field>
+					<Field Name="DisplayOrder">
+						150.000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">17</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Purple</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">1700.00000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">17_.000</Field>
-					<Field Name="MetaInfo">17;#</Field>
-					<Field Name="Name">Purple</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette031.spcolor, /sites/DEV/_catalogs/theme/15/palette031.spcolor</Field>
-					<Field Name="DisplayOrder">160.000000000000</Field>
+					<Field Name="ID">
+						17
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Purple
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						1700.00000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						17_.000
+					</Field>
+					<Field Name="MetaInfo">
+						17;#
+					</Field>
+					<Field Name="Name">
+						Purple
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/seattle.master, /sites/DEV/vt/_catalogs/masterpage/seattle.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette031.spcolor, /sites/DEV/_catalogs/theme/15/palette031.spcolor
+					</Field>
+					<Field Name="DisplayOrder">
+						160.000000000000
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">18</Field>
-					<Field Name="ContentTypeId">0x00B436942FB64A1646A54CF2CEA1019728</Field>
-					<Field Name="Title">Wood</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">1800.00000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">18_.000</Field>
-					<Field Name="MetaInfo">18;#</Field>
-					<Field Name="Name">Wood</Field>
-					<Field Name="MasterPageUrl">https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/oslo.master, /sites/DEV/vt/_catalogs/masterpage/oslo.master</Field>
-					<Field Name="ThemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette011.spcolor, /sites/DEV/_catalogs/theme/15/palette011.spcolor</Field>
-					<Field Name="ImageUrl">https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg011.jpg, /_layouts/15/images/image_bg011.jpg</Field>
-					<Field Name="FontSchemeUrl">https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/fontscheme002.spfont, /sites/DEV/_catalogs/theme/15/fontscheme002.spfont</Field>
-					<Field Name="DisplayOrder">170.000000000000</Field>
+					<Field Name="ID">
+						18
+					</Field>
+					<Field Name="ContentTypeId">
+						0x00B436942FB64A1646A54CF2CEA1019728
+					</Field>
+					<Field Name="Title">
+						Wood
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						1800.00000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						18_.000
+					</Field>
+					<Field Name="MetaInfo">
+						18;#
+					</Field>
+					<Field Name="Name">
+						Wood
+					</Field>
+					<Field Name="MasterPageUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/vt/_catalogs/masterpage/oslo.master, /sites/DEV/vt/_catalogs/masterpage/oslo.master
+					</Field>
+					<Field Name="ThemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/palette011.spcolor, /sites/DEV/_catalogs/theme/15/palette011.spcolor
+					</Field>
+					<Field Name="ImageUrl">
+						https://citz.sp.gov.bc.ca/_layouts/15/images/image_bg011.jpg, /_layouts/15/images/image_bg011.jpg
+					</Field>
+					<Field Name="FontSchemeUrl">
+						https://citz.sp.gov.bc.ca/sites/DEV/_catalogs/theme/15/fontscheme002.spfont, /sites/DEV/_catalogs/theme/15/fontscheme002.spfont
+					</Field>
+					<Field Name="DisplayOrder">
+						170.000000000000
+					</Field>
 				</Row>
 			</Rows>
 		</Data>
@@ -277,43 +735,149 @@
 		<Data>
 			<Rows>
 				<Row>
-					<Field Name="ID">1</Field>
-					<Field Name="ContentTypeId">0x0100EDE8C5E17D8F41488B83E46773C8576C</Field>
-					<Field Name="Title">1_</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">100.000000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">1_.000</Field>
-					<Field Name="MetaInfo">1;#</Field>
-					<Field Name="Key">TOS</Field>
-					<Field Name="MultiTextValue">&lt;div class="ExternalClassA0ABB4F645AD46889CFCBBCC6D9203F3"&gt;&lt;h1&gt;​Terms of Service&lt;br&gt;&lt;/h1&gt;&lt;p&gt;Don't spill the beans!&amp;#160; ever.&lt;br&gt;&lt;/p&gt;&lt;/div&gt;</Field>
-					<Field Name="YesNoValue">TRUE</Field>
+					<Field Name="ID">
+						1
+					</Field>
+					<Field Name="ContentTypeId">
+						0x0100EDE8C5E17D8F41488B83E46773C8576C
+					</Field>
+					<Field Name="Title">
+						1_
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						100.000000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						1_.000
+					</Field>
+					<Field Name="MetaInfo">
+						1;#
+					</Field>
+					<Field Name="Key">
+						TOR
+					</Field>
+					<Field Name="MultiTextValue">
+						&#x3C;div class=&#x22;ExternalClass6625249627774DCB982CF8D420B767BC&#x22;&#x3E;
+						&#x3C;p&#x3E;Please read these Terms of Use (&#x26;quot;&#x3C;strong&#x3E;Terms&#x3C;/strong&#x3E;&#x26;quot; or &#x26;quot;&#x3C;strong&#x3E;Terms of Use&#x3C;/strong&#x3E;&#x26;quot;) carefully before using the
+						&#x3C;a href=&#x22;https://devicesprocurement.gov.bc.ca/&#x22;&#x3E;https://devicesprocurement.gov.bc.ca&#x3C;/a&#x3E;&#x26;#160; SharePoint site referenced in NRFP ON-002893 as the Virtual Information Control Office (VICO) Site operated by Government of British Columbia (&#x26;quot;&#x3C;strong&#x3E;us&#x3C;/strong&#x3E;&#x26;quot;, &#x26;quot;&#x3C;strong&#x3E;we&#x3C;/strong&#x3E;&#x26;quot;, or &#x26;quot;&#x3C;strong&#x3E;our&#x3C;/strong&#x3E;&#x26;quot;).&#x3C;br/&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;Your access to and use of the VICO Site is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the VICO Site.&#x3C;br/&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;By accessing or using the VICO Site you agree to be bound by these Terms.
+						&#x3C;br/&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;If you disagree with any part of the terms then you may not access the VICO Site.&#x3C;br/&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;
+						&#x3C;strong&#x3E;Access&#x3C;/strong&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;Access to the VICO Site is granted in connection with Negotiated Request For Proposals&#x3C;br/&#x3E; No. ON-002893 (the &#x201C;&#x3C;strong&#x3E;NRFP&#x3C;/strong&#x3E;&#x26;quot;).&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;Only Proponents who have completed and returned a Non-Disclosure Agreement (Appendix A, Exhibit 1 of the NRFP) and a valid Declaration of Interest (Appendix A of the NRFP), and have a Business BCeID will be given access to the VICO Site.&#x26;#160; Proponents will be automatically able to grant access to the VICO Site to up to five representatives.&#x26;#160; If more access is required by a Proponent, the Proponent may contact VICO Management via the &#x201C;Ask a Question&#x26;quot; button on the VICO Site and VICO Management will consider the request for additional access.&#x26;#160; &#x3C;/p&#x3E;
+						&#x3C;p&#x3E;BCeIDs and logins should not be shared with non-designated representatives at any time.&#x26;#160; &#x26;#160;Only representatives who have signed the appropriate forms and received a valid Business BCeID from their company Business Accounts Manager may access the VICO Site.&#x3C;strong&#x3E;&#x26;#160; &#x3C;/strong&#x3E;Proponents should note that the VICO Site will be enabled to provide VICO Management with data of user log-ins.&#x26;#160;&#x26;#160;&#x26;#160; &#x3C;/p&#x3E;
+						&#x3C;p&#x3E;Access to the Province&#x26;#39;s information via the VICO Site is subject to all relevant policy and legislation pertaining to information management and security, specifically:&#x3C;br/&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;Section 5 (&#x3C;em&#x3E;Access Control)&#x3C;/em&#x3E; of the OCIO Information Security Policy available online at:&#x3C;br/&#x3E;&#x3C;a href=&#x22;http://www2.gov.bc.ca/assets/gov/british-columbians-our-governments/services-policies-for-government/policies-procedures/information-security-policy/isp.pdf&#x22;&#x3E;http://www2.gov.bc.ca/assets/gov/british-columbians-our-governments/services-policies-for-government/policies-procedures/information-security-policy/isp.pdf&#x3C;/a&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;Appropriate Use of Government Information and Information Technology Resources (&#x201C;Appropriate Use Policy&#x26;quot;) available at:
+						&#x3C;br/&#x3E;
+						&#x3C;a href=&#x22;http://www2.gov.bc.ca/assets/gov/british-columbians-our-governments/services-policies-for-government/policies-procedures/appropriate-use-policy/appropriate_use_policy.pdf&#x22;&#x3E;http://www2.gov.bc.ca/assets/gov/british-columbians-our-governments/services-policies-for-government/policies-procedures/appropriate-use-policy/appropriate_use_policy.pdf&#x3C;/a&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;
+						&#x3C;strong&#x3E;Termination&#x3C;/strong&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;The Province reserves the right to terminate or suspend a user&#x26;#39;s access to the VICO Site at any time without prior notice, in its sole and entire discretion (including, without limitation, for any breach, suspected breach or anticipated breach of these Terms by any Proponent) and the Province shall not be liable to any party with respect to any action taken by the Province or its designees in this regard.&#x26;#160; &#x3C;/p&#x3E;
+						&#x3C;p&#x3E;All provisions of the Terms which by their nature should survive termination of the NRFP or a Proponent&#x26;#39;s use of the VICO Site shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of liability.&#x3C;br/&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;
+						&#x3C;strong&#x3E;Disclaimer&#x3C;/strong&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;The VICO Site is provided as a public service by Her Majesty the Queen in Right of the Province of British Columbia (the &#x201C;Province&#x26;quot;) in connection with the NRFP.&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;While the Province has used reasonable efforts to ensure the accurate representation of information in the NRFP and all documentation provided in the VICO Site or otherwise, such information is supplied solely as a guideline for Proponents.&#x26;#160; The Province does not warrant or guarantee the form, content, usage rights or accuracy of such documents or information, nor is such documents and information necessarily comprehensive or exhaustive. Nothing held in the VICO is intended to relieve Proponents from forming their own opinions and conclusions with respect to the matters addressed in the NRFP.&#x26;#160; Without limiting the generality of the foregoing, the VICO Site and all documents and information it contains are provided &#x26;quot;as is&#x26;quot; without warranty of any kind, whether express or implied; and in this regard, all implied warranties, including, without limitation, implied warranties of merchantability, fitness for a particular purpose, and non-infringement, are hereby expressly disclaimed by the Province.&#x26;#160; Links and references to any other websites are provided for information only and listing shall not be taken as endorsement of any kind by the Province. The Province&#x26;#160; is not responsible for the content or reliability of the linked websites and does not endorse the content, products, services or views expressed within them.&#x26;#160; &#x26;#160;The Province strongly advises Proponents to read the terms and conditions and privacy policies of any third &#xAD;party web sites or services that they visit and that Proponents consider the potential of underlying rights (including copyright) with respect their use or dissemination of any documents or information gathered from or via the VICO Site.&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;All information that may be provided by Proponents in connection with the VICO or the NRFP may be subject to the Province&#x26;#39;s disclosure obligations under the
+						&#x3C;em&#x3E;Freedom of Information and Protection of Privacy Act, &#x3C;/em&#x3E;British Columbia.&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;
+						&#x3C;strong&#x3E;Limitation of Liability&#x3C;/strong&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;Under no circumstances will the Province be liable to any person or business entity for any direct, indirect, special, incidental, consequential, or other damages&#x26;#160; &#x26;#160;based on any use of the VICO Site, related website or any other website to which the VICO Site is linked, including, without limitation, any lost profits, business interruption, or loss of programs or information, even if the Province has been specifically advised of the possibility of such damages.&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;
+						&#x3C;strong&#x3E;Governing Law&#x3C;/strong&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;These Terms shall be governed and construed in accordance with the laws of the Province of British Columbia, without regard to its conflict of law provisions.&#x26;#160; Any &#x26;#160;failure by the Province to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between the Province and the Proponent &#x26;#160;regarding use of the VICO Site, and supersede and replace any prior agreements the Province and the Proponent might have regarding the VICO Site&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;
+						&#x3C;strong&#x3E;Changes&#x3C;/strong&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;The Province &#x26;#160;reserves the right, at its sole discretion, to modify or replace these Terms at any time. If a revision is material we will try to the Proponent with reasonable notice prior to any new terms taking effect. What constitutes a material change or reasonable notice will be determined by the Province at its sole &#x26;#160;discretion.&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;
+						&#x3C;strong&#x3E;Contact Us&#x3C;/strong&#x3E;&#x3C;/p&#x3E;
+						&#x3C;p&#x3E;If you have any questions about these Terms, please contact us by email:
+						&#x3C;a href=&#x22;file:///C:/Users/hbergstr/AppData/Local/Microsoft/Windows/Temporary%20Internet%20Files/Content.Outlook/3WM0MTUW/VICO.DeviceProcurement@gov.bc.ca&#x22;&#x3E;VICO.DeviceProcurement@gov.bc.ca&#x3C;/a&#x3E;.&#x200B;&#x3C;br/&#x3E;&#x3C;/p&#x3E;
+						&#x3C;/div&#x3E;
+					</Field>
+					<Field Name="YesNoValue">
+						TRUE
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">2</Field>
-					<Field Name="ContentTypeId">0x0100EDE8C5E17D8F41488B83E46773C8576C</Field>
-					<Field Name="Title">2_</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">200.000000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">2_.000</Field>
-					<Field Name="MetaInfo">2;#</Field>
-					<Field Name="Key">CookieDays</Field>
-					<Field Name="NumberValue">3.00000000000000</Field>
-					<Field Name="YesNoValue">TRUE</Field>
+					<Field Name="ID">
+						2
+					</Field>
+					<Field Name="ContentTypeId">
+						0x0100EDE8C5E17D8F41488B83E46773C8576C
+					</Field>
+					<Field Name="Title">
+						2_
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						200.000000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						2_.000
+					</Field>
+					<Field Name="MetaInfo">
+						2;#
+					</Field>
+					<Field Name="Key">
+						CookieDays
+					</Field>
+					<Field Name="NumberValue">
+						3.00000000000000
+					</Field>
+					<Field Name="YesNoValue">
+						TRUE
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">3</Field>
-					<Field Name="ContentTypeId">0x0100EDE8C5E17D8F41488B83E46773C8576C</Field>
-					<Field Name="Title">3_</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">300.000000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">3_.000</Field>
-					<Field Name="MetaInfo">3;#</Field>
-					<Field Name="Key">GroupPrefix</Field>
-					<Field Name="TextValue">Device Services VICO - </Field>
-					<Field Name="YesNoValue">TRUE</Field>
+					<Field Name="ID">
+						3
+					</Field>
+					<Field Name="ContentTypeId">
+						0x0100EDE8C5E17D8F41488B83E46773C8576C
+					</Field>
+					<Field Name="Title">
+						3_
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="Order">
+						300.000000000000
+					</Field>
+					<Field Name="FSObjType">
+						0
+					</Field>
+					<Field Name="FileLeafRef">
+						3_.000
+					</Field>
+					<Field Name="MetaInfo">
+						3;#
+					</Field>
+					<Field Name="Key">
+						GroupPrefix
+					</Field>
+					<Field Name="TextValue">
+						Device Services VICO -
+					</Field>
+					<Field Name="YesNoValue">
+						TRUE
+					</Field>
 				</Row>
 			</Rows>
 		</Data>
@@ -325,46 +889,76 @@
 		<Data>
 			<Rows>
 				<Row>
-					<Field Name="ID">1</Field>
-					<Field Name="ContentTypeId">0x012000BC8CDBD59E2A574C9CCB027D1915AF04</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="FSObjType">1</Field>
-					<Field Name="FileLeafRef">js</Field>
-					<Field Name="MetaInfo">1;#vti_isexecutable:BW|false
-vti_folderitemcount:IW|1
-vti_hassubdirs:BW|true
-vti_dirlateststamp:TW|27 Jun 2019 15:50:52 -0000
-vti_listservertemplate:IW|101
-vti_listname:SW|{$ListId:SiteAssets;}
-vti_foldersubfolderitemcount:IW|0
-vti_listbasetype:IW|1
-vti_isbrowsable:BW|true
-vti_isscriptable:BW|false
-vti_modifiedby:SR|i:0ǵ.t|bcgovidp|a32d6f859c66450ca4995b0b2bf0a844
-</Field>
-					<Field Name="Order">100.000000000000</Field>
-					<Field Name="Title">js</Field>
+					<Field Name="ID">
+						1
+					</Field>
+					<Field Name="ContentTypeId">
+						0x012000BC8CDBD59E2A574C9CCB027D1915AF04
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="FSObjType">
+						1
+					</Field>
+					<Field Name="FileLeafRef">
+						js
+					</Field>
+					<Field Name="MetaInfo">
+						1;#vti_isexecutable:BW|false
+						vti_folderitemcount:IW|1
+						vti_hassubdirs:BW|true
+						vti_dirlateststamp:TW|27 Jun 2019 15:50:52 -0000
+						vti_listservertemplate:IW|101
+						vti_listname:SW|{$ListId:SiteAssets;}
+						vti_foldersubfolderitemcount:IW|0
+						vti_listbasetype:IW|1
+						vti_isbrowsable:BW|true
+						vti_isscriptable:BW|false
+						vti_modifiedby:SR|i:0ǵ.t|bcgovidp|a32d6f859c66450ca4995b0b2bf0a844
+					</Field>
+					<Field Name="Order">
+						100.000000000000
+					</Field>
+					<Field Name="Title">
+						js
+					</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">2</Field>
-					<Field Name="ContentTypeId">0x012000BC8CDBD59E2A574C9CCB027D1915AF04</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="FSObjType">1</Field>
-					<Field Name="FileLeafRef">css</Field>
-					<Field Name="MetaInfo">2;#vti_isexecutable:BW|false
-vti_folderitemcount:IW|1
-vti_hassubdirs:BW|true
-vti_listname:SW|{$ListId:SiteAssets;}
-vti_listservertemplate:IW|101
-vti_dirlateststamp:TW|27 Jun 2019 15:50:52 -0000
-vti_foldersubfolderitemcount:IW|0
-vti_listbasetype:IW|1
-vti_isscriptable:BW|false
-vti_isbrowsable:BW|true
-vti_modifiedby:SR|i:0ǵ.t|bcgovidp|a32d6f859c66450ca4995b0b2bf0a844
-</Field>
-					<Field Name="Order">200.000000000000</Field>
-					<Field Name="Title">css</Field>
+					<Field Name="ID">
+						2
+					</Field>
+					<Field Name="ContentTypeId">
+						0x012000BC8CDBD59E2A574C9CCB027D1915AF04
+					</Field>
+					<Field Name="_ModerationStatus">
+						0
+					</Field>
+					<Field Name="FSObjType">
+						1
+					</Field>
+					<Field Name="FileLeafRef">
+						css
+					</Field>
+					<Field Name="MetaInfo">
+						2;#vti_isexecutable:BW|false
+						vti_folderitemcount:IW|1
+						vti_hassubdirs:BW|true
+						vti_listname:SW|{$ListId:SiteAssets;}
+						vti_listservertemplate:IW|101
+						vti_dirlateststamp:TW|27 Jun 2019 15:50:52 -0000
+						vti_foldersubfolderitemcount:IW|0
+						vti_listbasetype:IW|1
+						vti_isscriptable:BW|false
+						vti_isbrowsable:BW|true
+						vti_modifiedby:SR|i:0ǵ.t|bcgovidp|a32d6f859c66450ca4995b0b2bf0a844
+					</Field>
+					<Field Name="Order">
+						200.000000000000
+					</Field>
+					<Field Name="Title">
+						css
+					</Field>
 				</Row>
 			</Rows>
 		</Data>
@@ -372,790 +966,1750 @@ vti_modifiedby:SR|i:0ǵ.t|bcgovidp|a32d6f859c66450ca4995b0b2bf0a844
 	<ListInstance FeatureId="{00bfea71-c796-4402-9f2f-0eb9a6e71b18}" TemplateType="119" Title="Site Pages" Description="" Url="SitePages" CustomSchema="Files\SitePages\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/vt" RootWebOnly="FALSE" />
 	<Receivers ListUrl="_catalogs/masterpage" Scope="Web">
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010105007D4B2DC158C6774BAEC6450EE3104BF5</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010105007D4B2DC158C6774BAEC6450EE3104BF5
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x01010600A0D25C17737F664AA09DBA75C7DE2A3D</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x01010600A0D25C17737F664AA09DBA75C7DE2A3D
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101002039C03B61C64EC4A04F5361F3851068007393E91D14F1EB4A8E4342E723A9000B</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101002039C03B61C64EC4A04F5361F3851068007393E91D14F1EB4A8E4342E723A9000B
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010100291210CA13365049ADD3E2C93DE84FE2</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010100291210CA13365049ADD3E2C93DE84FE2
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x01010500C81C75575008034394CF5C15EF8B55E7</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x01010500C81C75575008034394CF5C15EF8B55E7
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010106004A2A833FEE8CE44183195320689BE390</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010106004A2A833FEE8CE44183195320689BE390
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101002039C03B61C64EC4A04F5361F3851068005EC291991C750648BB2976EBF706C0D7</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101002039C03B61C64EC4A04F5361F3851068005EC291991C750648BB2976EBF706C0D7
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010100F3EB9F94108A1F40B51ABB0139A4922B</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010100F3EB9F94108A1F40B51ABB0139A4922B
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010105007D4B2DC158C6774BAEC6450EE3104BF5</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010105007D4B2DC158C6774BAEC6450EE3104BF5
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x01010600A0D25C17737F664AA09DBA75C7DE2A3D</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x01010600A0D25C17737F664AA09DBA75C7DE2A3D
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101002039C03B61C64EC4A04F5361F3851068007393E91D14F1EB4A8E4342E723A9000B</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101002039C03B61C64EC4A04F5361F3851068007393E91D14F1EB4A8E4342E723A9000B
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010100291210CA13365049ADD3E2C93DE84FE2</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010100291210CA13365049ADD3E2C93DE84FE2
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x01010500C81C75575008034394CF5C15EF8B55E7</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x01010500C81C75575008034394CF5C15EF8B55E7
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010106004A2A833FEE8CE44183195320689BE390</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010106004A2A833FEE8CE44183195320689BE390
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101002039C03B61C64EC4A04F5361F3851068005EC291991C750648BB2976EBF706C0D7</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101002039C03B61C64EC4A04F5361F3851068005EC291991C750648BB2976EBF706C0D7
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010100F3EB9F94108A1F40B51ABB0139A4922B</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010100F3EB9F94108A1F40B51ABB0139A4922B
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010105007D4B2DC158C6774BAEC6450EE3104BF5</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010105007D4B2DC158C6774BAEC6450EE3104BF5
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x01010600A0D25C17737F664AA09DBA75C7DE2A3D</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x01010600A0D25C17737F664AA09DBA75C7DE2A3D
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101002039C03B61C64EC4A04F5361F3851068007393E91D14F1EB4A8E4342E723A9000B</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101002039C03B61C64EC4A04F5361F3851068007393E91D14F1EB4A8E4342E723A9000B
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010100291210CA13365049ADD3E2C93DE84FE2</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010100291210CA13365049ADD3E2C93DE84FE2
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x01010500C81C75575008034394CF5C15EF8B55E7</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x01010500C81C75575008034394CF5C15EF8B55E7
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010106004A2A833FEE8CE44183195320689BE390</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010106004A2A833FEE8CE44183195320689BE390
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101002039C03B61C64EC4A04F5361F3851068005EC291991C750648BB2976EBF706C0D7</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101002039C03B61C64EC4A04F5361F3851068005EC291991C750648BB2976EBF706C0D7
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010100F3EB9F94108A1F40B51ABB0139A4922B</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010100F3EB9F94108A1F40B51ABB0139A4922B
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010105007D4B2DC158C6774BAEC6450EE3104BF5</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010105007D4B2DC158C6774BAEC6450EE3104BF5
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x01010600A0D25C17737F664AA09DBA75C7DE2A3D</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x01010600A0D25C17737F664AA09DBA75C7DE2A3D
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101002039C03B61C64EC4A04F5361F3851068007393E91D14F1EB4A8E4342E723A9000B</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101002039C03B61C64EC4A04F5361F3851068007393E91D14F1EB4A8E4342E723A9000B
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010100291210CA13365049ADD3E2C93DE84FE2</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010100291210CA13365049ADD3E2C93DE84FE2
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x01010500C81C75575008034394CF5C15EF8B55E7</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x01010500C81C75575008034394CF5C15EF8B55E7
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010106004A2A833FEE8CE44183195320689BE390</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010106004A2A833FEE8CE44183195320689BE390
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101002039C03B61C64EC4A04F5361F3851068005EC291991C750648BB2976EBF706C0D7</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101002039C03B61C64EC4A04F5361F3851068005EC291991C750648BB2976EBF706C0D7
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010100F3EB9F94108A1F40B51ABB0139A4922B</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010100F3EB9F94108A1F40B51ABB0139A4922B
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 	</Receivers>
 	<Receivers ListUrl="Documents" Scope="Web">
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010100E4270757D4F9FA4885107D918F03015A</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010100E4270757D4F9FA4885107D918F03015A
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010100E4270757D4F9FA4885107D918F03015A</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010100E4270757D4F9FA4885107D918F03015A
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010100E4270757D4F9FA4885107D918F03015A</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010100E4270757D4F9FA4885107D918F03015A
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010100E4270757D4F9FA4885107D918F03015A</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010100E4270757D4F9FA4885107D918F03015A
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 	</Receivers>
 	<Receivers ListUrl="SiteAssets" Scope="Web">
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101007A3865A05CE2394A8F5877B43B64D25B</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101007A3865A05CE2394A8F5877B43B64D25B
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x01010082C04DE72F0C034D9F2444B1B32A8252</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x01010082C04DE72F0C034D9F2444B1B32A8252
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101007A3865A05CE2394A8F5877B43B64D25B</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101007A3865A05CE2394A8F5877B43B64D25B
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x01010082C04DE72F0C034D9F2444B1B32A8252</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x01010082C04DE72F0C034D9F2444B1B32A8252
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101007A3865A05CE2394A8F5877B43B64D25B</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101007A3865A05CE2394A8F5877B43B64D25B
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x01010082C04DE72F0C034D9F2444B1B32A8252</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x01010082C04DE72F0C034D9F2444B1B32A8252
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101007A3865A05CE2394A8F5877B43B64D25B</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101007A3865A05CE2394A8F5877B43B64D25B
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x01010082C04DE72F0C034D9F2444B1B32A8252</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x01010082C04DE72F0C034D9F2444B1B32A8252
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 	</Receivers>
 	<Receivers ListUrl="SitePages" Scope="Web">
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010108009D4DD5C743C5664A8B0E327B2127B739</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010108009D4DD5C743C5664A8B0E327B2127B739
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101090100DE44A3805AEA624FB3D07EB5E7951F37</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101090100DE44A3805AEA624FB3D07EB5E7951F37
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010108004169B4108B35724DB885F17914A2453D</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010108004169B4108B35724DB885F17914A2453D
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemAdded</Type>
-			<SequenceNumber>1000</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemAdded
+			</Type>
+			<SequenceNumber>
+				1000
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101090100BFAD083DB4F0FB40A6BED52D14F52D63</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101090100BFAD083DB4F0FB40A6BED52D14F52D63
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010108009D4DD5C743C5664A8B0E327B2127B739</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010108009D4DD5C743C5664A8B0E327B2127B739
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101090100DE44A3805AEA624FB3D07EB5E7951F37</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101090100DE44A3805AEA624FB3D07EB5E7951F37
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010108004169B4108B35724DB885F17914A2453D</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010108004169B4108B35724DB885F17914A2453D
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUpdated</Type>
-			<SequenceNumber>1001</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUpdated
+			</Type>
+			<SequenceNumber>
+				1001
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101090100BFAD083DB4F0FB40A6BED52D14F52D63</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101090100BFAD083DB4F0FB40A6BED52D14F52D63
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010108009D4DD5C743C5664A8B0E327B2127B739</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010108009D4DD5C743C5664A8B0E327B2127B739
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101090100DE44A3805AEA624FB3D07EB5E7951F37</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101090100DE44A3805AEA624FB3D07EB5E7951F37
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010108004169B4108B35724DB885F17914A2453D</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010108004169B4108B35724DB885F17914A2453D
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemCheckedIn</Type>
-			<SequenceNumber>1002</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemCheckedIn
+			</Type>
+			<SequenceNumber>
+				1002
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101090100BFAD083DB4F0FB40A6BED52D14F52D63</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101090100BFAD083DB4F0FB40A6BED52D14F52D63
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010108009D4DD5C743C5664A8B0E327B2127B739</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010108009D4DD5C743C5664A8B0E327B2127B739
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101090100DE44A3805AEA624FB3D07EB5E7951F37</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101090100DE44A3805AEA624FB3D07EB5E7951F37
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x010108004169B4108B35724DB885F17914A2453D</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x010108004169B4108B35724DB885F17914A2453D
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 		<Receiver>
-			<Name>Document ID Generator</Name>
-			<Synchronization>Synchronous</Synchronization>
-			<Type>ItemUncheckedOut</Type>
-			<SequenceNumber>1003</SequenceNumber>
+			<Name>
+				Document ID Generator
+			</Name>
+			<Synchronization>
+				Synchronous
+			</Synchronization>
+			<Type>
+				ItemUncheckedOut
+			</Type>
+			<SequenceNumber>
+				1003
+			</SequenceNumber>
 			<Url />
-			<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
-			<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+			<Assembly>
+				Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c
+			</Assembly>
+			<Class>
+				Microsoft.Office.DocumentManagement.Internal.DocIdHandler
+			</Class>
 			<Data />
 			<Filter />
-			<SourceId>0x0101090100BFAD083DB4F0FB40A6BED52D14F52D63</SourceId>
-			<SourceType>1</SourceType>
+			<SourceId>
+				0x0101090100BFAD083DB4F0FB40A6BED52D14F52D63
+			</SourceId>
+			<SourceType>
+				1
+			</SourceType>
 		</Receiver>
 	</Receivers>
 </Elements>

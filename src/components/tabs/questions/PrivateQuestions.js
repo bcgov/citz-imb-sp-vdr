@@ -15,7 +15,6 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import $ from 'jquery'
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -53,31 +52,10 @@ class PrivateQuestions extends Component {
         }
     }
 
-    componentWillMount() {
-        //get private question list data
-
-    }
-
     render() {
         return (
             <MaterialTable
                 icons={tableIcons}
-                editable={{
-                    onRowAdd: newData => new Promise((resolve, reject) => {
-                        setTimeout(() => {
-                            {
-                                console.log("newData", newData)
-                                this.setState({ data: [...this.state.data, newData] })
-                            }
-                            resolve()
-                        }, 1000);
-                    })
-                }}
-                localization={{
-                    header: {
-                        actions: "Actions!"
-                    }
-                }}
                 options={{
                     search: false,
                     paging: false,
