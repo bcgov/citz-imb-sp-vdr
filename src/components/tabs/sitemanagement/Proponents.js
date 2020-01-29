@@ -5,23 +5,23 @@ import $ from "jquery";
 import { forwardRef } from "react";
 import Users from "./Users.js";
 
-import Add from "@material-ui/icons/Add";
-import AddBox from "@material-ui/icons/AddBox";
-import ArrowDownward from "@material-ui/icons/ArrowDownward";
-import Check from "@material-ui/icons/Check";
-import ChevronLeft from "@material-ui/icons/ChevronLeft";
-import ChevronRight from "@material-ui/icons/ChevronRight";
-import Clear from "@material-ui/icons/Clear";
-import DeleteOutline from "@material-ui/icons/DeleteOutline";
-import Edit from "@material-ui/icons/Edit";
-import FilterList from "@material-ui/icons/FilterList";
-import FirstPage from "@material-ui/icons/FirstPage";
-import LastPage from "@material-ui/icons/LastPage";
-import NotInterestedIcon from "@material-ui/icons/NotInterested";
-import Remove from "@material-ui/icons/Remove";
-import SaveAlt from "@material-ui/icons/SaveAlt";
-import Search from "@material-ui/icons/Search";
-import ViewColumn from "@material-ui/icons/ViewColumn";
+import Add from "@material-ui/icons/Add"
+import AddBox from "@material-ui/icons/AddBox"
+import ArrowDownward from "@material-ui/icons/ArrowDownward"
+import Check from "@material-ui/icons/Check"
+import ChevronLeft from "@material-ui/icons/ChevronLeft"
+import ChevronRight from "@material-ui/icons/ChevronRight"
+import Clear from "@material-ui/icons/Clear"
+import DeleteOutline from "@material-ui/icons/DeleteOutline"
+import Edit from "@material-ui/icons/Edit"
+import FilterList from "@material-ui/icons/FilterList"
+import FirstPage from "@material-ui/icons/FirstPage"
+import LastPage from "@material-ui/icons/LastPage"
+import NotInterestedIcon from "@material-ui/icons/NotInterested"
+import Remove from "@material-ui/icons/Remove"
+import SaveAlt from "@material-ui/icons/SaveAlt"
+import Search from "@material-ui/icons/Search"
+import ViewColumn from "@material-ui/icons/ViewColumn"
 import {
   Dialog,
   DialogTitle,
@@ -66,12 +66,12 @@ class Proponents extends Component {
     const addProponent = (event, rowdata) => {
       console.debug("addProponent", event, rowdata);
       this.setState({ dialog: { open: true } });
-    };
+    }
 
     this.handleClose = () => {
       console.debug("handleclose");
       this.setState({ dialog: { open: false } });
-    };
+    }
 
     this.state = {
       data: [

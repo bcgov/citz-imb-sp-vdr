@@ -15,5 +15,5 @@ export function setCookie(cookieName, cookieValue, cookieDays) {
     d.setTime(d.getTime() + (cookieDays * 24 * 60 * 60 * 1000));
     var expires = "expires=" + d.toUTCString();
 
-    document.cookie = cookieName + "=" + cookieValue + "; " + expires + "; path=/";
+    document.cookie = cookieName + "=" + cookieValue + "; " + expires + "; path=/ ; Secure";
 }
