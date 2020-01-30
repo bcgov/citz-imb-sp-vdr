@@ -5,7 +5,6 @@ import { Dialog, DialogActions, DialogTitle, DialogContent, Button } from '@mate
  * @param {p} props
  */
 export default function TermsOfReference(props) {
-    console.log(props)
     return (
         <Dialog
             open={true}
