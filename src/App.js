@@ -3,7 +3,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import Appcontent from './components/AppContent'
 import './css/App.css'
 /**
- * apply theme scheme to application
+ * apply theme to application
  */
 export default function App() {
 

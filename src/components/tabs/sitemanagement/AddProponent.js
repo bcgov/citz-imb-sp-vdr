@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button } from "@material-ui/core"
-
+/**
+ * present add proponent dialog
+ */
 export class AddProponent extends Component {
     render() {
         return (
@@ -11,13 +13,13 @@ export class AddProponent extends Component {
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="type proponent's name..."
+                        label="Proponent's Name"
                         type="text"
                         fullWidth
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={this.props.handleSave} color="primary">
+                    <Button onClick={this.props.handleSave("fred")} color="primary">
                         Save
               </Button>
                     <Button onClick={this.props.handleClose} color="primary">

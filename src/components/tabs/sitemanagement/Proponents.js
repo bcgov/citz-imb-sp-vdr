@@ -266,8 +266,8 @@ class Proponents extends Component {
                       }
                     })
                   },
-                  handleSave: () => {
-                    alert("Save Proponent")
+                  handleSave: () => (name) => {
+                    console.log("Save Proponent", name)
                     this.setState({
                       addProponent: {
                         open: false
@@ -365,6 +365,9 @@ class Proponents extends Component {
     }
   }
 
+  handleAddProponent = (name) => {
+    
+  }
   componentDidMount() {
     //get proponent list data
     let _this = this;
