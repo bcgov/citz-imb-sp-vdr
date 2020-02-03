@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import TermsOfReference from './terms/TermsOfReference';
 import VDRTabs from './tabs/VDRTabs';
 import { setCookie, getCookie } from './utilities/cookies'
-import $ from 'jquery'
+import axios from 'axios'
 
 /**
  * Shows terms of reference if not already agreed to
@@ -16,8 +16,8 @@ class AppContent extends Component {
 
         this.state = {
             cookieName: "TORAgreement",
-            title: 'VICO Terms of Reference',
-            body: 'Do not steal this stuff',
+            title: '',
+            body: '',
             modified: '',
             cookieDays: 1,
             agree: false
@@ -51,39 +51,32 @@ class AppContent extends Component {
     }
 
     componentDidMount = () => {
-        const _this = this
-
-        $.ajax({
-            url: "../_api/Web/Lists/getbytitle('Config')/items?$filter=Key eq 'TOR'&$select=TextValue,MultiTextValue,Modified,NumberValue",
-            type: "GET",
-            async: false,
-            headers: {
-                'Accept': 'application/json;odata=verbose'
-            }
-        }).done(function (data) {
-            _this.updateState({
-                title: data.d.results[0].TextValue,
-                body: data.d.results[0].MultiTextValue,
-                modified: data.d.results[0].Modified,
-                cookieDays: data.d.results[0].NumberValue
+        axios.get("../_api/Web/Lists/getbytitle('Config')/items?$filter=Key eq 'TOR'&$select=TextValue,MultiTextValue,Modified,NumberValue")
+            .then(response => {
+                this.updateState({
+                    title: response.data.value[0].TextValue,
+                    body: response.data.value[0].MultieTextValue,
+                    modified: response.data.value[0].Modified,
+                    cookieDays: response.data.value[0].NumberValue
+                })
+            }).catch(error => {
+                console.warn('error expected outside of SharePoint environment', error)
+                this.updateState({
+                    title: 'VICO ToR Header',
+                    body: 'VICO ToR Body'
+                })
             })
-        }).fail(function (err) {
-            window.console && console.warn("Error is Expected if page loaded outside sharepoint", err);
-            _this.updateAgree()
-        })
     }
 
     render() {
-        if (this.state.agree) {
-            return <VDRTabs />
-        } else {
-            return <TermsOfReference
+        return (this.state.agree) ?
+            <VDRTabs /> :
+            <TermsOfReference
                 title={this.state.title}
                 body={this.state.body}
                 handleAgree={this.handleAgree}
                 handleDisagree={this.handleDisagree}
             />
-        }
     }
 }
 

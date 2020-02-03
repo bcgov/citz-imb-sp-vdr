@@ -1,11 +1,11 @@
 import React, { Component, Fragment, forwardRef } from "react"
 import MaterialTable from "material-table"
-import $ from "jquery"
 import AddProponent from "./AddProponent.js"
 import DisableProponent from "./DisableProponent.js"
 import ProponentLibrary from "./ProponentLibrary.js"
 import ProponentQuestions from "./ProponentQuestions.js"
 import Users from "./Users.js"
+import makeUUID from '../../utilities/makeUUID.js'
 
 import Add from "@material-ui/icons/Add"
 import AddBox from "@material-ui/icons/AddBox"
@@ -27,7 +27,7 @@ import ViewColumn from "@material-ui/icons/ViewColumn"
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
 import PeopleIcon from '@material-ui/icons/People'
-
+import axios from 'axios'
 /**
  * present the proponents
  */
@@ -64,6 +64,7 @@ class Proponents extends Component {
     this.state = {
       table: {
         title: "Proponents",
+        key: Math.random(),
         options: {
           search: false,
           sorting: false,
@@ -258,22 +259,8 @@ class Proponents extends Component {
             onClick: (event, rowdata) => {
               this.setState({
                 addProponent: {
-                  open: true,
-                  handleClose: () => {
-                    this.setState({
-                      addProponent: {
-                        open: false
-                      }
-                    })
-                  },
-                  handleSave: () => (name) => {
-                    console.log("Save Proponent", name)
-                    this.setState({
-                      addProponent: {
-                        open: false
-                      }
-                    })
-                  }
+                  ...this.state.addProponent,
+                  open: true
                 }
               })
             }
@@ -284,10 +271,12 @@ class Proponents extends Component {
             onClick: (event, rowdata) => {
               this.setState({
                 disableProponent: {
+                  ...this.state.disableProponent,
                   open: true,
                   proponentName: rowdata.Title,
                   handleClose: () => {
                     this.setState({
+                      ...this.state.disableProponent,
                       disableProponent: {
                         open: false
                       }
@@ -297,6 +286,7 @@ class Proponents extends Component {
                     alert("Disable Proponent")
                     this.setState({
                       disableProponent: {
+                        ...this.state.disableProponent,
                         open: false
                       }
                     })
@@ -311,12 +301,14 @@ class Proponents extends Component {
             onClick: (event, rowdata) => {
               this.setState({
                 users: {
+                  ...this.state.users,
                   open: true,
                   proponentName: rowdata.Title,
                   proponentGroup: rowdata.GroupId,
                   handleClose: () => {
                     this.setState({
                       users: {
+                        ...this.state.users,
                         open: false
                       }
                     })
@@ -354,6 +346,8 @@ class Proponents extends Component {
         ]
       },
       addProponent: {
+        handleClose: this.addProponentClose,
+        handleSave: this.addProponentSave,
         open: false
       },
       disableProponent: {
@@ -365,56 +359,83 @@ class Proponents extends Component {
     }
   }
 
-  handleAddProponent = (name) => {
-    
+  addProponentClose = (proponentName) => {
+    console.log(proponentName)
+    this.setState({
+      addProponent: {
+        ...this.state.addProponent,
+        open: false
+      }
+    })
   }
+
+  addProponentSave = (name) => {
+    const newProponent = {
+      Title: "Proponent A",
+      Modified: "2020-01-17T21:24:18Z",
+      UUID: "",
+      Active: true,
+      GroupId: 0
+    }
+    // validate
+    if (!name) return
+    newProponent.Title = name
+    // generate unique id
+    newProponent.UUID = makeUUID()
+    //TODO: add proponent to proponent list
+    //TODO: create proponent group
+    //TODO: create proponent library
+    //TODO: create proponent question list
+    //TODO: update table
+
+    console.log("Save Proponent", newProponent)
+    const newProponentData = this.state.table.data
+    newProponentData.push(newProponent)
+    this.setState({
+      table: {
+        ...this.state.table,
+        data: newProponentData,
+        key: Math.random()
+      },
+      addProponent: {
+        ...this.state.addProponent,
+        open: false
+      }
+    })
+  }
+
   componentDidMount() {
     //get proponent list data
-    let _this = this;
-
-    $.ajax({
-      url: "../_api/web/lists/getByTitle('Proponents')/items",
-      type: "GET",
-      async: false,
-      headers: {
-        Accept: "application/json;odata=verbose"
-      }
-    }).done(function (proponentResults) {
-      $.ajax({
-        url: "../_api/web/RoleAssignments?$expand=Member,Member/Users",
-        type: "GET",
-        async: false,
-        headers: {
-          Accept: "application/json;odata=verbose"
-        }
-      }).done(function (groupResult) {
-        for (let i = 0; i < groupResult.d.results.length; i++) {
-          for (let j = 0; j < proponentResults.d.results.length; j++) {
-            if (
-              proponentResults.d.results[j].GroupId ===
-              groupResult.d.results[i].Member.Id
-            ) {
-              proponentResults.d.results[j].Group = groupResult.d.results[i];
+    axios.get("../_api/web/lists/getByTitle('Proponents')/items")
+      .then(proponentResponse => {
+        console.log('proponentResponse', proponentResponse)
+        axios.get("../_api/web/RoleAssignments?$expand=Member,Member/Users")
+          .then(roleAssignmentsResponse => {
+            console.log('roleAssignmentsResponse', roleAssignmentsResponse)
+            for (let i = 0; i < roleAssignmentsResponse.data.value.length; i++) {
+              for (let j = 0; j < proponentResponse.data.value.length; j++) {
+                if (
+                  proponentResponse.data.value[j].GroupId ===
+                  roleAssignmentsResponse.data.value[i].Member.Id
+                ) {
+                  proponentResponse.data.value[j].Group = roleAssignmentsResponse.data.value[i];
+                }
+              }
             }
-          }
-        }
-        _this.setState({
-          table: { data: proponentResults.d.results }
-        })
-      }).fail(function (err) {
-        window.console &&
-          console.warn(
-            "Error is expected if page loaded outside of SharePoint",
-            err
-          );
-      });
-    }).fail(function (err) {
-      window.console &&
-        console.warn(
-          "Error is expected if page loaded outside of SharePoint",
-          err
-        );
-    });
+            this.setState({
+              table: {
+                ...this.state.table,
+                data: proponentResponse.data.value
+              }
+            })
+          })
+          .catch(error => {
+            console.warn('error expected outside of SharePoint environment', error)
+          })
+      })
+      .catch(error => {
+        console.warn('error expected outside of SharePoint environment', error)
+      })
   }
 
   render() {

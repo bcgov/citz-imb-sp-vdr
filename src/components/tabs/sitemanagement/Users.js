@@ -216,7 +216,6 @@ export class Users extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <Dialog open={this.props.open} onClose={this.props.handleClose} maxWidth='md'>
                 <DialogTitle id="form-dialog-title">
