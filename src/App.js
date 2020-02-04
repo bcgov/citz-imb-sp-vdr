@@ -2,6 +2,8 @@ import React from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import Appcontent from './components/AppContent'
 import './css/App.css'
+import Rest from './testing/Rest'
+
 /**
  * apply theme to application
  */
@@ -26,6 +28,7 @@ export default function App() {
         <MuiThemeProvider theme={theme}>
             <Appcontent />
         </MuiThemeProvider>
+        //<Rest />
     )
 
 }

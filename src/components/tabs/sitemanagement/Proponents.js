@@ -5,7 +5,7 @@ import DisableProponent from "./DisableProponent.js"
 import ProponentLibrary from "./ProponentLibrary.js"
 import ProponentQuestions from "./ProponentQuestions.js"
 import Users from "./Users.js"
-import makeUUID from '../../utilities/makeUUID.js'
+import axios from 'axios'
 
 import Add from "@material-ui/icons/Add"
 import AddBox from "@material-ui/icons/AddBox"
@@ -27,7 +27,7 @@ import ViewColumn from "@material-ui/icons/ViewColumn"
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
 import PeopleIcon from '@material-ui/icons/People'
-import axios from 'axios'
+
 /**
  * present the proponents
  */
@@ -346,8 +346,8 @@ class Proponents extends Component {
         ]
       },
       addProponent: {
-        handleClose: this.addProponentClose,
-        handleSave: this.addProponentSave,
+        newProponent: this.newProponent,
+        close: this.closeAddNewProponent,
         open: false
       },
       disableProponent: {
@@ -359,38 +359,11 @@ class Proponents extends Component {
     }
   }
 
-  addProponentClose = (proponentName) => {
-    console.log(proponentName)
-    this.setState({
-      addProponent: {
-        ...this.state.addProponent,
-        open: false
-      }
-    })
-  }
-
-  addProponentSave = (name) => {
-    const newProponent = {
-      Title: "Proponent A",
-      Modified: "2020-01-17T21:24:18Z",
-      UUID: "",
-      Active: true,
-      GroupId: 0
-    }
-    // validate
-    if (!name) return
-    newProponent.Title = name
-    // generate unique id
-    newProponent.UUID = makeUUID()
-    //TODO: add proponent to proponent list
-    //TODO: create proponent group
-    //TODO: create proponent library
-    //TODO: create proponent question list
-    //TODO: update table
-
-    console.log("Save Proponent", newProponent)
+  addNewProponent = newProponent => {
     const newProponentData = this.state.table.data
+
     newProponentData.push(newProponent)
+
     this.setState({
       table: {
         ...this.state.table,
@@ -404,6 +377,14 @@ class Proponents extends Component {
     })
   }
 
+  closeAddNewProponent = () => {
+    this.setState({
+      addProponent: {
+        ...this.state.addProponent,
+        open: false
+      }
+    })
+  }
   componentDidMount() {
     //get proponent list data
     axios.get("../_api/web/lists/getByTitle('Proponents')/items")
@@ -449,5 +430,4 @@ class Proponents extends Component {
     )
   }
 }
-
 export default Proponents
