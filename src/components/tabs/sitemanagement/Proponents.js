@@ -346,7 +346,7 @@ class Proponents extends Component {
         ]
       },
       addProponent: {
-        newProponent: this.newProponent,
+        newProponent: this.addNewProponent,
         close: this.closeAddNewProponent,
         open: false
       },
@@ -361,7 +361,7 @@ class Proponents extends Component {
 
   addNewProponent = newProponent => {
     const newProponentData = this.state.table.data
-
+    console.log("newProponent", newProponent)
     newProponentData.push(newProponent)
 
     this.setState({
@@ -385,6 +385,7 @@ class Proponents extends Component {
       }
     })
   }
+
   componentDidMount() {
     //get proponent list data
     axios.get("../_api/web/lists/getByTitle('Proponents')/items")

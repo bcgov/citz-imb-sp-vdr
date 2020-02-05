@@ -4,6 +4,7 @@ import TermsOfReference from './terms/TermsOfReference';
 import VDRTabs from './tabs/VDRTabs';
 import { setCookie, getCookie } from './utilities/cookies'
 import axios from 'axios'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 /**
  * Shows terms of reference if not already agreed to
@@ -20,7 +21,8 @@ class AppContent extends Component {
             body: '',
             modified: '',
             cookieDays: 1,
-            agree: false
+            agree: false,
+            loading: true
         }
     }
 
@@ -57,26 +59,30 @@ class AppContent extends Component {
                     title: response.data.value[0].TextValue,
                     body: response.data.value[0].MultieTextValue,
                     modified: response.data.value[0].Modified,
-                    cookieDays: response.data.value[0].NumberValue
+                    cookieDays: response.data.value[0].NumberValue,
+                    loading: false
                 })
             }).catch(error => {
                 console.warn('error expected outside of SharePoint environment', error)
                 this.updateState({
                     title: 'VICO ToR Header',
-                    body: 'VICO ToR Body'
+                    body: 'VICO ToR Body',
+                    loading: false
                 })
             })
     }
 
     render() {
-        return (this.state.agree) ?
-            <VDRTabs /> :
-            <TermsOfReference
-                title={this.state.title}
-                body={this.state.body}
-                handleAgree={this.handleAgree}
-                handleDisagree={this.handleDisagree}
-            />
+        return (this.state.loading) ?
+            <CircularProgress /> :
+            (this.state.agree) ?
+                <VDRTabs /> :
+                <TermsOfReference
+                    title={this.state.title}
+                    body={this.state.body}
+                    handleAgree={this.handleAgree}
+                    handleDisagree={this.handleDisagree}
+                />
     }
 }
 
