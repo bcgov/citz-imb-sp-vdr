@@ -85,18 +85,18 @@ export class AddProponent extends Component {
                 console.log("siteOwnerResponse", siteOwnerResponse)
 
                 //TODO: update group owner
-                const clientContext = new SP.clientContext()
-                const ownerGroup = clientContext.get_web().get_siteGroups().getByName(siteOwnerResponse.data.Title)
-                const group = clientContext.get_web().get_siteGroups().getByName(groupResponse.data.Title)
+                // const clientContext = new SP.clientContext()
+                // const ownerGroup = clientContext.get_web().get_siteGroups().getByName(siteOwnerResponse.data.Title)
+                // const group = clientContext.get_web().get_siteGroups().getByName(groupResponse.data.Title)
 
-                group.set_owner(ownerGroup)
-                group.update()
+                // group.set_owner(ownerGroup)
+                // group.update()
 
-                clientContext.exectuteQueryAsync(() => {
-                    console.log(`'${groupResponse.data.Title}' owner updated to '${siteOwnerResponse.data.Title}'`)
-                }, (sender, args) => {
-                    console.log(`Failed ${args.get_message()}\n ${args.get_stackTrace()}`)
-                })
+                // clientContext.exectuteQueryAsync(() => {
+                //     console.log(`'${groupResponse.data.Title}' owner updated to '${siteOwnerResponse.data.Title}'`)
+                // }, (sender, args) => {
+                //     console.log(`Failed ${args.get_message()}\n ${args.get_stackTrace()}`)
+                // })
 
                 axios.all([
                     //TODO: add proponent to proponent list
