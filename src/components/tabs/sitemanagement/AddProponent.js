@@ -6,7 +6,10 @@ import axios from 'axios'
 /**
  * present add proponent dialog
  */
+
+
 export class AddProponent extends Component {
+
     constructor(props) {
         super(props)
 
@@ -78,11 +81,11 @@ export class AddProponent extends Component {
             axios.get('../_api/Web/AssociatedOwnerGroup')
         ])
             .then(axios.spread((groupResponse, libraryResponse, listResponse, siteOwnerResponse) => {
-                console.log('all done')
-                console.log("groupResponse", groupResponse)
-                console.log("libraryResponse", libraryResponse)
-                console.log("listResponse", listResponse)
-                console.log("siteOwnerResponse", siteOwnerResponse)
+                // console.log('all done')
+                // console.log("groupResponse", groupResponse)
+                // console.log("libraryResponse", libraryResponse)
+                // console.log("listResponse", listResponse)
+                // console.log("siteOwnerResponse", siteOwnerResponse)
 
                 //TODO: update group owner
                 // const clientContext = new SP.clientContext()
@@ -97,9 +100,50 @@ export class AddProponent extends Component {
                 // }, (sender, args) => {
                 //     console.log(`Failed ${args.get_message()}\n ${args.get_stackTrace()}`)
                 // })
-
+                console.log("newProponent", newProponent)
+                console.log("this.state.config", this.state.config)
+                newProponent.__metadata = {
+                    "type": "SP.Data.ListItem"
+                }
                 axios.all([
                     //TODO: add proponent to proponent list
+                    axios
+                        .post(
+                            "../_api/web/Lists/GetByTitle('Proponents')/items",
+                            {
+                                "__metadata": {
+                                    "type": "SP.Data.ListItem"
+                                },
+                                "Title": "Fred",
+                                "UUID": "V00000"
+                            },
+                            {
+                                ...this.state.config.headers,
+                                "Accept": "application/json:odata=verbose"
+                            }
+
+                        )
+                        .then(response => {
+                            console.log("add Item:", response)
+                        })
+                        .catch(error => {
+                            if (error.response) {
+                                // The request was made and the server responded with a status code
+                                // that falls out of the range of 2xx
+                                console.log(error.response.data);
+                                console.log(error.response.status);
+                                console.log(error.response.headers);
+                            } else if (error.request) {
+                                // The request was made but no response was received
+                                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                                // http.ClientRequest in node.js
+                                console.log(error.request);
+                            } else {
+                                // Something happened in setting up the request that triggered an Error
+                                console.log('Error', error.message);
+                            }
+                            console.log(error.config)
+                        })
                     //TODO: set permissions on library
                     //TODO: set permissions on list
                 ])

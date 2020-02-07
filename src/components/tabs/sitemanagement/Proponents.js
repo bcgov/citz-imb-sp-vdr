@@ -390,7 +390,6 @@ class Proponents extends Component {
     //get proponent list data
     axios.get("../_api/web/lists/getByTitle('Proponents')/items")
       .then(proponentResponse => {
-        console.log('proponentResponse', proponentResponse)
         axios.get("../_api/web/RoleAssignments?$expand=Member,Member/Users")
           .then(roleAssignmentsResponse => {
             console.log('roleAssignmentsResponse', roleAssignmentsResponse)
