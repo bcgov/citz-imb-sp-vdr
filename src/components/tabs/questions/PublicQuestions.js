@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import MaterialTable from "material-table"
 import $ from 'jquery'
-
+/**
+ * presents the published questions and answers
+ */
 class PublicQuestions extends Component {
     constructor(props) {
         super(props)
@@ -49,7 +51,7 @@ class PublicQuestions extends Component {
                     { title: "Answer", field: "Answer" }
                 ]}
                 data={this.state.data}
-                title="Public Questions"
+                title="Published Questions and Answers"
             />
 
         )

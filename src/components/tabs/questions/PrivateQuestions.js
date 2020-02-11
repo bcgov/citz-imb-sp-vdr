@@ -1,23 +1,36 @@
-import React, { Component, forwardRef } from 'react'
+import React, { Component, forwardRef, Fragment } from 'react'
 import MaterialTable from 'material-table'
-import AddBox from '@material-ui/icons/AddBox';
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
-import Check from '@material-ui/icons/Check';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
-import Clear from '@material-ui/icons/Clear';
-import DeleteOutline from '@material-ui/icons/DeleteOutline';
-import Edit from '@material-ui/icons/Edit';
-import FilterList from '@material-ui/icons/FilterList';
-import FirstPage from '@material-ui/icons/FirstPage';
-import LastPage from '@material-ui/icons/LastPage';
-import Remove from '@material-ui/icons/Remove';
-import SaveAlt from '@material-ui/icons/SaveAlt';
-import Search from '@material-ui/icons/Search';
-import ViewColumn from '@material-ui/icons/ViewColumn';
+import Add from "@material-ui/icons/Add"
+import AddBox from '@material-ui/icons/AddBox'
+import ArrowDownward from '@material-ui/icons/ArrowDownward'
+import Check from '@material-ui/icons/Check'
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
+import ChevronRight from '@material-ui/icons/ChevronRight'
+import Clear from '@material-ui/icons/Clear'
+import DeleteOutline from '@material-ui/icons/DeleteOutline'
+import Edit from '@material-ui/icons/Edit'
+import FilterList from '@material-ui/icons/FilterList'
+import FirstPage from '@material-ui/icons/FirstPage'
+import LastPage from '@material-ui/icons/LastPage'
+import Remove from '@material-ui/icons/Remove'
+import SaveAlt from '@material-ui/icons/SaveAlt'
+import Search from '@material-ui/icons/Search'
+import ViewColumn from '@material-ui/icons/ViewColumn'
+import {
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    TextField,
+    DialogActions,
+    Button
+} from "@material-ui/core"
 
+/**
+ * presents the question submitted by the current proponent
+ */
 const tableIcons = {
-    Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+    Add: forwardRef((props, ref) => <Add {...props} ref={ref} />),
+    AddBox: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
     Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
     Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
@@ -40,6 +53,16 @@ class PrivateQuestions extends Component {
     constructor(props) {
         super(props)
 
+        const askQuestion = (event, rowdata) => {
+            console.debug("askQuestion", event, rowdata);
+            this.setState({ dialog: { open: true } });
+        }
+
+        this.handleClose = () => {
+            console.debug("handleclose");
+            this.setState({ dialog: { open: false } });
+        }
+
         this.state = {
             columns: [
                 { title: "Question", field: "Question" }
@@ -48,25 +71,62 @@ class PrivateQuestions extends Component {
                 {
                     Question: "What is going on?"
                 }
-            ]
+            ],
+            actions: [
+                {
+                    icon: tableIcons.Add,
+                    tooltip: "Ask a Question",
+                    isFreeAction: true,
+                    onClick: (event, rowdata) => {
+                        console.debug("Ask a Question", event, rowdata);
+                        askQuestion(event, rowdata);
+                    }
+                }
+            ],
+            dialog: {
+                open: false
+            }
         }
     }
 
     render() {
         return (
-            <MaterialTable
-                icons={tableIcons}
-                options={{
-                    search: false,
-                    paging: false,
-                    sorting: false,
-                    draggable: false
-                }}
-                columns={this.state.columns}
-                data={this.state.data}
-                title="Private Questions"
-            />
-
+            <Fragment>
+                <MaterialTable
+                    icons={tableIcons}
+                    options={{
+                        search: false,
+                        paging: false,
+                        sorting: false,
+                        draggable: false
+                    }}
+                    actions={this.state.actions}
+                    columns={this.state.columns}
+                    data={this.state.data}
+                    title="My Submitted Questions"
+                />
+                <Dialog open={this.state.dialog.open} onClose={this.handleClose}>
+                    <DialogTitle id="form-dialog-title">Ask a Question</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="question"
+                            label="type your question..."
+                            type="text"
+                            fullWidth
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose} color="primary">
+                            Submit
+                        </Button>
+                        <Button onClick={this.handleClose} color="primary">
+                            Cancel
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </Fragment>
         )
     }
 }

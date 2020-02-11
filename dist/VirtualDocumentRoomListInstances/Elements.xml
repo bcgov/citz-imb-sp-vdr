@@ -762,6 +762,9 @@
 					<Field Name="Key">
 						TOR
 					</Field>
+					<Field Name="TextValue">
+						VICO Terms of Reference
+					</Field>
 					<Field Name="MultiTextValue">
 						&#x3C;div class=&#x22;ExternalClass6625249627774DCB982CF8D420B767BC&#x22;&#x3E;
 						&#x3C;p&#x3E;Please read these Terms of Use (&#x26;quot;&#x3C;strong&#x3E;Terms&#x3C;/strong&#x3E;&#x26;quot; or &#x26;quot;&#x3C;strong&#x3E;Terms of Use&#x3C;/strong&#x3E;&#x26;quot;) carefully before using the

@@ -11,7 +11,10 @@ import QuestionTabContent from "./questions/QuestionTabContent";
 
 import Proponents from "./sitemanagement/Proponents";
 import Home from "./home/Home";
-
+/**
+ * Present the tabs for the site
+ * @param {*} props
+ */
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -45,7 +48,10 @@ function a11yProps(index) {
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    '& span.MuiTab-wrapper': {
+      textTransform: 'capitalize'
+    }
   }
 }));
 
@@ -62,8 +68,9 @@ export default function VDRTabs() {
       <AppBar position="static">
         <Tabs
           value={value}
+          textColor='secondary'
           onChange={handleChange}
-          aria-label="simple tabs example"
+          aria-label="virtual document room tabs"
         >
           <Tab label="Home" icon={<HomeIcon />} {...a11yProps(0)} />
           <Tab
