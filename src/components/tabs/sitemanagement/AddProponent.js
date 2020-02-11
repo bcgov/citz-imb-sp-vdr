@@ -7,6 +7,8 @@ import axios from 'axios'
  * present add proponent dialog
  */
 
+let SP = window.SP
+let ExecuteOrDelayUntilScriptLoaded = window.ExecuteOrDelayUntilScriptLoaded
 
 export class AddProponent extends Component {
 
@@ -81,30 +83,32 @@ export class AddProponent extends Component {
             axios.get('../_api/Web/AssociatedOwnerGroup')
         ])
             .then(axios.spread((groupResponse, libraryResponse, listResponse, siteOwnerResponse) => {
-                // console.log('all done')
-                // console.log("groupResponse", groupResponse)
-                // console.log("libraryResponse", libraryResponse)
-                // console.log("listResponse", listResponse)
-                // console.log("siteOwnerResponse", siteOwnerResponse)
-
+                console.log('all done')
+                console.log("groupResponse", groupResponse)
+                console.log("libraryResponse", libraryResponse)
+                console.log("listResponse", listResponse)
+                console.log("siteOwnerResponse", siteOwnerResponse)
+                newProponent.GroupId = groupResponse.data.Id
                 //TODO: update group owner
-                // const clientContext = new SP.clientContext()
-                // const ownerGroup = clientContext.get_web().get_siteGroups().getByName(siteOwnerResponse.data.Title)
-                // const group = clientContext.get_web().get_siteGroups().getByName(groupResponse.data.Title)
+                // ExecuteOrDelayUntilScriptLoaded(() => {
+                //     const clientContext = new SP.clientContext()
+                //     const ownerGroup = clientContext.get_web().get_siteGroups().getByName(siteOwnerResponse.data.Title)
+                //     const group = clientContext.get_web().get_siteGroups().getByName(groupResponse.data.Title)
 
-                // group.set_owner(ownerGroup)
-                // group.update()
+                //     group.set_owner(ownerGroup)
+                //     group.update()
 
-                // clientContext.exectuteQueryAsync(() => {
-                //     console.log(`'${groupResponse.data.Title}' owner updated to '${siteOwnerResponse.data.Title}'`)
-                // }, (sender, args) => {
-                //     console.log(`Failed ${args.get_message()}\n ${args.get_stackTrace()}`)
-                // })
-                console.log("newProponent", newProponent)
-                console.log("this.state.config", this.state.config)
-                newProponent.__metadata = {
-                    "type": "SP.Data.ListItem"
-                }
+                //     clientContext.exectuteQueryAsync(() => {
+                //         console.log(`'${groupResponse.data.Title}' owner updated to '${siteOwnerResponse.data.Title}'`)
+                //     }, (sender, args) => {
+                //         console.log(`Failed ${args.get_message()}\n ${args.get_stackTrace()}`)
+                //     })
+                //     console.log("newProponent", newProponent)
+                //     console.log("this.state.config", this.state.config)
+                //     newProponent.__metadata = {
+                //         "type": "SP.Data.ListItem"
+                //     }
+                // }, 'sp.js')
                 axios.all([
                     //TODO: add proponent to proponent list
                     axios
@@ -112,14 +116,17 @@ export class AddProponent extends Component {
                             "../_api/web/Lists/GetByTitle('Proponents')/items",
                             {
                                 "__metadata": {
-                                    "type": "SP.Data.ListItem"
+                                    "type": "SP.Data.ProponentsListItem"
                                 },
-                                "Title": "Fred",
-                                "UUID": "V00000"
+                                "Title": newProponent.Title,
+                                "UUID": newProponent.UUID,
+                                "GroupId": newProponent.GroupId
                             },
                             {
-                                ...this.state.config.headers,
-                                "Accept": "application/json:odata=verbose"
+                                headers: {
+                                    ...this.state.config.headers,
+                                    "Accept": "application/json:odata=verbose"
+                                }
                             }
 
                         )
