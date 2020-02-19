@@ -1,89 +1,61 @@
 import 'react-tabs/style/react-tabs.css';
-import React, { Component } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import TermsOfReference from './terms/TermsOfReference';
 import VDRTabs from './tabs/VDRTabs';
 import { setCookie, getCookie } from './utilities/cookies'
 import axios from 'axios'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { PageContext } from '../App'
 
 /**
  * Shows terms of reference if not already agreed to
  * Shows main app if terms of reference agreed to
  */
 
-class AppContent extends Component {
-    constructor(props) {
-        super(props)
+export default function AppContent() {
 
-        this.state = {
-            cookieName: "TORAgreement",
-            title: '',
-            body: '',
-            modified: '',
-            cookieDays: 1,
-            agree: false,
-            loading: true
-        }
+    const [cookieName, setCookieName] = useState('TORAgreement')
+    const [title, setTitle] = useState('')
+    const [body, setBody] = useState('')
+    const [modified, setModified] = useState('')
+    const [cookieDays, setCookieDays] = useState(1)
+    const [agree, setAgree] = useState((getCookie(cookieName + modified)) ? true : false)
+    const [loading, setLoading] = useState(true)
+
+    const pageContext = useContext(PageContext)
+
+    const handleAgree = () => {
+        setCookie(cookieName + modified, "true", cookieDays);
+        setAgree((getCookie(cookieName + modified)) ? true : false)
     }
 
-    handleAgree = () => {
-        setCookie(this.state.cookieName + this.state.modified, "true", this.state.cookieDays);
-        this.updateAgree();
-    }
-
-    handleDisagree = () => {
+    const handleDisagree = () => {
         window.close()
         window.location = '/_layouts/signout.aspx'
     }
 
-    updateState = (newState) => {
-        this.setState(newState, function () {
-            this.updateAgree();
-        })
-    }
-
-    updateAgree = () => {
-        const cookie = (getCookie(this.state.cookieName + this.state.modified)) ? true : false
-
-        this.setState({
-            agree: cookie
-        }, function () {
-            this.forceUpdate();
-        })
-    }
-
-    componentDidMount = () => {
-        axios.get("../_api/Web/Lists/getbytitle('Config')/items?$filter=Key eq 'TOR'&$select=TextValue,MultiTextValue,Modified,NumberValue")
+    useEffect(() => {
+        axios.get(`${pageContext.webAbsoluteUrl}/_api/Web/Lists/getbytitle('Config')/items?$filter=Key eq 'TOR'&$select=TextValue,MultiTextValue,Modified,NumberValue`)
             .then(response => {
-                this.updateState({
-                    title: response.data.value[0].TextValue,
-                    body: response.data.value[0].MultieTextValue,
-                    modified: response.data.value[0].Modified,
-                    cookieDays: response.data.value[0].NumberValue,
-                    loading: false
-                })
+                setTitle(response.data.value[0].TextValue)
+                setBody(response.data.value[0].MultiTextValue)
+                setModified(response.data.value[0].Modified)
+                setCookieDays(response.data.value[0].NumberValue)
+                setLoading(false)
             }).catch(error => {
-                console.warn('error expected outside of SharePoint environment', error)
-                this.updateState({
-                    title: 'VICO ToR Header',
-                    body: 'VICO ToR Body',
-                    loading: false
-                })
+                console.warn('Axios get', error)
             })
-    }
+        return () => { };
+    }, [])
 
-    render() {
-        return (this.state.loading) ?
-            <CircularProgress /> :
-            (this.state.agree) ?
-                <VDRTabs /> :
-                <TermsOfReference
-                    title={this.state.title}
-                    body={this.state.body}
-                    handleAgree={this.handleAgree}
-                    handleDisagree={this.handleDisagree}
-                />
-    }
+    return (loading) ?
+        <CircularProgress /> :
+        (agree) ?
+            <VDRTabs /> :
+            <TermsOfReference
+                title={title}
+                body={body}
+                handleAgree={handleAgree}
+                handleDisagree={handleDisagree}
+            />
 }
-
-export default AppContent

@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { useState, useContext } from 'react'
 import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button } from "@material-ui/core"
 import makeUUID from '../../utilities/makeUUID.js'
+import { PageContext } from '../../../App'
 import axios from 'axios'
-
+import { makeStyles } from '@material-ui/core/styles';
 /**
  * present add proponent dialog
  */
@@ -10,52 +11,41 @@ import axios from 'axios'
 let SP = window.SP
 let ExecuteOrDelayUntilScriptLoaded = window.ExecuteOrDelayUntilScriptLoaded
 
-export class AddProponent extends Component {
+export default function AddProponent(props) {
+    const pageContext = useContext(PageContext)
 
-    constructor(props) {
-        super(props)
+    const [progress, setProgress] = React.useState(0);
+    const [name, setName] = useState('')
 
-        this.state = {
-            config: {
-                headers: {
-                    "X-RequestDigest": document.getElementById("__REQUESTDIGEST").value,
-                    "content-type": "application/json;odata=verbose"
-                }
-            }
+    const config = {
+        headers: {
+            "X-RequestDigest": document.getElementById("__REQUESTDIGEST").value,
+            "content-type": "application/json;odata=verbose"
         }
     }
 
-    handleSave = (name) => {
-        const newProponent = {
-            Title: "Proponent A",
-            Modified: "2020-01-17T21:24:18Z",
-            UUID: "",
-            Active: true,
-            GroupId: 0
-        }
-
+    const handleSave = () => {
         // validate
         if (!name) return
 
-        newProponent.Title = name
-
-        // generate unique id
-        newProponent.UUID = makeUUID()
+        const newProponent = {
+            Title: name,
+            UUID: makeUUID()
+        }
+        setProgress(0)
 
         axios.all([
             //create proponent group
-            axios.post(
-                "../_api/web/sitegroups",
+            axios.post(`${pageContext.webAbsoluteUrl}/_api/web/sitegroups`,
                 {
                     "__metadata": { "type": "SP.Group" },
                     "Description": "Proponent Group.  created by automation",
                     "Title": newProponent.UUID
                 },
-                this.state.config
+                config
             ),
             //create proponent library
-            axios.post(
-                '../_api/web/lists',
+            axios.post(`${pageContext.webAbsoluteUrl}/_api/web/lists`,
                 {
                     "__metadata": { "type": "SP.List" },
                     "AllowContentTypes": true,
@@ -64,11 +54,10 @@ export class AddProponent extends Component {
                     "Description": "Proponent Contribution Library.  created by automation",
                     "Title": newProponent.UUID
                 },
-                this.state.config
+                config
             ),
             //create proponent question list
-            axios.post(
-                '../_api/web/lists',
+            axios.post(`${pageContext.webAbsoluteUrl}/_api/web/lists`,
                 {
                     "__metadata": { "type": "SP.List" },
                     "AllowContentTypes": true,
@@ -77,125 +66,147 @@ export class AddProponent extends Component {
                     "Description": "Proponent Question List.  created by automation",
                     "Title": newProponent.UUID + "_Questions"
                 },
-                this.state.config
+                config
             ),
             //get site owner group
-            axios.get('../_api/Web/AssociatedOwnerGroup')
-        ])
-            .then(axios.spread((groupResponse, libraryResponse, listResponse, siteOwnerResponse) => {
-                console.log('all done')
-                console.log("groupResponse", groupResponse)
-                console.log("libraryResponse", libraryResponse)
-                console.log("listResponse", listResponse)
-                console.log("siteOwnerResponse", siteOwnerResponse)
-                newProponent.GroupId = groupResponse.data.Id
-                //TODO: update group owner
-                // ExecuteOrDelayUntilScriptLoaded(() => {
-                //     const clientContext = new SP.clientContext()
-                //     const ownerGroup = clientContext.get_web().get_siteGroups().getByName(siteOwnerResponse.data.Title)
-                //     const group = clientContext.get_web().get_siteGroups().getByName(groupResponse.data.Title)
+            axios.get(`${pageContext.webAbsoluteUrl}/_api/Web/AssociatedOwnerGroup`),
+            axios.get(`${pageContext.webAbsoluteUrl}/_api/Web/AssociatedMemberGroup`),
+            axios.get(`${pageContext.webAbsoluteUrl}/_api/Web/RoleDefinitions/getbyname('Full Control')`),
+            axios.get(`${pageContext.webAbsoluteUrl}/_api/Web/RoleDefinitions/getbyname('Contribute')`),
+            axios.get(`${pageContext.webAbsoluteUrl}/_api/Web/RoleDefinitions/getbyname('Read')`)
+        ]).then(axios.spread((groupResponse, libraryResponse, listResponse, siteOwnerResponse, siteMemberResponse, fullControlResponse, contributeResponse, readResponse) => {
+            setProgress(oldProgress => (oldProgress >= 100 ? 0 : oldProgress + 1))
+            newProponent.GroupId = groupResponse.data.Id
+            //TODO: update group owner
+            // ExecuteOrDelayUntilScriptLoaded(() => {
+            //     const clientContext = new SP.clientContext()
+            //     const ownerGroup = clientContext.get_web().get_siteGroups().getByName(siteOwnerResponse.data.Title)
+            //     const group = clientContext.get_web().get_siteGroups().getByName(groupResponse.data.Title)
 
-                //     group.set_owner(ownerGroup)
-                //     group.update()
+            //     group.set_owner(ownerGroup)
+            //     group.update()
 
-                //     clientContext.exectuteQueryAsync(() => {
-                //         console.log(`'${groupResponse.data.Title}' owner updated to '${siteOwnerResponse.data.Title}'`)
-                //     }, (sender, args) => {
-                //         console.log(`Failed ${args.get_message()}\n ${args.get_stackTrace()}`)
-                //     })
-                //     console.log("newProponent", newProponent)
-                //     console.log("this.state.config", this.state.config)
-                //     newProponent.__metadata = {
-                //         "type": "SP.Data.ListItem"
-                //     }
-                // }, 'sp.js')
+            //     clientContext.exectuteQueryAsync(() => {
+            //         console.log(`'${groupResponse.data.Title}' owner updated to '${siteOwnerResponse.data.Title}'`)
+            //     }, (sender, args) => {
+            //         console.log(`Failed ${args.get_message()}\n ${args.get_stackTrace()}`)
+            //     })
+            //     console.log("newProponent", newProponent)
+            //     console.log("this.state.config", this.state.config)
+            //     newProponent.__metadata = {
+            //         "type": "SP.Data.ListItem"
+            //     }
+            // }, 'sp.js')
+            axios.all([
+                //add proponent to proponent list
+                axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists/GetByTitle('Proponents')/items`,
+                    {
+                        "__metadata": {
+                            "type": "SP.Data.ProponentsListItem"
+                        },
+                        "Title": newProponent.Title,
+                        "UUID": newProponent.UUID,
+                        "GroupId": newProponent.GroupId
+                    },
+                    {
+                        headers: {
+                            ...config.headers,
+                            "Accept": "application/json:odata=verbose"
+                        }
+                    }
+                ),
+                //set permissions site
+                axios.post(`${pageContext.webAbsoluteUrl}/_api/web/RoleAssignments/addRoleAssignment(principalid=${groupResponse.data.Id},roledefid=${readResponse.data.Id})`,
+                    {},
+                    {
+                        headers: {
+                            ...config.headers,
+                            "Accept": "application/json:odata=verbose"
+                        }
+                    }
+                ),
+                //break permissions on library
+                axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${libraryResponse.data.Id}')/breakRoleInheritance(copyRoleAssignments=false,clearSubscopes=false)`,
+                    {},
+                    {
+                        headers: {
+                            ...config.headers,
+                            "Accept": "application/json:odata=verbose"
+                        }
+                    }
+                ),
+                //break permissions on list
+                axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${listResponse.data.Id}')/breakRoleInheritance(copyRoleAssignments=false,clearSubscopes=false)`,
+                    {},
+                    {}
+                )
+            ]).then(axios.spread((proponentResponse, webPermissionsResponse, libraryPermissionsResponse, listPermissionsResponse) => {
+                setProgress(oldProgress => (oldProgress >= 100 ? 0 : oldProgress + 1))
                 axios.all([
-                    //TODO: add proponent to proponent list
-                    axios
-                        .post(
-                            "../_api/web/Lists/GetByTitle('Proponents')/items",
-                            {
-                                "__metadata": {
-                                    "type": "SP.Data.ProponentsListItem"
-                                },
-                                "Title": newProponent.Title,
-                                "UUID": newProponent.UUID,
-                                "GroupId": newProponent.GroupId
-                            },
-                            {
-                                headers: {
-                                    ...this.state.config.headers,
-                                    "Accept": "application/json:odata=verbose"
-                                }
-                            }
-
+                    //set permissions on library
+                    axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${libraryResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${siteOwnerResponse.data.Id},roledefid=${fullControlResponse.data.Id})`,
+                        {},
+                        {}),
+                    axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${libraryResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${siteMemberResponse.data.Id},roledefid=${contributeResponse.data.Id})`,
+                        {},
+                        {}),
+                    axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${libraryResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${groupResponse.data.Id},roledefid=${contributeResponse.data.Id})`,
+                        {},
+                        {}),
+                    //set permissions on list
+                    axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${listResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${siteOwnerResponse.data.Id},roledefid=${fullControlResponse.data.Id})`,
+                        {},
+                        {}),
+                    axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${listResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${siteMemberResponse.data.Id},roledefid=${contributeResponse.data.Id})`,
+                        {},
+                        {}),
+                    axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${listResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${groupResponse.data.Id},roledefid=${contributeResponse.data.Id})`,
+                        {},
+                        {})
+                ]).then(axios.spread((libraryOwnerPermsResponse, libraryMembersPermsResponse, libraryProponentPermsResponse, listOwnerPermsResponse, listMembersPermsResponse, listProponentPermsResponse) => {
+                    setProgress(oldProgress => (oldProgress >= 100 ? 0 : oldProgress + 1))
+                    //remove current user perms on list
+                    axios.all([
+                        axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${libraryResponse.data.Id}')/RoleAssignments/removeRoleAssignment(principalid=${pageContext.userId},roledefid=${fullControlResponse.data.Id})`,
+                            {},
+                            {}
+                        ),
+                        axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${listResponse.data.Id}')/RoleAssignments/removeRoleAssignment(principalid=${pageContext.userId},roledefid=${fullControlResponse.data.Id})`,
+                            {},
+                            {}
                         )
-                        .then(response => {
-                            console.log("add Item:", response)
-                        })
-                        .catch(error => {
-                            if (error.response) {
-                                // The request was made and the server responded with a status code
-                                // that falls out of the range of 2xx
-                                console.log(error.response.data);
-                                console.log(error.response.status);
-                                console.log(error.response.headers);
-                            } else if (error.request) {
-                                // The request was made but no response was received
-                                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                                // http.ClientRequest in node.js
-                                console.log(error.request);
-                            } else {
-                                // Something happened in setting up the request that triggered an Error
-                                console.log('Error', error.message);
-                            }
-                            console.log(error.config)
-                        })
-                    //TODO: set permissions on library
-                    //TODO: set permissions on list
-                ])
-                    .then(axios.spread(() => {
+                    ]).then(axios.spread((currentUserLibrary, currentUserList) => {
+                        setProgress(0)
                         //update table
-                        this.props.newProponent(newProponent)
+                        props.close()
                     }))
-                    .catch(error => {
-                        console.log("error", error)
-                    })
+                }))
             }))
-            .catch(error => {
-                console.log("error", error)
-            })
+        }))
     }
 
-    handleClose = () => {
-        this.props.close()
-    }
-
-    render() {
-        return (
-            <Dialog open={this.props.open} onClose={this.handleClose}>
-                <DialogTitle id="form-dialog-title">Add a new Proponent</DialogTitle>
-                <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="proponentName"
-                        label="Proponent's Name"
-                        type="text"
-                        fullWidth
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => this.handleSave(document.getElementById("proponentName").value)} color="primary">
-                        Save
+    return (
+        <Dialog open={props.open} onClose={props.close}>
+            <DialogTitle id="form-dialog-title">Add a new Proponent</DialogTitle>
+            <DialogContent>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="proponentName"
+                    label="Proponent's Name"
+                    type="text"
+                    fullWidth
+                    onChange={e => setName(e.target.value)}
+                />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleSave} color="primary">
+                    Save
                       </Button>
-                    <Button onClick={this.handleClose} color="primary">
-                        Cancel
+                <Button onClick={props.close} color="primary">
+                    Cancel
                       </Button>
-                </DialogActions>
-            </Dialog>
-        )
-    }
+            </DialogActions>
+        </Dialog>
+    )
 }
-
-export default AddProponent
