@@ -2,6 +2,7 @@ import React from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import Appcontent from './components/AppContent'
 import './css/App.css'
+import SPListHarness from './components/SPListHarness'
 
 /**
  * apply theme to application
@@ -63,10 +64,10 @@ export default function App() {
     return (
         <MuiThemeProvider theme={theme}>
             <PageContext.Provider value={_spPageContextInfo}>
-                <Appcontent />
+                {/*<Appcontent />*/}
+                <SPListHarness />
             </PageContext.Provider>
         </MuiThemeProvider>
-        //<Rest />
     )
 
 }

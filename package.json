@@ -47,7 +47,9 @@
     "jquery-ui": "^1.12.1",
     "material-table": "^1.55.0",
     "moment": "^2.24.0",
+    "react-icons": "^3.9.0",
     "react-moment": "^0.9.7",
-    "react-tabs": "^3.0.0"
+    "react-tabs": "^3.0.0",
+    "react-toastify": "^5.5.0"
   }
 }
