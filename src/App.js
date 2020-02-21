@@ -17,8 +17,8 @@ export default function App() {
         console.warn("_spPageContextInfo set to development values")
         _spPageContextInfo =
         {
-           // webServerRelativeUrl: "\u002fsites\u002fDEV\u002fVDRoom",
-            webAbsoluteUrl: "http://localhost:8080\u002fVDRoom",
+            // webServerRelativeUrl: "\u002fsites\u002fDEV\u002fVDRoom",
+            webAbsoluteUrl: "http://localhost:8081\u002fVDRoom",
             // siteAbsoluteUrl: "http://localhost:8080",
             // serverRequestPath: "\u002fsites\u002fDEV\u002fVDRoom\u002fSitePages\u002fHome.aspx",
             // layoutsUrl: "_layouts\u002f15",
@@ -39,8 +39,8 @@ export default function App() {
             // pageListId: "{d6b46153-7a0c-43f8-93d3-3273295344c9}",
             // pageItemId: 1,
             // pagePersonalizationScope: 1,
-             userId: 6,
-             //userLoginName: "a32d6f859c66450ca4995b0b2bf0a844",
+            userId: 6,
+            //userLoginName: "a32d6f859c66450ca4995b0b2bf0a844",
             // systemUserKey: "i:0\u01F5.t|bcgovidp|a32d6f859c66450ca4995b0b2bf0a844",
             // alertsEnabled: true,
             // customMarkupInCalculatedFieldDisabled: true,
@@ -64,8 +64,7 @@ export default function App() {
     return (
         <MuiThemeProvider theme={theme}>
             <PageContext.Provider value={_spPageContextInfo}>
-                {/*<Appcontent />*/}
-                <SPListHarness />
+                <Appcontent />
             </PageContext.Provider>
         </MuiThemeProvider>
     )
