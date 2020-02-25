@@ -1,7 +1,7 @@
-import 'react-tabs/style/react-tabs.css';
+import 'react-tabs/style/react-tabs.css'
 import React, { useState, useEffect, useContext } from 'react'
-import TermsOfReference from './terms/TermsOfReference';
-import VDRTabs from './tabs/VDRTabs';
+import TermsOfReference from './terms/TermsOfReference'
+import VDRTabs from './tabs/VDRTabs'
 import { setCookie, getCookie } from './utilities/cookies'
 import axios from 'axios'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -45,7 +45,7 @@ export default function AppContent() {
             }).catch(error => {
                 console.warn('Axios get', error)
             })
-        return () => { };
+        return () => { }
     }, [])
 
     return (loading) ?

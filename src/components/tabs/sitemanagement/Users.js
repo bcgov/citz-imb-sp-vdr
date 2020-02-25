@@ -1,6 +1,16 @@
-import React, { Component, forwardRef } from 'react'
-import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, IconButton } from "@material-ui/core"
+import React, { forwardRef, useState, useEffect, useContext } from 'react'
+import {
+	Dialog,
+	DialogTitle,
+	DialogContent,
+	TextField,
+	DialogActions,
+	Button,
+	IconButton
+} from '@material-ui/core'
 import MaterialTable from 'material-table'
+import { PageContext } from '../../../App'
+import axios from 'axios'
 
 import Add from '@material-ui/icons/Add'
 import AddBox from '@material-ui/icons/AddBox'
@@ -24,212 +34,183 @@ import CloseIcon from '@material-ui/icons/Close'
  * Present the users for a specific proponent in a dialog
  */
 const tableIcons = {
-    Add: forwardRef((props, ref) => <Add {...props} ref={ref} />),
-    AddBox: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
-    Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
-    Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-    Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
-    DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-    Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
-    Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
-    Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
-    FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
-    LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
-    NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-    NotInterested: forwardRef((props, ref) => <NotInterestedIcon {...props} ref={ref} />),
-    PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
-    ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-    Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
-    SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
-    ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
-};
-
-export class Users extends Component {
-    constructor(props) {
-        super(props)
-        const proponentName = props.proponentName
-
-        this.state = {
-            table: {
-                title: 'User Accounts for ' + proponentName,
-                options: {
-                    search: false,
-                    sorting: false,
-                    paging: false,
-                    pageSize: 20,
-                    draggable: false,
-                    toolbar: true
-                },
-                icons: tableIcons,
-                data: [
-                    {
-                        "__metadata": {
-                            "id": "https://citz.sp.gov.bc.ca/sites/DEV/_api/Web/GetUserById(1234)",
-                            "uri": "https://citz.sp.gov.bc.ca/sites/DEV/_api/Web/GetUserById(1234)",
-                            "type": "SP.User"
-                        },
-                        "Groups": {
-                            "__deferred": {
-                                "uri": "https://citz.sp.gov.bc.ca/sites/DEV/_api/Web/GetUserById(1234)/Groups"
-                            }
-                        },
-                        "Id": 1234,
-                        "IsHiddenInUI": false,
-                        "LoginName": "i:0ǵ.t|bcgovidp|4e8c00fb6b984815b5d90ea554e8d8f9",
-                        "Title": "adam spiteri",
-                        "PrincipalType": 1,
-                        "Email": "adam_spiteri@hotmail.ca",
-                        "IsShareByEmailGuestUser": false,
-                        "IsSiteAdmin": false,
-                        "UserId": {
-                            "__metadata": {
-                                "type": "SP.UserIdInfo"
-                            },
-                            "NameId": "4e8c00fb6b984815b5d90ea554e8d8f9",
-                            "NameIdIssuer": "TrustedProvider:bcgovidp"
-                        }
-                    },
-                    {
-                        "__metadata": {
-                            "id": "https://citz.sp.gov.bc.ca/sites/DEV/_api/Web/GetUserById(188)",
-                            "uri": "https://citz.sp.gov.bc.ca/sites/DEV/_api/Web/GetUserById(188)",
-                            "type": "SP.User"
-                        },
-                        "Groups": {
-                            "__deferred": {
-                                "uri": "https://citz.sp.gov.bc.ca/sites/DEV/_api/Web/GetUserById(188)/Groups"
-                            }
-                        },
-                        "Id": 188,
-                        "IsHiddenInUI": false,
-                        "LoginName": "i:0ǵ.t|bcgovidp|01cf69ab0f394f45ab8d094eb50d130f",
-                        "Title": "Passmore, Shane CITZ:EX",
-                        "PrincipalType": 1,
-                        "Email": "Shane.Passmore@gov.bc.ca",
-                        "IsShareByEmailGuestUser": false,
-                        "IsSiteAdmin": false,
-                        "UserId": {
-                            "__metadata": {
-                                "type": "SP.UserIdInfo"
-                            },
-                            "NameId": "01cf69ab0f394f45ab8d094eb50d130f",
-                            "NameIdIssuer": "TrustedProvider:bcgovidp"
-                        }
-                    },
-                    {
-                        "__metadata": {
-                            "id": "https://citz.sp.gov.bc.ca/sites/DEV/_api/Web/GetUserById(5)",
-                            "uri": "https://citz.sp.gov.bc.ca/sites/DEV/_api/Web/GetUserById(5)",
-                            "type": "SP.User"
-                        },
-                        "Groups": {
-                            "__deferred": {
-                                "uri": "https://citz.sp.gov.bc.ca/sites/DEV/_api/Web/GetUserById(5)/Groups"
-                            }
-                        },
-                        "Id": 5,
-                        "IsHiddenInUI": false,
-                        "LoginName": "i:0ǵ.t|bcgovidp|fc9f8c4adca2445f80e247555906c873",
-                        "Title": "Spiteri, Adam C CITZ:EX",
-                        "PrincipalType": 1,
-                        "Email": "Adam.Spiteri@gov.bc.ca",
-                        "IsShareByEmailGuestUser": false,
-                        "IsSiteAdmin": true,
-                        "UserId": {
-                            "__metadata": {
-                                "type": "SP.UserIdInfo"
-                            },
-                            "NameId": "fc9f8c4adca2445f80e247555906c873",
-                            "NameIdIssuer": "TrustedProvider:bcgovidp"
-                        }
-                    }
-                ],
-                actions: [
-                    {
-                        icon: tableIcons.Add,
-                        tooltip: "Add a User",
-                        isFreeAction: true,
-                        onClick: (event, rowdata) => {
-                            this.setState({
-                                addUser: {
-                                    open: true,
-                                    handleClose: () => {
-                                        this.setState({
-                                            addUser: {
-                                                open: false
-                                            }
-                                        })
-                                    },
-                                    handleSave: () => {
-                                        alert("Save User")
-                                        this.setState({
-                                            addUser: {
-                                                open: false
-                                            }
-                                        })
-                                    }
-                                }
-                            })
-                        }
-                    },
-                    {
-                        icon: tableIcons.NotInterested,
-                        tooltip: "Remove User",
-                        onClick: (event, rowdata) => {
-                            this.setState({
-                                removeUser: {
-                                    open: true,
-                                    userId: rowdata,
-                                    handleClose: () => {
-                                        this.setState({
-                                            removeUser: {
-                                                open: false
-                                            }
-                                        })
-                                    },
-                                    handleRemove: () => {
-                                        alert("Remove User")
-                                        this.setState({
-                                            removeUser: {
-                                                open: false
-                                            }
-                                        })
-                                    }
-                                }
-                            })
-                        }
-                    }
-                ],
-                columns: [
-                    {
-                        title: "User",
-                        field: "Title"
-                    },
-                    {
-                        title: "Email",
-                        field: "Email"
-                    }
-                ]
-            }
-        }
-    }
-
-    render() {
-        return (
-            <Dialog open={this.props.open} onClose={this.props.handleClose} maxWidth='md'>
-                <DialogTitle id="form-dialog-title">
-                    User accounts for {this.props.proponentName}
-                    <IconButton aria-label='close' onClick={this.props.handleClose}>
-                        <CloseIcon />
-                    </IconButton>
-                </DialogTitle>
-                <DialogContent>
-                    <MaterialTable {...this.state.table} />
-                </DialogContent>
-            </Dialog>
-        )
-    }
+	Add: forwardRef((props, ref) => <Add {...props} ref={ref} />),
+	AddBox: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+	Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+	Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+	Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+	DetailPanel: forwardRef((props, ref) => (
+		<ChevronRight {...props} ref={ref} />
+	)),
+	Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+	Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+	Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+	FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+	LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+	NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+	NotInterested: forwardRef((props, ref) => (
+		<NotInterestedIcon {...props} ref={ref} />
+	)),
+	PreviousPage: forwardRef((props, ref) => (
+		<ChevronLeft {...props} ref={ref} />
+	)),
+	ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+	Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+	SortArrow: forwardRef((props, ref) => (
+		<ArrowDownward {...props} ref={ref} />
+	)),
+	ThirdStateCheck: forwardRef((props, ref) => (
+		<Remove {...props} ref={ref} />
+	)),
+	ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 }
 
-export default Users
+export default function Users(props) {
+	const pageContext = useContext(PageContext)
+
+	const config = {
+		headers: {
+			'X-RequestDigest': document.getElementById('__REQUESTDIGEST').value,
+			'content-type': 'application/json;odata=verbose'
+		}
+	}
+
+	const [table, setTable] = useState({
+		title: 'User Accounts for ' + props.proponentName,
+		options: {
+			search: false,
+			sorting: false,
+			paging: false,
+			pageSize: 20,
+			draggable: false,
+			toolbar: true
+		},
+		icons: tableIcons,
+		data: [],
+		actions: [
+			{
+				icon: tableIcons.Add,
+				tooltip: 'Add a User',
+				isFreeAction: true,
+				onClick: (event, rowdata) => {
+					addUser()
+				}
+			},
+			{
+				icon: tableIcons.Delete,
+				tooltip: 'Remove User',
+				onClick: (event, rowdata) => {
+					deleteUser(rowdata)
+				}
+			}
+		],
+		columns: [
+			{
+				title: 'User',
+				field: 'Title'
+			},
+			{
+				title: 'Email',
+				field: 'Email'
+			}
+		]
+	})
+
+	const addUser = () => {
+		console.log(`addUser`)
+	}
+
+	const deleteUser = rowdata => {
+		console.log(`deleteUser`, rowdata)
+		console.log(`props`, props)
+		axios
+			.post(
+				`${pageContext.webAbsoluteUrl}/_api/web/SiteGroups(${props.group})/removeById(${rowdata.Id})`,
+				{},
+				{
+					headers: {
+						...config.headers,
+						Accept: 'application/json:odata=verbose'
+					}
+				}
+			)
+			.then(response => {
+				console.log(
+					`/SiteGroups(${props.group}/removeById(${rowdata.Id})`,
+					response.data
+				)
+			})
+			.catch(error => {
+				console.groupCollapsed('Error Details')
+				if (error.response) {
+					// The request was made and the server responded with a status code
+					// that falls out of the range of 2xx
+					console.error(error.response.data)
+					console.error(error.response.status)
+					console.error(error.response.headers)
+				} else if (error.request) {
+					// The request was made but no response was received
+					// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+					// http.ClientRequest in node.js
+					console.error(error.request)
+				} else {
+					// Something happened in setting up the request that triggered an Error
+					console.error('Error', error.message)
+				}
+				console.error(error.config)
+				console.groupEnd()
+			})
+	}
+
+	const refreshTable = () => {
+		axios
+			.get(
+				`${pageContext.webAbsoluteUrl}/_api/web/SiteGroups(${props.group})/users`
+			)
+			.then(response => {
+				console.log(`/SiteGroups(${props.group})/users`, response.data)
+				setTable({ ...table, data: response.data.value })
+			})
+			.catch(error => {
+				console.groupCollapsed('Error Details')
+				if (error.response) {
+					// The request was made and the server responded with a status code
+					// that falls out of the range of 2xx
+					console.error(error.response.data)
+					console.error(error.response.status)
+					console.error(error.response.headers)
+				} else if (error.request) {
+					// The request was made but no response was received
+					// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+					// http.ClientRequest in node.js
+					console.error(error.request)
+				} else {
+					// Something happened in setting up the request that triggered an Error
+					console.error('Error', error.message)
+				}
+				console.error(error.config)
+				console.groupEnd()
+			})
+	}
+
+	useEffect(() => {
+		refreshTable()
+		return () => {
+			setTable({ ...table, data: [] })
+		}
+	}, [props.open])
+
+	return (
+		<Dialog open={props.open} onClose={props.handleClose} maxWidth='md'>
+			<DialogTitle id='form-dialog-title'>
+				User accounts for {props.proponentName}
+				<IconButton aria-label='close' onClick={props.handleClose}>
+					<CloseIcon />
+				</IconButton>
+			</DialogTitle>
+			<DialogContent>
+				<MaterialTable {...table} />
+			</DialogContent>
+		</Dialog>
+	)
+}
