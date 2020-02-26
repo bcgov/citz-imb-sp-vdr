@@ -1,4 +1,10 @@
-import React, { forwardRef, useState, useEffect, useContext } from "react";
+import React, {
+  forwardRef,
+  useState,
+  useEffect,
+  useContext,
+  Fragment
+} from "react";
 import {
   Dialog,
   DialogTitle,
@@ -27,6 +33,7 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
+import AddUser from "./AddUser";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <Add {...props} ref={ref} />),
@@ -61,6 +68,7 @@ export default function Users(props) {
 
   const pageContext = useContext(PageContext);
 
+  const [addUserOpen, setAddUserOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [options, setOptions] = useState({
     search: false,
@@ -86,6 +94,7 @@ export default function Users(props) {
 
   const addUser = () => {
     console.log(`adduser`, props);
+    setAddUserOpen(true);
   };
 
   const removeUser = rowdata => {
@@ -187,23 +196,32 @@ export default function Users(props) {
   }, [props.open]);
 
   return (
-    <Dialog open={props.open} maxWidth="md" onClose={props.handleClose}>
-      <DialogTitle id="form-dialog-title">
-        User accounts for {props.proponentName}
-        <IconButton aria-label="close" onClick={props.handleClose}>
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent>
-        <MaterialTable
-          options={options}
-          actions={actions}
-          columns={columns}
-          data={data}
-          icons={icons}
-          title={title}
-        />
-      </DialogContent>
-    </Dialog>
+    <Fragment>
+      <Dialog open={props.open} maxWidth="md" onClose={props.handleClose}>
+        <DialogTitle id="form-dialog-title">
+          User accounts for {props.proponentName}
+          <IconButton aria-label="close" onClick={props.handleClose}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          <MaterialTable
+            options={options}
+            actions={actions}
+            columns={columns}
+            data={data}
+            icons={icons}
+            title={title}
+          />
+        </DialogContent>
+      </Dialog>
+      <AddUser
+        open={addUserOpen}
+        proponentName={props.proponentName}
+        handleClose={() => {
+          setAddUserOpen(false);
+        }}
+      />
+    </Fragment>
   );
 }

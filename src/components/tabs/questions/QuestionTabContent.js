@@ -10,12 +10,12 @@ function QuestionTabContent() {
         <Grid container spacing={3}>
             <Grid item xs={6}>
                 <Paper>
-                    <PublicQuestions />
+                    {/*<PublicQuestions />*/}
                 </Paper>
             </Grid>
             <Grid item xs={6}>
                 <Paper>
-                    <PrivateQuestions />
+                    {/*<PrivateQuestions />*/}
                 </Paper>
             </Grid>
         </Grid>

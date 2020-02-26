@@ -38,6 +38,7 @@
     "@material-ui/icons": "^4.5.1",
     "@pnp/graph": "^2.0.2",
     "@pnp/sp": "^2.0.2",
+    "@pnp/spfx-controls-react": "^1.16.0",
     "axios": "^0.19.2",
     "concurrently": "^5.1.0",
     "datatables.net": "^1.10.20",
