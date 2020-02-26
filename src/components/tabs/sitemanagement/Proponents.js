@@ -10,7 +10,7 @@ import AddProponent from "./AddProponent.js";
 import DisableProponent from "./DisableProponent.js";
 import ProponentLibrary from "./ProponentLibrary.js";
 import ProponentQuestions from "./ProponentQuestions.js";
-import Users from "./Users.js";
+
 import axios from "axios";
 import { PageContext } from "../../../App";
 
@@ -34,6 +34,7 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import QuestionAnswerIcon from "@material-ui/icons/QuestionAnswer";
 import PeopleIcon from "@material-ui/icons/People";
+import Users from "./Users.js";
 
 /**
  * present the proponents
@@ -84,9 +85,7 @@ export default function Proponents() {
   const [proponentQuestionDialog, setProponentQuestionDialog] = useState(false);
   const [proponentDisableDialog, setProponentDisableDialog] = useState(false);
   const [users, setUsers] = useState({
-    open: false,
-    group: 0,
-    proponentName: ""
+    open: false
   });
 
   const [table, setTable] = useState({
@@ -240,7 +239,6 @@ export default function Proponents() {
         proponent={currentProponent}
         proponentName={currentProponentName}
       />
-      <Users {...users} />
       <ProponentLibrary
         open={proponentLibraryDialog}
         close={proponentLibraryHandleClose}
@@ -251,6 +249,7 @@ export default function Proponents() {
         close={proponentQuestionHandleClose}
         proponent={currentProponent}
       />
+      <Users {...users} />
     </Fragment>
   );
 }
