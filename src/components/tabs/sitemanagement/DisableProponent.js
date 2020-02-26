@@ -1,22 +1,29 @@
-import React, { Component } from 'react'
-import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button } from "@material-ui/core"
+import React, { useEffect, useState } from 'react'
+import { Dialog, DialogTitle, Paper, DialogActions, Button, DialogContent } from "@material-ui/core"
 
-export class DisableProponent extends Component {
-    render() {
-        return (
-            <Dialog open={this.props.open} onClose={this.props.handleClose}>
-                <DialogTitle id="form-dialog-title">Disable {this.props.proponentName}?</DialogTitle>
-                <DialogActions>
-                    <Button onClick={this.props.handleDisable} color="primary">
-                        Disable
+export default function DisableProponent(props) {
+    return (
+        <Dialog open={props.open} onClose={props.handleClose}>
+            <DialogTitle id="form-dialog-title">Disable {props.proponentName}?</DialogTitle>
+            <DialogContent>
+                <Paper>
+                    <h3>This action will</h3>
+                    <ul>
+                        <li>set {props.proponentName} to be disabled</li>
+                        <li>remove access for all user accounts associated with {props.proponentName}</li>
+                        <li>set the {props.proponent} library to read-only</li>
+                        <li>set the {props.proponent}_Questions list to read-only</li>
+                    </ul>
+                </Paper>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={props.handleDisable} color="primary">
+                    Disable
               </Button>
-                    <Button onClick={this.props.handleClose} color="primary">
-                        Cancel
+                <Button onClick={props.close} color="primary">
+                    Cancel
               </Button>
-                </DialogActions>
-            </Dialog>
-        )
-    }
+            </DialogActions>
+        </Dialog>
+    )
 }
-
-export default DisableProponent

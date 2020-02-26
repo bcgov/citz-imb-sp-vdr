@@ -14,7 +14,9 @@
     "start": "set HTTPS=true&&set PORT=443&&react-scripts start",
     "build": "react-scripts build && gulp",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "proxy": "node ./api-server.js",
+    "startServers": "concurrently --kill-others \"npm run proxy\" \"npm run start\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,7 +38,9 @@
     "@material-ui/icons": "^4.5.1",
     "@pnp/graph": "^2.0.2",
     "@pnp/sp": "^2.0.2",
+    "@pnp/spfx-controls-react": "^1.16.0",
     "axios": "^0.19.2",
+    "concurrently": "^5.1.0",
     "datatables.net": "^1.10.20",
     "datatables.net-buttons": "^1.6.1",
     "datatables.net-editor": "^1.6.5",
@@ -46,6 +50,12 @@
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
     "material-table": "^1.55.0",
-    "react-tabs": "^3.0.0"
-  }
+    "moment": "^2.24.0",
+    "react-icons": "^3.9.0",
+    "react-moment": "^0.9.7",
+    "react-tabs": "^3.0.0",
+    "react-toastify": "^5.5.0",
+    "sp-rest-proxy": "^2.10.3"
+  },
+  "proxy": "http://localhost:8081"
 }

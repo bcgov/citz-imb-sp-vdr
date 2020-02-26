@@ -50,8 +50,16 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     '& span.MuiTab-wrapper': {
-      textTransform: 'capitalize'
+      textTransform: 'capitalize',
+    },
+    '& button.MuiTab-textColorSecondary': {
+      color: '#efefef'
+    },
+    '& button.MuiTab-textColorSecondary.Mui-selected': {
+      color: '#E3A82B'
     }
+
+
   }
 }));
 

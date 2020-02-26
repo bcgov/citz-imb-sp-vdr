@@ -1,20 +1,16 @@
-import React, {
-  forwardRef,
-  useState,
-  useEffect,
-  useContext,
-  Fragment
-} from "react";
+import React, { forwardRef, useState, useEffect, useContext } from "react";
 import {
   Dialog,
   DialogTitle,
-  IconButton,
-  DialogContent
+  DialogContent,
+  TextField,
+  DialogActions,
+  Button,
+  IconButton
 } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
 import MaterialTable from "material-table";
+import { PageContext } from "../App";
 import axios from "axios";
-import { PageContext } from "../../../App";
 
 import Add from "@material-ui/icons/Add";
 import AddBox from "@material-ui/icons/AddBox";
@@ -33,7 +29,11 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
-import AddUser from "./AddUser";
+import CloseIcon from "@material-ui/icons/Close";
+
+/**
+ * Present the users for a specific proponent in a dialog
+ */
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <Add {...props} ref={ref} />),
@@ -64,54 +64,83 @@ const tableIcons = {
 };
 
 export default function Users(props) {
-  console.log("users:", props);
+  const test = props.group;
 
+  console.log("Users called", test);
   const pageContext = useContext(PageContext);
 
-  const [addUserOpen, setAddUserOpen] = useState(false);
-  const [title, setTitle] = useState("");
-  const [options, setOptions] = useState({
-    search: false,
-    sorting: false,
-    paging: false,
-    pageSize: 20,
-    draggable: false,
-    toolbar: true
-  });
-  const [data, setData] = useState([]);
-  const [icons, setIcons] = useState(tableIcons);
-  const [actions, setActions] = useState([]);
-  const [columns, setColumns] = useState([
-    {
-      title: "User",
-      field: "Title"
-    },
-    {
-      title: "Email",
-      field: "Email"
+  const config = {
+    headers: {
+      "X-RequestDigest": document.getElementById("__REQUESTDIGEST").value,
+      "content-type": "application/json;odata=verbose"
     }
-  ]);
+  };
+  const [group, setGroup] = useState(props.group);
+  const [table, setTable] = useState({
+    title: "User Accounts for " + props.proponentName,
+    options: {
+      search: false,
+      sorting: false,
+      paging: false,
+      pageSize: 20,
+      draggable: false,
+      toolbar: true
+    },
+    icons: tableIcons,
+    data: [],
+    actions: [
+      {
+        icon: tableIcons.Add,
+        tooltip: "Add a User",
+        isFreeAction: true,
+        onClick: (event, rowdata) => {
+          addUser();
+        }
+      },
+      {
+        icon: tableIcons.Delete,
+        tooltip: "Remove User",
+        onClick: (event, rowdata) => {
+          //!incorrect props!!!!!!!!!!!!!!!!!!!!!
+          console.warn("onclick props 01 - incorrect", props, test);
+          deleteUser(rowdata);
+        }
+      }
+    ],
+    columns: [
+      {
+        title: "User",
+        field: "Title"
+      },
+      {
+        title: "Email",
+        field: "Email"
+      }
+    ]
+  });
 
   const addUser = () => {
-    console.log(`adduser`, props);
-    setAddUserOpen(true);
+    console.log(`addUser`);
   };
-
-  const removeUser = rowdata => {
+  //! incorrect props===================================
+  const deleteUser = rowdata => {
+    console.warn(`props 02 - incorrect`, props);
     axios
       .post(
-        `${pageContext.webAbsoluteUrl}/_api/web/SiteGroups(${props.group})/users/removeById(${rowdata.Id})`,
+        `${pageContext.webAbsoluteUrl}/_api/web/SiteGroups(${group})/users/removeById(${rowdata.Id})`,
         {},
         {
           headers: {
-            "X-RequestDigest": document.getElementById("__REQUESTDIGEST").value,
-            "content-type": "application/json;odata=verbose",
-            Accept: "application/json;odata=verbose"
+            ...config.headers,
+            Accept: "application/json:odata=verbose"
           }
         }
       )
       .then(response => {
-        refreshTable();
+        // console.log(
+        //   `/SiteGroups(${group}/users/removeById(${rowdata.Id})`,
+        //   response.data
+        // );
       })
       .catch(error => {
         console.groupCollapsed("Error Details");
@@ -136,32 +165,16 @@ export default function Users(props) {
   };
 
   const refreshTable = () => {
-    if (props.open) {
-      console.log("get data", props.group);
+    if (props.group == 0) {
+      setTable({ ...table, data: [] });
+    } else {
       axios
         .get(
           `${pageContext.webAbsoluteUrl}/_api/web/SiteGroups(${props.group})/users`
         )
         .then(response => {
-          setData(response.data.value);
-          setTitle(props.proponentName);
-          setActions([
-            {
-              icon: tableIcons.Add,
-              tooltip: "Add a User",
-              isFreeAction: true,
-              onClick: () => {
-                addUser();
-              }
-            },
-            {
-              icon: tableIcons.Delete,
-              tooltip: "Remove User",
-              onClick: (event, rowdata) => {
-                removeUser(rowdata);
-              }
-            }
-          ]);
+          //   console.log(`/SiteGroups(${props.group})/users`, response.data);
+          setTable({ ...table, data: response.data.value });
         })
         .catch(error => {
           console.groupCollapsed("Error Details");
@@ -188,40 +201,27 @@ export default function Users(props) {
 
   useEffect(() => {
     refreshTable();
-
+    setGroup(props.group);
     return () => {
-      setData([]);
-      setActions([]);
+      setTable({ ...table, data: [] });
     };
   }, [props.open]);
 
+  useEffect(() => {
+    return () => {};
+  }, [props.group]);
+
   return (
-    <Fragment>
-      <Dialog open={props.open} maxWidth="md" onClose={props.handleClose}>
-        <DialogTitle id="form-dialog-title">
-          User accounts for {props.proponentName}
-          <IconButton aria-label="close" onClick={props.handleClose}>
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent>
-          <MaterialTable
-            options={options}
-            actions={actions}
-            columns={columns}
-            data={data}
-            icons={icons}
-            title={title}
-          />
-        </DialogContent>
-      </Dialog>
-      <AddUser
-        open={addUserOpen}
-        proponentName={props.proponentName}
-        handleClose={() => {
-          setAddUserOpen(false);
-        }}
-      />
-    </Fragment>
+    <Dialog open={props.open} onClose={props.handleClose} maxWidth="md">
+      <DialogTitle id="form-dialog-title">
+        User accounts for {props.proponentName}
+        <IconButton aria-label="close" onClick={props.handleClose}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent>
+        <MaterialTable {...table} />
+      </DialogContent>
+    </Dialog>
   );
 }
