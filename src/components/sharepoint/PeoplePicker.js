@@ -1,35 +1,35 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react"
 
 const dev = window.dev
 
 const ppLibraries = [
 	{
-		type: 'text/javascript',
-		src: 'http://localhost:8081/_layouts/15/clienttemplates.js'
+		type: "text/javascript",
+		src: "http://localhost:8081/_layouts/15/clienttemplates.js"
 	},
 	{
-		type: 'text/javascript',
-		src: 'http://localhost:8081/_layouts/15/clientforms.js'
+		type: "text/javascript",
+		src: "http://localhost:8081/_layouts/15/clientforms.js"
 	},
 	{
-		type: 'text/javascript',
-		src: 'http://localhost:8081/_layouts/15/clientpeoplepicker.js'
+		type: "text/javascript",
+		src: "http://localhost:8081/_layouts/15/clientpeoplepicker.js"
 	},
 	{
-		type: 'text/javascript',
-		src: 'http://localhost:8081/_layouts/15/autofill.js'
+		type: "text/javascript",
+		src: "http://localhost:8081/_layouts/15/autofill.js"
 	}
 ]
 
 export default function PeoplePicker({ schema, elementName, getUserInfo }) {
-	let loadDelay = 1000
+	let loadDelay = 0
 	if (dev) loadDelay = 1000
 
 	useEffect(() => {
 		//append libraries needed for peoplepicker
 		ppLibraries.forEach(library => {
-			const head = document.getElementsByTagName('head')[0]
-			const element = document.createElement('script')
+			const head = document.getElementsByTagName("head")[0]
+			const element = document.createElement("script")
 			element.type = library.type
 			element.src = library.src
 			head.appendChild(element)
@@ -52,16 +52,12 @@ export default function PeoplePicker({ schema, elementName, getUserInfo }) {
 		// PickerEntity objects to set the picker value, and a schema that defines
 		// picker properties.
 		setTimeout(function() {
-			// eslint-disable-next-line
-			SPClientPeoplePicker_InitStandaloneControlWrapper(
-				elementName,
-				null,
-				schema
-			)
-			let el = document.querySelector(
-				`#${elementName}_TopSpan_ResolvedList`
-			)
-			observer.observe(el, { childList: true })
+			ExecuteOrDelayUntilScriptLoaded(function() {
+				// eslint-disable-next-line
+				SPClientPeoplePicker_InitStandaloneControlWrapper(elementName, null, schema)
+				let el = document.querySelector(`#${elementName}_TopSpan_ResolvedList`)
+				observer.observe(el, { childList: true })
+			}, "sp.core.js")
 		}, loadDelay)
 
 		return () => {
