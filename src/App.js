@@ -18,7 +18,7 @@ export default function App() {
         {
             // webServerRelativeUrl: "\u002fsites\u002fDEV\u002fVDRoom",
             webAbsoluteUrl: "http://localhost:8081\u002fVDRoom",
-            // siteAbsoluteUrl: "http://localhost:8080",
+            siteAbsoluteUrl: "http://localhost:8080",
             // serverRequestPath: "\u002fsites\u002fDEV\u002fVDRoom\u002fSitePages\u002fHome.aspx",
             // layoutsUrl: "_layouts\u002f15",
             // webTitle: "Virtual Document Room",
