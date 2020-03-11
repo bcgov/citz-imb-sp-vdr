@@ -2,10 +2,9 @@ import React from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import Appcontent from './components/AppContent'
 import './css/App.css'
-import SPListHarness from './components/SPListHarness'
 
 /**
- * apply theme to application
+ * apply theme and context to application
  */
 
 export const PageContext = React.createContext()

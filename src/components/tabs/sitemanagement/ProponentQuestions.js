@@ -82,13 +82,13 @@ export default function ProponentQuestions(props) {
     })
 
     useEffect(() => {
-        axios.get(`${pageContext.webAbsoluteUrl}/_api/web/Lists/getByTitle('${props.proponent}_Questions')/items`)
-            .then(response => {
-                setTable({ ...table, data: response.data.value })
-            })
-        return () => {
-            setTable({ ...table, data: [] })
-        };
+        // axios.get(`${pageContext.webAbsoluteUrl}/_api/web/Lists/getByTitle('${props.proponent}_Questions')/items`)
+        //     .then(response => {
+        //         setTable({ ...table, data: response.data.value })
+        //     })
+        // return () => {
+        //     setTable({ ...table, data: [] })
+        // };
     }, [props.proponent])
 
     return (

@@ -1,56 +1,56 @@
-import React, { useEffect } from "react";
-import {
-  Dialog,
-  DialogTitle,
-  IconButton,
-  DialogContent,
-  DialogActions,
-  Button
-} from "@material-ui/core";
-import {
-  PeoplePicker,
-  PrincipalType
-} from "@pnp/spfx-controls-react/lib/PeoplePicker";
-//import PeoplePicker from "../../utilities/peoplePicker";
-//import PeoplePicker from "../../utilities/PeoplePicker";
+import React, { useState, useEffect } from 'react'
+import { Dialog, DialogTitle, Paper, DialogContent, DialogActions, Button } from '@material-ui/core'
+import PeoplePicker from '../../sharepoint/PeoplePicker'
 
-export default function AddUser(props) {
-  const handleSave = () => {
-    props.handleClose();
-  };
+export default function AddUser({ open, proponentName, getUserInfo, handleClose }) {
+  const [userInfo, setUserInfo] = useState([])
+		const styles = {
+		paper: {
+			height: '300px',
+			width: '500px'
+		}
+	}
 
-  useEffect(() => {
-    return () => {};
-  }, []);
+	const handleSave = () => {
+    getUserInfo(userInfo)
+		handleClose()
+	}
 
-  return (
-    <Dialog open={props.open} maxWidth="md" onClose={props.handleClose}>
-      <DialogTitle id="form-dialog-title">
-        Add user to {props.proponentName}
-      </DialogTitle>
-      <DialogContent>
-        <PeoplePicker
-          context={this.props.context}
-          titleText="People Picker"
-          personSelectionLimit={3}
-          groupName={"Team Site Owners"} // Leave this blank in case you want to filter from all users
-          showtooltip={true}
-          isRequired={true}
-          disabled={true}
-          selectedItems={this._getPeoplePickerItems}
-          showHiddenInUI={false}
-          principalTypes={[PrincipalType.User]}
-          resolveDelay={1000}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleSave} color="primary">
-          Save
-        </Button>
-        <Button onClick={props.handleClose} color="primary">
-          Cancel
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
+  const getUsers = users => {
+		setUserInfo(users)
+  }
+
+	useEffect(() => {
+		return () => {}
+	}, [])
+
+	return (
+		<Dialog open={open} maxWidth='md' onClose={handleClose}>
+			<DialogTitle id='form-dialog-title'>Add user to {proponentName}</DialogTitle>
+			<DialogContent>
+				<Paper style={styles.paper}>
+					<PeoplePicker
+						schema={{
+							PrincipalAccountType: 'User,DL,SecGroup,SPGroup',
+							SearchPrincipalSource: 15,
+							ResolvePrincipalSource: 15,
+							AllowMultipleValues: true,
+							MaximumEntitySuggestions: 50,
+							Width: '400px'
+						}}
+						elementName={'myPeoplePicker'}
+						getUserInfo={getUsers}
+					/>
+				</Paper>
+			</DialogContent>
+			<DialogActions>
+				<Button onClick={handleSave} color='primary'>
+					Save
+				</Button>
+				<Button onClick={handleClose} color='primary'>
+					Cancel
+				</Button>
+			</DialogActions>
+		</Dialog>
+	)
 }

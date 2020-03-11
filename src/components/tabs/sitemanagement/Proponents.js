@@ -84,10 +84,7 @@ export default function Proponents() {
   const [proponentLibraryDialog, setProponentLibraryDialog] = useState(false);
   const [proponentQuestionDialog, setProponentQuestionDialog] = useState(false);
   const [proponentDisableDialog, setProponentDisableDialog] = useState(false);
-  const [users, setUsers] = useState({
-    open: false
-  });
-
+  const [users, setUsers] = useState({ open: false });
   const [table, setTable] = useState({
     title: "Proponents",
     key: Math.random(),
@@ -226,7 +223,7 @@ export default function Proponents() {
   useEffect(() => {
     refreshTableData();
 
-    return () => {};
+    return () => { };
   }, []);
 
   return (

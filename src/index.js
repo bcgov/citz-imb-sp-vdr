@@ -9,8 +9,7 @@ import App from './App';
  */
 $(document).ready(function () {
     const path = window.location.pathname.split("/")
-    console.log('index.js'
-    )
+    
     if (path[path.length - 1] === 'Home.aspx') {
         $("#DeltaPlaceHolderMain").append("<div id='app-root'></div>")
     }
