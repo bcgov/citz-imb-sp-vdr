@@ -25,8 +25,8 @@ const ppLibraries = [
 export default function PeoplePicker({ schema, elementName, getUserInfo }) {
 	const pageContext = useContext(PageContext)
 
-	let loadDelay = 1000
-	if (dev) loadDelay = 5000
+	let loadDelay = 0
+	if (dev) loadDelay = 1000
 
 	useEffect(() => {
 		//define the observer to watch for changes in resolved users

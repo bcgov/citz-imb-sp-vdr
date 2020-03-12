@@ -115,7 +115,42 @@ export default function Users({ open, group, proponentName, handleClose }) {
 
 	const addUsersToGroup = userInfo => {
 		console.log("userInfo", userInfo)
-
+		const addUsersRestCalls = userInfo.map((user, index) => {
+			// setTimeout(() => {
+			// 	axios
+			// 		.post(
+			// 			`${pageContext.webAbsoluteUrl}/_api/web/sitegroups(${group})/users`,
+			// 			{
+			// 				__metadata: { type: "SP.User" },
+			// 				LoginName: user.account
+			// 			},
+			// 			{
+			// 				headers: {
+			// 					"X-RequestDigest": document.getElementById("__REQUESTDIGEST").value,
+			// 					accept: "application/json; odata=verbose",
+			// 					"content-type": "application/json; odata=verbose"
+			// 				}
+			// 			}
+			// 		)
+			// 		.then(response => {
+			// 			console.log(`response ${user.displayName}`, response)
+			// 		})
+			// }, 5000)
+			// return axios.post(
+			// 	`${pageContext.webAbsoluteUrl}/_api/web/sitegroups(${group})/users`,
+			// 	{
+			// 		__metadata: { type: "SP.User" },
+			// 		LoginName: user.account
+			// 	},
+			// 	{
+			// 		headers: {
+			// 			"X-RequestDigest": document.getElementById("__REQUESTDIGEST").value,
+			// 			accept: "application/json; odata=verbose",
+			// 			"content-type": "application/json; odata=verbose"
+			// 		}
+			// 	}
+			// )
+		})
 		axios
 			.post(
 				`${pageContext.webAbsoluteUrl}/_api/web/sitegroups(${group})/users`,
@@ -134,8 +169,57 @@ export default function Users({ open, group, proponentName, handleClose }) {
 			)
 			.then(response => {
 				console.log(`response ${userInfo[0].displayName}`, response)
-				refreshTable()
 			})
+		setTimeout(() => {
+			axios
+				.post(
+					`${pageContext.webAbsoluteUrl}/_api/web/sitegroups(${group})/users`,
+					{
+						__metadata: { type: "SP.User" },
+						LoginName: userInfo[1].account
+					},
+					{
+						headers: {
+							"X-RequestDigest": document.getElementById("__REQUESTDIGEST").value,
+							method: "MERGE",
+							accept: "application/json; odata=verbose",
+							"content-type": "application/json; odata=verbose"
+						}
+					}
+				)
+				.then(response => {
+					console.log(`response ${userInfo[1].displayName}`, response)
+				})
+		}, 5000)
+
+		console.log("addUsersRestCalls", addUsersRestCalls)
+		// axios
+		// 	.all(addUsersRestCalls)
+		// 	.then(response => {
+		// 		console.log("response",response)
+		// 		refreshTable()
+		// 	})
+		// 	.catch(error => {
+		// 		console.groupCollapsed("Error Details")
+		// 		if (error.response) {
+		// 			// The request was made and the server responded with a status code
+		// 			// that falls out of the range of 2xx
+		// 			console.warn("status", error.response.status, error.response.statusText)
+		// 			console.warn("headers", error.response.headers)
+		// 			console.warn("data", error.response.data)
+		// 			//console.warn("message", error.response.data.error.message.value)
+		// 		} else if (error.request) {
+		// 			// The request was made but no response was received
+		// 			// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+		// 			// http.ClientRequest in node.js
+		// 			console.error("request", error.request)
+		// 		} else {
+		// 			// Something happened in setting up the request that triggered an Error
+		// 			console.error("Error", error.message)
+		// 		}
+		// 		console.error(error.config)
+		// 		console.groupEnd()
+		// 	})
 	}
 
 	const removeUser = rowdata => {

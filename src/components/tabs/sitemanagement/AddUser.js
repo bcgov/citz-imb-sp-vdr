@@ -34,7 +34,7 @@ export default function AddUser({ open, proponentName, getUserInfo, handleClose 
 							PrincipalAccountType: 'User,DL,SecGroup,SPGroup',
 							SearchPrincipalSource: 15,
 							ResolvePrincipalSource: 15,
-							AllowMultipleValues: true,
+							AllowMultipleValues: false,
 							MaximumEntitySuggestions: 50,
 							Width: '400px'
 						}}
