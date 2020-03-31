@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Dialog, DialogTitle, Paper, DialogContent, DialogActions, Button } from '@material-ui/core'
-import PeoplePicker from '../../sharepoint/PeoplePicker'
+import {PeoplePicker} from 'citz-imb-sp-utilities'
 
 export default function AddUser({ open, proponentName, getUserInfo, handleClose }) {
   const [userInfo, setUserInfo] = useState([])
@@ -38,7 +38,7 @@ export default function AddUser({ open, proponentName, getUserInfo, handleClose 
 							MaximumEntitySuggestions: 50,
 							Width: '400px'
 						}}
-						elementName={'myPeoplePicker'}
+						elementName={'addUserPeoplePicker'}
 						getUserInfo={getUsers}
 					/>
 				</Paper>

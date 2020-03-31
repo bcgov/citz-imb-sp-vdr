@@ -4,7 +4,7 @@ import { Dialog, DialogActions, DialogTitle, DialogContent, Button } from '@mate
  * present the terms of service
  * @param {p} props
  */
-export default function TermsOfReference(props) {
+export default function TermsOfReference({ title, body, handleAgree, handleDisagree}) {
     return (
         <Dialog
             open={true}
@@ -15,24 +15,24 @@ export default function TermsOfReference(props) {
             aria-describedby="tor-dialog-description"
         >
             <DialogTitle id="tor-dialog-title">
-                {props.title}
+                {title}
             </DialogTitle>
             <DialogContent
                 dividers={true}
             >
-                <div dangerouslySetInnerHTML={{ __html: props.body }} />
+                <div dangerouslySetInnerHTML={{ __html: body }} />
             </DialogContent>
 
             <DialogActions>
                 <Button
-                    onClick={props.handleAgree}
+                    onClick={handleAgree}
                     color="primary"
                     variant='contained'
                 >
                     Agree
                 </Button>
                 <Button
-                    onClick={props.handleDisagree}
+                    onClick={handleDisagree}
                     color="primary"
                     variant='outlined'
                 >
