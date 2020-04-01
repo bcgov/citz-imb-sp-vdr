@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Dialog, DialogTitle, Paper, DialogContent, DialogActions, Button } from '@material-ui/core'
-import {PeoplePicker} from 'citz-imb-sp-utilities'
+import { PeoplePicker } from 'citz-imb-sp-utilities'
 
 export default function AddUser({ open, proponentName, getUserInfo, handleClose }) {
-  const [userInfo, setUserInfo] = useState([])
-		const styles = {
+	const [userInfo, setUserInfo] = useState([])
+	const styles = {
 		paper: {
 			height: '300px',
 			width: '500px'
@@ -12,16 +12,15 @@ export default function AddUser({ open, proponentName, getUserInfo, handleClose 
 	}
 
 	const handleSave = () => {
-    getUserInfo(userInfo)
-		handleClose()
+		getUserInfo(userInfo)
 	}
 
-  const getUsers = users => {
+	const getUsers = users => {
 		setUserInfo(users)
-  }
+	}
 
 	useEffect(() => {
-		return () => {}
+		return () => { }
 	}, [])
 
 	return (
@@ -34,7 +33,7 @@ export default function AddUser({ open, proponentName, getUserInfo, handleClose 
 							PrincipalAccountType: 'User,DL,SecGroup,SPGroup',
 							SearchPrincipalSource: 15,
 							ResolvePrincipalSource: 15,
-							AllowMultipleValues: false,
+							AllowMultipleValues: true,
 							MaximumEntitySuggestions: 50,
 							Width: '400px'
 						}}

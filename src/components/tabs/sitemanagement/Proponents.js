@@ -12,7 +12,7 @@ import ProponentLibrary from "./ProponentLibrary.js";
 import ProponentQuestions from "./ProponentQuestions.js";
 
 import axios from "axios";
-import { PageContext } from "../../../App";
+import { WebFullUrl } from "../../../App";
 
 import Add from "@material-ui/icons/Add";
 import AddBox from "@material-ui/icons/AddBox";
@@ -76,7 +76,7 @@ const tableIcons = {
 };
 
 export default function Proponents() {
-  const pageContext = useContext(PageContext);
+  const webFullUrl = useContext(WebFullUrl);
 
   const [currentProponent, setCurrentProponent] = useState("");
   const [currentProponentName, setCurrentProponentName] = useState("");
@@ -189,12 +189,12 @@ export default function Proponents() {
   const refreshTableData = () => {
     axios
       .get(
-        `${pageContext.webAbsoluteUrl}/_api/web/lists/getByTitle('Proponents')/items`
+        `${webFullUrl}/_api/web/lists/getByTitle('Proponents')/items`
       )
       .then(proponentResponse => {
         axios
           .get(
-            `${pageContext.webAbsoluteUrl}/_api/web/RoleAssignments?$expand=Member,Member/Users`
+            `${webFullUrl}/_api/web/RoleAssignments?$expand=Member,Member/Users`
           )
           .then(roleAssignmentsResponse => {
             for (

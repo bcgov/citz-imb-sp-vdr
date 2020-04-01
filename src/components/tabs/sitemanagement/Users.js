@@ -2,8 +2,9 @@ import React, { forwardRef, useState, useEffect, useContext, Fragment } from "re
 import { Dialog, DialogTitle, IconButton, DialogContent } from "@material-ui/core"
 import CloseIcon from "@material-ui/icons/Close"
 import MaterialTable from "material-table"
+import { AddUsersToGroup } from 'citz-imb-sp-utilities'
 import axios from "axios"
-import { PageContext } from "../../../App"
+import { WebFullUrl } from "../../../App"
 import makeUUID from "../../utilities/makeUUID.js"
 
 import Add from "@material-ui/icons/Add"
@@ -48,7 +49,7 @@ const tableIcons = {
 }
 
 export default function Users({ open, group, proponentName, handleClose }) {
-	const pageContext = useContext(PageContext)
+	const webFullUrl = useContext(WebFullUrl)
 
 	const [addUserOpen, setAddUserOpen] = useState(false)
 	const [title, setTitle] = useState("")
@@ -101,47 +102,22 @@ export default function Users({ open, group, proponentName, handleClose }) {
 		setAddUserOpen(true)
 	}
 
-	// console.log(
-	// 	JSON.stringify({
-	// 		body:
-	// 			"{ '__metadata': { 'type': 'SP.User' }, 'LoginName':'i:0ǵ.t|bcgovidp|a32d6f859c66450ca4995b0b2bf0a844' }",
-	// 		headers: {
-	// 			"X-RequestDigest": document.getElementById("__REQUESTDIGEST").value,
-	// 			accept: "application/json; odata=verbose",
-	// 			"content-type": "application/json; odata=verbose"
-	// 		}
-	// 	})
-	// )
-
 	const addUsersToGroup = userInfo => {
 		console.log("userInfo", userInfo)
-
-		axios
-			.post(
-				`${pageContext.webAbsoluteUrl}/_api/web/sitegroups(${group})/users`,
-				{
-					__metadata: { type: "SP.User" },
-					LoginName: userInfo[0].account
-				},
-				{
-					headers: {
-						"X-RequestDigest": document.getElementById("__REQUESTDIGEST").value,
-						method: "MERGE",
-						accept: "application/json; odata=verbose",
-						"content-type": "application/json; odata=verbose"
-					}
-				}
-			)
-			.then(response => {
-				console.log(`response ${userInfo[0].displayName}`, response)
-				refreshTable()
-			})
+		const users = userInfo.map(user => {
+			return user.account
+		})
+		AddUsersToGroup({ url: webFullUrl, groupId: group, loginName: users }).then(data => {
+			console.log("data", data)
+			refreshTable()
+			setAddUserOpen(false)
+		})
 	}
 
 	const removeUser = rowdata => {
 		axios
 			.post(
-				`${pageContext.webAbsoluteUrl}/_api/web/SiteGroups(${group})/users/removeById(${rowdata.Id})`,
+				`${webFullUrl}/_api/web/SiteGroups(${group})/users/removeById(${rowdata.Id})`,
 				{},
 				{
 					headers: {
@@ -179,7 +155,7 @@ export default function Users({ open, group, proponentName, handleClose }) {
 	const refreshTable = () => {
 		if (open) {
 			axios
-				.get(`${pageContext.webAbsoluteUrl}/_api/web/SiteGroups(${group})/users`)
+				.get(`${webFullUrl}/_api/web/SiteGroups(${group})/users`)
 				.then(response => {
 					setData(response.data.value)
 					setTitle(proponentName)

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button } from "@material-ui/core"
 import makeUUID from '../../utilities/makeUUID.js'
-import { PageContext } from '../../../App'
+import { WebFullUrl, CurrentUser } from '../../../App'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -21,7 +21,8 @@ toast.configure({
 })
 
 export default function AddProponent(props) {
-    const pageContext = useContext(PageContext)
+    const webFullUrl = useContext(WebFullUrl)
+    const currentUser = useContext(CurrentUser)
 
     const [progress, setProgress] = React.useState(0);
     const [name, setName] = useState('')
@@ -45,7 +46,7 @@ export default function AddProponent(props) {
 
         axios.all([
             //create proponent group
-            axios.post(`${pageContext.webAbsoluteUrl}/_api/web/sitegroups`,
+            axios.post(`${webFullUrl}/_api/web/sitegroups`,
                 {
                     "__metadata": { "type": "SP.Group" },
                     "Description": "Proponent Group.  created by automation",
@@ -54,7 +55,7 @@ export default function AddProponent(props) {
                 config
             ),
             //create proponent library
-            axios.post(`${pageContext.webAbsoluteUrl}/_api/web/lists`,
+            axios.post(`${webFullUrl}/_api/web/lists`,
                 {
                     "__metadata": { "type": "SP.List" },
                     "AllowContentTypes": true,
@@ -66,7 +67,7 @@ export default function AddProponent(props) {
                 config
             ),
             //create proponent question list
-            axios.post(`${pageContext.webAbsoluteUrl}/_api/web/lists`,
+            axios.post(`${webFullUrl}/_api/web/lists`,
                 {
                     "__metadata": { "type": "SP.List" },
                     "AllowContentTypes": true,
@@ -78,11 +79,11 @@ export default function AddProponent(props) {
                 config
             ),
             //get site owner group
-            axios.get(`${pageContext.webAbsoluteUrl}/_api/Web/AssociatedOwnerGroup`),
-            axios.get(`${pageContext.webAbsoluteUrl}/_api/Web/AssociatedMemberGroup`),
-            axios.get(`${pageContext.webAbsoluteUrl}/_api/Web/RoleDefinitions/getbyname('Full Control')`),
-            axios.get(`${pageContext.webAbsoluteUrl}/_api/Web/RoleDefinitions/getbyname('Contribute')`),
-            axios.get(`${pageContext.webAbsoluteUrl}/_api/Web/RoleDefinitions/getbyname('Read')`)
+            axios.get(`${webFullUrl}/_api/Web/AssociatedOwnerGroup`),
+            axios.get(`${webFullUrl}/_api/Web/AssociatedMemberGroup`),
+            axios.get(`${webFullUrl}/_api/Web/RoleDefinitions/getbyname('Full Control')`),
+            axios.get(`${webFullUrl}/_api/Web/RoleDefinitions/getbyname('Contribute')`),
+            axios.get(`${webFullUrl}/_api/Web/RoleDefinitions/getbyname('Read')`)
         ]).then(axios.spread((groupResponse, libraryResponse, listResponse, siteOwnerResponse, siteMemberResponse, fullControlResponse, contributeResponse, readResponse) => {
             newProponent.GroupId = groupResponse.data.Id
             //TODO: update group owner
@@ -107,7 +108,7 @@ export default function AddProponent(props) {
             // }, 'sp.js')
             axios.all([
                 //add proponent to proponent list
-                axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists/GetByTitle('Proponents')/items`,
+                axios.post(`${webFullUrl}/_api/web/Lists/GetByTitle('Proponents')/items`,
                     {
                         "__metadata": {
                             "type": "SP.Data.ProponentsListItem"
@@ -124,7 +125,7 @@ export default function AddProponent(props) {
                     }
                 ),
                 //set permissions site
-                axios.post(`${pageContext.webAbsoluteUrl}/_api/web/RoleAssignments/addRoleAssignment(principalid=${newProponent.GroupId},roledefid=${readResponse.data.Id})`,
+                axios.post(`${webFullUrl}/_api/web/RoleAssignments/addRoleAssignment(principalid=${newProponent.GroupId},roledefid=${readResponse.data.Id})`,
                     {},
                     {
                         headers: {
@@ -134,7 +135,7 @@ export default function AddProponent(props) {
                     }
                 ),
                 //break permissions on library
-                axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${libraryResponse.data.Id}')/breakRoleInheritance(copyRoleAssignments=false,clearSubscopes=false)`,
+                axios.post(`${webFullUrl}/_api/web/Lists('${libraryResponse.data.Id}')/breakRoleInheritance(copyRoleAssignments=false,clearSubscopes=false)`,
                     {},
                     {
                         headers: {
@@ -144,7 +145,7 @@ export default function AddProponent(props) {
                     }
                 ),
                 //break permissions on list
-                axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${listResponse.data.Id}')/breakRoleInheritance(copyRoleAssignments=false,clearSubscopes=false)`,
+                axios.post(`${webFullUrl}/_api/web/Lists('${listResponse.data.Id}')/breakRoleInheritance(copyRoleAssignments=false,clearSubscopes=false)`,
                     {},
                     {}
                 )
@@ -152,34 +153,34 @@ export default function AddProponent(props) {
                 setProgress(oldProgress => (oldProgress >= 100 ? 0 : oldProgress + 1))
                 axios.all([
                     //set permissions on library
-                    axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${libraryResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${siteOwnerResponse.data.Id},roledefid=${fullControlResponse.data.Id})`,
+                    axios.post(`${webFullUrl}/_api/web/Lists('${libraryResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${siteOwnerResponse.data.Id},roledefid=${fullControlResponse.data.Id})`,
                         {},
                         {}),
-                    axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${libraryResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${siteMemberResponse.data.Id},roledefid=${contributeResponse.data.Id})`,
+                    axios.post(`${webFullUrl}/_api/web/Lists('${libraryResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${siteMemberResponse.data.Id},roledefid=${contributeResponse.data.Id})`,
                         {},
                         {}),
-                    axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${libraryResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${newProponent.GroupId},roledefid=${contributeResponse.data.Id})`,
+                    axios.post(`${webFullUrl}/_api/web/Lists('${libraryResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${newProponent.GroupId},roledefid=${contributeResponse.data.Id})`,
                         {},
                         {}),
                     //set permissions on list
-                    axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${listResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${siteOwnerResponse.data.Id},roledefid=${fullControlResponse.data.Id})`,
+                    axios.post(`${webFullUrl}/_api/web/Lists('${listResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${siteOwnerResponse.data.Id},roledefid=${fullControlResponse.data.Id})`,
                         {},
                         {}),
-                    axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${listResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${siteMemberResponse.data.Id},roledefid=${contributeResponse.data.Id})`,
+                    axios.post(`${webFullUrl}/_api/web/Lists('${listResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${siteMemberResponse.data.Id},roledefid=${contributeResponse.data.Id})`,
                         {},
                         {}),
-                    axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${listResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${newProponent.GroupId},roledefid=${contributeResponse.data.Id})`,
+                    axios.post(`${webFullUrl}/_api/web/Lists('${listResponse.data.Id}')/RoleAssignments/addRoleAssignment(principalid=${newProponent.GroupId},roledefid=${contributeResponse.data.Id})`,
                         {},
                         {})
                 ]).then(axios.spread((libraryOwnerPermsResponse, libraryMembersPermsResponse, libraryProponentPermsResponse, listOwnerPermsResponse, listMembersPermsResponse, listProponentPermsResponse) => {
                     setProgress(oldProgress => (oldProgress >= 100 ? 0 : oldProgress + 1))
                     //remove current user perms on list
                     axios.all([
-                        axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${libraryResponse.data.Id}')/RoleAssignments/removeRoleAssignment(principalid=${pageContext.userId},roledefid=${fullControlResponse.data.Id})`,
+                        axios.post(`${webFullUrl}/_api/web/Lists('${libraryResponse.data.Id}')/RoleAssignments/removeRoleAssignment(principalid=${currentUser.Id},roledefid=${fullControlResponse.data.Id})`,
                             {},
                             {}
                         ),
-                        axios.post(`${pageContext.webAbsoluteUrl}/_api/web/Lists('${listResponse.data.Id}')/RoleAssignments/removeRoleAssignment(principalid=${pageContext.userId},roledefid=${fullControlResponse.data.Id})`,
+                        axios.post(`${webFullUrl}/_api/web/Lists('${listResponse.data.Id}')/RoleAssignments/removeRoleAssignment(principalid=${currentUser.Id},roledefid=${fullControlResponse.data.Id})`,
                             {},
                             {}
                         )

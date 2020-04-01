@@ -5,7 +5,7 @@ import VDRTabs from './tabs/VDRTabs'
 import { setCookie, getCookie } from './utilities/cookies'
 import axios from 'axios'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { PageContext } from '../App'
+import { SiteFullUrl } from '../App'
 
 /**
  * Shows terms of reference if not already agreed to
@@ -23,7 +23,7 @@ export default function AppContent() {
 	)
 	const [loading, setLoading] = useState(true)
 
-	const pageContext = useContext(PageContext)
+	const siteFullUrl = useContext(SiteFullUrl)
 
 	const handleAgree = () => {
 		console.log(`handleAgree`)
@@ -40,7 +40,7 @@ export default function AppContent() {
 	useEffect(() => {
 		axios
 			.get(
-				`${pageContext.webAbsoluteUrl}/_api/Web/Lists/getbytitle('Config')/items?$filter=Key eq 'TOR'&$select=TextValue,MultiTextValue,Modified,NumberValue`
+				`${siteFullUrl}/_api/Web/Lists/getbytitle('Config')/items?$filter=Key eq 'TOR'&$select=TextValue,MultiTextValue,Modified,NumberValue`
 			)
 			.then(response => {
 				setTitle(response.data.value[0].TextValue)

@@ -40,7 +40,6 @@
     "@pnp/sp": "^2.0.3",
     "@pnp/spfx-controls-react": "^1.17.0",
     "axios": "^0.19.2",
-    "citz-imb-sp-utilities": "^0.2.9",
     "concurrently": "^5.1.0",
     "datatables.net": "^1.10.20",
     "datatables.net-buttons": "^1.6.1",
