@@ -21,8 +21,7 @@ import ViewColumn from "@material-ui/icons/ViewColumn"
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
 import PeopleIcon from '@material-ui/icons/People'
-import axios from 'axios'
-import { PageContext } from '../../../App'
+
 import Moment from 'react-moment'
 /**
  * present the proponents library
@@ -54,7 +53,6 @@ const tableIcons = {
 }
 
 export default function ProponentQuestions(props) {
-    const pageContext = useContext(PageContext)
     const [table, setTable] = useState({
         title: `${props.proponent} Submitted Questions`,
         key: Math.random(),
@@ -82,13 +80,7 @@ export default function ProponentQuestions(props) {
     })
 
     useEffect(() => {
-        // axios.get(`${pageContext.webAbsoluteUrl}/_api/web/Lists/getByTitle('${props.proponent}_Questions')/items`)
-        //     .then(response => {
-        //         setTable({ ...table, data: response.data.value })
-        //     })
-        // return () => {
-        //     setTable({ ...table, data: [] })
-        // };
+
     }, [props.proponent])
 
     return (

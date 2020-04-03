@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, IconButton, DialogContent } from "@material-ui/cor
 import CloseIcon from "@material-ui/icons/Close"
 import MaterialTable from "material-table"
 import { AddUsersToGroup } from 'citz-imb-sp-utilities'
-import axios from "axios"
+
 import { WebFullUrl } from "../../../App"
 import makeUUID from "../../utilities/makeUUID.js"
 
@@ -115,7 +115,7 @@ export default function Users({ open, group, proponentName, handleClose }) {
 	}
 
 	const removeUser = rowdata => {
-		axios
+
 			.post(
 				`${webFullUrl}/_api/web/SiteGroups(${group})/users/removeById(${rowdata.Id})`,
 				{},
@@ -154,7 +154,7 @@ export default function Users({ open, group, proponentName, handleClose }) {
 
 	const refreshTable = () => {
 		if (open) {
-			axios
+			
 				.get(`${webFullUrl}/_api/web/SiteGroups(${group})/users`)
 				.then(response => {
 					setData(response.data.value)

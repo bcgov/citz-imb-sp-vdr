@@ -49,7 +49,7 @@ const tableIcons = {
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 };
 
-class PrivateQuestions extends Component {
+export class PrivateQuestions extends Component {
     constructor(props) {
         super(props)
 
@@ -130,5 +130,3 @@ class PrivateQuestions extends Component {
         )
     }
 }
-
-export default PrivateQuestions

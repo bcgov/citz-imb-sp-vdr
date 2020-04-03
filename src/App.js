@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import Appcontent from './components/AppContent'
 import { GetContextWebInformation, GetCurrentUser } from 'citz-imb-sp-utilities'
@@ -30,9 +30,10 @@ export default function App() {
         GetContextWebInformation().then(response => {
             siteFullUrl = response.SiteFullUrl
             webFullUrl = response.WebFullUrl
-            GetCurrentUser(webFullUrl).then(response => {
-                currentUser = response
-            })
+        })
+
+        GetCurrentUser().then(response => {
+            currentUser = response
         })
 
         return () => { }

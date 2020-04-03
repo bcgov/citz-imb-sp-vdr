@@ -1,11 +1,11 @@
 import 'react-tabs/style/react-tabs.css'
 import React, { useState, useEffect, useContext } from 'react'
 import TermsOfReference from './terms/TermsOfReference'
-import VDRTabs from './tabs/VDRTabs'
+import { VDRTabs } from './tabs/VDRTabs'
 import { setCookie, getCookie } from './utilities/cookies'
-import axios from 'axios'
+import { GetListItems } from 'citz-imb-sp-utilities'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { SiteFullUrl } from '../App'
+import { WebFullUrl } from '../App'
 
 /**
  * Shows terms of reference if not already agreed to
@@ -23,12 +23,12 @@ export default function AppContent() {
 	)
 	const [loading, setLoading] = useState(true)
 
-	const siteFullUrl = useContext(SiteFullUrl)
+	const webFullUrl = useContext(WebFullUrl)
 
 	const handleAgree = () => {
 		console.log(`handleAgree`)
-        setCookie(cookieName + modified, 'true', cookieDays)
-        console.log(getCookie(cookieName + modified))
+		setCookie(cookieName + modified, 'true', cookieDays)
+		console.log(getCookie(cookieName + modified))
 		setAgree(getCookie(cookieName + modified) ? true : false)
 	}
 
@@ -38,25 +38,22 @@ export default function AppContent() {
 	}
 
 	useEffect(() => {
-		axios
-			.get(
-				`${siteFullUrl}/_api/Web/Lists/getbytitle('Config')/items?$filter=Key eq 'TOR'&$select=TextValue,MultiTextValue,Modified,NumberValue`
-			)
+		GetListItems({ listName: 'Config', filter: "Key eq 'TOR'" })
 			.then(response => {
-				setTitle(response.data.value[0].TextValue)
-				setBody(response.data.value[0].MultiTextValue)
-				setModified(response.data.value[0].Modified)
-                setCookieDays(response.data.value[0].NumberValue)
+				setTitle(response[0].TextValue)
+				setBody(response[0].MultiTextValue)
+				setModified(response[0].Modified)
+				setCookieDays(response[0].NumberValue)
 
-                if(window.location.hostname === "localhost"){
-                    setAgree(true)
-                }
+				if (window.location.hostname === "localhost") {
+					setAgree(true)
+				}
 				setLoading(false)
 			})
 			.catch(error => {
-				console.warn('Axios get', error)
+
 			})
-		return () => {}
+		return () => { }
 	}, [])
 
 	return loading ? (
@@ -64,11 +61,11 @@ export default function AppContent() {
 	) : agree ? (
 		<VDRTabs />
 	) : (
-		<TermsOfReference
-			title={title}
-			body={body}
-			handleAgree={handleAgree}
-			handleDisagree={handleDisagree}
-		/>
-	)
+				<TermsOfReference
+					title={title}
+					body={body}
+					handleAgree={handleAgree}
+					handleDisagree={handleDisagree}
+				/>
+			)
 }

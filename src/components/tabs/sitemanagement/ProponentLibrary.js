@@ -21,8 +21,8 @@ import ViewColumn from "@material-ui/icons/ViewColumn"
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
 import PeopleIcon from '@material-ui/icons/People'
-import axios from 'axios'
-import { PageContext } from '../../../App'
+
+import { WebFullUrl } from '../../../App'
 import Moment from 'react-moment'
 /**
  * present the proponents library
@@ -53,8 +53,8 @@ const tableIcons = {
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 }
 
-export default function ProponentLibrary(props) {
-    const pageContext = useContext(PageContext)
+export const ProponentLibrary = (props) => {
+    const webFullUrl = useContext(WebFullUrl)
     const [table, setTable] = useState({
         title: `${props.proponent} Submission Library`,
         key: Math.random(),
@@ -87,7 +87,8 @@ export default function ProponentLibrary(props) {
     })
 
     useEffect(() => {
-        axios.get(`${pageContext.webAbsoluteUrl}/_api/web/GetFolderByServerRelativeUrl('${props.proponent}')/files`)
+
+        .get(`${webFullUrl}/_api/web/GetFolderByServerRelativeUrl('${props.proponent}')/files`)
             .then(response => {
                 setTable({ ...table, data: response.data.value })
             })
