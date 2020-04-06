@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext, forwardRef } from 'react'
+import React, { useState, useEffect, Fragment, forwardRef } from 'react'
 import MaterialTable from 'material-table'
-import { WebFullUrl } from '../../App'
+import {SPAddItem} from './SPAddItem'
 import {
 	GetList,
 	GetListItems,
@@ -29,19 +29,16 @@ import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
 import PeopleIcon from '@material-ui/icons/People'
 
-export const SPList = ({ actions, listName }) => {
-	const webFullUrl = useContext(WebFullUrl)
-
-	const [key, setKey] = useState(Math.random())
-	const [options, setOptions] = useState({
-		search: false,
-		sorting: false,
-		paging: false,
-		pageSize: 20,
-    draggable: false,
-    actionsColumnIndex: -1
-	})
-	const [icons, setIcons] = useState({
+export const SPList = ({
+	listName,
+	addItem = true,
+	deleteItem = true,
+	editItem = true,
+	changeItemPermission = true,
+	customActions,
+	options
+}) => {
+	const icons = {
 		People: forwardRef((props, ref) => <PeopleIcon {...props} ref={ref} />),
 		Question: forwardRef((props, ref) => (
 			<QuestionAnswerIcon {...props} ref={ref} />
@@ -86,11 +83,15 @@ export const SPList = ({ actions, listName }) => {
 		ViewColumn: forwardRef((props, ref) => (
 			<ViewColumn {...props} ref={ref} />
 		))
-	})
+	}
+
 	const [data, setData] = useState([])
 	const [columns, setColumns] = useState([])
 	const [listColumns, setListColumns] = useState({})
 	const [title, setTitle] = useState('')
+	const [actions, setActions] = useState([])
+	const [addDialog, setAddDialog] = useState(false)
+
 	const refreshData = () => {
 		GetListItems({ listName: listName }).then(response => {
 			setData(response)
@@ -110,6 +111,47 @@ export const SPList = ({ actions, listName }) => {
 			}
 			setListColumns(obj)
 		})
+
+		if (addItem) {
+			setActions(prevActions => {
+				console.log("prevActions",prevActions)
+				return prevActions.push({
+					//add an item
+					icon: icons.Add,
+					tooltip: 'Add Item',
+					isFreeAction: true,
+					onClick: (event, rowdata) => {
+						setAddDialog(true)
+					}
+				})
+			})
+		}
+
+		if (deleteItem) {
+			//TODO: deleteItem
+		}
+
+		if (editItem) {
+			// {
+			// 	//disable a proponent
+			// 	icon: icons.NotInterested,
+			// 	tooltip: 'Disable Proponent',
+			// 	onClick: (event, rowdata) => {
+			// 		setCurrentProponentName(rowdata.Title)
+			// 		setCurrentProponent(rowdata.UUID)
+			// 		setProponentDisableDialog(true)
+			// 	}
+			// },
+		}
+
+		if (changeItemPermission) {
+			//TODO: changeItemPermission
+		}
+
+		if (customActions) {
+			//TODO: customActions
+		}
+
 		refreshData()
 
 		return () => {}
@@ -129,5 +171,16 @@ export const SPList = ({ actions, listName }) => {
 		return () => {}
 	}, [listColumns])
 
-	return <MaterialTable columns={columns} data={data} title={title} options={options} />
+	return (
+		<Fragment>
+			<MaterialTable
+				columns={columns}
+				data={data}
+				title={title}
+				options={options}
+				actions={actions}
+			/>
+			<SPAddItem open={addDialog} />
+		</Fragment>
+	)
 }

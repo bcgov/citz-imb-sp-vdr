@@ -2,26 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { SPList } from '../../utilities/SPList'
 
 export const SiteManagement = () => {
-	const actions = [
-		// {
-		// 	//add a proponent
-		// 	icon: icons.Add,
-		// 	tooltip: 'Add a Proponent',
-		// 	isFreeAction: true,
-		// 	onClick: (event, rowdata) => {
-		// 		setProponentAddDialog(true)
-		// 	}
-		// },
-		// {
-		// 	//disable a proponent
-		// 	icon: icons.NotInterested,
-		// 	tooltip: 'Disable Proponent',
-		// 	onClick: (event, rowdata) => {
-		// 		setCurrentProponentName(rowdata.Title)
-		// 		setCurrentProponent(rowdata.UUID)
-		// 		setProponentDisableDialog(true)
-		// 	}
-		// },
+	const options = {
+		search: false,
+		sorting: false,
+		paging: false,
+		pageSize: 20,
+		draggable: false,
+		actionsColumnIndex: -1
+	}
+	const customActions = [
 		// {
 		// 	//manage proponent users
 		// 	icon: icons.People,
@@ -58,6 +47,12 @@ export const SiteManagement = () => {
 	return (
 		<SPList
 			listName='Proponents'
+			addItem={true}
+			deleteItem={false}
+			editItem={true}
+			changeItemPermission={true}
+			customActions={customActions}
+			options={options}
 		/>
 	)
 }
