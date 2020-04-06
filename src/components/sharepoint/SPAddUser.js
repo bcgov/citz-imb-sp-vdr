@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Dialog, DialogTitle, Paper, DialogContent, DialogActions, Button } from '@material-ui/core'
 import { PeoplePicker } from 'citz-imb-sp-utilities'
 
-export default function AddUser({ open, proponentName, getUserInfo, handleClose }) {
+export const SPAddUser = ({ open, groupName, handleSave, handleCancel }) => {
 	const [userInfo, setUserInfo] = useState([])
 	const styles = {
 		paper: {
@@ -11,8 +11,8 @@ export default function AddUser({ open, proponentName, getUserInfo, handleClose 
 		}
 	}
 
-	const handleSave = () => {
-		getUserInfo(userInfo)
+	const saveUsers = () => {
+		handleSave(userInfo)
 	}
 
 	const getUsers = users => {
@@ -24,8 +24,8 @@ export default function AddUser({ open, proponentName, getUserInfo, handleClose 
 	}, [])
 
 	return (
-		<Dialog open={open} maxWidth='md' onClose={handleClose}>
-			<DialogTitle id='form-dialog-title'>Add user to {proponentName}</DialogTitle>
+		<Dialog open={open} maxWidth='md' onClose={handleCancel}>
+			<DialogTitle id='form-dialog-title'>Add user to {groupName}</DialogTitle>
 			<DialogContent>
 				<Paper style={styles.paper}>
 					<PeoplePicker
@@ -37,16 +37,16 @@ export default function AddUser({ open, proponentName, getUserInfo, handleClose 
 							MaximumEntitySuggestions: 50,
 							Width: '400px'
 						}}
-						elementName={'addUserPeoplePicker'}
+						elementName={`${groupName}_addUserPeoplePicker`}
 						getUserInfo={getUsers}
 					/>
 				</Paper>
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={handleSave} color='primary'>
+				<Button onClick={saveUsers} color='primary'>
 					Save
 				</Button>
-				<Button onClick={handleClose} color='primary'>
+				<Button onClick={handleCancel} color='primary'>
 					Cancel
 				</Button>
 			</DialogActions>

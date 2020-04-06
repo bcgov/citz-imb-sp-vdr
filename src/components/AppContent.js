@@ -1,19 +1,13 @@
 import 'react-tabs/style/react-tabs.css'
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import TermsOfReference from './terms/TermsOfReference'
 import { VDRTabs } from './tabs/VDRTabs'
 import { setCookie, getCookie } from './utilities/cookies'
 import { GetListItems } from 'citz-imb-sp-utilities'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { WebFullUrl } from '../App'
-
-/**
- * Shows terms of reference if not already agreed to
- * Shows main app if terms of reference agreed to
- */
 
 export default function AppContent() {
-	const [cookieName, setCookieName] = useState('TORAgreement')
+	const cookieName = 'TORAgreement'
 	const [title, setTitle] = useState('')
 	const [body, setBody] = useState('')
 	const [modified, setModified] = useState('')
@@ -22,8 +16,6 @@ export default function AppContent() {
 		getCookie(cookieName + modified) ? true : false
 	)
 	const [loading, setLoading] = useState(true)
-
-	const webFullUrl = useContext(WebFullUrl)
 
 	const handleAgree = () => {
 		console.log(`handleAgree`)

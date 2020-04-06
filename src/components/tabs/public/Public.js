@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { SPList } from '../../utilities/SPList'
+import { SPList } from '../../sharepoint/SPList'
 import { Container, Grid, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { GetListItems } from 'citz-imb-sp-utilities'

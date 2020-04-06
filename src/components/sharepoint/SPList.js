@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment, forwardRef } from 'react'
 import MaterialTable from 'material-table'
-import {SPAddItem} from './SPAddItem'
+import { SPAddItem } from './SPAddItem'
 import {
 	GetList,
 	GetListItems,
@@ -100,7 +100,6 @@ export const SPList = ({
 
 	useEffect(() => {
 		GetList({ listName: listName }).then(response => {
-			console.log('SPList GetList', response)
 			setTitle(response.Title)
 		})
 
@@ -114,9 +113,7 @@ export const SPList = ({
 
 		if (addItem) {
 			setActions(prevActions => {
-				console.log("prevActions",prevActions)
-				return prevActions.push({
-					//add an item
+				prevActions.push({
 					icon: icons.Add,
 					tooltip: 'Add Item',
 					isFreeAction: true,
@@ -124,37 +121,68 @@ export const SPList = ({
 						setAddDialog(true)
 					}
 				})
+
+				return prevActions
 			})
 		}
 
 		if (deleteItem) {
-			//TODO: deleteItem
+			setActions(prevActions => {
+				prevActions.push({
+					icon: icons.Delete,
+					tooltip: 'Delete Item',
+					onClick: (event, rowdata) => {
+						//TODO: delete item actions
+					}
+				})
+
+				return prevActions
+			})
 		}
 
 		if (editItem) {
-			// {
-			// 	//disable a proponent
-			// 	icon: icons.NotInterested,
-			// 	tooltip: 'Disable Proponent',
-			// 	onClick: (event, rowdata) => {
-			// 		setCurrentProponentName(rowdata.Title)
-			// 		setCurrentProponent(rowdata.UUID)
-			// 		setProponentDisableDialog(true)
-			// 	}
-			// },
+			setActions(prevActions => {
+				prevActions.push({
+					icon: icons.Edit,
+					tooltip: 'Edit Item',
+					onClick: (event, rowdata) => {
+						//TODO: edit item actions
+					}
+				})
+
+				return prevActions
+			})
 		}
 
 		if (changeItemPermission) {
-			//TODO: changeItemPermission
+			setActions(prevActions => {
+				prevActions.push({
+					icon: icons.People,
+					tooltip: 'Change Item Permissions',
+					onClick: (event, rowdata) => {
+						//TODO: change item permissions actions
+					}
+				})
+
+				return prevActions
+			})
 		}
 
 		if (customActions) {
-			//TODO: customActions
+
+			customActions.map((action, index) => {
+				action.icon = icons[action.icon]
+
+				return setActions(prevActions => {
+					prevActions.push(action)
+					return prevActions
+				})
+			})
 		}
 
 		refreshData()
 
-		return () => {}
+		return () => { }
 	}, [])
 
 	useEffect(() => {
@@ -168,8 +196,8 @@ export const SPList = ({
 				})
 			)
 		})
-		return () => {}
-	}, [listColumns])
+		return () => { }
+	}, [])
 
 	return (
 		<Fragment>

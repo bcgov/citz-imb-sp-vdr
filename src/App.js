@@ -4,16 +4,11 @@ import Appcontent from './components/AppContent'
 import { GetContextWebInformation, GetCurrentUser } from 'citz-imb-sp-utilities'
 import './css/App.css'
 
-/**
- * apply theme and context to application
- */
-
-export const SiteFullUrl = React.createContext()
 export const WebFullUrl = React.createContext()
 export const CurrentUser = React.createContext()
 
 export default function App() {
-    let siteFullUrl, webFullUrl, currentUser
+    let webFullUrl, currentUser
 
     const theme = createMuiTheme({
         palette: {
@@ -28,7 +23,6 @@ export default function App() {
 
     useEffect(() => {
         GetContextWebInformation().then(response => {
-            siteFullUrl = response.SiteFullUrl
             webFullUrl = response.WebFullUrl
         })
 
@@ -42,13 +36,11 @@ export default function App() {
 
     return (
         <MuiThemeProvider theme={theme}>
-            <SiteFullUrl.Provider value={siteFullUrl}>
                 <WebFullUrl.Provider value={webFullUrl}>
                     <CurrentUser.Provider value={currentUser}>
                         <Appcontent />
                     </CurrentUser.Provider>
                 </WebFullUrl.Provider>
-            </SiteFullUrl.Provider>
         </MuiThemeProvider >
     )
 
