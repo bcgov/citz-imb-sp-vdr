@@ -1,7 +1,6 @@
 import React, { Fragment } from "react"
 import { Dialog, DialogTitle, IconButton, DialogContent } from "@material-ui/core"
 import { SPGroup } from '../../sharepoint/SPGroup'
-
 import CloseIcon from "@material-ui/icons/Close"
 
 export const UsersDialog = ({ open, groupId, proponentName, handleClose }) => {

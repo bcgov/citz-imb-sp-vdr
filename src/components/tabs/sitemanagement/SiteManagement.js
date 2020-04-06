@@ -1,11 +1,22 @@
 import React, { Fragment, useState } from 'react'
 import { SPList } from '../../sharepoint/SPList'
 import { UsersDialog } from './UsersDialog'
+import { LibraryDialog } from './LibraryDialog'
+import { QuestionDialog } from './QuestionDialog'
 
 export const SiteManagement = () => {
 	const [usersDialogOpen, setUsersDialogOpen] = useState(false)
 	const [groupId, setGroupId] = useState()
 	const [proponentName, setProponentName] = useState("")
+	const [libraryDialogOpen, setLibraryDialogOpen] = useState(false)
+	const [questionDialogOpen, setQuestionDialogOpen] = useState(false)
+	const [libraryName, setLibraryName] = useState("")
+	const [questionListName, setQuestionListName] = useState("")
+
+	const handleUsersDialogClose = () => setUsersDialogOpen(false)
+	const handleLibraryDialogClose = () => setLibraryDialogOpen(false)
+	const handleQuestionDialogClose = () => setQuestionDialogOpen(false)
+
 	const options = {
 		search: false,
 		sorting: false,
@@ -14,7 +25,6 @@ export const SiteManagement = () => {
 		draggable: false,
 		actionsColumnIndex: -1
 	}
-	const handleUsersDialogClose = () => setUsersDialogOpen(false)
 
 	const customActions = [
 		{
@@ -25,7 +35,6 @@ export const SiteManagement = () => {
 				setUsersDialogOpen(true)
 				setGroupId(rowdata.GroupId)
 				setProponentName(rowdata.Title)
-					//handleClose: usersHandleClose
 			}
 		},
 		{
@@ -33,8 +42,9 @@ export const SiteManagement = () => {
 			icon: 'Library',
 			tooltip: 'Open Proponent Library',
 			onClick: (event, rowdata) => {
-				// setCurrentProponent(rowdata.UUID)
-				// setProponentLibraryDialog(true)
+				setLibraryName(rowdata.UUID)
+				setProponentName(rowdata.Title)
+				setLibraryDialogOpen(true)
 			}
 		},
 		{
@@ -42,8 +52,9 @@ export const SiteManagement = () => {
 			icon: 'Question',
 			tooltip: 'Open Proponent Questions',
 			onClick: (event, rowdata) => {
-				// setCurrentProponent(rowdata.UUID)
-				// setProponentQuestionDialog(true)
+				setQuestionListName(`${rowdata.UUID}_Questions`)
+				setProponentName(rowdata.Title)
+				setQuestionDialogOpen(true)
 			}
 		}
 	]
@@ -64,6 +75,18 @@ export const SiteManagement = () => {
 				groupId={groupId}
 				proponentName={proponentName}
 				handleClose={handleUsersDialogClose}
+			/>
+			<LibraryDialog
+				open={libraryDialogOpen}
+				libraryName={libraryName}
+				proponentName={proponentName}
+				handleClose={handleLibraryDialogClose}
+			/>
+			<QuestionDialog
+				open={questionDialogOpen}
+				listName={questionListName}
+				proponentName={proponentName}
+				handleClose={handleQuestionDialogClose}
 			/>
 		</Fragment>
 	)

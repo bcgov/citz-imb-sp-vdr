@@ -4,6 +4,7 @@ import { SPAddItem } from './SPAddItem'
 import {
 	GetList,
 	GetListItems,
+	GetLibraryItems,
 	GetListDefaultView,
 	GetListFields
 } from 'citz-imb-sp-utilities'
@@ -84,7 +85,7 @@ export const SPList = ({
 			<ViewColumn {...props} ref={ref} />
 		))
 	}
-
+	const [listTemplate, setListTemplate] = useState()
 	const [data, setData] = useState([])
 	const [columns, setColumns] = useState([])
 	const [listColumns, setListColumns] = useState({})
@@ -93,13 +94,27 @@ export const SPList = ({
 	const [addDialog, setAddDialog] = useState(false)
 
 	const refreshData = () => {
-		GetListItems({ listName: listName }).then(response => {
-			setData(response)
-		})
+		if (listTemplate === 101) {
+			GetListItems({ listName: listName, expand: "File" }).then(response => {
+				response.map(item => {
+					item.LinkFilenameNoMenu = item.File.Name
+					item.LinkFilename = item.File.Name
+					item.FileLeafRef = item.File.Name
+					item.Url = item.OData__dlc_DocIdUrl.Url
+					return item
+				})
+				setData(response)
+			})
+		} else {
+			GetListItems({ listName: listName }).then(response => {
+				setData(response)
+			})
+		}
 	}
 
 	useEffect(() => {
 		GetList({ listName: listName }).then(response => {
+			setListTemplate(response.BaseTemplate)
 			setTitle(response.Title)
 		})
 
@@ -180,24 +195,55 @@ export const SPList = ({
 			})
 		}
 
-		refreshData()
-
 		return () => { }
 	}, [])
 
 	useEffect(() => {
-		GetListDefaultView({ listName: listName }).then(response => {
-			setColumns(
-				response.ViewFields.Items.results.map(field => {
-					return {
-						title: listColumns[field],
-						field: field
-					}
-				})
-			)
-		})
+		if (listTemplate === 101) {
+			GetListDefaultView({ listName: listName }).then(response => {
+				setColumns(
+					response.ViewFields.Items.results.map(field => {
+						console.log('field', field)
+						let fieldObject = {
+							title: listColumns[field],
+							field: field
+						}
+
+						if (field === "LinkFilenameNoMenu") {
+							fieldObject.render = rowdata => {
+								return <a href={rowdata["Url"]}>{rowdata[field]}</a>
+							}
+						}
+						if (field === "LinkFilename") {
+							fieldObject.render = rowdata => {
+								return <a href={rowdata["Url"]}>{rowdata[field]} - edit</a>
+								//TODO: make edit dropdown
+							}
+						}
+
+						return fieldObject
+					})
+				)
+			})
+		} else {
+			GetListDefaultView({ listName: listName }).then(response => {
+				setColumns(
+					response.ViewFields.Items.results.map(field => {
+						return {
+							title: listColumns[field],
+							field: field
+						}
+					})
+				)
+			})
+		}
 		return () => { }
-	}, [])
+	}, [listColumns, listTemplate])
+
+	useEffect(() => {
+		refreshData()
+		return () => { }
+	}, [listTemplate])
 
 	return (
 		<Fragment>

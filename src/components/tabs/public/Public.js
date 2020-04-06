@@ -59,14 +59,14 @@ export const Public = () => {
 						</Grid>
 						<Grid key={'Questions'} item xs={6}>
 							<Paper className={classes.paper}>
-								<SPList
+								{/* <SPList
 									listName='Questions'
 									addItem={false}
 									deleteItem={false}
 									editItem={false}
 									changeItemPermission={false}
 									options={options}
-								/>
+								/> */}
 							</Paper>
 						</Grid>
 					</Grid>
