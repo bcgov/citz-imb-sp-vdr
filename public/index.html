@@ -25,11 +25,13 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
 		<title>VDR Harness</title>
-		<link rel="stylesheet" type="text/css" href="./PeoplePicker.css" />
-		<script
-			type="text/javascript"
-			src="_layouts/15/init.js"
-		></script>
+		<script type="text/javascript" src="_layouts/15/init.js"></script>
+		<script type="text/javascript">
+			_spPageContextInfo = {
+				webAbsoluteUrl: 'http://localhost:8081',
+				siteAbsoluteUrl: 'http://localhost:8081',
+			}
+		</script>
 		<script
 			type="text/javascript"
 			src="_layouts/15/1033/initstrings.js"
@@ -42,31 +44,14 @@
 			type="text/javascript"
 			src="_layouts/15/MicrosoftAjax.js"
 		></script>
-		<script
-			type="text/javascript"
-			src="_layouts/15/sp.core.js"
-		></script>
-		<script
-			type="text/javascript"
-			src="_layouts/15/sp.runtime.js"
-		></script>
-		<script
-			type="text/javascript"
-			src="_layouts/15/sp.js"
-		></script>
-		<script type="text/javascript">
-			var dev = true
-		</script>
+		<script type="text/javascript" src="_layouts/15/sp.core.js"></script>
+		<script type="text/javascript" src="_layouts/15/sp.runtime.js"></script>
+		<script type="text/javascript" src="_layouts/15/sp.js"></script>
+
 	</head>
 	<body>
 		<noscript>You need to enable JavaScript to run this app.</noscript>
-		<div id="app-root"></div>
-		<input
-			type="hidden"
-			name="__REQUESTDIGEST"
-			id="__REQUESTDIGEST"
-			value="0x52CA7ECD82A5EE2B2138EB219F90A723A25E34DA51DED98A5D58139591C3277F989CF006FB3244B497A97AFD2B9967AB3DD10CD785D1AE33A021166DAFA689B5,18 Feb 2020 18:40:53 -0000"
-		/>
+		<div id="DeltaPlaceHolderMain"></div>
 		<!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

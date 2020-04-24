@@ -12,7 +12,7 @@ export const SPAddItem = ({ open, addItemCallback }) => {
 	return (
 		<Dialog open={open} onClose={addItemCallback}>
 			<DialogTitle id='form-dialog-title'>
-				Add a new Proponent
+				
 			</DialogTitle>
 			<DialogContent>
 				<TextField

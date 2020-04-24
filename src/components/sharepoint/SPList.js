@@ -203,7 +203,6 @@ export const SPList = ({
 			GetListDefaultView({ listName: listName }).then(response => {
 				setColumns(
 					response.ViewFields.Items.results.map(field => {
-						console.log('field', field)
 						let fieldObject = {
 							title: listColumns[field],
 							field: field

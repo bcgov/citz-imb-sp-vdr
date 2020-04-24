@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { SPList } from '../../sharepoint/SPList'
+import { SPList } from 'citz-imb-sp-utilities'
 import { Container, Grid, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { GetListItems } from 'citz-imb-sp-utilities'
 
 export const Private = () => {
 	const classes = makeStyles(theme => ({
@@ -30,11 +29,6 @@ export const Private = () => {
 	const [privateTab, setPrivateTab] = useState('')
 
 	useEffect(() => {
-		GetListItems({listName:'Config', filter:"Key eq 'PrivateTab'"}).then(results => {
-			setPrivateTab(() => {
-				return <div dangerouslySetInnerHTML={{__html: results[0].MultiTextValue}}></div>
-			})
-		})
 
 		return () => {}
 	}, [])
@@ -49,10 +43,10 @@ export const Private = () => {
 							<Paper className={classes.paper}>
 								<SPList
 									listName='Documents'
-									addItem={false}
-									deleteItem={false}
-									editItem={false}
-									changeItemPermission={false}
+									// addItem={false}
+									// deleteItem={false}
+									// editItem={false}
+									// changeItemPermission={false}
 									options={options}
 								/>
 							</Paper>
@@ -61,10 +55,10 @@ export const Private = () => {
 							<Paper className={classes.paper}>
 								<SPList
 									listName='Questions'
-									addItem={false}
-									deleteItem={false}
-									editItem={false}
-									changeItemPermission={false}
+									// addItem={false}
+									// deleteItem={false}
+									// editItem={false}
+									// changeItemPermission={false}
 									options={options}
 								/>
 							</Paper>
