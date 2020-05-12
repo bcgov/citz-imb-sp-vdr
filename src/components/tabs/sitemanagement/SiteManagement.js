@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from 'react'
-import { SPList } from 'citz-imb-sp-utilities'
+import { SPList } from '../../sharepoint/SPList'
 // import { UsersDialog } from './UsersDialog'
 // import { LibraryDialog } from './LibraryDialog'
 // import { QuestionDialog } from './QuestionDialog'
-// import { AddProponentDialog } from './AddProponentDialog'
+import { AddProponentDialog } from './AddProponentDialog'
 
 export const SiteManagement = () => {
 	const [usersDialogOpen, setUsersDialogOpen] = useState(false)
@@ -78,11 +78,11 @@ export const SiteManagement = () => {
 		<Fragment>
 			<SPList
 				listName={'Proponents'}
-				// addItem={false}
-				// deleteItem={false}
-				// editItem={false}
-				// changeItemPermission={false}
-				// customActions={customActions}
+				addItem={false}
+				deleteItem={false}
+				editItem={false}
+				changeItemPermission={false}
+				customActions={customActions}
 				options={options}
 			/>
 			{/* <UsersDialog
@@ -90,25 +90,25 @@ export const SiteManagement = () => {
 				groupId={groupId}
 				proponentName={proponentName}
 				handleClose={handleUsersDialogClose}
-			/>
-			<LibraryDialog
-				open={libraryDialogOpen}
-				libraryName={libraryName}
-				proponentName={proponentName}
-				handleClose={handleLibraryDialogClose}
-			/>
-			<QuestionDialog
-				open={questionDialogOpen}
-				listName={questionListName}
-				proponentName={proponentName}
-				handleClose={handleQuestionDialogClose}
-			/>
+			/> */}
+			  {/* <LibraryDialog
+			 	open={libraryDialogOpen}
+			 	libraryName={libraryName}
+			 	proponentName={proponentName}
+			 	handleClose={handleLibraryDialogClose}
+			 /> */}
+			 {/* <QuestionDialog
+			 	open={questionDialogOpen}
+			 	listName={questionListName}
+			 	proponentName={proponentName}
+			 	handleClose={handleQuestionDialogClose}
+			 /> */}
 			<AddProponentDialog
 				open={addProponentDialogOpen}
 				listName={proponentListName}
 				handleClose={handleAddProponentDialogClose}
 				saveCallback={handleAddProponentDialogSave}
-			/> */}
+			/>
 		</Fragment>
 	)
 }

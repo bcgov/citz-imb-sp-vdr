@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { SPList } from 'citz-imb-sp-utilities'
+import React, { useEffect } from 'react'
+import { SPList } from '../../sharepoint/SPList'
 import { Container, Grid, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -26,7 +26,7 @@ export const Public = () => {
 		actionsColumnIndex: -1
 	}
 
-	const [publicTab, setPublicTab] = useState('')
+	const publicTab = ''
 
 	useEffect(() => {
 		return () => {}
@@ -42,10 +42,10 @@ export const Public = () => {
 							<Paper className={classes.paper}>
 								<SPList
 									listName='Documents'
-									//addItem={false}
-									//deleteItem={false}
-									//editItem={false}
-									//changeItemPermission={false}
+									addItem={false}
+									deleteItem={false}
+									editItem={false}
+									changeItemPermission={false}
 									options={options}
 								/>
 							</Paper>
@@ -54,10 +54,10 @@ export const Public = () => {
 							<Paper className={classes.paper}>
 								<SPList
 									listName='Questions'
-									// addItem={false}
-									// deleteItem={false}
-									// editItem={false}
-									// changeItemPermission={false}
+									addItem={false}
+									deleteItem={false}
+									editItem={false}
+									changeItemPermission={false}
 									options={options}
 								/>
 							</Paper>

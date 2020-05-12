@@ -8,7 +8,7 @@ import HomeIcon from '@material-ui/icons/Home'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
 import SettingsIcon from '@material-ui/icons/Settings'
 
-import { Private } from './private/Private'
+// import { Private } from './private/Private'
 import { Public } from './public/Public'
 import { SiteManagement } from './sitemanagement/SiteManagement'
 
@@ -103,7 +103,7 @@ export const VDRTabs = () => {
 			<TabPanel value={value} index={1}>
 				<Paper>
 					<h2>Questions</h2>
-					<Private />
+					{/* <Private /> */}
 				</Paper>
 			</TabPanel>
 			<TabPanel value={value} index={2}>

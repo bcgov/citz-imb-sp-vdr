@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import Appcontent from './components/AppContent'
-import { GetContextWebInformation, GetCurrentUser } from 'citz-imb-sp-utilities'
+//import { GetContextWebInformation, GetCurrentUser } from 'citz-imb-sp-utilities'
 import './css/App.css'
 
 export const WebFullUrl = React.createContext()
@@ -22,13 +22,13 @@ export default function App() {
     })
 
     useEffect(() => {
-        GetContextWebInformation().then(response => {
-            webFullUrl = response.WebFullUrl
-        })
+        // GetContextWebInformation().then(response => {
+        //     webFullUrl = response.WebFullUrl
+        // })
 
-        GetCurrentUser().then(response => {
-            currentUser = response
-        })
+        // GetCurrentUser().then(response => {
+        //     currentUser = response
+        // })
 
         return () => { }
     }, [])
