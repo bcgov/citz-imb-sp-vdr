@@ -7,21 +7,18 @@ import { GetListItems } from 'citz-imb-sp-utilities'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 export default function AppContent() {
-	const cookieName = 'TORAgreement'
+	const key = 'TOS'
+
 	const [title, setTitle] = useState('')
 	const [body, setBody] = useState('')
-	const [modified, setModified] = useState('')
 	const [cookieDays, setCookieDays] = useState(1)
-	const [agree, setAgree] = useState(
-		getCookie(cookieName + modified) ? true : false
-	)
+	const [cookieName, setCookieName] = useState('')
+	const [agree, setAgree] = useState()
 	const [loading, setLoading] = useState(true)
 
 	const handleAgree = () => {
-		console.log(`handleAgree`)
-		setCookie(cookieName + modified, 'true', cookieDays)
-		console.log(getCookie(cookieName + modified))
-		setAgree(getCookie(cookieName + modified) ? true : false)
+		setCookie(cookieName, 'true', cookieDays)
+		setAgree(true)
 	}
 
 	const handleDisagree = () => {
@@ -30,34 +27,33 @@ export default function AppContent() {
 	}
 
 	useEffect(() => {
-		GetListItems({ listName: 'Config', filter: "Key eq 'TOR'" })
-			.then(response => {
-				setTitle(response[0].TextValue)
-				setBody(response[0].MultiTextValue)
-				setModified(response[0].Modified)
-				setCookieDays(response[0].NumberValue)
-
-				if (window.location.hostname === "localhost") {
-					setAgree(true)
-				}
-				setLoading(false)
-			})
-			.catch(error => {
-
-			})
-		return () => { }
-	}, [])
+		if (loading) {
+			GetListItems({ listName: 'Config', filter: `Key eq '${key}'` })
+				.then((response) => {
+					setTitle(response[0].TextValue)
+					setBody(response[0].MultiTextValue)
+					setCookieDays(response[0].NumberValue)
+					setCookieName(key + response[0].Modified)
+					setAgree(getCookie(key + response[0].Modified))
+					setLoading(false)
+				})
+				.catch((error) => {
+					console.log(`error getting TOS`, error)
+				})
+		}
+		return () => {}
+	}, [loading])
 
 	return loading ? (
 		<CircularProgress />
 	) : agree ? (
 		<VDRTabs />
 	) : (
-				<TermsOfReference
-					title={title}
-					body={body}
-					handleAgree={handleAgree}
-					handleDisagree={handleDisagree}
-				/>
-			)
+		<TermsOfReference
+			title={title}
+			body={body}
+			handleAgree={handleAgree}
+			handleDisagree={handleDisagree}
+		/>
+	)
 }

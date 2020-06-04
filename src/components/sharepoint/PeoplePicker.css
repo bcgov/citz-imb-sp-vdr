@@ -1,0 +1,184 @@
+.sp-peoplepicker-topLevel,
+.sp-peoplepicker-topLevelDisabled {
+	cursor: text;
+	height: 100%;
+	width: 371px;
+	position: relative;
+	padding: 3px 25px 3px 0px;
+}
+input[type='password'],
+input[type='text'],
+input[type='file'],
+select,
+textarea,
+.sp-peoplepicker-topLevel,
+.sp-peoplepicker-topLevelDisabled,
+.sp-peoplepicker-autoFillContainer,
+.ms-inputBox {
+	border: 1px solid #ababab;
+	background-color: #fff;
+	background-color: rgba(255, 255, 255, 0.85);
+	color: #444;
+}
+input,
+select,
+label,
+textarea,
+button,
+option {
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	vertical-align: middle;
+}
+.sp-peoplepicker-autoFillContainer {
+	z-index: 1;
+	padding: 0px;
+	display: none;
+	cursor: default;
+	max-width: 300px;
+	min-width: 300px;
+	position: absolute;
+	border-color: #c6c6c6;
+}
+.sp-peoplepicker-initialHelpText {
+	top: 3px;
+	left: 4px;
+	position: absolute;
+}
+.ms-helperText,
+input.ms-helperText {
+	color: #777;
+}
+.sp-peoplepicker-waitImg {
+	width: 16px;
+	height: 16px;
+	display: none;
+	font-size: 0px;
+	position: absolute;
+}
+img {
+	border: none;
+	-webkit-tap-highlight-color: transparent;
+}
+input[type='password'],
+input[type='text'],
+input[type='file'],
+textarea,
+.ms-inputBox {
+	padding: 2px 5px;
+}
+input,
+select,
+label,
+textarea,
+button,
+option {
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	vertical-align: middle;
+}
+input.sp-peoplepicker-editorInput[type='text'] {
+	border: 0px;
+	padding: 0px 1px;
+	margin-left: 5px;
+	vertical-align: inherit;
+	background-color: transparent;
+}
+input.sp-peoplepicker-editorInput[type='text']:focus {
+	outline: 0px;
+}
+.sp-peoplepicker-autoFillContainer .sp-autoFill-scroll {
+	width: 100%;
+	border: none;
+	margin: 0px;
+	padding: 0px;
+	max-height: 200px;
+	min-width: 100%;
+	padding-top: 3px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	margin-right: 10px;
+	list-style-type: none;
+	box-shadow: 0px 0px 0px 0px transparent;
+	background-color: #fff;
+}
+.sp-peoplepicker-autoFillContainer .ms-core-menu-item {
+	white-space: nowrap;
+	padding: 1px 5px 3px 5px;
+}
+.ms-core-menu-item {
+	margin: 0px;
+	cursor: pointer;
+	border: 1px solid transparent;
+}
+.ms-core-menu-link:link,
+.ms-core-menu-link:visited {
+	color: #444;
+}
+.sp-peoplepicker-autoFillContainer .ms-core-menu-link {
+	padding: 0px;
+}
+a.ms-core-menu-link {
+	padding: 6px 8px;
+	color: #444;
+	text-decoration: none;
+	display: block;
+	position: relative;
+}
+a:visited {
+	color: #663399;
+	text-decoration: none;
+}
+a,
+.ms-link:visited {
+	color: #0072c6;
+	text-decoration: none;
+}
+.sp-autoFill-scroll .ms-core-menu-label {
+	border: none;
+}
+.sp-peoplepicker-autoFillContainer .ms-core-menu-label {
+	display: block;
+}
+.ms-core-menu-label,
+.ms-core-menu-labelCompact {
+	border: 1px solid transparent;
+	word-wrap: break-word;
+}
+.ms-metadata,
+.ms-descriptiontext {
+	color: #777;
+}
+.ms-textSmall,
+.ms-textXSmall,
+.ms-metadata,
+.ms-descriptiontext,
+.ms-secondaryCommandLink {
+	font-size: 0.9em;
+}
+.ms-metadata,
+.ms-descriptiontext,
+.ms-secondaryCommandLink {
+	font-family: 'Segoe UI', 'Segoe', Tahoma, Helvetica, Arial, sans-serif;
+}
+.ms-core-menu-separatorHr {
+	margin: 2px 0px;
+	color: #c6c6c6;
+}
+hr {
+	border-width: 0px;
+	border-top: 1px solid #c6c6c6;
+}
+hr {
+	display: block;
+	unicode-bidi: isolate;
+	margin-block-start: 0.5em;
+	margin-block-end: 0.5em;
+	margin-inline-start: auto;
+	margin-inline-end: auto;
+	overflow: hidden;
+	border-style: inset;
+	border-width: 1px;
+}

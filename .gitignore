@@ -11,6 +11,7 @@
 
 # production
 /build
+/archive
 
 # misc
 private.json

@@ -108,7 +108,6 @@ export const VDRTabs = () => {
 			</TabPanel>
 			<TabPanel value={value} index={2}>
 				<Paper>
-					<h2>Site Management</h2>
 					<SiteManagement />
 				</Paper>
 			</TabPanel>

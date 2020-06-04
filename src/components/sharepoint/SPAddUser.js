@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Dialog, DialogTitle, Paper, DialogContent, DialogActions, Button } from '@material-ui/core'
-import { PeoplePicker } from 'citz-imb-sp-utilities'
+import { PeoplePicker } from './PeoplePicker'
 
 export const SPAddUser = ({ open, groupName, handleSave, handleCancel }) => {
 	const [userInfo, setUserInfo] = useState([])
