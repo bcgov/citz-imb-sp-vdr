@@ -1,27 +1,23 @@
-.fred {
+/* Resets */
+#vdr-root input[type=button], #vdr-root input[type=reset], #vdr-root input[type=submit], #vdr-root button{
+  min-width: auto;
+}
+
+#vdr-root .fred {
   border: 1px solid orangered;
 }
 
-.column {
+#vdr-root .column {
   float: left;
   width: 50%;
 }
 
-.row:after {
+#vdr-root .row:after {
   content: "";
   display: table;
   clear: both;
 }
 
-.MuiIconButton-root {
+#vdr-root .MuiIconButton-root {
   min-width: auto;
-}
-
-@media screen and {
-  max-width: 600px;
-}
- {
-  .column {
-    width: 100%;
-  }
 }

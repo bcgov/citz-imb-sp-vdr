@@ -1,61 +1,59 @@
 import 'react-tabs/style/react-tabs.css'
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import TermsOfReference from './terms/TermsOfReference'
-import VDRTabs from './tabs/VDRTabs'
+import { VDRTabs } from './tabs/VDRTabs'
 import { setCookie, getCookie } from './utilities/cookies'
-import axios from 'axios'
+import { GetListItems } from 'citz-imb-sp-utilities'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { PageContext } from '../App'
-
-/**
- * Shows terms of reference if not already agreed to
- * Shows main app if terms of reference agreed to
- */
 
 export default function AppContent() {
+	const key = 'TOS'
 
-    const [cookieName, setCookieName] = useState('TORAgreement')
-    const [title, setTitle] = useState('')
-    const [body, setBody] = useState('')
-    const [modified, setModified] = useState('')
-    const [cookieDays, setCookieDays] = useState(1)
-    const [agree, setAgree] = useState((getCookie(cookieName + modified)) ? true : false)
-    const [loading, setLoading] = useState(true)
+	const [title, setTitle] = useState('')
+	const [body, setBody] = useState('')
+	const [cookieDays, setCookieDays] = useState(1)
+	const [cookieName, setCookieName] = useState('')
+	const [agree, setAgree] = useState()
+	const [loading, setLoading] = useState(true)
 
-    const pageContext = useContext(PageContext)
+	const handleAgree = () => {
+		setCookie(cookieName, 'true', cookieDays)
+		setAgree(true)
+	}
 
-    const handleAgree = () => {
-        setCookie(cookieName + modified, "true", cookieDays);
-        setAgree((getCookie(cookieName + modified)) ? true : false)
-    }
+	const handleDisagree = () => {
+		window.close()
+		window.location = '/_layouts/signout.aspx'
+	}
 
-    const handleDisagree = () => {
-        window.close()
-        window.location = '/_layouts/signout.aspx'
-    }
+	useEffect(() => {
+		if (loading) {
+			GetListItems({ listName: 'Config', filter: `Key eq '${key}'` })
+				.then((response) => {
+					setTitle(response[0].TextValue)
+					setBody(response[0].MultiTextValue)
+					setCookieDays(response[0].NumberValue)
+					setCookieName(key + response[0].Modified)
+					setAgree(getCookie(key + response[0].Modified))
+					setLoading(false)
+				})
+				.catch((error) => {
+					console.log(`error getting TOS`, error)
+				})
+		}
+		return () => {}
+	}, [loading])
 
-    useEffect(() => {
-        axios.get(`${pageContext.webAbsoluteUrl}/_api/Web/Lists/getbytitle('Config')/items?$filter=Key eq 'TOR'&$select=TextValue,MultiTextValue,Modified,NumberValue`)
-            .then(response => {
-                setTitle(response.data.value[0].TextValue)
-                setBody(response.data.value[0].MultiTextValue)
-                setModified(response.data.value[0].Modified)
-                setCookieDays(response.data.value[0].NumberValue)
-                setLoading(false)
-            }).catch(error => {
-                console.warn('Axios get', error)
-            })
-        return () => { }
-    }, [])
-
-    return (loading) ?
-        <CircularProgress /> :
-        (agree) ?
-            <VDRTabs /> :
-            <TermsOfReference
-                title={title}
-                body={body}
-                handleAgree={handleAgree}
-                handleDisagree={handleDisagree}
-            />
+	return loading ? (
+		<CircularProgress />
+	) : agree ? (
+		<VDRTabs />
+	) : (
+		<TermsOfReference
+			title={title}
+			body={body}
+			handleAgree={handleAgree}
+			handleDisagree={handleDisagree}
+		/>
+	)
 }

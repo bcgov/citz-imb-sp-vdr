@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+
 
 export class Rest extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ export class Rest extends Component {
 
     // ERROR HANDLING
     errorHandling() {
-        axios
+
             .get('https://jsonplaceholder.typicode.com/todoss', {
                 // validateStatus: function(status) {
                 //   return status < 500; // Reject only if status is greater or equal to 500
@@ -51,7 +51,7 @@ export class Rest extends Component {
         return (
             <div className={"container my-5"}>
                 <div className={"text-center"}>
-                    <h1 className={"display-4 text-center mb-3"}>Axios Crash Course</h1>
+                    <h1 className={"display-4 text-center mb-3"}> Crash Course</h1>
                     <button className={"btn btn-primary my-3"} id={"get"}>GET</button>
                     <button className={"btn btn-info"} id={"post"}>POST</button>
                     <button className={"btn btn-warning"} id={"update"}>PUT/PATCH</button>

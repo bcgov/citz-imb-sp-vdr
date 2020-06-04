@@ -4,14 +4,15 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.3",
-    "@testing-library/user-event": "^7.1.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "material-table": "^1.57.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "^3.4.1"
   },
   "scripts": {
-    "start": "set HTTPS=true&&set PORT=443&&react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build && gulp",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -34,28 +35,17 @@
     ]
   },
   "devDependencies": {
-    "@material-ui/core": "^4.7.2",
-    "@material-ui/icons": "^4.5.1",
-    "@pnp/graph": "^2.0.2",
-    "@pnp/sp": "^2.0.2",
-    "@pnp/spfx-controls-react": "^1.16.0",
-    "axios": "^0.19.2",
+    "@material-ui/core": "^4.9.8",
+    "@material-ui/icons": "^4.9.1",
     "concurrently": "^5.1.0",
-    "datatables.net": "^1.10.20",
-    "datatables.net-buttons": "^1.6.1",
-    "datatables.net-editor": "^1.6.5",
-    "datatables.net-jqui": "^1.10.20",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
-    "jquery": "^3.4.1",
-    "jquery-ui": "^1.12.1",
-    "material-table": "^1.55.0",
     "moment": "^2.24.0",
     "react-icons": "^3.9.0",
     "react-moment": "^0.9.7",
-    "react-tabs": "^3.0.0",
+    "react-tabs": "^3.1.0",
     "react-toastify": "^5.5.0",
-    "sp-rest-proxy": "^2.10.3"
+    "sp-rest-proxy": "^2.11.0"
   },
   "proxy": "http://localhost:8081"
 }

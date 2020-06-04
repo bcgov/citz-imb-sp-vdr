@@ -1,24 +1,25 @@
-import 'react-app-polyfill/ie9';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import * as serviceWorker from './serviceWorker';
-import $ from 'jquery'
-import App from './App';
-/**
- * Prepares the host page for the application
- */
-$(document).ready(function () {
-    const path = window.location.pathname.split("/")
-    console.log('index.js'
-    )
-    if (path[path.length - 1] === 'Home.aspx') {
-        $("#DeltaPlaceHolderMain").append("<div id='app-root'></div>")
-    }
+import 'react-app-polyfill/ie9'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import * as serviceWorker from './serviceWorker'
+import App from './App'
 
-    ReactDOM.render(<App />, document.getElementById('app-root'));
+if (window.location.pathname.split('/').pop().toLowerCase() === 'home.aspx') {
+	setTimeout(() => {
+		const rootEl = document.createElement('div')
+		rootEl.setAttribute('id', 'vdr-root')
+		const el = document.getElementById('DeltaPlaceHolderMain')
+		el.appendChild(rootEl)
 
-    // If you want your app to work offline and load faster, you can change
-    // unregister() to register() below. Note this comes with some pitfalls.
-    // Learn more about service workers: https://bit.ly/CRA-PWA
-    serviceWorker.unregister();
-});
+		ReactDOM.render(
+			<React.StrictMode>
+				<App />
+			</React.StrictMode>,
+			rootEl
+		)
+	}, 1000)
+}
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister()
