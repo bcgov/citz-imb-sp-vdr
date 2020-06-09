@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.9.8",
+    "@material-ui/icons": "^4.9.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "material-table": "^1.57.2",
     "react": "^16.13.1",
+    "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1"
   },
@@ -24,19 +27,19 @@
   },
   "browserslist": {
     "production": [
+      "IE 10",
       ">0.2%",
       "not dead",
       "not op_mini all"
     ],
     "development": [
+      "IE 10",
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
     ]
   },
   "devDependencies": {
-    "@material-ui/core": "^4.9.8",
-    "@material-ui/icons": "^4.9.1",
     "concurrently": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
