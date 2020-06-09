@@ -30,6 +30,8 @@ export const Private = () => {
 	const [libraryName, setLibraryName] = useState()
 	const [listName, setListName] = useState()
 	const [isLoaded, setIsLoaded] = useState(false)
+	const [libraryIsDirty, setLibraryIsDirty] = useState(true)
+	const [listIsDirty, setListIsDirty] = useState(true)
 
 	useEffect(() => {
 		Promise.all([
@@ -70,6 +72,8 @@ export const Private = () => {
 										// editItem={false}
 										// changeItemPermission={false}
 										options={options}
+										isDirty={libraryIsDirty}
+										handleDirty={setLibraryIsDirty}
 									/>
 								</Paper>
 							</Grid>
@@ -82,6 +86,8 @@ export const Private = () => {
 										// editItem={false}
 										// changeItemPermission={false}
 										options={options}
+										isDirty={listIsDirty}
+										handleDirty={setListIsDirty}
 									/>
 								</Paper>
 							</Grid>

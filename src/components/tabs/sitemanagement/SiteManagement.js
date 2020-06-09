@@ -7,6 +7,17 @@ import { AddProponentDialog } from './AddProponentDialog'
 import { ToggleProponentDialog } from './ToggleProponentDialog'
 
 export const SiteManagement = () => {
+	const proponentListName = 'Proponents'
+
+	const options = {
+		search: false,
+		sorting: false,
+		paging: false,
+		pageSize: 20,
+		draggable: false,
+		actionsColumnIndex: -1,
+	}
+
 	const [usersDialogOpen, setUsersDialogOpen] = useState(false)
 	const [libraryDialogOpen, setLibraryDialogOpen] = useState(false)
 	const [questionDialogOpen, setQuestionDialogOpen] = useState(false)
@@ -20,27 +31,20 @@ export const SiteManagement = () => {
 	const [proponentName, setProponentName] = useState('')
 	const [libraryName, setLibraryName] = useState('')
 	const [questionListName, setQuestionListName] = useState('')
+	const [isDirty, setIsDirty] = useState(true)
 
 	const handleUsersDialogClose = () => setUsersDialogOpen(false)
 	const handleLibraryDialogClose = () => setLibraryDialogOpen(false)
 	const handleQuestionDialogClose = () => setQuestionDialogOpen(false)
-	const handleAddProponentDialogClose = () => {
-		setAddProponentDialogOpen(false)
-	}
+
 	const handleToggleProponentDialogClose = () => {
 		setToggleProponentDialogOpen(false)
+		setIsDirty(true)
 	}
-	const handleAddProponentDialogSave = () => setAddProponentDialogOpen(false)
 
-	const proponentListName = 'Proponents'
-
-	const options = {
-		search: false,
-		sorting: false,
-		paging: false,
-		pageSize: 20,
-		draggable: false,
-		actionsColumnIndex: -1,
+	const handleAddProponentDialogClose = () => {
+		setAddProponentDialogOpen(false)
+		setIsDirty(true)
 	}
 
 	const customActions = [
@@ -104,6 +108,8 @@ export const SiteManagement = () => {
 				changeItemPermission={false}
 				customActions={customActions}
 				options={options}
+				isDirty={isDirty}
+				handleDirty={setIsDirty}
 			/>
 			<UsersDialog
 				open={usersDialogOpen}
@@ -127,7 +133,6 @@ export const SiteManagement = () => {
 				open={addProponentDialogOpen}
 				listName={proponentListName}
 				handleClose={handleAddProponentDialogClose}
-				saveCallback={handleAddProponentDialogSave}
 			/>
 			<ToggleProponentDialog
 				open={toggleProponentDialogOpen}

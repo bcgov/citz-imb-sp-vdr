@@ -36,7 +36,6 @@ export const AddProponentDialog = ({
 	open,
 	listName,
 	handleClose,
-	saveCallback,
 }) => {
 	const [name, setName] = useState('')
 	const uniqueId = makeUUID()
@@ -52,14 +51,14 @@ export const AddProponentDialog = ({
 			CreateList({ listName: `${uniqueId}_Questions` }), //create proponent question list
 			GetAssociatedGroups(),
 			GetRoleDefinitions({}),
-			GetCurrentUser(),
+			GetCurrentUser({}),
 		]).then((response1) => {
 			;[group, library, list, assocGroups, roles, currentUser] = response1
 			Promise.all([
-				ChangeGroupOwner({
-					groupId: group.Id,
-					ownerGroupId: assocGroups.AssociatedOwnerGroup.Id,
-				}), //proponent group - need results of CreateGroup and GetAssociatedGroups
+				// ChangeGroupOwner({
+				// 	groupId: group.Id,
+				// 	ownerGroupId: assocGroups.AssociatedOwnerGroup.Id,
+				// }), //proponent group - need results of CreateGroup and GetAssociatedGroups
 				AddItemsToList({
 					listName: 'Proponents',
 					items: {

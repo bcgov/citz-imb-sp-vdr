@@ -38,7 +38,9 @@ export const SPList = ({
 	editItem = true,
 	changeItemPermission = true,
 	customActions,
-	options
+	options,
+	isDirty,
+	handleDirty
 }) => {
 	const icons = {
 		Add: forwardRef((props, ref) => <Add {...props} ref={ref} />),
@@ -96,6 +98,7 @@ export const SPList = ({
 	const [title, setTitle] = useState('')
 	const [actions, setActions] = useState([])
 	const [addDialog, setAddDialog] = useState(false)
+	const [isLoading, setIsLoading] = useState(true)
 
 	const refreshData = () => {
 		if (listTemplate === 101) {
@@ -108,10 +111,12 @@ export const SPList = ({
 					return item
 				})
 				setData(response)
+				setIsLoading(false)
 			})
 		} else {
 			GetListItems({ listName: listName }).then(response => {
 				setData(response)
+				setIsLoading(false)
 			})
 		}
 	}
@@ -244,9 +249,12 @@ export const SPList = ({
 	}, [listColumns, listTemplate])
 
 	useEffect(() => {
-		refreshData()
+		if(isDirty){
+			refreshData()
+			handleDirty(false)
+		}
 		return () => { }
-	}, [listTemplate])
+	}, [listTemplate, isDirty])
 
 	return (
 		<Fragment>
@@ -256,6 +264,7 @@ export const SPList = ({
 				title={title}
 				options={options}
 				actions={actions}
+				isLoading={isLoading}
 			/>
 			<SPAddItem open={addDialog} />
 		</Fragment>

@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { SPList } from '../../sharepoint/SPList'
 import { Container, Grid, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 export const Public = () => {
-	const classes = makeStyles(theme => ({
+	const classes = makeStyles((theme) => ({
 		root: {
-			flexGrow: 1
+			flexGrow: 1,
 		},
 		paper: {
 			height: 140,
-			width: 100
+			width: 100,
 		},
 		control: {
-			padding: theme.spacing(2)
-		}
+			padding: theme.spacing(2),
+		},
 	}))
 
 	const options = {
@@ -23,10 +23,13 @@ export const Public = () => {
 		paging: false,
 		pageSize: 20,
 		draggable: false,
-		actionsColumnIndex: -1
+		actionsColumnIndex: -1,
 	}
 
 	const publicTab = ''
+
+	const [libraryIsDirty, setLibraryIsDirty] = useState(true)
+	const [listIsDirty, setListIsDirty] = useState(true)
 
 	useEffect(() => {
 		return () => {}
@@ -47,6 +50,8 @@ export const Public = () => {
 									editItem={false}
 									changeItemPermission={false}
 									options={options}
+									isDirty={libraryIsDirty}
+									handleDirty={setLibraryIsDirty}
 								/>
 							</Paper>
 						</Grid>
@@ -59,6 +64,8 @@ export const Public = () => {
 									editItem={false}
 									changeItemPermission={false}
 									options={options}
+									isDirty={listIsDirty}
+									handleDirty={setListIsDirty}
 								/>
 							</Paper>
 						</Grid>
