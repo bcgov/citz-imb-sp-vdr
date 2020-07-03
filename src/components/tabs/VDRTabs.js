@@ -7,10 +7,11 @@ import Tab from '@material-ui/core/Tab'
 import HomeIcon from '@material-ui/icons/Home'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
 import SettingsIcon from '@material-ui/icons/Settings'
+import PeopleIcon from '@material-ui/icons/People';
 
 import { Private } from './private/Private'
 import { Public } from './public/Public'
-import { SiteManagement } from './sitemanagement/SiteManagement'
+import { ProponentManagement } from './proponentmanagement/ProponentManagement'
 
 import {
 	GetAssociatedGroups,
@@ -18,10 +19,6 @@ import {
 	GetCurrentUser,
 } from 'citz-imb-sp-utilities'
 
-/**
- * Present the tabs for the site
- * @param {*} props
- */
 function TabPanel(props) {
 	const { children, value, index, ...other } = props
 
@@ -116,6 +113,15 @@ export const VDRTabs = () => {
 					/>
 					{isManager ? (
 						<Tab
+							label='Proponent Management'
+							icon={<PeopleIcon />}
+							{...a11yProps(2)}
+						/>
+					) : (
+						''
+					)}
+					{isManager ? (
+						<Tab
 							label='Site Management'
 							icon={<SettingsIcon />}
 							{...a11yProps(2)}
@@ -139,7 +145,17 @@ export const VDRTabs = () => {
 			{isManager ? (
 				<TabPanel value={value} index={2}>
 					<Paper>
-						<SiteManagement />
+						<ProponentManagement />
+					</Paper>
+				</TabPanel>
+			) : (
+				''
+			)}
+			{isManager ? (
+				<TabPanel value={value} index={3}>
+					<Paper>
+						{/* <SiteManagement /> */}
+						Purpose: manage site configuration and message verbages - TOS and email etc.
 					</Paper>
 				</TabPanel>
 			) : (

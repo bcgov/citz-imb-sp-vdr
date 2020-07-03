@@ -4,9 +4,10 @@ import {
 	GetGroup,
 	GetGroupMembers,
 	AddUsersToGroup,
-	RemoveUsersFromGroup
+	RemoveUsersFromGroup,
 } from 'citz-imb-sp-utilities'
-import { SPAddUser } from './SPAddUser'
+import { Paper } from '@material-ui/core'
+import { SPDialog } from './SP'
 
 import Add from '@material-ui/icons/Add'
 import AddBox from '@material-ui/icons/AddBox'
@@ -28,6 +29,7 @@ import ViewColumn from '@material-ui/icons/ViewColumn'
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
 import PeopleIcon from '@material-ui/icons/People'
+import { PeoplePicker } from './PeoplePicker'
 
 export const SPGroup = ({
 	groupId,
@@ -35,7 +37,7 @@ export const SPGroup = ({
 	removeUser = true,
 	editGroup = true,
 	customActions,
-	options
+	options,
 }) => {
 	const icons = {
 		People: forwardRef((props, ref) => <PeopleIcon {...props} ref={ref} />),
@@ -81,110 +83,148 @@ export const SPGroup = ({
 		)),
 		ViewColumn: forwardRef((props, ref) => (
 			<ViewColumn {...props} ref={ref} />
-		))
+		)),
 	}
-
+	const styles = {
+		paper: {
+			height: '300px',
+			width: 'auto',
+		},
+	}
 	const [data, setData] = useState([])
-	const [title, setTitle] = useState('')
+	const [groupTitle, setGroupTitle] = useState()
 	const [actions, setActions] = useState([])
-	const [addUserDialogOpen, setAddUserDialogOpen] = useState(false)
+	const [isLoading, setIsLoading] = useState(true)
+	let userInfo = []
+
+	const [dialogParameters, setDialogParameters] = useState({ open: false })
 
 	const columns = [
 		{
 			field: 'Title',
-			title: 'Title'
+			title: 'Title',
 		},
 		{
 			field: 'Email',
-			title: 'Email'
+			title: 'Email',
 		},
 		{
 			field: 'LoginName',
-			title: 'LoginName'
-		}
+			title: 'LoginName',
+		},
 	]
-	const handleAddUserCancel = () => setAddUserDialogOpen(false)
-	const handleAddUserSave = userInfo => {
-		let loginNames = userInfo.map(user => user.account)
-		AddUsersToGroup({ groupId: groupId, loginName: loginNames })
-		.then(response=>{
-			setAddUserDialogOpen(false)
-			refreshData()
-		})
+	const handleAddUserCancel = () => setDialogParameters({ open: false })
+
+	const handleAddUserSave = () => {
+		setIsLoading(true)
+		let loginNames = userInfo.map((user) => user.account)
+		AddUsersToGroup({ groupId: groupId, loginName: loginNames }).then(
+			(response) => {
+				refreshData()
+			}
+		)
+		setDialogParameters({ open: false })
 	}
+
 	const refreshData = () => {
-		GetGroupMembers({ groupId: groupId }).then(response => {
+		GetGroupMembers({ groupId: groupId }).then((response) => {
 			setData(response)
+			setIsLoading(false)
 		})
 	}
 
 	useEffect(() => {
-		GetGroup({ groupId: groupId }).then(response => {
-			setTitle(response.Title)
-		})
+		GetGroup({ groupId: groupId }).then((response) => {
+			setGroupTitle(response.Title)
 
-		if (addUser) {
-			setActions(prevActions => {
-				prevActions.push({
-					icon: icons.Add,
-					tooltip: 'Add User',
-					isFreeAction: true,
-					onClick: (event, rowdata) => {
-						setAddUserDialogOpen(true)
-					}
-				})
+			if (addUser) {
+				setActions((prevActions) => {
+					prevActions.push({
+						icon: icons.Add,
+						tooltip: 'Add User',
+						isFreeAction: true,
+						onClick: (event, rowdata) => {
+							setDialogParameters({
+								open: true,
+								title: `Add user to ${response.Title}`,
+								content: (
+									<Paper style={styles.paper}>
+										<PeoplePicker
+											schema={{
+												PrincipalAccountType:
+													'User,DL,SecGroup,SPGroup',
+												SearchPrincipalSource: 15,
+												ResolvePrincipalSource: 15,
+												AllowMultipleValues: true,
+												MaximumEntitySuggestions: 50,
+												Width: '400px',
+											}}
+											elementName={`${response.Title}_addUserPeoplePicker`}
+											getUserInfo={(users) => {
+												userInfo = users
+											}}
+										/>
+									</Paper>
+								),
 
-				return prevActions
-			})
-		}
+								saveButtonAction: handleAddUserSave,
 
-		if (removeUser) {
-			setActions(prevActions => {
-				prevActions.push({
-					icon: icons.Delete,
-					tooltip: 'Remove User',
-					onClick: (event, rowdata) => {
-						RemoveUsersFromGroup({
-							groupId: groupId,
-							userId: rowdata.Id
-						})
-						.then(results =>{
-							refreshData()
-						})
-					}
-				})
+								cancelButtonAction: handleAddUserCancel,
+							})
+						},
+					})
 
-				return prevActions
-			})
-		}
-
-		if (editGroup) {
-			setActions(prevActions => {
-				prevActions.push({
-					icon: icons.Edit,
-					tooltip: 'Edit Group',
-					isFreeAction: true,
-					onClick: (event, rowdata) => {
-						//TODO: edit group actions
-					}
-				})
-
-				return prevActions
-			})
-		}
-
-		if (customActions) {
-			customActions.map(action => {
-				action.icon = icons[action.icon]
-
-				return setActions(prevActions => {
-					prevActions.push(action)
 					return prevActions
 				})
-			})
-		}
+			}
 
-		refreshData()
+			if (removeUser) {
+				setActions((prevActions) => {
+					prevActions.push({
+						icon: icons.Delete,
+						tooltip: 'Remove User',
+						onClick: (event, rowdata) => {
+							setIsLoading(true)
+							RemoveUsersFromGroup({
+								groupId: groupId,
+								userId: rowdata.Id,
+							}).then((results) => {
+								refreshData()
+							})
+						},
+					})
+
+					return prevActions
+				})
+			}
+
+			if (editGroup) {
+				setActions((prevActions) => {
+					prevActions.push({
+						icon: icons.Edit,
+						tooltip: 'Edit Group',
+						isFreeAction: true,
+						onClick: (event, rowdata) => {
+							//TODO: edit group actions
+						},
+					})
+
+					return prevActions
+				})
+			}
+
+			if (customActions) {
+				customActions.map((action) => {
+					action.icon = icons[action.icon]
+
+					return setActions((prevActions) => {
+						prevActions.push(action)
+						return prevActions
+					})
+				})
+			}
+			refreshData()
+		})
 
 		return () => {}
 	}, [])
@@ -194,16 +234,12 @@ export const SPGroup = ({
 			<MaterialTable
 				columns={columns}
 				data={data}
-				title={title}
+				title={groupTitle}
 				options={options}
 				actions={actions}
+				isLoading={isLoading}
 			/>
-			<SPAddUser
-				open={addUserDialogOpen}
-				groupName={title}
-				handleSave={handleAddUserSave}
-				handleCancel={handleAddUserCancel}
-			/>
+			<SPDialog {...dialogParameters} />
 		</Fragment>
 	)
 }

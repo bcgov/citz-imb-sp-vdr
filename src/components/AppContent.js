@@ -7,18 +7,14 @@ import { GetListItems } from 'citz-imb-sp-utilities'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 export default function AppContent() {
-	const key = 'TOS'
-
-	const [title, setTitle] = useState('')
-	const [body, setBody] = useState('')
-	const [cookieDays, setCookieDays] = useState(1)
-	const [cookieName, setCookieName] = useState('')
-	const [agree, setAgree] = useState()
-	const [loading, setLoading] = useState(true)
+	const [isLoading, setIsLoading] = useState(true)
+	const [hasCookie, setHasCookie] = useState(false)
+	const [myCookie, setMyCookie] = useState()
+	const [isHome, setIsHome] = useState(false)
 
 	const handleAgree = () => {
-		setCookie(cookieName, 'true', cookieDays)
-		setAgree(true)
+		setCookie(myCookie.name, 'true', myCookie.days)
+		setHasCookie(true)
 	}
 
 	const handleDisagree = () => {
@@ -27,31 +23,48 @@ export default function AppContent() {
 	}
 
 	useEffect(() => {
-		if (loading) {
-			GetListItems({ listName: 'Config', filter: `Key eq '${key}'` })
-				.then((response) => {
-					setTitle(response[0].TextValue)
-					setBody(response[0].MultiTextValue)
-					setCookieDays(response[0].NumberValue)
-					setCookieName(key + response[0].Modified)
-					setAgree(getCookie(key + response[0].Modified))
-					setLoading(false)
+		if (
+			window.location.pathname.split('/').pop().toLowerCase() ===
+			'home.aspx'
+		) {
+			setIsHome(true)
+		}
+
+		GetListItems({ listName: 'Config', filter: `Key eq 'TOS'` }).then(
+			(response) => {
+				setMyCookie({
+					name: `${response[0].Key}-${response[0].Modified}`,
+					days: response[0].NumberValue,
 				})
-				.catch((error) => {
-					console.log(`error getting TOS`, error)
-				})
+			}
+		)
+
+		return () => {}
+	}, [])
+
+	useEffect(() => {
+		if (myCookie) {
+			if (getCookie(myCookie.name)) {
+				setHasCookie(true)
+				setIsLoading(false)
+			} else {
+				setHasCookie(false)
+				setIsLoading(false)
+			}
 		}
 		return () => {}
-	}, [loading])
+	}, [myCookie])
 
-	return loading ? (
+	return isLoading ? (
 		<CircularProgress />
-	) : agree ? (
-		<VDRTabs />
+	) : hasCookie ? (
+		isHome ? (
+			<VDRTabs />
+		) : (
+			''
+		)
 	) : (
 		<TermsOfReference
-			title={title}
-			body={body}
 			handleAgree={handleAgree}
 			handleDisagree={handleDisagree}
 		/>

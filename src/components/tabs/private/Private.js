@@ -33,6 +33,9 @@ export const Private = () => {
 	const [libraryIsDirty, setLibraryIsDirty] = useState(true)
 	const [listIsDirty, setListIsDirty] = useState(true)
 
+	const saveButtonAction = (results) => {console.log(`save results`,results)}
+	const cancelButtonAction = (results) => {console.log(`cancel results`,results)}
+
 	useEffect(() => {
 		Promise.all([
 			GetCurrentUser({ expand: 'Groups' }),
@@ -86,8 +89,13 @@ export const Private = () => {
 										// editItem={false}
 										// changeItemPermission={false}
 										options={options}
-										isDirty={listIsDirty}
-										handleDirty={setListIsDirty}
+										addItemDialogOptions={{
+											title: 'Submit your question',
+											saveButtonText: 'Submit',
+											saveButtonAction: saveButtonAction,
+											cancelButtonText: 'Cancel',
+											cancelButtonAction: cancelButtonAction,
+										}}
 									/>
 								</Paper>
 							</Grid>

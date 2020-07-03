@@ -1,45 +1,54 @@
-import React from 'react';
-import { Dialog, DialogActions, DialogTitle, DialogContent, Button } from '@material-ui/core'
-/**
- * present the terms of service
- * @param {p} props
- */
-export default function TermsOfReference({ title, body, handleAgree, handleDisagree}) {
-    return (
-        <Dialog
-            open={true}
-            scroll={'paper'}
-            disableBackdropClick={true}
-            disableEscapeKeyDown={true}
-            aria-labelledby="tor-dialog-title"
-            aria-describedby="tor-dialog-description"
-        >
-            <DialogTitle id="tor-dialog-title">
-                {title}
-            </DialogTitle>
-            <DialogContent
-                dividers={true}
-            >
-                <div dangerouslySetInnerHTML={{ __html: body }} />
-            </DialogContent>
+import React, { useEffect, useState } from 'react'
+import {
+	Dialog,
+	DialogActions,
+	DialogTitle,
+	DialogContent,
+	Button,
+} from '@material-ui/core'
+import { GetListItems } from 'citz-imb-sp-utilities'
 
-            <DialogActions>
-                <Button
-                    onClick={handleAgree}
-                    color="primary"
-                    variant='contained'
-                >
-                    Agree
-                </Button>
-                <Button
-                    onClick={handleDisagree}
-                    color="primary"
-                    variant='outlined'
-                >
-                    Disagree
-                </Button>
-            </DialogActions>
+export default function TermsOfReference({handleAgree ,handleDisagree }) {
+	const [body, setBody] = useState()
+    const [title, setTitle] = useState()
 
-        </Dialog>
-    )
+	useEffect(() => {
+		GetListItems({ listName: 'Config', filter: `Key eq 'TOS'` }).then(
+			(response) => {
+				setTitle(response[0].TextValue)
+				setBody(response[0].MultiTextValue)
+			}
+		)
+		return () => {}
+	}, [])
+
+	return (
+		<Dialog
+			open={true}
+			scroll={'paper'}
+			disableBackdropClick={true}
+			disableEscapeKeyDown={true}
+			aria-labelledby='tor-dialog-title'
+			aria-describedby='tor-dialog-description'>
+			<DialogTitle id='tor-dialog-title'>{title}</DialogTitle>
+			<DialogContent dividers={true}>
+				<div dangerouslySetInnerHTML={{ __html: body }} />
+			</DialogContent>
+
+			<DialogActions>
+				<Button
+					onClick={handleAgree}
+					color='primary'
+					variant='contained'>
+					Agree
+				</Button>
+				<Button
+					onClick={handleDisagree}
+					color='primary'
+					variant='outlined'>
+					Disagree
+				</Button>
+			</DialogActions>
+		</Dialog>
+	)
 }

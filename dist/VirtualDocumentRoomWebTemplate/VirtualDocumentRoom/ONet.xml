@@ -1,11 +1,8 @@
-﻿<Project Title="Virtual Document Room" Revision="0" EnableMinimalDownload="FALSE" UIVersion="15" SiteLogoUrl="" SiteLogoDescription="" xmlns="http://schemas.microsoft.com/sharepoint/">
+﻿<Project Title="CITZ IMB Virtual Document Room" Description="A sub-site template that is configured to have the features needed for a Virtual Document Room (VDR), also known as a Virtual Information Control Office (VICO)." Revision="0" EnableMinimalDownload="FALSE" UIVersion="15" SiteLogoUrl="" SiteLogoDescription="" xmlns="http://schemas.microsoft.com/sharepoint/">
 	<NavBars>
-		<NavBar Name="SharePoint Top Navigation Bar" Url="" ID="1002">
-			<NavBarPage Name="VICO Template" Url="" />
-		</NavBar>
-		<NavBar Name="Home" Url="/sites/DEV/vt" ID="1031" />
+		<NavBar Name="SharePoint Top Navigation Bar" Url="" ID="1002" />
+		<NavBar Name="Home" Url="/sites/DEV/VDRoom" ID="1031" />
 		<NavBar Name="Recent" Url="" ID="1033">
-			<NavBarPage Name="Users" Url="Lists/Users/AllItems.aspx" />
 			<NavBarPage Name="Documents" Url="Documents/Forms/AllItems.aspx" />
 			<NavBarPage Name="Questions" Url="Lists/Questions/AllItems.aspx" />
 			<NavBarPage Name="ActivityLog" Url="Lists/ActivityLog/AllItems.aspx" />
@@ -160,8 +157,6 @@
 				<Feature ID="{6e1e5426-2ebd-4871-8027-c5ca86371ead}" Name="FeatureDefinition/15/6e1e5426-2ebd-4871-8027-c5ca86371ead" />
 				<!--SharePointContactUs_ContactUs feature Feature-->
 				<Feature ID="{79eb32d2-94dc-41a1-b649-c9ff5cce17dc}" Name="FeatureDefinition/15/79eb32d2-94dc-41a1-b649-c9ff5cce17dc" />
-				<!--MobileExcelWebAccess Feature-->
-				<Feature ID="{e995e28b-9ba8-4668-9933-cf5c146d7a9f}" Name="FeatureDefinition/14/e995e28b-9ba8-4668-9933-cf5c146d7a9f" />
 				<!--TaxonomyFieldAdded Feature-->
 				<Feature ID="{73ef14b1-13a9-416b-a9b5-ececa2b0604c}" Name="FeatureDefinition/15/73ef14b1-13a9-416b-a9b5-ececa2b0604c" />
 				<!--CITZ.IMB.SP.Libraries Feature-->
@@ -238,31 +233,31 @@
 				<!--XmlFormLibrary Feature-->
 				<Feature ID="{00bfea71-1e1d-4562-b56a-f05371bb0115}" Name="FeatureDefinition/15/00bfea71-1e1d-4562-b56a-f05371bb0115" SourceVersion="0.0.0.0" />
 				<!--List Feature-->
-				<Feature ID="{0645de25-9421-4c66-a580-b62617796afc}" Name="List Feature">
+				<Feature ID="{2c74c4fa-c6f8-4b8a-b7fc-dd3d0c16f022}" Name="List Feature">
 					<Properties>
 						<Property Key="GeneratedBySaveAsTemplate" Value="1" />
 					</Properties>
 				</Feature>
 				<!--Module Feature-->
-				<Feature ID="{bb3485b7-7a7e-4660-aea8-758034808808}" Name="Module Feature">
+				<Feature ID="{ca567561-0585-4d30-a7e5-00c24f273b35}" Name="Module Feature">
 					<Properties>
 						<Property Key="GeneratedBySaveAsTemplate" Value="1" />
 					</Properties>
 				</Feature>
 				<!--Web EventReceivers Feature-->
-				<Feature ID="{71b0c602-c144-431a-8e49-a5c889c7f718}" Name="Web EventReceivers Feature">
+				<Feature ID="{91dbf730-55f7-45af-a879-1adbcff2b1ca}" Name="Web EventReceivers Feature">
 					<Properties>
 						<Property Key="GeneratedBySaveAsTemplate" Value="1" />
 					</Properties>
 				</Feature>
 				<!--CustomAction Feature-->
-				<Feature ID="{40fddff7-ba11-4eeb-a6f5-b5b5a1823521}" Name="CustomAction Feature">
+				<Feature ID="{a8bcdf51-bd39-4c8f-bc7c-5a9a1f0b5c1d}" Name="CustomAction Feature">
 					<Properties>
 						<Property Key="GeneratedBySaveAsTemplate" Value="1" />
 					</Properties>
 				</Feature>
 				<!--Property Bag Feature-->
-				<Feature ID="{f23269fb-95f2-437b-a80a-37f448685b79}" Name="Property Bag Feature">
+				<Feature ID="{81fef723-0570-48df-b577-9819afe58f1c}" Name="Property Bag Feature">
 					<Properties>
 						<Property Key="GeneratedBySaveAsTemplate" Value="1" />
 					</Properties>

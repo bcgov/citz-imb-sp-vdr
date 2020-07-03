@@ -155,6 +155,7 @@
 		</CHOICES>
 	</Field>
 	<Field Type="Text" DisplayName="Budget Status Comment" Group="_IMB SharePoint Framework Project Site Columns" Description="Put in a brief comment if the status is other than green." EnforceUniqueValues="FALSE" Required="FALSE" Mult="FALSE" Hidden="FALSE" ReadOnly="FALSE" CanToggleHidden="FALSE" Sortable="TRUE" ID="{b99ad193-4c80-4598-b773-4f676f7b6e33}" Name="BudgetStatusComment" StaticName="BudgetStatusComment" SourceID="{43a95d9c-69fd-48bd-a03e-01512dbed271}" Overwrite="TRUE" />
+	<Field Type="Text" DisplayName="Building Number" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" MaxLength="255" Group="_Custom Site Columns" ID="{c7ece51d-909b-4873-91e1-5d8ecc46f882}" SourceID="{43a95d9c-69fd-48bd-a03e-01512dbed271}" StaticName="BuildingNumber" Name="BuildingNumber" Overwrite="TRUE" />
 	<Field ID="{6547D03A-76D3-4d74-9D34-F51B837C0879}" Name="Business2Number" StaticName="Business2Number" SourceID="http://schemas.microsoft.com/sharepoint/v3" DisplayName="Business Phone 2" Group="Core Contact and Calendar Columns" Type="Text" Sealed="TRUE" AllowDeletion="TRUE" Overwrite="TRUE" />
 	<Field ID="{fd630629-c165-4513-b43c-fdb16b86a14d}" Name="WorkPhone" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="WorkPhone" Group="Core Contact and Calendar Columns" DisplayName="Business Phone" Type="Text" IMEMode="inactive" Overwrite="TRUE" />
 	<Field ID="{D3429CC9-ADC4-439b-84A8-5679070F84CB}" Name="ArticleByLine" StaticName="ArticleByLine" SourceID="http://schemas.microsoft.com/sharepoint/v3" Group="Page Layout Columns" DisplayName="Byline" Description="Byline is a site column created by the Publishing feature. It is used on the Article Page Content Type as the byline of the page." Type="Text" Required="FALSE" Sealed="TRUE" MaxLength="255" Overwrite="TRUE" />
@@ -288,6 +289,9 @@
 		</DisplayPattern>
 	</Field>
 	<Field ID="{7650d41a-fa26-4c72-a641-af4e93dc7053}" Name="Content" StaticName="Content" SourceID="http://schemas.microsoft.com/sharepoint/v3/fields" Type="URL" DisplayName="Content" Group="_Hidden" Sealed="TRUE" ReadOnly="TRUE" Overwrite="TRUE" />
+	<Field Type="Text" DisplayName="Contract" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" MaxLength="255" Group="_Custom Site Columns" ID="{7e127511-56bd-4b07-9fde-aaa5a166222f}" SourceID="{43a95d9c-69fd-48bd-a03e-01512dbed271}" StaticName="Contract" Name="Contract" Overwrite="TRUE">
+		<Default>WSI</Default>
+	</Field>
 	<Field ID="{370B7779-0344-4b9f-8F2D-DC1C62EAE801}" Type="Note" NumLines="2" Group="Core Document Columns" Name="_Contributor" DisplayName="Contributor" SourceID="http://schemas.microsoft.com/sharepoint/v3/fields" StaticName="_Contributor" Description="One or more people or organizations that contributed to this resource" Overwrite="TRUE" />
 	<Field Type="UserMulti" DisplayName="Contributors" Group="_Security" EnforceUniqueValues="FALSE" Required="FALSE" Mult="TRUE" Hidden="FALSE" ReadOnly="FALSE" CanToggleHidden="FALSE" Sortable="FALSE" ID="{e1a654ea-9629-4809-8e23-8a04f41b8928}" Name="Contributors" StaticName="Contributors" ShowField="ImnName" UserSelectionScope="0" UserSelectionMode="PeopleAndGroups" List="UserInfo" SourceID="{43a95d9c-69fd-48bd-a03e-01512dbed271}" Overwrite="TRUE" />
 	<Field ID="{6b4e226d-3d88-4a36-808d-a129bf52bccf}" Name="_CopySource" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="_CopySource" Group="_Hidden" ColName="tp_CopySource" RowOrdinal="0" Sealed="TRUE" ReadOnly="TRUE" Type="Text" DisplayName="Copy Source" Overwrite="TRUE" />
@@ -363,6 +367,9 @@
 	<Field ID="{5602dc33-a60a-4dec-bd23-d18dfcef861d}" Name="Occurred" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Occurred" Group="_Hidden" DisplayName="Date Occurred" Required="TRUE" Sealed="TRUE" Type="DateTime" StorageTZ="UTC" Overwrite="TRUE" />
 	<Field ID="{A5D2F824-BC53-422e-87FD-765939D863A5}" Type="DateTime" Group="Core Document Columns" ShowInNewForm="FALSE" ShowInFileDlg="FALSE" Name="ImageCreateDate" DisplayName="Date Picture Taken" Format="DateTime" Sealed="TRUE" SourceID="http://schemas.microsoft.com/sharepoint/v3/fields" AllowDeletion="TRUE" StaticName="ImageCreateDate" Overwrite="TRUE" />
 	<Field Type="DateTime" DisplayName="Date Received" Group="E-mail Submission Columns" EnforceUniqueValues="FALSE" Required="FALSE" Hidden="FALSE" ReadOnly="FALSE" CanToggleHidden="TRUE" ID="{5f1a5338-27db-4d7c-8996-845f77a41aa2}" Name="dlc_EmailReceivedUTC" StaticName="dlc_EmailReceivedUTC" Sealed="TRUE" Format="DateTime" SourceID="{43a95d9c-69fd-48bd-a03e-01512dbed271}" Overwrite="TRUE" />
+	<Field Type="DateTime" DisplayName="Date Reported" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" Format="DateOnly" Group="_Custom Site Columns" FriendlyDisplayFormat="Disabled" ID="{f7a8bb00-5730-46b4-a948-253cbf7712d8}" SourceID="{43a95d9c-69fd-48bd-a03e-01512dbed271}" StaticName="DateReported" Name="DateReported" CalType="0" Overwrite="TRUE">
+		<Default>[today]</Default>
+	</Field>
 	<Field Type="DateTime" DisplayName="Date Sent" Group="E-mail Submission Columns" EnforceUniqueValues="FALSE" Required="FALSE" Hidden="FALSE" ReadOnly="FALSE" CanToggleHidden="TRUE" ID="{c2c0c664-2cb6-45a5-8cb0-7932de61da0d}" Name="dlc_EmailSentUTC" StaticName="dlc_EmailSentUTC" Sealed="TRUE" Format="DateTime" SourceID="{43a95d9c-69fd-48bd-a03e-01512dbed271}" Overwrite="TRUE" />
 	<Field ID="{63fc6806-db53-4d0d-b18b-eaf90e96ddf5}" Name="CallTime" StaticName="CallTime" SourceID="http://schemas.microsoft.com/sharepoint/v3/fields" Type="DateTime" DisplayName="Date/Time" Group="_Hidden" Sealed="TRUE" ReadOnly="TRUE" Overwrite="TRUE">
 		<Default>[Today]</Default>
@@ -1050,6 +1057,9 @@
 			<CHOICE>Medium</CHOICE>
 			<CHOICE>High</CHOICE>
 		</CHOICES>
+	</Field>
+	<Field Type="Text" DisplayName="Incident Number" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" MaxLength="255" Group="_Custom Site Columns" ID="{7436afd7-0dfa-4173-80a8-8eaf9a7cac9e}" SourceID="{43a95d9c-69fd-48bd-a03e-01512dbed271}" StaticName="IncidentNumber" Name="IncidentNumber" Overwrite="TRUE">
+		<Default>generating number...</Default>
 	</Field>
 	<Field ID="{F6DF49EC-807B-4d40-A7DA-A17684121F92}" Name="IncludeHierarchy" StaticName="IncludeHierarchy" Description="To include child KPIs or not" Group="Status Indicators" Type="Boolean" DisplayName="Include child indicators" SourceID="http://schemas.microsoft.com/sharepoint/v3" Overwrite="TRUE" />
 	<Field ID="{68227570-72dd-4816-b6b6-4b81ff99a393}" SourceID="http://schemas.microsoft.com/sharepoint/v3" Name="IndentLevel" DisplaceOnUpgrade="TRUE" Group="_Hidden" Type="Computed" Hidden="TRUE" ReadOnly="TRUE" DisplayName="Indentation Level" Overwrite="TRUE">
@@ -1866,6 +1876,7 @@
 	<Field ID="{baf7091c-01fb-4831-a975-08254f87f234}" Name="IsNonWorkingDay" StaticName="IsNonWorkingDay" SourceID="http://schemas.microsoft.com/sharepoint/v3/fields" Type="Boolean" DisplayName="Non-Working Day" Group="_Hidden" Overwrite="TRUE">
 		<Default>1</Default>
 	</Field>
+	<Field ID="{DF38FC53-0740-4846-80B2-CD5C4CF6B5D7}" Name="ConfigNotes" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="ConfigNotes" Group="Search Config" Type="Note" Hidden="FALSE" DisplayName="Notes" Overwrite="TRUE" />
 	<Field ID="{cf68a174-123b-413e-9ec1-b43e3a3175d7}" Name="WhatsNew" StaticName="WhatsNew" SourceID="http://schemas.microsoft.com/sharepoint/v3/fields" Type="Boolean" DisplayName="Notification" Group="_Hidden" Sealed="TRUE" ReadOnly="TRUE" Overwrite="TRUE" />
 	<Field ID="{6b9b4f94-88e9-4f5d-b05b-0afb8f6a0b2c}" Name="TranslationStateNumberOfItems" StaticName="TranslationStateNumberOfItems" SourceID="http://schemas.microsoft.com/sharepoint/v3" Group="Translation Columns" DisplayName="Number of Items" Type="Number" Required="FALSE" Sealed="TRUE" Hidden="FALSE" Indexed="TRUE" Overwrite="TRUE" />
 	<Field ID="{6E4D832B-F610-41a8-B3E0-239608EFDA41}" Name="LikesCount" StaticName="LikesCount" DisplayName="Number of Likes" Group="Content Feedback" Type="Likes" ShowInEditForm="FALSE" ShowInDisplayForm="FALSE" ShowInNewForm="FALSE" CanToggleHidden="TRUE" JSLink="sp.ui.reputation.js" SourceID="http://schemas.microsoft.com/sharepoint/v3" Overwrite="TRUE">
@@ -2411,6 +2422,24 @@
 	<Field ID="{FF4470AE-85D6-49ab-A501-E5772848F6C8}" Name="RoutingConditionProperties" StaticName="RoutingConditionProperties" SourceID="http://schemas.microsoft.com/sharepoint/v3" Group="Document and Record Management Columns" DisplayName="Properties used in Conditions" Type="Note" Required="TRUE" CanToggleHidden="TRUE" Sealed="TRUE" RichText="FALSE" Overwrite="TRUE" />
 	<Field ID="{687c7f94-686a-42d3-9b67-2782eac4b4f8}" Name="MetaInfo" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="MetaInfo" Group="_Hidden" Hidden="TRUE" ShowInFileDlg="FALSE" Type="Lookup" DisplayName="Property Bag" List="Docs" FieldRef="ID" ShowField="MetaInfo" JoinColName="DoclibRowId" JoinType="INNER" Overwrite="TRUE" />
 	<Field ID="{2A647ABA-7C69-482b-97B2-DC94F2FB39DC}" Name="RoutingAutoFolderProp" StaticName="RoutingAutoFolderProp" SourceID="http://schemas.microsoft.com/sharepoint/v3" Group="Document and Record Management Columns" DisplayName="Property for Automatic Folder Creation" Type="Text" Required="TRUE" CanToggleHidden="TRUE" Sealed="TRUE" MaxLength="255" Overwrite="TRUE" />
+	<Field Type="Choice" DisplayName="Province" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" Format="Dropdown" FillInChoice="FALSE" Group="Custom Columns" ID="{27cbf91f-aeff-41c5-a10c-361ef7764560}" SourceID="{43a95d9c-69fd-48bd-a03e-01512dbed271}" StaticName="Province" Name="Province" Overwrite="TRUE">
+		<Default>BC</Default>
+		<CHOICES>
+			<CHOICE>AB</CHOICE>
+			<CHOICE>BC</CHOICE>
+			<CHOICE>MB</CHOICE>
+			<CHOICE>NB</CHOICE>
+			<CHOICE>NL</CHOICE>
+			<CHOICE>NS</CHOICE>
+			<CHOICE>NT</CHOICE>
+			<CHOICE>NU</CHOICE>
+			<CHOICE>ON</CHOICE>
+			<CHOICE>PE</CHOICE>
+			<CHOICE>QC</CHOICE>
+			<CHOICE>SK</CHOICE>
+			<CHOICE>YT</CHOICE>
+		</CHOICES>
+	</Field>
 	<Field ID="{b1b53d80-23d6-e31b-b235-3a286b9f10ea}" Name="PublishedDate" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="PublishedDate" Type="DateTime" DisplayName="Published" Required="TRUE" Group="_Hidden" Overwrite="TRUE" />
 	<Field ID="{2EEDD0AE-4281-4b77-99BE-68F8B3AD8A7A}" Type="Text" Group="Core Document Columns" Name="_Publisher" DisplayName="Publisher" SourceID="http://schemas.microsoft.com/sharepoint/v3/fields" StaticName="_Publisher" Description="The person, organization or service that published this resource" Overwrite="TRUE" />
 	<Field Type="Choice" DisplayName="Quality Status Colour" Group="_IMB SharePoint Framework Project Site Columns" Description="'Green' = Project Sponsor attention not required, 'Yellow' = inform Project Sponsor of issues, 'Red' = Project Sponsor intervention is required." EnforceUniqueValues="FALSE" Required="FALSE" Mult="FALSE" Hidden="FALSE" ReadOnly="FALSE" CanToggleHidden="FALSE" Sortable="TRUE" ID="{3883db1b-9ae1-4544-8e4c-3bba2a589b3b}" Name="QualityStatusColour" StaticName="QualityStatusColour" Format="Dropdown" FillInChoice="FALSE" SourceID="{43a95d9c-69fd-48bd-a03e-01512dbed271}" Overwrite="TRUE">
@@ -2487,6 +2516,7 @@
 	<Field ID="{AC57186E-E90B-4711-A038-B6C6A62A57DC}" Name="RedirectURL" StaticName="RedirectURL" SourceID="http://schemas.microsoft.com/sharepoint/v3" Group="Page Layout Columns" DisplayName="Redirect URL" Description="Redirect URL is a site column created by the Publishing feature. It is used on the Redirect Page Content Type as the web address that the page will redirect to." Type="URL" Required="FALSE" ForcePromoteDemote="TRUE" Overwrite="TRUE" />
 	<Field ID="{124527a9-fc10-48ff-8d44-960a7db405f8}" Name="EmailReferences" SourceID="http://schemas.microsoft.com/sharepoint/v3" DisplaceOnUpgrade="TRUE" Group="_Hidden" Type="Note" DisplayName="References" Hidden="TRUE" Sealed="TRUE" Overwrite="TRUE" />
 	<Field ID="{9B4CC5A9-1119-43e4-B2A8-412C4031F92B}" Name="ReferredBy" StaticName="ReferredBy" SourceID="http://schemas.microsoft.com/sharepoint/v3" DisplayName="Referred By" Group="Core Contact and Calendar Columns" Type="Text" Sealed="TRUE" AllowDeletion="TRUE" Overwrite="TRUE" />
+	<Field Type="Text" DisplayName="Region" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" MaxLength="255" Group="_Custom Site Columns" ID="{0d766b80-e16d-40fd-bfab-e550a08e0898}" SourceID="{43a95d9c-69fd-48bd-a03e-01512dbed271}" StaticName="Region" Name="Region" Overwrite="TRUE" />
 	<Field ID="{3914F98E-6D99-4218-9BA3-AF7370B9E7BC}" Name="TaskCompanies" StaticName="TaskCompanies" SourceID="http://schemas.microsoft.com/sharepoint/v3" DisplayName="Related Company" Group="Core Task and Issue Columns" Type="Text" Sealed="TRUE" AllowDeletion="TRUE" Overwrite="TRUE" />
 	<Field ID="{58DDDA52-C2A3-4650-9178-3BBC1F6E36DA}" Name="WorkflowLink" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="WorkflowLink" Group="_Hidden" Type="URL" DisplayName="Related Content" ReadOnly="TRUE" Sealed="TRUE" Overwrite="TRUE" />
 	<Field ID="{875FAB27-6E95-463b-A4A6-82544F1027FB}" Name="RelatedIssues" Group="Extended Columns" Type="LookupMulti" Mult="TRUE" DisplayName="Related Issues" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="RelatedIssues" PrependId="TRUE" List="Self" ShowField="Title" Overwrite="TRUE" />
@@ -2879,6 +2909,13 @@
 		</MAPPINGS>
 		<Default>Any Server</Default>
 	</Field>
+	<Field ID="{F2630201-2B18-4F74-867B-18551759B437}" Name="Scope" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Scope" Group="Search Config" Type="Choice" Hidden="FALSE" DisplayName="Scope" Overwrite="TRUE">
+		<CHOICES>
+			<CHOICE>Tenant</CHOICE>
+			<CHOICE>SPSite</CHOICE>
+			<CHOICE>SPWeb</CHOICE>
+		</CHOICES>
+	</Field>
 	<Field ID="{dddd2420-b270-4735-93b5-92b713d0944d}" Name="ScopeId" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="ScopeId" Group="_Hidden" ReadOnly="TRUE" Hidden="TRUE" ShowInFileDlg="FALSE" ShowInVersionHistory="FALSE" Type="Lookup" DisplayName="ScopeId" List="Docs" FieldRef="ID" ShowField="ScopeId" JoinColName="DoclibRowId" JoinRowOrdinal="0" JoinType="INNER" Overwrite="TRUE" />
 	<Field ID="{5f47e085-2150-41dc-b661-442f3027f552}" Name="SelectFilename" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="SelectFilename" Group="_Hidden" ReadOnly="TRUE" Type="Computed" DisplayName="Select" Hidden="TRUE" CanToggleHidden="TRUE" Filterable="FALSE" AuthoringInfo="(web part connection)" HeaderImage="blank.gif" Sortable="FALSE" Overwrite="TRUE">
 		<FieldRefs>
@@ -3103,6 +3140,7 @@
 		</CHOICES>
 		<Default>Final</Default>
 	</Field>
+	<Field ID="{D26B5F0C-27CF-46D0-984C-A0C2EA81CB10}" Name="Status" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Status" Group="Search Config" Type="Text" Hidden="FALSE" DisplayName="Status" Overwrite="TRUE" />
 	<Field ID="{DA25725F-5B12-4b26-8ED0-E560E4A87FFF}" Name="MemberStatus" SourceID="http://schemas.microsoft.com/sharepoint/v3" Type="Choice" DisplayName="Status" StaticName="MemberStatus" ReadOnly="TRUE" Group="_Hidden" Hidden="FALSE" Sealed="TRUE" Overwrite="TRUE">
 		<CHOICES>
 			<CHOICE>Pending</CHOICE>
@@ -3120,6 +3158,7 @@
 		</MAPPINGS>
 		<Default>Active</Default>
 	</Field>
+	<Field Type="Text" DisplayName="Street Address" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" MaxLength="255" Group="_Custom Site Columns" ID="{f05d67a3-39d4-4a9e-9a93-f9c5bb46eaea}" SourceID="{43a95d9c-69fd-48bd-a03e-01512dbed271}" StaticName="StreetAddress" Name="StreetAddress" Overwrite="TRUE" />
 	<Field ID="{a932ec3f-94c1-48b1-b6dc-41aaa6eb7e54}" Name="HeaderStyleDefinitions" StaticName="HeaderStyleDefinitions" SourceID="http://schemas.microsoft.com/sharepoint/v3" Group="Page Layout Columns" DisplayName="Style Definitions" Type="HTML" Required="FALSE" Sealed="TRUE" RichText="TRUE" RichTextMode="FullHtml" Hidden="TRUE" ForcePromoteDemote="TRUE" Overwrite="TRUE" />
 	<Field Type="Text" DisplayName="Subject" Group="E-mail Submission Columns" EnforceUniqueValues="FALSE" Required="FALSE" Hidden="FALSE" ReadOnly="FALSE" CanToggleHidden="TRUE" ID="{11df9b39-5dce-41cb-8114-b4153d545435}" Name="dlc_EmailSubject" StaticName="dlc_EmailSubject" Sealed="TRUE" MaxLength="255" SourceID="{43a95d9c-69fd-48bd-a03e-01512dbed271}" Overwrite="TRUE" />
 	<Field ID="{3ac9353f-613f-42bd-98e1-530e9fd1cbf6}" Name="LinkDiscussionTitleNoMenu" SourceID="http://schemas.microsoft.com/sharepoint/v3" DisplaceOnUpgrade="TRUE" Group="Base Columns" Type="Computed" DisplayName="Subject" DisplayNameSrcField="Title" ReadOnly="TRUE" AuthoringInfo="(linked to item)" Overwrite="TRUE">
