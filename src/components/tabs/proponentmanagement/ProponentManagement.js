@@ -8,6 +8,7 @@ import ToggleOnIcon from '@material-ui/icons/ToggleOn'
 import ToggleOffIcon from '@material-ui/icons/ToggleOff'
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
+import { SendConfirmationEmail } from './SendConfirmationEmail'
 
 export const ProponentManagement = () => {
 	let proponentNameInput = ''
@@ -95,6 +96,9 @@ export const ProponentManagement = () => {
 					icon: () => <PeopleIcon color={'primary'} />,
 					tooltip: 'Manage User Accounts',
 					onClick: (event, rowdata) => {
+						const addUserCallback = (response) => {
+							SendConfirmationEmail(response, rowdata)
+						}
 						setDialogParameters({
 							open: true,
 							title: `${rowdata.Title} - ${rowdata.UUID}`,
@@ -102,6 +106,7 @@ export const ProponentManagement = () => {
 								<SPGroup
 									groupId={rowdata.GroupId}
 									addUser={true}
+									addUserCallback={addUserCallback}
 									removeUser={true}
 									editGroup={false}
 									options={options}

@@ -34,6 +34,9 @@ import { PeoplePicker } from './PeoplePicker'
 export const SPGroup = ({
 	groupId,
 	addUser = true,
+	addUserCallback = () => {
+		console.log('default addUserCallback')
+	},
 	removeUser = true,
 	editGroup = true,
 	customActions,
@@ -121,9 +124,11 @@ export const SPGroup = ({
 		AddUsersToGroup({ groupId: groupId, loginName: loginNames }).then(
 			(response) => {
 				refreshData()
+				addUserCallback(response)
 			}
 		)
 		setDialogParameters({ open: false })
+
 	}
 
 	const refreshData = () => {
