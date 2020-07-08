@@ -27,10 +27,10 @@ export const AddProponent = (name) => {
 		]).then((response1) => {
 			;[group, library, list, assocGroups, roles, currentUser] = response1
 			Promise.all([
-				ChangeGroupOwner({
-					groupId: group.Id,
-					ownerGroupId: assocGroups.AssociatedOwnerGroup.Id,
-				}), //proponent group - need results of CreateGroup and GetAssociatedGroups
+				// ChangeGroupOwner({
+				// 	groupId: group.Id,
+				// 	ownerGroupId: assocGroups.AssociatedOwnerGroup.Id,
+				// }), //proponent group - need results of CreateGroup and GetAssociatedGroups
 				AddItemsToList({
 					listName: 'Proponents',
 					items: {

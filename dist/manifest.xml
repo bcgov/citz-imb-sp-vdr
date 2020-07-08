@@ -8,10 +8,5 @@
 		<FeatureManifest Location="VirtualDocumentRoomPropertyBags\Feature.xml" />
 	</FeatureManifests>
 	<ActivationDependencies>
-		<ActivationDependency SolutionId="1ce0aa6e-0911-43ea-9099-e14c10e3adbc" SolutionName="CITZ.IMB.SP.CollectionNavigation.wsp" />
-		<ActivationDependency SolutionId="9872259d-fcad-4945-b724-701c1f47a10f" SolutionName="CITZ.IMB.SP.Breadcrumb.wsp" />
-		<ActivationDependency SolutionId="b563a004-e6d3-435a-a8eb-9ca381fe1237" SolutionName="CITZ.IMB.SP.ContactUs.wsp" />
-		<ActivationDependency SolutionId="e69bc4bc-88ab-4250-b418-58757e0ace1f" SolutionName="CITZ.IMB.SP.FilterableLists.wsp" />
-		<ActivationDependency SolutionId="f6911f52-1015-4008-8d29-dfbbb11f0e10" SolutionName="CITZ.IMB.SP.Libraries.wsp" />
 	</ActivationDependencies>
 </Solution>

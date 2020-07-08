@@ -1,9 +1,7 @@
 import React, { useState, useEffect, Fragment, forwardRef } from 'react'
 import MaterialTable from 'material-table'
 import { SPDialog } from './SP'
-import {
-	GetList
-} from 'citz-imb-sp-utilities'
+import { GetList } from 'citz-imb-sp-utilities'
 
 import Add from '@material-ui/icons/Add'
 import AddBox from '@material-ui/icons/AddBox'
@@ -43,7 +41,9 @@ export const SPList = ({
 	customActions,
 	options,
 	isDirty = true,
-	handleDirty = () => {},
+	handleDirty = (dirty) => {
+		console.log(`handleDirty Default has been passed '${dirty}'`)
+	},
 }) => {
 	const icons = {
 		Add: forwardRef((props, ref) => <Add {...props} ref={ref} />),
@@ -86,7 +86,7 @@ export const SPList = ({
 	const [title, setTitle] = useState('')
 	const [actions, setActions] = useState([])
 	const [dialogOpen, setDialogOpen] = useState(false)
-	const [isLoading, setIsLoading] = useState(true)
+	const [isLoading, setIsLoading] = useState(false)
 	const [dialogTitle, setDialogTitle] = useState()
 	const [dialogContent, setDialogContent] = useState()
 	const [dialogSaveButtonText, setDialogSaveButtonText] = useState()
@@ -116,11 +116,17 @@ export const SPList = ({
 						setDialogContent(addOptions.content)
 						setDialogSaveButtonText(addOptions.saveButtonText)
 						setDialogSaveAction(() => {
-							return addOptions.saveAction
+							return () => {
+								setIsLoading(true)
+								addOptions.saveAction()
+							}
 						})
 						setDialogCancelButtonText(addOptions.cancelButtonText)
 						setDialogCancelAction(() => {
-							return addOptions.cancelAction
+							return () => {
+								setIsLoading(false)
+								addOptions.cancelAction()
+							}
 						})
 						setDialogOpen(true)
 					},
@@ -187,6 +193,7 @@ export const SPList = ({
 
 	useEffect(() => {
 		if (isDirty) {
+			setIsLoading(true)
 			GetList({
 				listName: listName,
 				expand:

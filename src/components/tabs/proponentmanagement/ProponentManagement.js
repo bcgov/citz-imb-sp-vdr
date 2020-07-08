@@ -1,4 +1,4 @@
-import React, { Fragment, useState} from 'react'
+import React, { Fragment, useState } from 'react'
 import { SPList, SPDialog, SPGroup } from '../../sharepoint/SP'
 import { ToggleProponent } from './ToggleProponent'
 import { TextField } from '@material-ui/core'
@@ -25,6 +25,10 @@ export const ProponentManagement = () => {
 	const [dialogParameters, setDialogParameters] = useState({ open: false })
 	const [isDirty, setIsDirty] = useState(true)
 
+	const handleDirty = (newDirty) => {
+		setIsDirty(newDirty)
+	}
+
 	const customActions = [
 		(rowData) => {
 			return {
@@ -50,7 +54,7 @@ export const ProponentManagement = () => {
 						showSave: false,
 						cancelButtonText: 'Close',
 						cancelButtonAction: () => {
-							setDialogParameters({})
+							setDialogParameters({ open: false })
 						},
 					})
 				},
@@ -78,7 +82,7 @@ export const ProponentManagement = () => {
 						showSave: false,
 						cancelButtonText: 'Close',
 						cancelButtonAction: () => {
-							setDialogParameters({})
+							setDialogParameters({ open: false })
 						},
 					})
 				},
@@ -106,7 +110,7 @@ export const ProponentManagement = () => {
 							showSave: false,
 							cancelButtonText: 'Close',
 							cancelButtonAction: () => {
-								setDialogParameters({})
+								setDialogParameters({ open: false })
 							},
 						})
 					},
@@ -126,7 +130,7 @@ export const ProponentManagement = () => {
 			tooltip: 'Toggle Proponent Active / Inactive',
 			onClick: (event, rowdata) => {
 				const callBack = () => {
-					setDialogParameters({})
+					setDialogParameters({ open: false })
 					setIsDirty(true)
 				}
 				setDialogParameters({
@@ -142,7 +146,7 @@ export const ProponentManagement = () => {
 						ToggleProponent(proponentListName, rowdata, callBack)
 					},
 					cancelButtonAction: () => {
-						setDialogParameters({})
+						setDialogParameters({ open: false })
 					},
 				})
 			},
@@ -181,7 +185,7 @@ export const ProponentManagement = () => {
 					},
 					cancelButtonText: 'Cancel',
 					cancelAction: () => {
-						console.log(`${proponentNameInput} lost`)
+						console.log(`${proponentNameInput} cancelled`)
 					},
 				}}
 				deleteItem={false}
@@ -190,7 +194,7 @@ export const ProponentManagement = () => {
 				customActions={customActions}
 				options={options}
 				isDirty={isDirty}
-				handleDirty={setIsDirty}
+				handleDirty={handleDirty}
 			/>
 			<SPDialog {...dialogParameters} />
 		</Fragment>
