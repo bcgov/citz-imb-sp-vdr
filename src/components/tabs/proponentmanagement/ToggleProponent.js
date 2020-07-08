@@ -32,10 +32,10 @@ export const ToggleProponent = (proponentListName, rowdata, callBack) => {
 		]).then((response1) => {
 			;[group, assocGroups, roles] = response1
 			Promise.all([
-				// ChangeGroupOwner({
-				//     groupId: group.Id,
-				//     ownerGroupId: assocGroups.AssociatedOwnerGroup.Id,
-				// }),
+				ChangeGroupOwner({
+				    groupId: group.Id,
+				    ownerGroupId: assocGroups.AssociatedOwnerGroup.Id,
+				}),
 				//update proponent list
 				UpdateListItem({
 					listName: proponentListName,

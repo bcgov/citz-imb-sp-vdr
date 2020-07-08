@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import './PeoplePicker.css'
+import MutationObserver from 'mutation-observer'
 
 export const PeoplePicker = ({ schema, elementName, getUserInfo }) => {
 	const ppLibraries = [
