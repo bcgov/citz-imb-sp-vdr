@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { GetCurrentUser, GetListItems } from 'citz-imb-sp-utilities'
-import { Container, Grid, Paper } from '@material-ui/core'
+import {
+	GetCurrentUser,
+	GetListItems,
+	AddItemsToList,
+} from 'citz-imb-sp-utilities'
+import { Container, Grid, Paper, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { SPList } from '../../sharepoint/SPList'
+import { LogAction } from '../../utilities/LogAction'
 
 export const Private = () => {
 	const classes = makeStyles((theme) => ({
@@ -32,9 +37,54 @@ export const Private = () => {
 	const [isLoaded, setIsLoaded] = useState(false)
 	const [libraryIsDirty, setLibraryIsDirty] = useState(true)
 	const [listIsDirty, setListIsDirty] = useState(true)
+	const [question, setQuestion] = useState()
 
-	const saveButtonAction = (results) => {console.log(`save results`,results)}
-	const cancelButtonAction = (results) => {console.log(`cancel results`,results)}
+	const questionOptions = {
+		listName: listName,
+		tableTitle: 'Our Submitted Questions',
+		options: options,
+		addItem: true,
+		addOptions: {
+			title: 'Submit a Question',
+			content: (
+				<TextField
+					autoFocus
+					margin='dense'
+					id='proponentName'
+					label='Question'
+					type='text'
+					fullWidth
+					onChange={(e) => {
+						setQuestion(e.target.value)
+					}}
+				/>
+			),
+			saveButtonText: 'Save',
+			saveAction: (results) => {
+				AddItemsToList({
+					listName: listName,
+					items: {
+						Title: question,
+					},
+				}).then((response) => {
+					LogAction(`asked '${question}'`)
+					setListIsDirty(true)
+				})
+			},
+			cancelButtonText: 'Cancel',
+			cancelAction: (results) => {
+				console.log('cancelAction :>> ', results)
+			},
+		},
+		deleteItem: false,
+		editItem: false,
+		changeItemPermission: false,
+		// customActions:[],
+
+		handleDirty: (newDirty) => {
+			setListIsDirty(newDirty)
+		},
+	}
 
 	useEffect(() => {
 		Promise.all([
@@ -68,34 +118,23 @@ export const Private = () => {
 						<Grid container justify='center' spacing={2}>
 							<Grid key={libraryName} item xs={6}>
 								<Paper className={classes.paper}>
-									<SPList
+									{/* <SPList
 										listName={libraryName}
-										addItem={false}
+										//addItem={false}
 										// deleteItem={false}
 										// editItem={false}
 										// changeItemPermission={false}
 										options={options}
-										isDirty={libraryIsDirty}
-										handleDirty={setLibraryIsDirty}
-									/>
+										//isDirty={libraryIsDirty}
+										//handleDirty={setLibraryIsDirty}
+									/> */}
 								</Paper>
 							</Grid>
 							<Grid key={listName} item xs={6}>
 								<Paper className={classes.paper}>
 									<SPList
-										listName={listName}
-										// addItem={false}
-										// deleteItem={false}
-										// editItem={false}
-										// changeItemPermission={false}
-										options={options}
-										addItemDialogOptions={{
-											title: 'Submit your question',
-											saveButtonText: 'Submit',
-											saveButtonAction: saveButtonAction,
-											cancelButtonText: 'Cancel',
-											cancelButtonAction: cancelButtonAction,
-										}}
+										isDirty={listIsDirty}
+										{...questionOptions}
 									/>
 								</Paper>
 							</Grid>

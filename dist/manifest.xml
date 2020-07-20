@@ -7,6 +7,4 @@
 		<FeatureManifest Location="VirtualDocumentRoomWebEventReceivers\Feature.xml" />
 		<FeatureManifest Location="VirtualDocumentRoomPropertyBags\Feature.xml" />
 	</FeatureManifests>
-	<ActivationDependencies>
-	</ActivationDependencies>
 </Solution>

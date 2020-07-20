@@ -37,6 +37,9 @@ export const SPGroup = ({
 	addUserCallback = () => {
 		console.log('default addUserCallback')
 	},
+	removeUserCallback = () => {
+		console.log('default removeUserCallback')
+	},
 	removeUser = true,
 	editGroup = true,
 	customActions,
@@ -193,7 +196,8 @@ export const SPGroup = ({
 							RemoveUsersFromGroup({
 								groupId: groupId,
 								userId: rowdata.Id,
-							}).then((results) => {
+							}).then((response) => {
+								removeUserCallback(rowdata)
 								refreshData()
 							})
 						},

@@ -9,9 +9,9 @@ import ToggleOffIcon from '@material-ui/icons/ToggleOff'
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
 import { SendConfirmationEmail } from './SendConfirmationEmail'
+import { LogAction } from '../../utilities/LogAction'
 
 export const ProponentManagement = () => {
-	let proponentNameInput = ''
 	const proponentListName = 'Proponents'
 
 	const options = {
@@ -25,6 +25,7 @@ export const ProponentManagement = () => {
 
 	const [dialogParameters, setDialogParameters] = useState({ open: false })
 	const [isDirty, setIsDirty] = useState(true)
+	const [proponentName, setProponentName] = useState()
 
 	const handleDirty = (newDirty) => {
 		setIsDirty(newDirty)
@@ -97,7 +98,19 @@ export const ProponentManagement = () => {
 					tooltip: 'Manage User Accounts',
 					onClick: (event, rowdata) => {
 						const addUserCallback = (response) => {
+							let users = []
+							for (let i = 0; i < response.length; i++) {
+								users.push(response[i].Title)
+							}
+							LogAction(
+								`added ${users.join('; ')} to ${rowdata.Title}`
+							)
 							SendConfirmationEmail(response, rowdata)
+						}
+						const removeUserCallback = (response) => {
+							LogAction(
+								`removed ${response.Title} from ${rowdata.Title}`
+							)
 						}
 						setDialogParameters({
 							open: true,
@@ -107,6 +120,7 @@ export const ProponentManagement = () => {
 									groupId={rowdata.GroupId}
 									addUser={true}
 									addUserCallback={addUserCallback}
+									removeUserCallback={removeUserCallback}
 									removeUser={true}
 									editGroup={false}
 									options={options}
@@ -135,6 +149,11 @@ export const ProponentManagement = () => {
 			tooltip: 'Toggle Proponent Active / Inactive',
 			onClick: (event, rowdata) => {
 				const callBack = () => {
+					LogAction(
+						`set ${rowdata.Title} to ${
+							rowdata.Active ? 'inactive' : 'active'
+						}`
+					)
 					setDialogParameters({ open: false })
 					setIsDirty(true)
 				}
@@ -174,14 +193,15 @@ export const ProponentManagement = () => {
 							type='text'
 							fullWidth
 							onChange={(e) => {
-								proponentNameInput = e.target.value
+								setProponentName(e.target.value)
 							}}
 						/>
 					),
 					saveButtonText: 'Submit',
-					saveAction: () => {
-						AddProponent(proponentNameInput)
+					saveAction: (param) => {
+						AddProponent(proponentName)
 							.then((response) => {
+								LogAction(`added ${proponentName} as proponent`)
 								setIsDirty(true)
 							})
 							.catch((err) => {
@@ -190,7 +210,7 @@ export const ProponentManagement = () => {
 					},
 					cancelButtonText: 'Cancel',
 					cancelAction: () => {
-						console.log(`${proponentNameInput} cancelled`)
+						console.log(`${proponentName} cancelled`)
 					},
 				}}
 				deleteItem={false}

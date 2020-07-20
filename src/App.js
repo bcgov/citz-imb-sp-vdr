@@ -1,7 +1,7 @@
 import React from 'react'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
-import Appcontent from './components/AppContent'
 import './css/App.css'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
+import { AppContent } from './components/AppContent'
 
 export default function App() {
 	const theme = createMuiTheme({
@@ -17,7 +17,7 @@ export default function App() {
 
 	return (
 		<MuiThemeProvider theme={theme}>
-			<Appcontent />
+			<AppContent />
 		</MuiThemeProvider>
 	)
 }

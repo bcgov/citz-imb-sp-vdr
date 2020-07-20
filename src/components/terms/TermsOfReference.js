@@ -8,9 +8,9 @@ import {
 } from '@material-ui/core'
 import { GetListItems } from 'citz-imb-sp-utilities'
 
-export default function TermsOfReference({handleAgree ,handleDisagree }) {
+export const TermsOfReference = ({ handleAgree, handleDisagree }) => {
 	const [body, setBody] = useState()
-    const [title, setTitle] = useState()
+	const [title, setTitle] = useState()
 
 	useEffect(() => {
 		GetListItems({ listName: 'Config', filter: `Key eq 'TOS'` }).then(

@@ -1,12 +1,13 @@
 import 'react-tabs/style/react-tabs.css'
 import React, { useState, useEffect } from 'react'
-import TermsOfReference from './terms/TermsOfReference'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { GetListItems } from 'citz-imb-sp-utilities'
+import { TermsOfReference } from './terms/TermsOfReference'
 import { VDRTabs } from './tabs/VDRTabs'
 import { setCookie, getCookie } from './utilities/cookies'
-import { GetListItems } from 'citz-imb-sp-utilities'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import { LogAction } from './utilities/LogAction'
 
-export default function AppContent() {
+export const AppContent = () => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [hasCookie, setHasCookie] = useState(false)
 	const [myCookie, setMyCookie] = useState()
@@ -15,14 +16,17 @@ export default function AppContent() {
 	const handleAgree = () => {
 		setCookie(myCookie.name, 'true', myCookie.days)
 		setHasCookie(true)
+		LogAction('agreed to TOS')
 	}
 
 	const handleDisagree = () => {
+		LogAction('disagreed to TOS')
 		window.close()
 		window.location = '/_layouts/signout.aspx'
 	}
 
 	useEffect(() => {
+		LogAction('logged in')
 		if (
 			window.location.pathname.split('/').pop().toLowerCase() ===
 			'home.aspx'
@@ -46,11 +50,10 @@ export default function AppContent() {
 		if (myCookie) {
 			if (getCookie(myCookie.name)) {
 				setHasCookie(true)
-				setIsLoading(false)
 			} else {
 				setHasCookie(false)
-				setIsLoading(false)
 			}
+			setIsLoading(false)
 		}
 		return () => {}
 	}, [myCookie])

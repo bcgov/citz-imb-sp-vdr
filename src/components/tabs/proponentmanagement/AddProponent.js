@@ -9,14 +9,17 @@ import {
 	ChangeGroupOwner,
 	AddItemsToList,
 	GetCurrentUser,
+	GetListDefaultView,
+	RemoveListViewAllFields,
+	AddListViewField,
 } from 'citz-imb-sp-utilities'
 import makeUUID from '../../utilities/makeUUID.js'
 
 export const AddProponent = (name) => {
-	let group, library, list, assocGroups, roles, currentUser
+	let group, library, list, assocGroups, roles, currentUser, defaultView
 	const uniqueId = makeUUID()
 
-	return new Promise((resolve,reject)=>{
+	return new Promise((resolve, reject) => {
 		Promise.all([
 			CreateGroup({ groupName: uniqueId }),
 			CreateList({ listName: uniqueId, baseTemplate: 101 }), //create proponent library
@@ -27,10 +30,10 @@ export const AddProponent = (name) => {
 		]).then((response1) => {
 			;[group, library, list, assocGroups, roles, currentUser] = response1
 			Promise.all([
-				ChangeGroupOwner({
-					groupId: group.Id,
-					ownerGroupId: assocGroups.AssociatedOwnerGroup.Id,
-				}), //proponent group - need results of CreateGroup and GetAssociatedGroups
+				// ChangeGroupOwner({
+				// 	groupId: group.Id,
+				// 	ownerGroupId: assocGroups.AssociatedOwnerGroup.Id,
+				// }), //proponent group - need results of CreateGroup and GetAssociatedGroups
 				AddItemsToList({
 					listName: 'Proponents',
 					items: {
@@ -53,7 +56,9 @@ export const AddProponent = (name) => {
 					copy: false,
 					clear: true,
 				}), //proponent question list - need results of CreateList
+				GetListDefaultView({ listGUID: list.Id }), //proponent question list default view - need results of CreateList
 			]).then((response2) => {
+				defaultView = response2[4] //! may be 5 when ChangeGroupOwner is un-remmed
 				Promise.all([
 					AddPermissionsToList({
 						listGUID: library.Id,
@@ -96,17 +101,33 @@ export const AddProponent = (name) => {
 						principalId: group.Id,
 						roleDefId: roles['Contribute'].Id,
 					}), //proponent question list - Proponent - need results of CreateList and CreateGroup
-				]).then((response3) => {
-					//TODO: remove current user permissions from lists
+					RemoveListViewAllFields({
+						listGUID: list.Id,
+						viewGUID: defaultView.Id,
+					}), //proponent question list- need results of GetListDefaultView
+				])
+					.then((response3) => {
+						//TODO: remove current user permissions from lists
+						AddListViewField({
+							listGUID: list.Id,
+							viewGUID: defaultView.Id,
+							field: 'Title',
+						}).then((response4) => {
+							AddListViewField({
+								listGUID: list.Id,
+								viewGUID: defaultView.Id,
+								field: 'Created',
+							}).then(response5=>{
+								resolve()
+							})
 
-					//console.log(`currentUser`, currentUser)
-					resolve(response3)
-
-				}).catch(error=>{
-					reject(error)
-				})
+						})
+						//console.log(`currentUser`, currentUser)
+					})
+					.catch((error) => {
+						reject(error)
+					})
 			})
 		})
-
 	})
 }
