@@ -6,6 +6,7 @@ import { TermsOfReference } from './terms/TermsOfReference'
 import { VDRTabs } from './tabs/VDRTabs'
 import { setCookie, getCookie } from './utilities/cookies'
 import { LogAction } from './utilities/LogAction'
+import { deviceDetect } from 'react-device-detect'
 
 export const AppContent = () => {
 	const [isLoading, setIsLoading] = useState(true)
@@ -26,7 +27,11 @@ export const AppContent = () => {
 	}
 
 	useEffect(() => {
-		LogAction('logged in')
+		const device = deviceDetect()
+		LogAction(
+			`logged in using ${device.browserName} ${device.browserMajorVersion} and ${device.osName} ${device.osVersion}`
+		)
+
 		if (
 			window.location.pathname.split('/').pop().toLowerCase() ===
 			'home.aspx'

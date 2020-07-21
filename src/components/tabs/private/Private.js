@@ -3,6 +3,8 @@ import {
 	GetCurrentUser,
 	GetListItems,
 	AddItemsToList,
+	GetGroupMembers,
+	SendEmail
 } from 'citz-imb-sp-utilities'
 import { Container, Grid, Paper, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -38,6 +40,7 @@ export const Private = () => {
 	const [libraryIsDirty, setLibraryIsDirty] = useState(true)
 	const [listIsDirty, setListIsDirty] = useState(true)
 	const [question, setQuestion] = useState()
+	const [group, setGroup] = useState()
 
 	const questionOptions = {
 		listName: listName,
@@ -50,7 +53,7 @@ export const Private = () => {
 				<TextField
 					autoFocus
 					margin='dense'
-					id='proponentName'
+					id='questionSubmission'
 					label='Question'
 					type='text'
 					fullWidth
@@ -69,7 +72,45 @@ export const Private = () => {
 				}).then((response) => {
 					LogAction(`asked '${question}'`)
 					setListIsDirty(true)
+					GetGroupMembers({ groupId: group }).then((response) => {
+						let emails = response.map((user) => {
+							return user.Email
+						})
+
+						SendEmail({
+							to: emails,
+							subject: 'test subject',
+							body: 'test body'
+						})
+					})
 				})
+			},
+			cancelButtonText: 'Cancel',
+			cancelAction: (results) => {
+				console.log('cancelAction :>> ', results)
+			},
+		},
+		deleteItem: false,
+		editItem: false,
+		changeItemPermission: false,
+		// customActions:[],
+
+		handleDirty: (newDirty) => {
+			setListIsDirty(newDirty)
+		},
+	}
+
+	const libraryOptions = {
+		listName: libraryName,
+		tableTitle: 'Our Submitted Documents',
+		options: options,
+		addItem: true,
+		addOptions: {
+			title: 'Submit a Document',
+			content: 'content',
+			saveButtonText: 'Save',
+			saveAction: (results) => {
+				console.log('saveAction :>> ', results)
 			},
 			cancelButtonText: 'Cancel',
 			cancelAction: (results) => {
@@ -101,6 +142,7 @@ export const Private = () => {
 					) {
 						setLibraryName(listItems[i].UUID)
 						setListName(`${listItems[i].UUID}_Questions`)
+						setGroup(listItems[i].GroupId)
 						setIsLoaded(true)
 					}
 				}
@@ -118,16 +160,10 @@ export const Private = () => {
 						<Grid container justify='center' spacing={2}>
 							<Grid key={libraryName} item xs={6}>
 								<Paper className={classes.paper}>
-									{/* <SPList
-										listName={libraryName}
-										//addItem={false}
-										// deleteItem={false}
-										// editItem={false}
-										// changeItemPermission={false}
-										options={options}
-										//isDirty={libraryIsDirty}
-										//handleDirty={setLibraryIsDirty}
-									/> */}
+									<SPList
+										isDirty={libraryIsDirty}
+										{...libraryOptions}
+									/>
 								</Paper>
 							</Grid>
 							<Grid key={listName} item xs={6}>

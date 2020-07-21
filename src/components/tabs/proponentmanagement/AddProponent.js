@@ -30,10 +30,7 @@ export const AddProponent = (name) => {
 		]).then((response1) => {
 			;[group, library, list, assocGroups, roles, currentUser] = response1
 			Promise.all([
-				// ChangeGroupOwner({
-				// 	groupId: group.Id,
-				// 	ownerGroupId: assocGroups.AssociatedOwnerGroup.Id,
-				// }), //proponent group - need results of CreateGroup and GetAssociatedGroups
+				GetListDefaultView({ listGUID: list.Id }), //proponent question list default view - need results of CreateList
 				AddItemsToList({
 					listName: 'Proponents',
 					items: {
@@ -56,9 +53,12 @@ export const AddProponent = (name) => {
 					copy: false,
 					clear: true,
 				}), //proponent question list - need results of CreateList
-				GetListDefaultView({ listGUID: list.Id }), //proponent question list default view - need results of CreateList
+				ChangeGroupOwner({
+					groupId: group.Id,
+					ownerGroupId: assocGroups.AssociatedOwnerGroup.Id,
+				}), //proponent group - need results of CreateGroup and GetAssociatedGroups
 			]).then((response2) => {
-				defaultView = response2[4] //! may be 5 when ChangeGroupOwner is un-remmed
+				defaultView = response2[0]
 				Promise.all([
 					AddPermissionsToList({
 						listGUID: library.Id,
@@ -117,10 +117,9 @@ export const AddProponent = (name) => {
 								listGUID: list.Id,
 								viewGUID: defaultView.Id,
 								field: 'Created',
-							}).then(response5=>{
+							}).then((response5) => {
 								resolve()
 							})
-
 						})
 						//console.log(`currentUser`, currentUser)
 					})

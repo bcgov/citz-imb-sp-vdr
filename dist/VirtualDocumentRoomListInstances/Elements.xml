@@ -337,6 +337,7 @@
 					<Field Name="FileLeafRef">6_.000</Field>
 					<Field Name="MetaInfo">6;#</Field>
 					<Field Name="Key">addUserEmail</Field>
+					<Field Name="TextValue">Welcome to the [Title]</Field>
 					<Field Name="MultiTextValue">&lt;div class=&quot;ExternalClassF96D9A3EFFBC428E9A5AE4BAEDC2C61A&quot;&gt;
    &lt;p&gt;
    &lt;/p&gt;

@@ -124,7 +124,7 @@ export const VDRTabs = () => {
 						<Tab
 							label='Site Management'
 							icon={<SettingsIcon />}
-							{...a11yProps(2)}
+							{...a11yProps(3)}
 						/>
 					) : (
 						''
