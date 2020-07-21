@@ -24,7 +24,6 @@ export const ToggleProponentDialog = ({
 	listName,
 	proponent,
 }) => {
-	console.log(`proponent`, proponent)
 	const handleSave = () => {
 		if (proponent.Active) {
 			//delete group

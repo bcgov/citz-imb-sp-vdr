@@ -46,7 +46,7 @@
 			</XmlDocument>
 		</XmlDocuments>
 	</ContentType>
-	<ContentType ID="0x01080100C9C9515DE4E24001905074F980F93160008677259B3AD2A04C8BDB795171F7E908" Name="Approval _x0028_2_x0029_" Group="Custom Content Types" Overwrite="TRUE">
+	<ContentType ID="0x01080100C9C9515DE4E24001905074F980F93160008677259B3AD2A04C8BDB795171F7E908" Name="Approval _x0028" Group="Custom Content Types" Overwrite="TRUE">
 		<Folder TargetName="_cts/Approval _x0028_2_x0029_" />
 		<FieldRefs>
 			<FieldRef ID="{c042a256-787d-4a6f-8a8a-cf6ab767f12d}" Name="ContentType" />
@@ -4431,15 +4431,21 @@
 	<ContentType ID="0x0120D52000D20F33EBE8A5814CA8FCB3B43FC5B014" Name="RPD Incident" Group="_Custom Content Types" Overwrite="TRUE" ProgId="Sharepoint.DocumentSet" PushDownChangedResourceFilesOnly="TRUE">
 		<Folder TargetName="_cts/RPD Incident" />
 		<FieldRefs>
-			<FieldRef ID="{c042a256-787d-4a6f-8a8a-cf6ab767f12d}" Name="ContentType" />
-			<FieldRef ID="{b824e17e-a1b3-426e-aecf-f0184d900485}" Name="ItemChildCount" />
+			<FieldRef ID="{7e127511-56bd-4b07-9fde-aaa5a166222f}" Name="Contract" Required="TRUE" Hidden="FALSE" ReadOnly="FALSE" PITarget="" PrimaryPITarget="" PIAttribute="" PrimaryPIAttribute="" Aggregation="" Node="" />
+			<FieldRef ID="{f7a8bb00-5730-46b4-a948-253cbf7712d8}" Name="DateReported" Required="TRUE" Hidden="FALSE" ReadOnly="FALSE" PITarget="" PrimaryPITarget="" PIAttribute="" PrimaryPIAttribute="" Aggregation="" Node="" />
+			<FieldRef ID="{c7ece51d-909b-4873-91e1-5d8ecc46f882}" Name="BuildingNumber" Required="TRUE" Hidden="FALSE" ReadOnly="FALSE" PITarget="" PrimaryPITarget="" PIAttribute="" PrimaryPIAttribute="" Aggregation="" Node="" />
+			<FieldRef ID="{0d766b80-e16d-40fd-bfab-e550a08e0898}" Name="Region" Required="TRUE" Hidden="FALSE" ReadOnly="FALSE" PITarget="" PrimaryPITarget="" PIAttribute="" PrimaryPIAttribute="" Aggregation="" Node="" />
+			<FieldRef ID="{27cbf91f-aeff-41c5-a10c-361ef7764560}" Name="Province" Required="TRUE" Hidden="FALSE" ReadOnly="FALSE" PITarget="" PrimaryPITarget="" PIAttribute="" PrimaryPIAttribute="" Aggregation="" Node="" />
+			<FieldRef ID="{cbb92da4-fd46-4c7d-af6c-3128c2a5576e}" Name="Description" ShowInNewForm="TRUE" ShowInEditForm="TRUE" />
+			<FieldRef ID="{7436afd7-0dfa-4173-80a8-8eaf9a7cac9e}" Name="IncidentNumber" Required="FALSE" Hidden="TRUE" ReadOnly="FALSE" PITarget="" PrimaryPITarget="" PIAttribute="" PrimaryPIAttribute="" Aggregation="" Node="" />
+			<FieldRef ID="{8553196d-ec8d-4564-9861-3dbe931050c8}" Name="FileLeafRef" Required="TRUE" Hidden="FALSE" />
 			<FieldRef ID="{960ff01f-2b6d-4f1b-9c3f-e19ad8927341}" Name="FolderChildCount" />
 			<FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="FALSE" Hidden="TRUE" />
-			<FieldRef ID="{8553196d-ec8d-4564-9861-3dbe931050c8}" Name="FileLeafRef" Required="TRUE" Hidden="FALSE" />
-			<FieldRef ID="{cbb92da4-fd46-4c7d-af6c-3128c2a5576e}" Name="Description" ShowInNewForm="TRUE" ShowInEditForm="TRUE" />
-			<FieldRef ID="{ae3e2a36-125d-45d3-9051-744b513536a6}" Name="_dlc_DocId" />
-			<FieldRef ID="{3b63724f-3418-461f-868b-7706f69b029c}" Name="_dlc_DocIdUrl" />
 			<FieldRef ID="{c010d384-479c-494f-968c-c413dbe3de29}" Name="_dlc_DocIdPersistId" Hidden="TRUE" />
+			<FieldRef ID="{b824e17e-a1b3-426e-aecf-f0184d900485}" Name="ItemChildCount" />
+			<FieldRef ID="{ae3e2a36-125d-45d3-9051-744b513536a6}" Name="_dlc_DocId" />
+			<FieldRef ID="{c042a256-787d-4a6f-8a8a-cf6ab767f12d}" Name="ContentType" />
+			<FieldRef ID="{3b63724f-3418-461f-868b-7706f69b029c}" Name="_dlc_DocIdUrl" />
 		</FieldRefs>
 		<XmlDocuments>
 			<XmlDocument NamespaceURI="http://schemas.microsoft.com/office/documentsets/welcomepageview">
@@ -4543,18 +4549,26 @@
 				</spe:Receivers>
 			</XmlDocument>
 			<XmlDocument NamespaceURI="http://schemas.microsoft.com/office/documentsets/sharedfields">
-				<sf:SharedFields xmlns:sf="http://schemas.microsoft.com/office/documentsets/sharedfields" LastModified="06/04/2019 16:05:23">
-					<SharedField id="cbb92da4-fd46-4c7d-af6c-3128c2a5576e" />
+				<sf:SharedFields xmlns:sf="http://schemas.microsoft.com/office/documentsets/sharedfields" LastModified="09/17/2019 21:06:27">
+					<SharedField id="c7ece51d-909b-4873-91e1-5d8ecc46f882" />
+					<SharedField id="27cbf91f-aeff-41c5-a10c-361ef7764560" />
+					<SharedField id="f7a8bb00-5730-46b4-a948-253cbf7712d8" />
+					<SharedField id="7436afd7-0dfa-4173-80a8-8eaf9a7cac9e" />
+					<SharedField id="7e127511-56bd-4b07-9fde-aaa5a166222f" />
+					<SharedField id="0d766b80-e16d-40fd-bfab-e550a08e0898" />
 				</sf:SharedFields>
 			</XmlDocument>
 			<XmlDocument NamespaceURI="http://schemas.microsoft.com/office/documentsets/defaultdocuments">
-				<dd:DefaultDocuments xmlns:dd="http://schemas.microsoft.com/office/documentsets/defaultdocuments" LastModified="06/04/2019 16:05:23" AddSetName="True">
+				<dd:DefaultDocuments xmlns:dd="http://schemas.microsoft.com/office/documentsets/defaultdocuments" LastModified="09/17/2019 21:06:28" AddSetName="False">
 					<DefaultDocument name="/Incident Report.xlsx" idContentType="0x0101" />
 				</dd:DefaultDocuments>
 			</XmlDocument>
 			<XmlDocument NamespaceURI="http://schemas.microsoft.com/office/documentsets/welcomepagefields">
-				<wpf:WelcomePageFields xmlns:wpf="http://schemas.microsoft.com/office/documentsets/welcomepagefields" LastModified="06/04/2019 16:05:23">
-					<WelcomePageField id="8c11aa5e-da3a-44e2-beb5-c33f8818c3ac" />
+				<wpf:WelcomePageFields xmlns:wpf="http://schemas.microsoft.com/office/documentsets/welcomepagefields" LastModified="09/17/2019 21:06:28">
+					<WelcomePageField id="7436afd7-0dfa-4173-80a8-8eaf9a7cac9e" />
+					<WelcomePageField id="c7ece51d-909b-4873-91e1-5d8ecc46f882" />
+					<WelcomePageField id="f7a8bb00-5730-46b4-a948-253cbf7712d8" />
+					<WelcomePageField id="0d766b80-e16d-40fd-bfab-e550a08e0898" />
 				</wpf:WelcomePageFields>
 			</XmlDocument>
 			<XmlDocument NamespaceURI="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms">
@@ -4674,6 +4688,29 @@
 			<FieldRef ID="{881eac4a-55a5-48b6-a28e-8329d7486120}" Name="Workspace" />
 		</FieldRefs>
 		<XmlDocuments>
+			<XmlDocument NamespaceURI="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms">
+				<FormTemplates xmlns="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms">
+					<Display>ListForm</Display>
+					<Edit>ListForm</Edit>
+					<New>ListForm</New>
+				</FormTemplates>
+			</XmlDocument>
+		</XmlDocuments>
+	</ContentType>
+	<ContentType ID="0x010080060E093E2F463EBA41A5F044428F32" Name="Search Config Content Type" Group="Search Config" Description="Designed to facilitate the storage of Search Config information." Overwrite="TRUE" FeatureId="{48a243cb-7b16-4b5a-b1b5-07b809b43f47}">
+		<Folder TargetName="_cts/Search Config Content Type" />
+		<FieldRefs>
+			<FieldRef ID="{c042a256-787d-4a6f-8a8a-cf6ab767f12d}" Name="ContentType" />
+			<FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="TRUE" ShowInNewForm="TRUE" ShowInEditForm="TRUE" />
+			<FieldRef ID="{d26b5f0c-27cf-46d0-984c-a0c2ea81cb10}" Name="Status" />
+			<FieldRef ID="{f2630201-2b18-4f74-867b-18551759b437}" Name="Scope" />
+			<FieldRef ID="{df38fc53-0740-4846-80b2-cd5c4cf6b5d7}" Name="ConfigNotes" />
+		</FieldRefs>
+		<XmlDocuments>
+			<XmlDocument NamespaceURI="http://schemas.microsoft.com/sharepoint/events">
+				<Receivers xmlns:spe="http://schemas.microsoft.com/sharepoint/events" ListTemplateId="101">&gt;
+					<Receiver><Name>$Resources:Microsoft.Office.Server.Search,SearchConfigContentType_AddReceiver;</Name><Type>ItemAdded</Type><SequenceNumber>1</SequenceNumber><Assembly>Microsoft.Office.Server.Search, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly><Class>Microsoft.Office.Server.Search.Portability.SearchConfigurationEventReceiver</Class><Data /><Filter /></Receiver><Receiver><Name>$Resources:Microsoft.Office.Server.Search,SearchConfigContentType_UpdateReceiver;</Name><Type>ItemUpdated</Type><SequenceNumber>2</SequenceNumber><Assembly>Microsoft.Office.Server.Search, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly><Class>Microsoft.Office.Server.Search.Portability.SearchConfigurationEventReceiver</Class><Data /><Filter /></Receiver></Receivers>
+			</XmlDocument>
 			<XmlDocument NamespaceURI="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms">
 				<FormTemplates xmlns="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms">
 					<Display>ListForm</Display>
@@ -5347,6 +5384,79 @@
 					<Display>TaskForm</Display>
 					<Edit>TaskForm</Edit>
 					<New>TaskForm</New>
+				</FormTemplates>
+			</XmlDocument>
+		</XmlDocuments>
+	</ContentType>
+	<ContentType ID="0x0101008B1374623ABE3C4284E7C59EDD440FEB" Name="test" Group="Custom Content Types" Overwrite="TRUE">
+		<Folder TargetName="_cts/test" />
+		<FieldRefs>
+			<FieldRef ID="{c042a256-787d-4a6f-8a8a-cf6ab767f12d}" Name="ContentType" />
+			<FieldRef ID="{5f47e085-2150-41dc-b661-442f3027f552}" Name="SelectFilename" />
+			<FieldRef ID="{8553196d-ec8d-4564-9861-3dbe931050c8}" Name="FileLeafRef" Required="TRUE" />
+			<FieldRef ID="{8c06beca-0777-48f7-91c7-6da68bc07b69}" Name="Created" Hidden="TRUE" />
+			<FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" Required="FALSE" ShowInNewForm="FALSE" ShowInEditForm="TRUE" />
+			<FieldRef ID="{28cf69c5-fa48-462a-b5cd-27b6f9d2bd5f}" Name="Modified" Hidden="TRUE" />
+			<FieldRef ID="{822c78e3-1ea9-4943-b449-57863ad33ca9}" Name="Modified_x0020_By" Hidden="FALSE" />
+			<FieldRef ID="{4dd7e525-8d6b-4cb4-9d3e-44ee25f973eb}" Name="Created_x0020_By" Hidden="FALSE" />
+			<FieldRef ID="{ae3e2a36-125d-45d3-9051-744b513536a6}" Name="_dlc_DocId" />
+			<FieldRef ID="{3b63724f-3418-461f-868b-7706f69b029c}" Name="_dlc_DocIdUrl" />
+			<FieldRef ID="{c010d384-479c-494f-968c-c413dbe3de29}" Name="_dlc_DocIdPersistId" Hidden="TRUE" />
+		</FieldRefs>
+		<XmlDocuments>
+			<XmlDocument NamespaceURI="http://schemas.microsoft.com/sharepoint/events">
+				<spe:Receivers xmlns:spe="http://schemas.microsoft.com/sharepoint/events">
+					<Receiver>
+						<Name>Document ID Generator</Name>
+						<Synchronization>Synchronous</Synchronization>
+						<Type>10001</Type>
+						<SequenceNumber>1000</SequenceNumber>
+						<Url />
+						<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
+						<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+						<Data />
+						<Filter />
+					</Receiver>
+					<Receiver>
+						<Name>Document ID Generator</Name>
+						<Synchronization>Synchronous</Synchronization>
+						<Type>10002</Type>
+						<SequenceNumber>1001</SequenceNumber>
+						<Url />
+						<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
+						<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+						<Data />
+						<Filter />
+					</Receiver>
+					<Receiver>
+						<Name>Document ID Generator</Name>
+						<Synchronization>Synchronous</Synchronization>
+						<Type>10004</Type>
+						<SequenceNumber>1002</SequenceNumber>
+						<Url />
+						<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
+						<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+						<Data />
+						<Filter />
+					</Receiver>
+					<Receiver>
+						<Name>Document ID Generator</Name>
+						<Synchronization>Synchronous</Synchronization>
+						<Type>10006</Type>
+						<SequenceNumber>1003</SequenceNumber>
+						<Url />
+						<Assembly>Microsoft.Office.DocumentManagement, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
+						<Class>Microsoft.Office.DocumentManagement.Internal.DocIdHandler</Class>
+						<Data />
+						<Filter />
+					</Receiver>
+				</spe:Receivers>
+			</XmlDocument>
+			<XmlDocument NamespaceURI="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms">
+				<FormTemplates xmlns="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms">
+					<Display>DocumentLibraryForm</Display>
+					<Edit>DocumentLibraryForm</Edit>
+					<New>DocumentLibraryForm</New>
 				</FormTemplates>
 			</XmlDocument>
 		</XmlDocuments>

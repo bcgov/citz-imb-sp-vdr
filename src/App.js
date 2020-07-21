@@ -1,47 +1,23 @@
-import React, { useEffect } from 'react'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
-import Appcontent from './components/AppContent'
-//import { GetContextWebInformation, GetCurrentUser } from 'citz-imb-sp-utilities'
+import React from 'react'
 import './css/App.css'
-
-export const WebFullUrl = React.createContext()
-export const CurrentUser = React.createContext()
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
+import { AppContent } from './components/AppContent'
 
 export default function App() {
-    let webFullUrl, currentUser
+	const theme = createMuiTheme({
+		palette: {
+			primary: {
+				main: '#234075',
+			},
+			secondary: {
+				main: '#E3A82B',
+			},
+		},
+	})
 
-    const theme = createMuiTheme({
-        palette: {
-            primary: {
-                main: '#234075'
-            },
-            secondary: {
-                main: '#E3A82B'
-            }
-        }
-    })
-
-    useEffect(() => {
-        // GetContextWebInformation().then(response => {
-        //     webFullUrl = response.WebFullUrl
-        // })
-
-        // GetCurrentUser().then(response => {
-        //     currentUser = response
-        // })
-
-        return () => { }
-    }, [])
-
-
-    return (
-        <MuiThemeProvider theme={theme}>
-                <WebFullUrl.Provider value={webFullUrl}>
-                    <CurrentUser.Provider value={currentUser}>
-                        <Appcontent />
-                    </CurrentUser.Provider>
-                </WebFullUrl.Provider>
-        </MuiThemeProvider >
-    )
-
+	return (
+		<MuiThemeProvider theme={theme}>
+			<AppContent />
+		</MuiThemeProvider>
+	)
 }

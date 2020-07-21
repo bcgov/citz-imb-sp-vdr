@@ -1,4 +1,7 @@
-<List Title="Proponents" Direction="none" Url="Lists/Proponents" BaseType="0" Type="100" MultipleDataList="FALSE" BrowserFileHandling="permissive" FolderCreation="FALSE" Catalog="FALSE" SendToLocation="|" ImageUrl="/_layouts/15/images/itgen.png?rev=40" xmlns:ows="Microsoft SharePoint" xmlns:spctf="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms" xmlns="http://schemas.microsoft.com/sharepoint/">
+<List Title="Proponents" Direction="none" Url="Lists/Proponents" BaseType="0" Type="100" MultipleDataList="FALSE"
+ BrowserFileHandling="permissive" FolderCreation="FALSE" Catalog="FALSE" SendToLocation="|" NoCrawl="TRUE"
+ ImageUrl="/_layouts/15/images/itgen.png?rev=40" xmlns:ows="Microsoft SharePoint"
+ xmlns:spctf="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms" xmlns="http://schemas.microsoft.com/sharepoint/">
 	<MetaData>
 		<ContentTypes>
 			<ContentType ID="0x01" Name="Item" Group="List Content Types" Description="Create a new list item." FeatureId="{695b6570-a48b-4a8e-8ea5-26ea7fc1d162}">
@@ -6,7 +9,7 @@
 				<FieldRefs>
 					<FieldRef ID="{c042a256-787d-4a6f-8a8a-cf6ab767f12d}" Name="ContentType" />
 					<FieldRef ID="{fa564e0f-0c70-4ab9-b863-0177e6ddd247}" Name="Title" DisplayName="Proponent" Required="TRUE" />
-					<FieldRef ID="{ecb9405d-bc56-466d-9ffb-3d0b60fe498a}" Name="UUID" DisplayName="UUID" Required="FALSE" />
+					<FieldRef ID="{ecb9405d-bc56-466d-9ffb-3d0b60fe498a}" Name="UUID" DisplayName="Unique ID" Required="FALSE" />
 					<FieldRef ID="{95282375-0f70-4d54-9afe-7768c12778cf}" Name="Active" DisplayName="Active" />
 					<FieldRef ID="{75f4c825-68ee-4875-a186-90677c99174d}" Name="GroupId" DisplayName="GroupId" Required="FALSE" />
 				</FieldRefs>
@@ -834,7 +837,7 @@
 			<Field ID="{786099e5-d20a-4232-86e5-cfc3d6face96}" Name="Restricted" DisplaceOnUpgrade="TRUE" Hidden="TRUE" ReadOnly="TRUE" ShowInFileDlg="FALSE" Type="Lookup" DisplayName="Restricted" List="Docs" FieldRef="ID" ShowField="Restricted" JoinColName="DoclibRowId" JoinRowOrdinal="0" JoinType="INNER" SchemaVersion="16.0.64.0" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="Restricted" FromBaseType="TRUE" />
 			<Field ID="{6bfaba20-36bf-44b5-a1b2-eb6346d49716}" ColName="tp_AppAuthor" RowOrdinal="0" ReadOnly="TRUE" Hidden="FALSE" Type="Lookup" List="AppPrincipals" Name="AppAuthor" DisplayName="App Created By" ShowField="Title" JoinColName="Id" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="AppAuthor" FromBaseType="TRUE" />
 			<Field ID="{e08400f3-c779-4ed2-a18c-ab7f34caa318}" ColName="tp_AppEditor" RowOrdinal="0" ReadOnly="TRUE" Hidden="FALSE" Type="Lookup" List="AppPrincipals" Name="AppEditor" DisplayName="App Modified By" ShowField="Title" JoinColName="Id" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="AppEditor" FromBaseType="TRUE" />
-			<Field Type="Text" DisplayName="UUID" Required="FALSE" EnforceUniqueValues="TRUE" Indexed="TRUE" MaxLength="255" ID="{ecb9405d-bc56-466d-9ffb-3d0b60fe498a}" SourceID="{$ListId:Lists/Proponents;}" StaticName="UUID" Name="UUID" ColName="nvarchar3" RowOrdinal="0" />
+			<Field Type="Text" DisplayName="Unique ID" Required="FALSE" EnforceUniqueValues="TRUE" Indexed="TRUE" MaxLength="255" ID="{ecb9405d-bc56-466d-9ffb-3d0b60fe498a}" SourceID="{$ListId:Lists/Proponents;}" StaticName="UUID" Name="UUID" ColName="nvarchar3" RowOrdinal="0" />
 			<Field Type="Boolean" DisplayName="Active" EnforceUniqueValues="FALSE" Indexed="FALSE" ID="{95282375-0f70-4d54-9afe-7768c12778cf}" SourceID="{$ListId:Lists/Proponents;}" StaticName="Active" Name="Active" ColName="bit1" RowOrdinal="0">
 				<Default>1</Default>
 			</Field>
@@ -852,11 +855,9 @@
 					</OrderBy>
 				</Query>
 				<ViewFields>
-					<FieldRef Name="ID" />
-					<FieldRef Name="LinkTitle" />
+					<FieldRef Name="Title" />
 					<FieldRef Name="UUID" />
 					<FieldRef Name="Active" />
-					<FieldRef Name="GroupId" />
 				</ViewFields>
 				<RowLimit Paged="TRUE">30</RowLimit>
 				<Aggregations Value="Off" />

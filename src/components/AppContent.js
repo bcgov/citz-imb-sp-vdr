@@ -1,57 +1,78 @@
 import 'react-tabs/style/react-tabs.css'
 import React, { useState, useEffect } from 'react'
-import TermsOfReference from './terms/TermsOfReference'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { GetListItems } from 'citz-imb-sp-utilities'
+import { TermsOfReference } from './terms/TermsOfReference'
 import { VDRTabs } from './tabs/VDRTabs'
 import { setCookie, getCookie } from './utilities/cookies'
-import { GetListItems } from 'citz-imb-sp-utilities'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import { LogAction } from './utilities/LogAction'
+import { deviceDetect } from 'react-device-detect'
 
-export default function AppContent() {
-	const key = 'TOS'
-
-	const [title, setTitle] = useState('')
-	const [body, setBody] = useState('')
-	const [cookieDays, setCookieDays] = useState(1)
-	const [cookieName, setCookieName] = useState('')
-	const [agree, setAgree] = useState()
-	const [loading, setLoading] = useState(true)
+export const AppContent = () => {
+	const [isLoading, setIsLoading] = useState(true)
+	const [hasCookie, setHasCookie] = useState(false)
+	const [myCookie, setMyCookie] = useState()
+	const [isHome, setIsHome] = useState(false)
 
 	const handleAgree = () => {
-		setCookie(cookieName, 'true', cookieDays)
-		setAgree(true)
+		setCookie(myCookie.name, 'true', myCookie.days)
+		setHasCookie(true)
+		LogAction('agreed to TOS')
 	}
 
 	const handleDisagree = () => {
+		LogAction('disagreed to TOS')
 		window.close()
 		window.location = '/_layouts/signout.aspx'
 	}
 
 	useEffect(() => {
-		if (loading) {
-			GetListItems({ listName: 'Config', filter: `Key eq '${key}'` })
-				.then((response) => {
-					setTitle(response[0].TextValue)
-					setBody(response[0].MultiTextValue)
-					setCookieDays(response[0].NumberValue)
-					setCookieName(key + response[0].Modified)
-					setAgree(getCookie(key + response[0].Modified))
-					setLoading(false)
+		const device = deviceDetect()
+		LogAction(
+			`logged in using ${device.browserName} ${device.browserMajorVersion} and ${device.osName} ${device.osVersion}`
+		)
+
+		if (
+			window.location.pathname.split('/').pop().toLowerCase() ===
+			'home.aspx'
+		) {
+			setIsHome(true)
+		}
+
+		GetListItems({ listName: 'Config', filter: `Key eq 'TOS'` }).then(
+			(response) => {
+				setMyCookie({
+					name: `${response[0].Key}-${response[0].Modified}`,
+					days: response[0].NumberValue,
 				})
-				.catch((error) => {
-					console.log(`error getting TOS`, error)
-				})
+			}
+		)
+
+		return () => {}
+	}, [])
+
+	useEffect(() => {
+		if (myCookie) {
+			if (getCookie(myCookie.name)) {
+				setHasCookie(true)
+			} else {
+				setHasCookie(false)
+			}
+			setIsLoading(false)
 		}
 		return () => {}
-	}, [loading])
+	}, [myCookie])
 
-	return loading ? (
+	return isLoading ? (
 		<CircularProgress />
-	) : agree ? (
-		<VDRTabs />
+	) : hasCookie ? (
+		isHome ? (
+			<VDRTabs />
+		) : (
+			''
+		)
 	) : (
 		<TermsOfReference
-			title={title}
-			body={body}
 			handleAgree={handleAgree}
 			handleDisagree={handleDisagree}
 		/>
