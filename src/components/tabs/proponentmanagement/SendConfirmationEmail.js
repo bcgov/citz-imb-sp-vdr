@@ -50,6 +50,8 @@ export const SendConfirmationEmail = (users, rowdata) => {
 				subject: subject,
 				body: body,
 				bcc: ['scott.toews@gov.bc.ca'],
+			}).then(response=>{
+				console.log('response :>> ', response);
 			})
 		}
 	})
