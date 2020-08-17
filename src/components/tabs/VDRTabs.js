@@ -7,11 +7,14 @@ import Tab from '@material-ui/core/Tab'
 import HomeIcon from '@material-ui/icons/Home'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
 import SettingsIcon from '@material-ui/icons/Settings'
-import PeopleIcon from '@material-ui/icons/People';
+import PeopleIcon from '@material-ui/icons/People'
 
-import { Private } from './private/Private'
-import { Public } from './public/Public'
-import { ProponentManagement } from './proponentmanagement/ProponentManagement'
+import {
+	Private,
+	Public,
+	ProponentManagement,
+	SiteManagement,
+} from 'Components'
 
 import {
 	GetAssociatedGroups,
@@ -74,22 +77,20 @@ export const VDRTabs = () => {
 	}
 
 	useEffect(() => {
-		Promise.all([
-			GetAssociatedGroups(),
-			GetCurrentUser({})
-		])
-		.then((response) => {
-			const [assocGroups, currentUser] = response
-			GetGroupMembers({ groupId: assocGroups.AssociatedOwnerGroup.Id }).then(
-				(groupMembers) => {
-					for(let i=0;i<groupMembers.length;i++){
-						if(currentUser.Id === groupMembers[i].Id){
+		Promise.all([GetAssociatedGroups(), GetCurrentUser({})]).then(
+			(response) => {
+				const [assocGroups, currentUser] = response
+				GetGroupMembers({
+					groupId: assocGroups.AssociatedOwnerGroup.Id,
+				}).then((groupMembers) => {
+					for (let i = 0; i < groupMembers.length; i++) {
+						if (currentUser.Id === groupMembers[i].Id) {
 							setIsManager(true)
 						}
 					}
-				}
-			)
-		})
+				})
+			}
+		)
 		return () => {}
 	}, [])
 
@@ -154,8 +155,7 @@ export const VDRTabs = () => {
 			{isManager ? (
 				<TabPanel value={value} index={3}>
 					<Paper>
-						{/* <SiteManagement /> */}
-						Purpose: manage site configuration and message verbages - TOS and email etc.
+						<SiteManagement />
 					</Paper>
 				</TabPanel>
 			) : (

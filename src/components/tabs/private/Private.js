@@ -4,12 +4,11 @@ import {
 	GetListItems,
 	AddItemsToList,
 	GetGroupMembers,
-	SendEmail
+	SendEmail,
 } from 'citz-imb-sp-utilities'
 import { Container, Grid, Paper, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { SPList } from '../../sharepoint/SPList'
-import { LogAction } from '../../utilities/LogAction'
+import { SPList, LogAction } from 'Components'
 
 export const Private = () => {
 	const classes = makeStyles((theme) => ({
@@ -80,7 +79,7 @@ export const Private = () => {
 						SendEmail({
 							to: emails,
 							subject: 'test subject',
-							body: 'test body'
+							body: 'test body',
 						})
 					})
 				})

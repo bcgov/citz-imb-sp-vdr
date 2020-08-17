@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import MaterialTable from 'material-table'
 import { SPDialog } from './SP'
 import { GetList } from 'citz-imb-sp-utilities'
-import { icons } from '../utilities/Constants'
+import { icons } from '../utilities/icons'
 import Moment from 'react-moment'
 
 export const SPList = ({
@@ -207,12 +207,16 @@ export const SPList = ({
 					setColumns(
 						response.DefaultView.ViewFields.Items.results.map(
 							(field) => {
+								console.log(
+									'listColumns[field] :>> ',
+									listColumns[field]
+								)
 								let fieldObject = {
 									title: listColumns[field].Title,
 									field: field,
 								}
 
-								if (listColumns[field].FieldTypeKind === 4) {
+								if (listColumns[field].FieldTypeKind === 4) { //datetime
 									fieldObject.render = (rowdata) => {
 										return (
 											<Moment
@@ -222,6 +226,18 @@ export const SPList = ({
 												}>
 												{rowdata[field]}
 											</Moment>
+										)
+									}
+								} else if (
+									listColumns[field].FieldTypeKind === 3 //multilinetext
+								) {
+									fieldObject.render = (rowdata) => {
+										return (
+											<div
+												dangerouslySetInnerHTML={{
+													__html: rowdata[field],
+												}}
+											/>
 										)
 									}
 								}

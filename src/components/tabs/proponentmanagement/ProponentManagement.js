@@ -1,15 +1,20 @@
 import React, { Fragment, useState } from 'react'
-import { SPList, SPDialog, SPGroup } from '../../sharepoint/SP'
-import { ToggleProponent } from './ToggleProponent'
 import { TextField } from '@material-ui/core'
-import { AddProponent } from './AddProponent'
 import PeopleIcon from '@material-ui/icons/People'
 import ToggleOnIcon from '@material-ui/icons/ToggleOn'
 import ToggleOffIcon from '@material-ui/icons/ToggleOff'
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
-import { SendConfirmationEmail } from './SendConfirmationEmail'
-import { LogAction } from '../../utilities/LogAction'
+import { green, red } from '@material-ui/core/colors'
+import {
+	SPList,
+	LogAction,
+	SPDialog,
+	SPGroup,
+	ToggleProponent,
+	AddProponent,
+	SendConfirmationEmail,
+} from 'Components'
 
 export const ProponentManagement = () => {
 	const proponentListName = 'Proponents'
@@ -144,8 +149,8 @@ export const ProponentManagement = () => {
 		(rowdata) => ({
 			//Activate / inactivate proponent
 			icon: rowdata.Active
-				? () => <ToggleOnIcon color={'primary'} />
-				: () => <ToggleOffIcon color={'error'} />,
+				? () => <ToggleOnIcon style={{ color: green[500] }} />
+				: () => <ToggleOffIcon style={{ color: red[500] }} />,
 			tooltip: 'Toggle Proponent Active / Inactive',
 			onClick: (event, rowdata) => {
 				const callBack = () => {

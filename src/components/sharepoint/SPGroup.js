@@ -136,6 +136,7 @@ export const SPGroup = ({
 
 	const refreshData = () => {
 		GetGroupMembers({ groupId: groupId }).then((response) => {
+			console.log('response :>> ', response);
 			setData(response)
 			setIsLoading(false)
 		})
