@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+
 import {
 	Dialog,
 	DialogActions,
@@ -6,22 +7,13 @@ import {
 	DialogContent,
 	Button,
 } from '@material-ui/core'
-import { GetListItems } from 'citz-imb-sp-utilities'
 
-export const TermsOfReference = ({ handleAgree, handleDisagree }) => {
-	const [body, setBody] = useState()
-	const [title, setTitle] = useState()
-
-	useEffect(() => {
-		GetListItems({ listName: 'Config', filter: `Key eq 'TOS'` }).then(
-			(response) => {
-				setTitle(response[0].TextValue)
-				setBody(response[0].MultiTextValue)
-			}
-		)
-		return () => {}
-	}, [])
-
+export const TermsOfServiceDialog = ({
+	dialogTitle,
+	dialogBody,
+	handleAgree,
+	handleDisagree,
+}) => {
 	return (
 		<Dialog
 			open={true}
@@ -30,9 +22,9 @@ export const TermsOfReference = ({ handleAgree, handleDisagree }) => {
 			disableEscapeKeyDown={true}
 			aria-labelledby='tor-dialog-title'
 			aria-describedby='tor-dialog-description'>
-			<DialogTitle id='tor-dialog-title'>{title}</DialogTitle>
+			<DialogTitle id='tor-dialog-title'>{dialogTitle}</DialogTitle>
 			<DialogContent dividers={true}>
-				<div dangerouslySetInnerHTML={{ __html: body }} />
+				<div dangerouslySetInnerHTML={{ __html: dialogBody }} />
 			</DialogContent>
 
 			<DialogActions>

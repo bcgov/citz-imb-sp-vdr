@@ -114,10 +114,6 @@ export const SPGroup = ({
 			field: 'Email',
 			title: 'Email',
 		},
-		{
-			field: 'LoginName',
-			title: 'LoginName',
-		},
 	]
 	const handleAddUserCancel = () => setDialogParameters({ open: false })
 
@@ -131,7 +127,6 @@ export const SPGroup = ({
 			}
 		)
 		setDialogParameters({ open: false })
-
 	}
 
 	const refreshData = () => {

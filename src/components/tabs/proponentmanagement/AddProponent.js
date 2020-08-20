@@ -13,7 +13,7 @@ import {
 	RemoveListViewAllFields,
 	AddListViewField,
 } from 'citz-imb-sp-utilities'
-import makeUUID from '../../utilities/makeUUID.js'
+import { makeUUID } from 'Components'
 
 export const AddProponent = (name) => {
 	let group, library, list, assocGroups, roles, currentUser, defaultView

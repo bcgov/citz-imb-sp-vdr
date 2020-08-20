@@ -1,7 +1,9 @@
-import React from 'react'
-import './css/App.css'
+import React, { useEffect } from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
-import { AppContent } from './components/AppContent'
+import { deviceDetect } from 'react-device-detect'
+
+import 'css/App.css'
+import { LogAction, TermsOfServiceCookies } from 'Components'
 
 export default function App() {
 	const theme = createMuiTheme({
@@ -15,9 +17,17 @@ export default function App() {
 		},
 	})
 
+	useEffect(() => {
+		const device = deviceDetect()
+		LogAction(
+			`logged in using ${device.browserName} ${device.browserMajorVersion} and ${device.osName} ${device.osVersion}`
+		)
+		return () => {}
+	}, [])
+
 	return (
 		<MuiThemeProvider theme={theme}>
-			<AppContent />
+			<TermsOfServiceCookies />
 		</MuiThemeProvider>
 	)
 }
