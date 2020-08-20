@@ -272,8 +272,8 @@
 	</ListInstance>
 	<ListInstance FeatureId="{00000000-0000-0000-0000-000000000000}" TemplateType="116" Title="Master Page Gallery" Description="Use the master page gallery to store master pages. The master pages in this gallery are available to this site and any sites underneath it." Url="_catalogs/masterpage" CustomSchema="Files\_catalogs\masterpage\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" />
 	<ListInstance FeatureId="{00bfea71-e717-4e80-aa17-d0c71b360101}" TemplateType="101" Title="Documents" Description="" Url="Documents" CustomSchema="Files\Documents\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" />
-	<ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="ActivityLog" Description="" Url="Lists/ActivityLog" CustomSchema="Files\Lists\ActivityLog\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" />
-	<ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="Config" Description="" Url="Lists/Config" CustomSchema="Files\Lists\Config\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE">
+	<ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="ActivityLog" Description="" Url="Lists/ActivityLog" CustomSchema="Files\Lists\ActivityLog\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE"  Hidden="TRUE"/>
+	<ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="Config" Description="" Url="Lists/Config" CustomSchema="Files\Lists\Config\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" Hidden="TRUE">
 		<Data>
 			<Rows>
 				<Row>
@@ -381,9 +381,9 @@
 			</Rows>
 		</Data>
 	</ListInstance>
-	<ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="Proponents" Description="" Url="Lists/Proponents" CustomSchema="Files\Lists\Proponents\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" />
+	<ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="Proponents" Description="" Url="Lists/Proponents" CustomSchema="Files\Lists\Proponents\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" Hidden="TRUE"/>
 	<ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="Questions" Description="" Url="Lists/Questions" CustomSchema="Files\Lists\Questions\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" />
-	<ListInstance FeatureId="{00bfea71-e717-4e80-aa17-d0c71b360101}" TemplateType="101" Title="Site Assets" Description="Use this library to store files which are included on pages within this site, such as images on Wiki pages." Url="SiteAssets" CustomSchema="Files\SiteAssets\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE">
+	<ListInstance FeatureId="{00bfea71-e717-4e80-aa17-d0c71b360101}" TemplateType="101" Title="Site Assets" Description="Use this library to store files which are included on pages within this site, such as images on Wiki pages." Url="SiteAssets" CustomSchema="Files\SiteAssets\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" Hidden="TRUE">
 		<Data>
 			<Rows>
 				<Row>
