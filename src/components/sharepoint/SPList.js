@@ -207,10 +207,6 @@ export const SPList = ({
 					setColumns(
 						response.DefaultView.ViewFields.Items.results.map(
 							(field) => {
-								console.log(
-									'listColumns[field] :>> ',
-									listColumns[field]
-								)
 								let fieldObject = {
 									title: listColumns[field].Title,
 									field: field,

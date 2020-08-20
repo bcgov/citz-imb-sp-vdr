@@ -67,30 +67,29 @@ const useStyles = makeStyles((theme) => ({
 	},
 }))
 
-export const VDRTabs = () => {
+export const AppTabs = () => {
 	const classes = useStyles()
 	const [value, setValue] = useState(0)
-	const [isManager, setIsManager] = useState(false)
+	const [isOwner, setIsOwner] = useState(false)
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue)
 	}
 
-	useEffect(() => {
-		Promise.all([GetAssociatedGroups(), GetCurrentUser({})]).then(
-			(response) => {
-				const [assocGroups, currentUser] = response
-				GetGroupMembers({
-					groupId: assocGroups.AssociatedOwnerGroup.Id,
-				}).then((groupMembers) => {
-					for (let i = 0; i < groupMembers.length; i++) {
-						if (currentUser.Id === groupMembers[i].Id) {
-							setIsManager(true)
-						}
-					}
-				})
+	const isCurrentUserAnOwner = async ()=>{
+		const currentUser = await GetCurrentUser({})
+		const assocGroups = await GetAssociatedGroups()
+		const OwnerGroupMembers = await GetGroupMembers({groupId: assocGroups.AssociatedOwnerGroup.Id})
+
+		for (let i = 0; i < OwnerGroupMembers.length; i++) {
+			if (currentUser.Id === OwnerGroupMembers[i].Id) {
+				setIsOwner(true)
 			}
-		)
+		}
+	}
+
+	useEffect(() => {
+		isCurrentUserAnOwner()
 		return () => {}
 	}, [])
 
@@ -112,7 +111,7 @@ export const VDRTabs = () => {
 						icon={<QuestionAnswerIcon />}
 						{...a11yProps(1)}
 					/>
-					{isManager ? (
+					{isOwner ? (
 						<Tab
 							label='Proponent Management'
 							icon={<PeopleIcon />}
@@ -121,7 +120,7 @@ export const VDRTabs = () => {
 					) : (
 						''
 					)}
-					{isManager ? (
+					{isOwner ? (
 						<Tab
 							label='Site Management'
 							icon={<SettingsIcon />}
@@ -143,7 +142,7 @@ export const VDRTabs = () => {
 					<Private />
 				</Paper>
 			</TabPanel>
-			{isManager ? (
+			{isOwner ? (
 				<TabPanel value={value} index={2}>
 					<Paper>
 						<ProponentManagement />
@@ -152,7 +151,7 @@ export const VDRTabs = () => {
 			) : (
 				''
 			)}
-			{isManager ? (
+			{isOwner ? (
 				<TabPanel value={value} index={3}>
 					<Paper>
 						<SiteManagement />
