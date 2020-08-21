@@ -1,32 +1,41 @@
-export { AppContent } from 'components/AppContent'
-export { LoadTermsOfService } from 'components/Loading'
+export { App } from 'components/app'
 
-export { TermsOfServiceCookies } from 'components/terms/TermsOfServiceCookies'
-export { GetTOSCookieConfig } from 'components/terms/GetTOSCookieConfig'
-export { TermsOfService } from 'components/terms/TermsOfService'
-export { TermsOfServiceDialog } from 'components/terms/TermsOfServiceDialog'
-export { GetTOSConfig } from 'components/terms/GetTOSConfig'
+export * from 'components/shared/constants'
+export { LogAction } from 'components/shared/logaction'
 
-export { AppTabs } from 'components/tabs/AppTabs'
-export { Public } from 'components/tabs/public/Public'
-export { ProponentTab as Private } from 'components/tabs/private/ProponentTab'
-export { ProponentLibrary } from 'components/tabs/private/ProponentLibrary'
-export { ProponentQuestionList } from 'components/tabs/private/ProponentQuestionList'
-export { ProponentManagement } from 'components/tabs/proponentmanagement/ProponentManagement'
-export { SiteManagement } from 'components/tabs/sitemanagement/SiteManagement'
 
-export { AddProponent } from 'components/tabs/proponentmanagement/AddProponent'
-export { SendConfirmationEmail } from 'components/tabs/proponentmanagement/SendConfirmationEmail'
-export { ToggleProponent } from 'components/tabs/proponentmanagement/ToggleProponent'
 
-export { SPDialog } from 'components/sharepoint/SPDialog'
-export { SPGroup } from 'components/sharepoint/SPGroup'
-export { SPList } from 'components/sharepoint/SPList'
+
+
+
+
+export { AppContent } from 'components/home/Home'
+export { LoadTermsOfService } from 'components/termsofservice/LoadTermsOfService'
+
+export { TermsOfServiceCookies } from 'components/termsofservice/TermsOfServiceCookies'
+export { GetTOSCookieConfig } from 'components/termsofservice/GetTOSCookieConfig'
+export { TermsOfService } from 'components/termsofservice/TermsOfService'
+export { TermsOfServiceDialog } from 'components/termsofservice/TermsOfServiceDialog'
+export { GetTOSConfig } from 'components/termsofservice/GetTOSConfig'
+
+export { AppTabs } from 'components/apptabs/AppTabs'
+export { Public } from 'components/publictab/Public'
+export { ProponentTab as Private } from 'components/proponenttab/ProponentTab'
+export { ProponentLibrary } from 'components/proponenttab/ProponentLibrary'
+export { ProponentQuestionList } from 'components/proponenttab/ProponentQuestionList'
+export { ProponentManagement } from 'components/proponentmanagementtab/ProponentManagement'
+export { SiteManagement } from 'components/sitemanagementtab/SiteManagement'
+
+export { AddProponent } from 'components/proponentmanagementtab/AddProponent'
+export { SendConfirmationEmail } from 'components/proponentmanagementtab/SendConfirmationEmail'
+export { ToggleProponent } from 'components/proponentmanagementtab/ToggleProponent'
+
+export { SPDialog } from 'components/shared/spdialog/SPDialog'
+export { SPGroup } from 'components/shared/spgroup/SPGroup'
+export { SPList } from 'components/shared/splist/SPList'
 
 export { icons } from 'components/utilities/icons'
-export * from 'components/utilities/constants'
 export { getCookie } from 'components/utilities/getCookie'
 export { setCookie } from 'components/utilities/setCookie'
 export { getTermsOfService } from 'components/utilities/getTermsOfService'
-export { LogAction } from 'components/utilities/logAction'
 export { makeUUID } from 'components/utilities/makeUUID'

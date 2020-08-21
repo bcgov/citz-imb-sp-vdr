@@ -5,8 +5,6 @@
   "dependencies": {
     "@material-ui/core": "^4.9.8",
     "@material-ui/icons": "^4.9.1",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "material-table": "^1.57.2",
     "moment": "^2.24.0",
@@ -48,9 +46,12 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
     "concurrently": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
+    "react-test-render": "^1.1.2",
     "sp-rest-proxy": "^2.11.0"
   },
   "proxy": "http://localhost:8081"

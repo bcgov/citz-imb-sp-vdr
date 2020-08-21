@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import MaterialTable from 'material-table'
 import { SPDialog } from './SP'
 import { GetList } from 'citz-imb-sp-utilities'
-import { icons } from '../utilities/icons'
+import { icons } from '../../utilities/icons'
 import Moment from 'react-moment'
 
 export const SPList = ({
