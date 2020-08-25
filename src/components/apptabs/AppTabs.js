@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { AppBar, Typography, Box, Tabs, Paper } from '@material-ui/core'
+import { AppBar, Tabs, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Tab from '@material-ui/core/Tab'
 
@@ -10,39 +10,20 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import PeopleIcon from '@material-ui/icons/People'
 
 import {
-	Private,
-	Public,
+	GetIsOwner,
+	ProponentTab,
+	PublicTab,
 	ProponentManagement,
 	SiteManagement,
+	TabPanel,
+
 } from 'Components'
 
-import {
-	GetAssociatedGroups,
-	GetGroupMembers,
-	GetCurrentUser,
-} from 'citz-imb-sp-utilities'
-
-function TabPanel(props) {
-	const { children, value, index, ...other } = props
-
-	return (
-		<Typography
-			component='div'
-			role='tabpanel'
-			hidden={value !== index}
-			id={`simple-tabpanel-${index}`}
-			aria-labelledby={`simple-tab-${index}`}
-			{...other}>
-			{value === index && <Box p={3}>{children}</Box>}
-		</Typography>
-	)
-}
-
-TabPanel.propTypes = {
-	children: PropTypes.node,
-	index: PropTypes.any.isRequired,
-	value: PropTypes.any.isRequired,
-}
+// TabPanel.propTypes = {
+// 	children: PropTypes.node,
+// 	index: PropTypes.any.isRequired,
+// 	value: PropTypes.any.isRequired,
+// }
 
 function a11yProps(index) {
 	return {
@@ -76,16 +57,8 @@ export const AppTabs = () => {
 		setValue(newValue)
 	}
 
-	const isCurrentUserAnOwner = async ()=>{
-		const currentUser = await GetCurrentUser({})
-		const assocGroups = await GetAssociatedGroups()
-		const OwnerGroupMembers = await GetGroupMembers({groupId: assocGroups.AssociatedOwnerGroup.Id})
-
-		for (let i = 0; i < OwnerGroupMembers.length; i++) {
-			if (currentUser.Id === OwnerGroupMembers[i].Id) {
-				setIsOwner(true)
-			}
-		}
+	const isCurrentUserAnOwner = async () => {
+		setIsOwner(await GetIsOwner())
 	}
 
 	useEffect(() => {
@@ -134,12 +107,12 @@ export const AppTabs = () => {
 			<TabPanel value={value} index={0}>
 				<Paper>
 					<h2>Public Space</h2>
-					<Public />
+					<PublicTab />
 				</Paper>
 			</TabPanel>
 			<TabPanel value={value} index={1}>
 				<Paper>
-					<Private />
+					<ProponentTab />
 				</Paper>
 			</TabPanel>
 			{isOwner ? (

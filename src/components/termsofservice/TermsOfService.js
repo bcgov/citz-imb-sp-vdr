@@ -1,53 +1,49 @@
-import React, { useState, useEffect } from 'react'
-import { CircularProgress } from '@material-ui/core'
+import React, { useEffect, useState } from 'react'
 
 import {
+	Home,
+	GetTOSCookieConfig,
+	getCookie,
 	TermsOfServiceDialog,
-	setCookie,
-	GetTOSConfig,
-	LogAction,
 } from 'Components'
 
-export const TermsOfService = ({
-	loading,
-	cookieName,
-	cookieDays,
-	updateHasCookie,
-}) => {
-	const [title, setTitle] = useState('title')
-	const [body, setBody] = useState('body')
-
-	const handleAgree = () => {
-		setCookie(cookieName, 'true', cookieDays)
-		updateHasCookie(cookieName)
-		LogAction('agreed to TOS')
-	}
-
-	const handleDisagree = () => {
-		LogAction('disagreed to TOS')
-		window.close()
-		window.location = '/_layouts/signout.aspx'
-	}
-
-	const getTOSConfig = async () => {
-		const TOSConfig = await GetTOSConfig()
-		setTitle(TOSConfig[0].TextValue)
-		setBody(TOSConfig[0].MultiTextValue)
-	}
+export const TermsOfService = () => {
+	const [isLoading, setIsLoading] = useState(true)
+	const [hasCookie, setHasCookie] = useState()
+	const [cookieName, setCookieName] = useState()
+	const [cookieDays, setCookieDays] = useState()
 
 	useEffect(() => {
-		getTOSConfig()
+		GetTOSCookieConfig().then((cookieConfig) => {
+			setCookieName(cookieConfig.name)
+			setCookieDays(cookieConfig.Days)
+			setIsLoading(false)
+		})
+
 		return () => {}
 	}, [])
 
-	return loading ? (
-		<CircularProgress />
+	useEffect(() => {
+		setHasCookie(getCookie(cookieName))
+		return () => {}
+	}, [cookieName])
+
+	const updateHasCookie = (cookieName) => {
+		setHasCookie(cookieName)
+	}
+
+	return hasCookie ? (
+		<Home />
 	) : (
 		<TermsOfServiceDialog
-			dialogTitle={title}
-			dialogBody={body}
-			handleAgree={handleAgree}
-			handleDisagree={handleDisagree}
+			dialogTitle='title'
+			dialogBody='body'
+			handleAgree
+			handleDisagree
+			loading={isLoading}
+			cookieName={cookieName}
+			cookieDays={cookieDays}
+			updateHasCookie={updateHasCookie}
 		/>
 	)
 }

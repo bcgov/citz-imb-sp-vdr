@@ -3,7 +3,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import { deviceDetect } from 'react-device-detect'
 
 import './App.css'
-// import { LogAction, TermsOfServiceCookies } from 'Components'
+import { LogAction, TermsOfService } from 'Components'
 
 export const App = () => {
 	const theme = createMuiTheme({
@@ -19,15 +19,15 @@ export const App = () => {
 
 	useEffect(() => {
 		const device = deviceDetect()
-		// LogAction(
-		// 	`logged in using ${device.browserName} ${device.browserMajorVersion} and ${device.osName} ${device.osVersion}`
-		// )
+		LogAction(
+			`logged in using ${device.browserName} ${device.browserMajorVersion} and ${device.osName} ${device.osVersion}`
+		)
 		return () => {}
 	}, [])
 
 	return (
 		<MuiThemeProvider theme={theme}>
-			{/* <TermsOfServiceCookies /> */}
+			<TermsOfService />
 		</MuiThemeProvider>
 	)
 }

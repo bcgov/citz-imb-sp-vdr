@@ -1,32 +1,25 @@
 import React, { Fragment, useState } from 'react'
 import { TextField } from '@material-ui/core'
-import PeopleIcon from '@material-ui/icons/People'
+import { Alert } from '@material-ui/lab'
 import ToggleOnIcon from '@material-ui/icons/ToggleOn'
 import ToggleOffIcon from '@material-ui/icons/ToggleOff'
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
+import PeopleIcon from '@material-ui/icons/People'
 import { green, red } from '@material-ui/core/colors'
 import {
 	SPList,
 	LogAction,
 	SPDialog,
-	SPGroup,
 	ToggleProponent,
 	AddProponent,
+	SPGroup,
 	SendConfirmationEmail,
+	tableOptions,
 } from 'Components'
 
 export const ProponentManagement = () => {
 	const proponentListName = 'Proponents'
-
-	const options = {
-		search: false,
-		sorting: false,
-		paging: false,
-		pageSize: 20,
-		draggable: false,
-		actionsColumnIndex: -1,
-	}
 
 	const [dialogParameters, setDialogParameters] = useState({ open: false })
 	const [isDirty, setIsDirty] = useState(true)
@@ -55,7 +48,7 @@ export const ProponentManagement = () => {
 								deleteItem={false}
 								editItem={false}
 								changeItemPermission={false}
-								options={options}
+								options={tableOptions}
 							/>
 						),
 						showSave: false,
@@ -83,7 +76,7 @@ export const ProponentManagement = () => {
 								deleteItem={false}
 								editItem={false}
 								changeItemPermission={false}
-								options={options}
+								options={tableOptions}
 							/>
 						),
 						showSave: false,
@@ -128,7 +121,7 @@ export const ProponentManagement = () => {
 									removeUserCallback={removeUserCallback}
 									removeUser={true}
 									editGroup={false}
-									options={options}
+									options={tableOptions}
 								/>
 							),
 							showSave: false,
@@ -165,9 +158,17 @@ export const ProponentManagement = () => {
 				setDialogParameters({
 					open: true,
 					title: `${rowdata.Title} - ${rowdata.UUID}`,
-					content: rowdata.Active
-						? 'Proponent Group will be deleted; member users will no-longer be able to access the site.'
-						: 'A new group will be created for the proponent. You will need to manually add users.',
+					content: rowdata.Active ? (
+						<Alert severity='error'>
+							Proponent Group will be deleted; member users will
+							no-longer be able to access the site.
+						</Alert>
+					) : (
+						<Alert severity='info'>
+							A new group will be created for the proponent. You
+							will need to manually add users.
+						</Alert>
+					),
 					saveButtonText: rowdata.Active
 						? 'Set Inactive'
 						: 'Set Active',
@@ -222,7 +223,7 @@ export const ProponentManagement = () => {
 				editItem={false}
 				changeItemPermission={false}
 				customActions={customActions}
-				options={options}
+				options={tableOptions}
 				isDirty={isDirty}
 				handleDirty={handleDirty}
 			/>
