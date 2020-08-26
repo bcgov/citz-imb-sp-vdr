@@ -101,7 +101,8 @@ export const SPGroup = ({
 	const [groupTitle, setGroupTitle] = useState()
 	const [actions, setActions] = useState([])
 	const [isLoading, setIsLoading] = useState(true)
-	let userInfo = []
+	//const [users, setUsers] = useState([])
+	let users = []
 
 	const [dialogParameters, setDialogParameters] = useState({ open: false })
 
@@ -119,15 +120,20 @@ export const SPGroup = ({
 
 	const handleAddUserSave = () => {
 		setIsLoading(true)
-		let loginNames = userInfo.map((user) => user.account)
-		console.log('loginNames :>> ', loginNames);
-		AddUsersToGroup({ groupId: groupId, loginName: loginNames }).then(
+		console.log('handleAddUserSave users :>> ', users);
+		AddUsersToGroup({ groupId: groupId, loginName: users }).then(
 			(response) => {
 				refreshData()
 				addUserCallback(response)
 			}
 		)
 		setDialogParameters({ open: false })
+	}
+
+	const handleUsers = (newUsers) => {
+		console.log('newUsers :>> ', newUsers);
+		//setUsers(newUsers)
+		users = newUsers
 	}
 
 	const refreshData = () => {
@@ -164,9 +170,7 @@ export const SPGroup = ({
 												Width: '400px',
 											}}
 											elementName={`${response.Title}_addUserPeoplePicker`}
-											getUserInfo={(users) => {
-												userInfo = users
-											}}
+											getUserInfo={handleUsers}
 										/>
 									</Paper>
 								),

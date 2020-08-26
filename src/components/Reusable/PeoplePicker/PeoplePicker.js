@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './PeoplePicker.css'
 import MutationObserver from 'mutation-observer'
 
@@ -21,6 +21,17 @@ export const PeoplePicker = ({ schema, elementName, getUserInfo }) => {
 			src: '_layouts/15/autofill.js',
 		},
 	]
+	const [resolvedListElement, setResolvedListElement] = useState()
+
+	const observer = new MutationObserver(() => {
+		let userArray = []
+
+		for (let i = 0; i < resolvedListElement.children.length; i++) {
+			userArray.push(resolvedListElement.children[i].attributes.sid.value)
+		}
+
+		getUserInfo(userArray)
+	})
 
 	useEffect(() => {
 		//append libraries needed for peoplepicker
@@ -30,19 +41,6 @@ export const PeoplePicker = ({ schema, elementName, getUserInfo }) => {
 			element.type = library.type
 			element.src = library.src
 			head.appendChild(element)
-		})
-
-		const observer = new MutationObserver((mutations) => {
-			let userArray = []
-			const mutationIndex = mutations.length - 1
-
-			for (let i = 0; i < mutations[mutationIndex].addedNodes.length; i++) {
-				userArray.push({
-					displayName: mutations[mutationIndex].addedNodes[i].childNodes[1].title,
-					account: mutations[mutationIndex].addedNodes[i].attributes.sid.value,
-				})
-			}
-			getUserInfo(userArray)
 		})
 
 		// Render and initialize the picker.
@@ -59,17 +57,26 @@ export const PeoplePicker = ({ schema, elementName, getUserInfo }) => {
 					null,
 					schema
 				)
-				let el = document.querySelector(
-					`#${elementName}_TopSpan_ResolvedList`
+				setResolvedListElement(
+					document.querySelector(
+						`#${elementName}_TopSpan_ResolvedList`
+					)
 				)
-				observer.observe(el, { childList: true })
 			}, 1000)
 		}, 'clienttemplates.js')
+
+		return () => {}
+	}, [])
+	useEffect(() => {
+		console.log('resolvedListElement :>> ', resolvedListElement)
+		if (resolvedListElement) {
+			observer.observe(resolvedListElement, { childList: true })
+		}
 
 		return () => {
 			observer.disconnect()
 		}
-	}, [])
+	}, [resolvedListElement])
 
 	return <div id={elementName}></div>
 }

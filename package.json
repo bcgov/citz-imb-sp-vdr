@@ -7,6 +7,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@testing-library/user-event": "^7.2.1",
+    "citz-imb-sp-utilities": "^1.3.0",
     "material-table": "^1.69.0",
     "moment": "^2.27.0",
     "mui-rte": "^1.24.0",
