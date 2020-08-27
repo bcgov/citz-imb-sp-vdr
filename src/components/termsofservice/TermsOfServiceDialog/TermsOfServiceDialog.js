@@ -6,7 +6,6 @@ import {
 	DialogContent,
 	Button,
 } from '@material-ui/core'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import { GetTermsOfService, setCookie, LogAction } from 'Components'
 
 export const TermsOfServiceDialog = ({
@@ -16,11 +15,10 @@ export const TermsOfServiceDialog = ({
 }) => {
 	const [title, setTitle] = useState()
 	const [body, setBody] = useState()
-	const [isLoading, setIsLoading] = useState(true)
 
 	const handleAgree = () => {
 		setCookie(cookieName, 'true', cookieDays)
-		updateHasCookie(cookieName)
+		updateHasCookie(true)
 		LogAction('agreed to TOS')
 	}
 
@@ -35,7 +33,6 @@ export const TermsOfServiceDialog = ({
 
 		setTitle(terms[0].TextValue)
 		setBody(terms[0].MultiTextValue)
-		setIsLoading(false)
 	}
 
 	useEffect(() => {
@@ -44,9 +41,7 @@ export const TermsOfServiceDialog = ({
 		return () => {}
 	}, [])
 
-	return isLoading ? (
-		<CircularProgress />
-	) : (
+	return (
 		<Dialog
 			open={true}
 			scroll={'paper'}
