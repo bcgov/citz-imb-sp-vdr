@@ -272,8 +272,8 @@
 	</ListInstance>
 	<ListInstance FeatureId="{00000000-0000-0000-0000-000000000000}" TemplateType="116" Title="Master Page Gallery" Description="Use the master page gallery to store master pages. The master pages in this gallery are available to this site and any sites underneath it." Url="_catalogs/masterpage" CustomSchema="Files\_catalogs\masterpage\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" />
 	<ListInstance FeatureId="{00bfea71-e717-4e80-aa17-d0c71b360101}" TemplateType="101" Title="Documents" Description="" Url="Documents" CustomSchema="Files\Documents\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" />
-	<ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="ActivityLog" Description="" Url="Lists/ActivityLog" CustomSchema="Files\Lists\ActivityLog\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" />
-	<ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="Config" Description="" Url="Lists/Config" CustomSchema="Files\Lists\Config\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE">
+	<ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="ActivityLog" Description="" Url="Lists/ActivityLog" CustomSchema="Files\Lists\ActivityLog\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE"  Hidden="TRUE"/>
+	<ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="Config" Description="" Url="Lists/Config" CustomSchema="Files\Lists\Config\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" Hidden="TRUE">
 		<Data>
 			<Rows>
 				<Row>
@@ -300,7 +300,7 @@
    &lt;strong&gt;Governing Law&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;These Terms shall be governed and construed in accordance with the laws of the Province of British Columbia, without regard to its conflict of law provisions.&amp;#160; Any &amp;#160;failure by the Province to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between the Province and the Proponent &amp;#160;regarding use of the VICO Site, and supersede and replace any prior agreements the Province and the Proponent might have regarding the VICO Site&lt;/p&gt;&lt;p&gt;
    &lt;strong&gt;Changes&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;The Province &amp;#160;reserves the right, at its sole discretion, to modify or replace these Terms at any time. If a revision is material we will try to the Proponent with reasonable notice prior to any new terms taking effect. What constitutes a material change or reasonable notice will be determined by the Province at its sole &amp;#160;discretion.&lt;/p&gt;&lt;p&gt;
    &lt;strong&gt;Contact Us&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;If you have any questions about these Terms, please contact us by email&amp;#58;
-   &lt;a href="file&amp;#58;///C&amp;#58;/Users/hbergstr/AppData/Local/Microsoft/Windows/Temporary%20Internet%20Files/Content.Outlook/3WM0MTUW/VICO.DeviceProcurement@gov.bc.ca"&gt;VICO.DeviceProcurement@gov.bc.ca&lt;/a&gt;.​&lt;br&gt;&lt;/p&gt;&lt;/div&gt;</Field>
+   &lt;a href="mailto:WTSProcurementPro@gov.bc.ca"&gt;WTSProcurementPro@gov.bc.ca&lt;/a&gt;.​&lt;br&gt;&lt;/p&gt;&lt;/div&gt;</Field>
 					<Field Name="NumberValue">3.00000000000000</Field>
 					<Field Name="YesNoValue">TRUE</Field>
 				</Row>
@@ -381,9 +381,9 @@
 			</Rows>
 		</Data>
 	</ListInstance>
-	<ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="Proponents" Description="" Url="Lists/Proponents" CustomSchema="Files\Lists\Proponents\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" />
+	<ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="Proponents" Description="" Url="Lists/Proponents" CustomSchema="Files\Lists\Proponents\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" Hidden="TRUE"/>
 	<ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="Questions" Description="" Url="Lists/Questions" CustomSchema="Files\Lists\Questions\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" />
-	<ListInstance FeatureId="{00bfea71-e717-4e80-aa17-d0c71b360101}" TemplateType="101" Title="Site Assets" Description="Use this library to store files which are included on pages within this site, such as images on Wiki pages." Url="SiteAssets" CustomSchema="Files\SiteAssets\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE">
+	<ListInstance FeatureId="{00bfea71-e717-4e80-aa17-d0c71b360101}" TemplateType="101" Title="Site Assets" Description="Use this library to store files which are included on pages within this site, such as images on Wiki pages." Url="SiteAssets" CustomSchema="Files\SiteAssets\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" Hidden="TRUE">
 		<Data>
 			<Rows>
 				<Row>
