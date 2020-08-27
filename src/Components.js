@@ -42,5 +42,3 @@ export { ManageProponentUsers } from 'components/ProponentManagementTab/ManagePr
 export { SiteManagement } from 'components/SiteManagementTab/SiteManagement'
 
 export { GetTermsOfService } from 'components/TermsOfService/GetTermsOfService/GetTermsOfService'
-
-// export { LoadTermsOfService } from '__archive__/LoadTermsOfService'
