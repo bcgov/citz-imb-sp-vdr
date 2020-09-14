@@ -35,10 +35,10 @@ export const SPGroup = ({
 	groupId,
 	addUser = true,
 	addUserCallback = () => {
-		console.log('default addUserCallback')
+		console.warn('default addUserCallback')
 	},
 	removeUserCallback = () => {
-		console.log('default removeUserCallback')
+		console.warn('default removeUserCallback')
 	},
 	removeUser = true,
 	editGroup = true,
@@ -120,7 +120,6 @@ export const SPGroup = ({
 
 	const handleAddUserSave = () => {
 		setIsLoading(true)
-		console.log('handleAddUserSave users :>> ', users);
 		AddUsersToGroup({ groupId: groupId, loginName: users }).then(
 			(response) => {
 				refreshData()
@@ -131,8 +130,6 @@ export const SPGroup = ({
 	}
 
 	const handleUsers = (newUsers) => {
-		console.log('newUsers :>> ', newUsers);
-		//setUsers(newUsers)
 		users = newUsers
 	}
 

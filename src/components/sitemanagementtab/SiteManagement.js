@@ -22,7 +22,6 @@ export const SiteManagement = () => {
 				icon: icons.Edit,
 				tooltip: 'Edit Values',
 				onClick: (event, rowdata) => {
-					console.log('rowdata :>> ', rowdata)
 					setDialogParameters({
 						open: true,
 						title: rowdata.Key,

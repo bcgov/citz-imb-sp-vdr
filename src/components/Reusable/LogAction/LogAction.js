@@ -19,7 +19,7 @@ const CurrentUser = async () => {
 		}
 		return CurrentUser._instance
 	} catch (err) {
-		console.log('err :>> ', err)
+		console.error('err :>> ', err)
 	}
 }
 
@@ -28,7 +28,6 @@ export const LogAction = async (action) => {
 	const timeStamp = moment().format('dddd, MMMM Do, YYYY @ h:mm:ss a')
 	const activity = `${user.name} ${action} on ${timeStamp}`
 
-	console.log(activity)
 	AddItemsToList({
 		listName: 'ActivityLog',
 		items: { Title: activity, User: user.name },

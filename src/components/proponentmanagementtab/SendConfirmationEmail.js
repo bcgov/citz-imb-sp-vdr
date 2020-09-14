@@ -17,7 +17,6 @@ export const SendConfirmationEmail = (users, rowdata) => {
 		//! this breaks if there aren't values to be replaced!!
 
 		//standard message changes (all users)
-		console.log('body modification')
 		const bodyTemplate = emailResponse[0].MultiTextValue.replace(
 			/\[Title\]/g,
 			siteResponse.Title
@@ -29,14 +28,12 @@ export const SendConfirmationEmail = (users, rowdata) => {
 			.replace(/\[ContactEmail\]/g, contactResponse[0].TextValue)
 			.replace(/\[Proponent\]/g, rowdata.Title)
 
-		console.log('subject modification')
 		const subjectTemplate = emailResponse[0].TextValue.replace(
 			/\[Title\]/g,
 			siteResponse.Title
 		).replace(/\[Proponent\]/g, rowdata.Title)
 
 		//per user change
-		console.log('user modification')
 		for (let i = 0; i < users.length; i++) {
 			let subject = subjectTemplate.replace(
 				/\[Username\]/g,

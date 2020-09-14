@@ -11,11 +11,11 @@ export const SPList = ({
 		content: 'Content',
 		saveButtonText: 'Save',
 		saveAction: () => {
-			console.log('I am saved')
+			console.warn('I am saved')
 		},
 		cancelButtonText: 'Cancel',
 		cancelAction: () => {
-			console.log('I am lost')
+			console.warn('I am lost')
 		},
 	},
 	deleteItem = true,
@@ -25,7 +25,7 @@ export const SPList = ({
 	options,
 	isDirty = true,
 	handleDirty = (dirty) => {
-		console.log(`handleDirty Default has been passed '${dirty}'`)
+		console.warn(`handleDirty Default has been passed '${dirty}'`)
 	},
 	tableTitle,
 }) => {

@@ -211,12 +211,12 @@ export const ProponentManagement = () => {
 								setIsDirty(true)
 							})
 							.catch((err) => {
-								console.log('add proponent error', err)
+								console.error('add proponent error', err)
 							})
 					},
 					cancelButtonText: 'Cancel',
 					cancelAction: () => {
-						console.log(`${proponentName} cancelled`)
+						console.warn(`${proponentName} cancelled`)
 					},
 				}}
 				deleteItem={false}

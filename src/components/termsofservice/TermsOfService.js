@@ -15,7 +15,6 @@ export const TermsOfService = ({ handleLoading }) => {
 	const [cookieDays, setCookieDays] = useState()
 
 	const getTOSCookieConfig = async () => {
-		console.log('getTOSCookieConfig')
 		const cookieConfig = await GetTOSCookieConfig()
 
 		setCookieName(cookieConfig.name)
@@ -28,16 +27,13 @@ export const TermsOfService = ({ handleLoading }) => {
 	}
 
 	useEffect(() => {
-		console.log('TermsOfService')
 		getTOSCookieConfig()
 		return () => {}
 	}, [])
 
 	useEffect(() => {
-		console.log('cookieName :>> ', cookieName)
 		const cookie = getCookie(cookieName)
 
-		console.log('cookie :>> ', cookie)
 		return () => {}
 	}, [cookieName])
 

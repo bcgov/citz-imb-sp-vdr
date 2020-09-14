@@ -14,11 +14,11 @@ export const ProponentLibrary = ({ proponent }) => {
 			content: 'content',
 			saveButtonText: 'Save',
 			saveAction: (results) => {
-				console.log('saveAction :>> ', results)
+				console.warn('saveAction :>> ', results)
 			},
 			cancelButtonText: 'Cancel',
 			cancelAction: (results) => {
-				console.log('cancelAction :>> ', results)
+				console.warn('cancelAction :>> ', results)
 			},
 		},
 		deleteItem: false,

@@ -42,7 +42,7 @@ export const ProponentQuestionList = ({ proponent, group }) => {
 			saveAction: askQuestion,
 			cancelButtonText: 'Cancel',
 			cancelAction: (results) => {
-				console.log('cancelAction :>> ', results)
+				console.warn('cancelAction :>> ', results)
 			},
 		},
 		deleteItem: false,
@@ -51,11 +51,6 @@ export const ProponentQuestionList = ({ proponent, group }) => {
 		// customActions:[],
 
 	}
-
-	useEffect(() => {
-		console.log('listIsDirty :>> ', listIsDirty)
-		return () => {}
-	}, [listIsDirty])
 
 	return (
 		<Grid key={`${proponent}QuestionList`} item xs={6}>

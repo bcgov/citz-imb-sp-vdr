@@ -121,7 +121,6 @@ export const AddProponent = (name) => {
 								resolve()
 							})
 						})
-						//console.log(`currentUser`, currentUser)
 					})
 					.catch((error) => {
 						reject(error)
