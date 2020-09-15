@@ -15,6 +15,7 @@ export const TermsOfServiceDialog = ({
 }) => {
 	const [title, setTitle] = useState()
 	const [body, setBody] = useState()
+	const [isLoading, setIsLoading] = useState(true)
 
 	const handleAgree = () => {
 		setCookie(cookieName, 'true', cookieDays)
@@ -33,6 +34,7 @@ export const TermsOfServiceDialog = ({
 
 		setTitle(terms[0].TextValue)
 		setBody(terms[0].MultiTextValue)
+		setIsLoading(false)
 	}
 
 	useEffect(() => {
@@ -41,7 +43,9 @@ export const TermsOfServiceDialog = ({
 		return () => {}
 	}, [])
 
-	return (
+	return isLoading ? (
+		''
+	) : (
 		<Dialog
 			open={true}
 			scroll={'paper'}

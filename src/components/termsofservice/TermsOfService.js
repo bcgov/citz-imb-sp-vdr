@@ -7,7 +7,7 @@ import {
 	TermsOfServiceDialog,
 } from 'Components'
 
-export const TermsOfService = ({ handleLoading }) => {
+export const TermsOfService = () => {
 	const [isLoadingCookie, setIsLoadingCookie] = useState(true)
 	const [hasCookie, setHasCookie] = useState(false)
 
@@ -16,9 +16,11 @@ export const TermsOfService = ({ handleLoading }) => {
 
 	const getTOSCookieConfig = async () => {
 		const cookieConfig = await GetTOSCookieConfig()
-
 		setCookieName(cookieConfig.name)
 		setCookieDays(cookieConfig.Days)
+
+		const cookie = getCookie(cookieConfig.name)
+		updateHasCookie(cookie)
 		setIsLoadingCookie(false)
 	}
 
@@ -27,15 +29,11 @@ export const TermsOfService = ({ handleLoading }) => {
 	}
 
 	useEffect(() => {
-		getTOSCookieConfig()
+		if (isLoadingCookie) {
+			getTOSCookieConfig()
+		}
 		return () => {}
-	}, [])
-
-	useEffect(() => {
-		const cookie = getCookie(cookieName)
-
-		return () => {}
-	}, [cookieName])
+	}, [isLoadingCookie])
 
 	return isLoadingCookie ? (
 		<CircularProgress />
