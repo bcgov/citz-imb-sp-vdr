@@ -102,8 +102,6 @@
 				</Feature>
 				<!--ShareWithEveryone Feature-->
 				<Feature ID="{10f73b29-5779-46b3-85a8-4817a6e9a6c2}" Name="FeatureDefinition/15/10f73b29-5779-46b3-85a8-4817a6e9a6c2" />
-				<!--CITZ.IMB.SP.FilterableLists Feature-->
-				<Feature ID="{3bd9ab88-807b-4de4-9a03-49eda603658f}" Name="FeatureDefinition/15/3bd9ab88-807b-4de4-9a03-49eda603658f" />
 				<!--PowerView Feature-->
 				<Feature ID="{bf8b58f5-ebae-4a70-9848-622beaaf2043}" Name="FeatureDefinition/15/bf8b58f5-ebae-4a70-9848-622beaaf2043" />
 				<!--SearchDrivenContent Feature-->
