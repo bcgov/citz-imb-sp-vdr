@@ -36,7 +36,7 @@ export { AskQuestion } from 'components/ProponentTab/ProponentQuestionList/AskQu
 export { ProponentManagement } from 'components/ProponentManagementTab/ProponentManagement'
 export { AddProponent } from 'components/ProponentManagementTab/AddProponent'
 export { ToggleProponent } from 'components/ProponentManagementTab/ToggleProponent'
-export { SendConfirmationEmail } from 'components/ProponentManagementTab/SendConfirmationEmail'
+export { SendAddUserConfirmationEmail as SendConfirmationEmail } from 'components/ProponentManagementTab/ManageProponentUsers/SendAddUserConfirmationEmail/SendAddUserConfirmationEmail'
 export { ManageProponentUsers } from 'components/ProponentManagementTab/ManageProponentUsers/ManageProponentUsers'
 
 export { SiteManagement } from 'components/SiteManagementTab/SiteManagement'
