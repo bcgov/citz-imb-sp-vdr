@@ -34,7 +34,7 @@ export { ProponentQuestionList } from 'components/ProponentTab/ProponentQuestion
 export { AskQuestion } from 'components/ProponentTab/ProponentQuestionList/AskQuestion/AskQuestion'
 
 export { ProponentManagement } from 'components/ProponentManagementTab/ProponentManagement'
-export { AddProponent } from 'components/ProponentManagementTab/AddProponent'
+export { AddProponent } from 'components/ProponentManagementTab/AddProponent/AddProponent'
 export { ToggleProponent } from 'components/ProponentManagementTab/ToggleProponent'
 export { SendAddUserConfirmationEmail as SendConfirmationEmail } from 'components/ProponentManagementTab/ManageProponentUsers/SendAddUserConfirmationEmail/SendAddUserConfirmationEmail'
 export { ManageProponentUsers } from 'components/ProponentManagementTab/ManageProponentUsers/ManageProponentUsers'

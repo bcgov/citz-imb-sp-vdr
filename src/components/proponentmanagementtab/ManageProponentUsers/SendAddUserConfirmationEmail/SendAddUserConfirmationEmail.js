@@ -26,10 +26,6 @@ export const SendAddUserConfirmationEmail = (users, rowdata) => {
 		const [contactResponse, emailResponse, siteResponse] = response
 
 		//standard message changes (all users)
-		console.log(
-			'emailResponse[0].MultiTextValue :>> ',
-			emailResponse[0].MultiTextValue
-		)
 		const bodyTemplate = replaceText({
 			text: emailResponse[0].MultiTextValue,
 			values: [
@@ -53,8 +49,6 @@ export const SendAddUserConfirmationEmail = (users, rowdata) => {
 				{ searchvalue: /\[Proponent\]/g, newvalue: rowdata.Title },
 			],
 		})
-
-		console.log('bodyTemplate :>> ', bodyTemplate)
 
 		//per user change
 		for (let i = 0; i < users.length; i++) {

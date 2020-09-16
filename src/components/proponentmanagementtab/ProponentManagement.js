@@ -23,10 +23,15 @@ export const ProponentManagement = () => {
 
 	const [dialogParameters, setDialogParameters] = useState({ open: false })
 	const [isDirty, setIsDirty] = useState(true)
+	const [preLoad, setPreLoad] = useState(false)
 	const [proponentName, setProponentName] = useState()
 
 	const handleDirty = (newDirty) => {
 		setIsDirty(newDirty)
+	}
+
+	const handlePreLoad = (newPreLoad) => {
+		setPreLoad(newPreLoad)
 	}
 
 	const customActions = [
@@ -183,49 +188,55 @@ export const ProponentManagement = () => {
 		}),
 	]
 
+	const addOptions = {
+		title: 'Add Proponent',
+		content: (
+			<TextField
+				autoFocus
+				margin='dense'
+				id='proponentName'
+				label="Proponent's Name"
+				type='text'
+				fullWidth
+				onChange={(e) => {
+					setProponentName(e.target.value)
+				}}
+			/>
+		),
+		saveButtonText: 'Submit',
+		saveAction: (param) => {
+			handlePreLoad(true)
+			AddProponent(proponentName)
+				.then((response) => {
+					LogAction(`added ${proponentName} as proponent`)
+					handlePreLoad(false)
+					setIsDirty(true)
+				})
+				.catch((err) => {
+					console.error('add proponent error', err)
+				})
+		},
+		cancelButtonText: 'Cancel',
+		cancelAction: () => {
+			console.warn(`${proponentName} cancelled`)
+		},
+	}
+
 	return (
 		<Fragment>
 			<SPList
 				listName={proponentListName}
 				addItem={true}
-				addOptions={{
-					title: 'Add Proponent',
-					content: (
-						<TextField
-							autoFocus
-							margin='dense'
-							id='proponentName'
-							label="Proponent's Name"
-							type='text'
-							fullWidth
-							onChange={(e) => {
-								setProponentName(e.target.value)
-							}}
-						/>
-					),
-					saveButtonText: 'Submit',
-					saveAction: (param) => {
-						AddProponent(proponentName)
-							.then((response) => {
-								LogAction(`added ${proponentName} as proponent`)
-								setIsDirty(true)
-							})
-							.catch((err) => {
-								console.error('add proponent error', err)
-							})
-					},
-					cancelButtonText: 'Cancel',
-					cancelAction: () => {
-						console.warn(`${proponentName} cancelled`)
-					},
-				}}
+				addOptions={addOptions}
 				deleteItem={false}
 				editItem={false}
 				changeItemPermission={false}
 				customActions={customActions}
 				options={tableOptions}
+				preLoad={preLoad}
 				isDirty={isDirty}
 				handleDirty={handleDirty}
+				handlePreLoad={handlePreLoad}
 			/>
 			<SPDialog {...dialogParameters} />
 		</Fragment>

@@ -24,8 +24,12 @@ export const SPList = ({
 	customActions,
 	options,
 	isDirty = true,
+	preLoad = false,
 	handleDirty = (dirty) => {
 		console.warn(`handleDirty Default has been passed '${dirty}'`)
+	},
+	handlePreLoad = (preLoad) => {
+		console.warn(`handlePreLoad Default has been passed '${preLoad}'`)
 	},
 	tableTitle,
 }) => {
@@ -43,6 +47,7 @@ export const SPList = ({
 	const [dialogCancelAction, setDialogCancelAction] = useState()
 
 	const saveButtonHandler = (results) => {
+		handlePreLoad(true)
 		addOptions.saveAction(results)
 		handleDirty(true)
 		setDialogOpen(false)
@@ -151,8 +156,20 @@ export const SPList = ({
 
 		handleDirty(false)
 
-		setIsLoading(false)
+		if(!preLoad){
+			setIsLoading(false)
+		}
+
 	}
+
+	useEffect(() => {
+		if (preLoad){
+			setIsLoading(true)
+		}
+		return () => {
+
+		}
+	}, [preLoad])
 
 	useEffect(() => {
 		if (isDirty) {

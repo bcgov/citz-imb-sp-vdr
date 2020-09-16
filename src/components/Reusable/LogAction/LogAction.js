@@ -28,6 +28,8 @@ export const LogAction = async (action) => {
 	const timeStamp = moment().format('dddd, MMMM Do, YYYY @ h:mm:ss a')
 	const activity = `${user.name} ${action} on ${timeStamp}`
 
+	console.log('LogAction :>> ', { action, timeStamp, user })
+
 	AddItemsToList({
 		listName: 'ActivityLog',
 		items: { Title: activity, User: user.name },

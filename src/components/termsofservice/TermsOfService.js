@@ -43,8 +43,6 @@ export const TermsOfService = () => {
 		<TermsOfServiceDialog
 			dialogTitle='title'
 			dialogBody='body'
-			handleAgree
-			handleDisagree
 			cookieName={cookieName}
 			cookieDays={cookieDays}
 			updateHasCookie={updateHasCookie}
