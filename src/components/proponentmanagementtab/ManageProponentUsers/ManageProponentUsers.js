@@ -7,7 +7,7 @@ import {
 	SPGroup,
 	ToggleProponent,
 	AddProponent,
-	SendConfirmationEmail,
+	SendAddUserConfirmationEmail,
 	tableOptions,
 } from 'Components'
 
@@ -26,7 +26,7 @@ export const ManageProponentUsers = (rowData) => {
 						users.push(response[i].Title)
 					}
 					LogAction(`added ${users.join('; ')} to ${rowdata.Title}`)
-					SendConfirmationEmail(response, rowdata)
+					SendAddUserConfirmationEmail(response, rowdata)
 				}
 				const removeUserCallback = (response) => {
 					LogAction(`removed ${response.Title} from ${rowdata.Title}`)

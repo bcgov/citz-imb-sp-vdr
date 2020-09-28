@@ -1,7 +1,12 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import MaterialTable from 'material-table'
-import { SPDialog, getListAndItems } from 'Components'
-import { icons } from 'Components'
+import { SPDialog, getListAndItems, icons , RTEditor} from 'Components'
+import {
+	DialogContentText,
+	TextField,
+	Checkbox,
+	FormControlLabel,
+} from '@material-ui/core'
 
 export const SPList = ({
 	listName,
@@ -20,6 +25,18 @@ export const SPList = ({
 	},
 	deleteItem = true,
 	editItem = true,
+	editOptions = {
+		title: 'Edit Item',
+		content: 'Content',
+		saveButtonText: 'Save',
+		saveAction: () => {
+			console.warn('I am saved')
+		},
+		cancelButtonText: 'Cancel',
+		cancelAction: () => {
+			console.warn('I am lost')
+		},
+	},
 	changeItemPermission = true,
 	customActions,
 	options,
@@ -45,6 +62,7 @@ export const SPList = ({
 	const [dialogSaveAction, setDialogSaveAction] = useState()
 	const [dialogCancelButtonText, setDialogCancelButtonText] = useState()
 	const [dialogCancelAction, setDialogCancelAction] = useState()
+	const [rowValue, setRowValue] = useState()
 
 	const saveButtonHandler = (results) => {
 		handlePreLoad(true)
@@ -56,6 +74,58 @@ export const SPList = ({
 	const cancelButtonHandler = (results) => {
 		addOptions.cancelAction(results)
 		setDialogOpen(false)
+	}
+
+	const editItemHandler = (event, rowdata) => {
+		setDialogTitle(rowdata.Key)
+		setDialogCancelAction(() => {
+			setDialogOpen(false)
+		})
+		// showSave: false,
+		// cancelButtonText: 'Close',
+		// cancelButtonAction: () => {
+		// 	setDialogParameters({ open: false })
+
+		setDialogOpen(true)
+
+		// content: (
+		// 	<DialogContentText>
+		// 		<div
+		// 			dangerouslySetInnerHTML={{
+		// 				__html: rowdata.Instructions,
+		// 			}} />
+		// 		<TextField
+		// 			id='TextValue'
+		// 			label='TextValue'
+		// 			value={rowdata.TextValue}
+		// 			fullWidth={true}
+		// 			autoFocus={true}
+		// 			margin='normal' />
+		// 		<MUIRichTextEditor
+		// 			label='MultiTextValue'
+		// 			value={rowdata.MultiTextValue}
+		// 			fullWidth={true}
+		// 			multiline={true}
+		// 			margin='normal' />
+		// 		<TextField
+		// 			id='NumberValue'
+		// 			label='NumberValue'
+		// 			value={rowdata.NumberValue}
+		// 			fullWidth={true}
+		// 			margin='normal' />
+		// 		<TextField
+		// 			id='YesNoValue'
+		// 			label='YesNoValue'
+		// 			value={rowdata.YesNoValue}
+		// 			fullWidth={true}
+		// 			margin='normal' />
+		// 		<TextField
+		// 			id='GroupValueId'
+		// 			label='GroupValue'
+		// 			value={rowdata.GroupValueId}
+		// 			fullWidth={true}
+		// 			margin='normal' />
+		// 	</DialogContentText>
 	}
 
 	useEffect(() => {
@@ -104,8 +174,20 @@ export const SPList = ({
 				prevActions.push({
 					icon: icons.Edit,
 					tooltip: 'Edit Item',
+
 					onClick: (event, rowdata) => {
-						//TODO: edit item actions
+						setDialogTitle(editOptions.title)
+						setRowValue(rowdata)
+						setDialogSaveButtonText(editOptions.saveButtonText)
+
+						setDialogCancelButtonText(editOptions.cancelButtonText)
+						setDialogCancelAction(() => {
+							return () => {
+								setIsLoading(false)
+								editOptions.cancelAction()
+							}
+						})
+						setDialogOpen(true)
 					},
 				})
 
@@ -150,25 +232,22 @@ export const SPList = ({
 		} else {
 			setTitle(list.title)
 		}
-
+		console.log('list :>> ', list)
 		setColumns(list.columns)
 		setData(list.items)
 
 		handleDirty(false)
 
-		if(!preLoad){
+		if (!preLoad) {
 			setIsLoading(false)
 		}
-
 	}
 
 	useEffect(() => {
-		if (preLoad){
+		if (preLoad) {
 			setIsLoading(true)
 		}
-		return () => {
-
-		}
+		return () => {}
 	}, [preLoad])
 
 	useEffect(() => {
@@ -178,6 +257,118 @@ export const SPList = ({
 
 		return () => {}
 	}, [isDirty])
+
+	useEffect(() => {
+		console.log('columns useEffect', columns)
+		if (rowValue) {
+			setDialogContent(
+				<DialogContentText>
+					<div />
+					{editOptions.content}
+					{columns.map((column, index) => {
+						console.log('column :>> ', column)
+						console.log('rowValue :>> ', rowValue)
+						switch (column.fieldTypeKind) {
+							case 2:
+								return (
+									<TextField
+										id={column.title}
+										label={column.title}
+										key={column.title}
+										type='text'
+										value={rowValue[column.title]}
+										fullWidth={true}
+										margin='normal'
+									/>
+								)
+								break
+							case 3:
+								return <RTEditor key={column.title} />
+								break
+							case 8:
+								return (
+									<FormControlLabel
+										key={column.title}
+										value={'value'}
+										label={column.title}
+										labelPlacement={'left'}
+										control={
+											<Checkbox
+												id={column.title}
+												key={column.title}
+												label={column.title}
+												value={rowValue[column.title]}
+											/>
+										}
+									/>
+								)
+								break
+							case 9:
+								return (
+									<TextField
+										id={column.title}
+										key={column.title}
+										label={column.title}
+										type='number'
+										multiline={true}
+										value={rowValue[column.title]}
+										fullWidth={true}
+										margin='normal'
+									/>
+								)
+								break
+							case 20:
+								return (
+									<div key={column.title}>
+										group: {column.title}
+									</div>
+								)
+								break
+							default:
+								return <div>{column.title}</div>
+						}
+					})}
+					{/* <TextField
+					id='TextValue'
+					label='TextValue'
+					value={'rowdata.TextValue'}
+					fullWidth={true}
+					autoFocus={true}
+					margin='normal'
+				/>
+				<MUIRichTextEditor
+					label='MultiTextValue'
+					value={'rowdata.MultiTextValue'}
+					fullWidth={true}
+					multiline={true}
+					margin='normal'
+				/>
+				<TextField
+					id='NumberValue'
+					label='NumberValue'
+					value={'rowdata.NumberValue'}
+					fullWidth={true}
+					margin='normal'
+				/>
+				<TextField
+					id='YesNoValue'
+					label='YesNoValue'
+					value={'rowdata.YesNoValue'}
+					fullWidth={true}
+					margin='normal'
+				/>
+				<TextField
+					id='GroupValueId'
+					label='GroupValue'
+					value={'rowdata.GroupValueId'}
+					fullWidth={true}
+					margin='normal'
+				/> */}
+				</DialogContentText>
+			)
+		}
+		return () => {}
+	}, [columns, rowValue])
 
 	return (
 		<Fragment>

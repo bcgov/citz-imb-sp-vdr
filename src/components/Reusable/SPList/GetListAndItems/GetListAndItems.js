@@ -4,21 +4,21 @@ import { GetList } from 'citz-imb-sp-utilities'
 import Moment from 'react-moment'
 
 const getList = async (listName) => {
-    let list = await GetList({
+	let list = await GetList({
 		listName: listName,
 		expand: 'DefaultView,DefaultView/ViewFields,Fields,Items,Items/File',
-    })
+	})
+	console.log('getList :>> ', list)
 
-
-    return list
+	return list
 }
 
 export const getListAndItems = async (listName) => {
 	let title, columns, items
 
-    let list = await getList(listName)
+	let list = await getList(listName)
 
-    title = list.Title
+	title = list.Title
 
 	let listColumns = {}
 	for (let i = 0; i < list.Fields.results.length; i++) {
@@ -34,6 +34,7 @@ export const getListAndItems = async (listName) => {
 			let fieldObject = {
 				title: listColumns[field].Title,
 				field: field,
+				fieldTypeKind: listColumns[field].FieldTypeKind,
 			}
 
 			if (field === 'LinkFilenameNoMenu') {
@@ -63,6 +64,7 @@ export const getListAndItems = async (listName) => {
 			let fieldObject = {
 				title: listColumns[field].Title,
 				field: field,
+				fieldTypeKind: listColumns[field].FieldTypeKind,
 			}
 
 			if (listColumns[field].FieldTypeKind === 4) {
