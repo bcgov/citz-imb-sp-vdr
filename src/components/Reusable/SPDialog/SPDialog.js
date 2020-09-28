@@ -13,9 +13,9 @@ export const SPDialog = ({
 	content = 'content',
 	showSave = true,
 	saveButtonText = 'Save',
-	saveButtonAction = () => {console.log('default save action')},
+	saveButtonAction = () => {console.warn('default save action')},
 	cancelButtonText = 'Cancel',
-	cancelButtonAction = () => {console.log('default cancel action')},
+	cancelButtonAction = () => {console.warn('default cancel action')},
 }) => {
 	return (
 		<Dialog open={open} onClose={cancelButtonAction}>
