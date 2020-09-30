@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { getListAndItems } from 'Components'
+import { getListAndItems, SPList, tableOptions,LogAction } from 'Components'
 import {
+	Button,
 	Dialog,
 	DialogTitle,
 	DialogActions,
@@ -11,6 +12,8 @@ import {
 	List,
 } from '@material-ui/core'
 
+import { UpdateListItem } from 'citz-imb-sp-utilities'
+
 export const SiteManagement = () => {
 	const listName = 'Config'
 
@@ -18,20 +21,14 @@ export const SiteManagement = () => {
 	const [config, setConfig] = useState({})
 	const [dialogOptions, setDialogOptions] = useState({ open: false })
 	const [title, setTitle] = useState()
+	const [key, setKey] = useState()
+	const [itemId, setItemId] = useState(0)
 	const [textValue, setTextValue] = useState()
 	const [multiTextValue, setMultiTextValue] = useState()
 	const [numberValue, setNumberValue] = useState()
 	const [yesNoValue, setYesNoValue] = useState()
-
-	useEffect(() => {
-		console.log('title', title)
-		console.log('textValue', textValue)
-		console.log('multiTextValue', multiTextValue)
-		console.log('numberValue', numberValue)
-		console.log('yesNoValue', yesNoValue)
-
-		return () => {}
-	}, [textValue])
+	const [groupValue, setGroupValue] = useState()
+	const [instructions, setInstructions] = useState()
 
 	const getRender = (item) => {
 		switch (item.Key) {
@@ -40,7 +37,7 @@ export const SiteManagement = () => {
 					<Fragment>
 						<DialogTitle>{item.Title}</DialogTitle>
 						<DialogContent>
-							<DialogContentText>
+							<DialogContentText component='div'>
 								<p
 									dangerouslySetInnerHTML={{
 										__html: item.Instructions,
@@ -52,14 +49,18 @@ export const SiteManagement = () => {
 								label='Title'
 								defaultValue={item.TextValue}
 								fullWidth={true}
-								onChange={(props)=>{setTextValue(props.target.value)}}
+								onChange={(props) => {
+									setTextValue(props.target.value)
+								}}
 							/>
 							<TextField
 								id='TOS_Days'
 								label='Days until TOS Prompt'
 								defaultValue={item.NumberValue}
 								fullWidth={true}
-								onChange={(props)=>{setNumberValue(props.target.value)}}
+								onChange={(props) => {
+									setNumberValue(props.target.value)
+								}}
 							/>
 							<TextField
 								variant='outlined'
@@ -70,9 +71,19 @@ export const SiteManagement = () => {
 								rows={6}
 								fullWidth={true}
 								margin='normal'
-								onChange={(props)=>{setMultiTextValue(props.target.value)}}
+								onChange={(props) => {
+									setMultiTextValue(props.target.value)
+								}}
 							/>
 						</DialogContent>
+						<DialogActions>
+							<Button onClick={handleSave} color='primary'>
+								Save
+							</Button>
+							<Button onClick={handleClose} color='primary'>
+								Cancel
+							</Button>
+						</DialogActions>
 					</Fragment>
 				)
 			case 'addUserEmail':
@@ -80,7 +91,7 @@ export const SiteManagement = () => {
 					<Fragment>
 						<DialogTitle>{item.Title}</DialogTitle>
 						<DialogContent>
-							<DialogContentText>
+							<DialogContentText component='div'>
 								<p
 									dangerouslySetInnerHTML={{
 										__html: item.Instructions,
@@ -94,7 +105,9 @@ export const SiteManagement = () => {
 								defaultValue={item.TextValue}
 								fullWidth={true}
 								margin='normal'
-								onChange={(props)=>{setTextValue(props.target.value)}}
+								onChange={(props) => {
+									setTextValue(props.target.value)
+								}}
 							/>
 							<TextField
 								variant='outlined'
@@ -105,9 +118,19 @@ export const SiteManagement = () => {
 								rows={6}
 								fullWidth={true}
 								margin='normal'
-								onChange={(props)=>{setMultiTextValue(props.target.value)}}
+								onChange={(props) => {
+									setMultiTextValue(props.target.value)
+								}}
 							/>
 						</DialogContent>
+						<DialogActions>
+							<Button onClick={handleSave} color='primary'>
+								Save
+							</Button>
+							<Button onClick={handleClose} color='primary'>
+								Cancel
+							</Button>
+						</DialogActions>
 					</Fragment>
 				)
 			case 'contactemail':
@@ -115,7 +138,7 @@ export const SiteManagement = () => {
 					<Fragment>
 						<DialogTitle>{item.Title}</DialogTitle>
 						<DialogContent>
-							<DialogContentText>
+							<DialogContentText component='div'>
 								<div
 									dangerouslySetInnerHTML={{
 										__html: item.Instructions,
@@ -126,12 +149,48 @@ export const SiteManagement = () => {
 								label='Contact Email'
 								defaultValue={item.TextValue}
 								fullWidth={true}
-								onChange={(props)=>{setTextValue(props.target.value)}}
+								onChange={(props) => {
+									setTextValue(props.target.value)
+								}}
 							/>
 						</DialogContent>
+						<DialogActions>
+							<Button onClick={handleSave} color='primary'>
+								Save
+							</Button>
+							<Button onClick={handleClose} color='primary'>
+								Cancel
+							</Button>
+						</DialogActions>
 					</Fragment>
 				)
-
+			case 'ActivityLog':
+				return (
+					<Fragment>
+						<DialogTitle>{item.Title}</DialogTitle>
+						<DialogContent>
+							<DialogContentText>
+								<div
+									dangerouslySetInnerHTML={{
+										__html: item.Instructions,
+									}}></div>
+							</DialogContentText>
+							<SPList
+								listName={'ActivityLog'}
+								addItem={false}
+								deleteItem={false}
+								editItem={false}
+								changeItemPermission={false}
+								options={tableOptions}
+							/>
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={handleClose} color='primary'>
+								Close
+							</Button>
+						</DialogActions>
+					</Fragment>
+				)
 			default:
 				return <div>Key not Found</div>
 		}
@@ -142,27 +201,49 @@ export const SiteManagement = () => {
 		setListItems(list.items)
 
 		let listObject = {}
+		const activityLog = {
+			Key: 'ActivityLog',
+			Title: 'Activity Log',
+			Id: -1,
+			TextValue: '',
+			MultiTextValue: '',
+			NumberValue: 0,
+			YesNoValue: false,
+			GroupValue: null,
+			Instructions: '',
+			render: getRender({ Key: 'ActivityLog' }),
+		}
+
 		list.items.map((item) => {
-			console.log('item :>> ', item)
 			listObject[item.Key] = item
 			listObject[item.Key].render = getRender(item)
-			setConfig(listObject)
 		})
+		listObject.ActivityLog = activityLog
+		listObject.ActivityLog.render = getRender(activityLog)
+		setConfig(listObject)
 	}
 
 	useEffect(() => {
 		getItems()
 		return () => {}
 	}, [])
+	useEffect(() => {
+		console.log('itemId UseEffect', itemId)
+
+	}, [itemId])
 
 	const handleClick = (element) => {
 		const configKey = element.target.attributes.id.value
-
+		console.log('config[configKey].Id :>> ', config[configKey].Id);
 		setTitle(config[configKey].Title)
+		setKey(configKey)
+		setItemId(config[configKey].Id)
 		setTextValue(config[configKey].TextValue)
 		setMultiTextValue(config[configKey].MultiTextValue)
 		setNumberValue(config[configKey].NumberValue)
 		setYesNoValue(config[configKey].YesNoValue)
+		setGroupValue(config[configKey].GroupValue)
+		setInstructions(config[configKey].Instructions)
 
 		const options = {
 			open: true,
@@ -175,6 +256,33 @@ export const SiteManagement = () => {
 		}
 
 		setDialogOptions(options)
+	}
+
+	const handleClose = () => {
+		setDialogOptions({ open: false })
+	}
+
+	const handleSave = () => {
+		//setItemId(1000)
+		console.log('itemId Save:>> ', itemId);
+		console.log('title Save:>> ', title);
+		UpdateListItem({
+			listName: listName,
+			items: {
+				Id: itemId,
+				Title: title,
+				Key: key,
+				TextValue: textValue,
+				MultiTextValue: multiTextValue,
+				NumberValue: numberValue,
+				YesNoValue: yesNoValue,
+				GroupValue: groupValue,
+				Instructions: instructions,
+			},
+		})
+		LogAction(`updated ${title} in config list`)
+		getItems()
+		setDialogOptions({ open: false })
 	}
 
 	return (
@@ -200,11 +308,7 @@ export const SiteManagement = () => {
 					divider>
 					View Activity Log
 				</ListItem>
-				<Dialog {...dialogOptions}>
-					{dialogOptions.content}
-
-					<DialogActions>Actions</DialogActions>
-				</Dialog>
+				<Dialog {...dialogOptions}>{dialogOptions.content}</Dialog>
 			</List>
 		</Fragment>
 	)
