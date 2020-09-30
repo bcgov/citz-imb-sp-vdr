@@ -305,30 +305,6 @@
 					<Field Name="YesNoValue">TRUE</Field>
 				</Row>
 				<Row>
-					<Field Name="ID">4</Field>
-					<Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">400.000000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">4_.000</Field>
-					<Field Name="MetaInfo">4;#</Field>
-					<Field Name="Key">PublicTab</Field>
-					<Field Name="MultiTextValue">&lt;div class="ExternalClass8670A878A1E04ED8817503F31C5DDC29"&gt;Introduction to the site, instructions, links to procurement documents and publicly answered questions.&amp;#160;​&lt;/div&gt;&lt;div class="ExternalClass8670A878A1E04ED8817503F31C5DDC29"&gt;&lt;br&gt;&lt;/div&gt;&lt;div class="ExternalClass8670A878A1E04ED8817503F31C5DDC29"&gt;Content to be provided by the business​&lt;/div&gt;</Field>
-					<Field Name="YesNoValue">TRUE</Field>
-				</Row>
-				<Row>
-					<Field Name="ID">5</Field>
-					<Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
-					<Field Name="_ModerationStatus">0</Field>
-					<Field Name="Order">500.000000000000</Field>
-					<Field Name="FSObjType">0</Field>
-					<Field Name="FileLeafRef">5_.000</Field>
-					<Field Name="MetaInfo">5;#</Field>
-					<Field Name="Key">PrivateTab</Field>
-					<Field Name="MultiTextValue">&lt;div class="ExternalClass07C6A4A899D746FCBCF78B33822CAEB1"&gt;&lt;p&gt;​Text for the Private Tab.&lt;br&gt;&lt;/p&gt;&lt;p&gt;Verbage to be supplied by business&lt;br&gt;&lt;/p&gt;&lt;/div&gt;</Field>
-					<Field Name="YesNoValue">TRUE</Field>
-				</Row>
-				<Row>
 					<Field Name="ID">6</Field>
 					<Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
 					<Field Name="_ModerationStatus">0</Field>

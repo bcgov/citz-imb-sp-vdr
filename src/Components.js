@@ -14,7 +14,7 @@ export { GetIsOwner } from 'components/Reusable/GetIsOwner/GetIsOwner'
 export { getListAndItems } from 'components/Reusable/SPList/GetListAndItems/GetListAndItems'
 export { MakeUniqueID } from 'components/Reusable/MakeUniqueID/MakeUniqueID'
 export { PeoplePicker } from 'components/Reusable/PeoplePicker/PeoplePicker'
-export { RTEditor } from 'components/Reusable/RTEditor/RTEditor'
+export { FormatText } from 'components/Reusable/FormatText/FormatText'
 
 export { TermsOfService } from 'components/TermsOfService/TermsOfService'
 export { GetTOSCookieConfig } from 'components/TermsOfService/GetCookieConfig/GetCookieConfig'
