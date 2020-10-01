@@ -19,7 +19,7 @@ import {
 } from 'Components'
 import { GetRoleDefinitions } from 'citz-imb-sp-utilities'
 
-export const ProponentManagement = () => {
+export const ProponentManagementTab = () => {
 	const proponentListName = 'Proponents'
 
 	const [dialogParameters, setDialogParameters] = useState({ open: false })
@@ -110,7 +110,7 @@ export const ProponentManagement = () => {
 							LogAction(
 								`added ${users.join('; ')} to ${rowdata.Title}`
 							)
-							SendAddUserConfirmationEmail(response, rowdata)
+							SendAddUserConfirmationEmail(response, rowdata.Title)
 						}
 						const removeUserCallback = (response) => {
 							LogAction(
