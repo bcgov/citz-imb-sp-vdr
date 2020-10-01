@@ -279,7 +279,7 @@
 				<Row>
 					<Field Name="ID">1</Field>
 					<Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
-					<Field Name="Title">1_</Field>
+					<Field Name="Title">Terms of Service</Field>
 					<Field Name="_ModerationStatus">0</Field>
 					<Field Name="Order">100.000000000000</Field>
 					<Field Name="FSObjType">0</Field>
@@ -287,26 +287,67 @@
 					<Field Name="MetaInfo">1;#</Field>
 					<Field Name="Key">TOS</Field>
 					<Field Name="TextValue">VICO Terms of Service</Field>
-					<Field Name="MultiTextValue">&lt;div class="ExternalClass6625249627774DCB982CF8D420B767BC"&gt;&lt;p&gt;Please read these Terms of Use (&amp;quot;&lt;strong&gt;Terms&lt;/strong&gt;&amp;quot; or &amp;quot;&lt;strong&gt;Terms of Use&lt;/strong&gt;&amp;quot;) carefully before using the
-   &lt;a href="https&amp;#58;//devicesprocurement.gov.bc.ca/"&gt;https&amp;#58;//devicesprocurement.gov.bc.ca&lt;/a&gt;&amp;#160; SharePoint site referenced in NRFP ON-002893 as the Virtual Information Control Office (VICO) Site operated by Government of British Columbia (&amp;quot;&lt;strong&gt;us&lt;/strong&gt;&amp;quot;, &amp;quot;&lt;strong&gt;we&lt;/strong&gt;&amp;quot;, or &amp;quot;&lt;strong&gt;our&lt;/strong&gt;&amp;quot;).&lt;br&gt;&lt;/p&gt;&lt;p&gt;Your access to and use of the VICO Site is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the VICO Site.&lt;br&gt;&lt;/p&gt;&lt;p&gt;By accessing or using the VICO Site you agree to be bound by these Terms.
-   &lt;br&gt;&lt;/p&gt;&lt;p&gt;If you disagree with any part of the terms then you may not access the VICO Site.&lt;br&gt;&lt;/p&gt;&lt;p&gt;
-   &lt;strong&gt;Access&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Access to the VICO Site is granted in connection with Negotiated Request For Proposals&lt;br&gt; No. ON-002893 (the “&lt;strong&gt;NRFP&lt;/strong&gt;&amp;quot;).&lt;/p&gt;&lt;p&gt;Only Proponents who have completed and returned a Non-Disclosure Agreement (Appendix A, Exhibit 1 of the NRFP) and a valid Declaration of Interest (Appendix A of the NRFP), and have a Business BCeID will be given access to the VICO Site.&amp;#160; Proponents will be automatically able to grant access to the VICO Site to up to five representatives.&amp;#160; If more access is required by a Proponent, the Proponent may contact VICO Management via the “Ask a Question&amp;quot; button on the VICO Site and VICO Management will consider the request for additional access.&amp;#160; &lt;/p&gt;&lt;p&gt;BCeIDs and logins should not be shared with non-designated representatives at any time.&amp;#160; &amp;#160;Only representatives who have signed the appropriate forms and received a valid Business BCeID from their company Business Accounts Manager may access the VICO Site.&lt;strong&gt;&amp;#160; &lt;/strong&gt;Proponents should note that the VICO Site will be enabled to provide VICO Management with data of user log-ins.&amp;#160;&amp;#160;&amp;#160; &lt;/p&gt;&lt;p&gt;Access to the Province's information via the VICO Site is subject to all relevant policy and legislation pertaining to information management and security, specifically&amp;#58;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Section 5 (&lt;em&gt;Access Control)&lt;/em&gt; of the OCIO Information Security Policy available online at&amp;#58;&lt;br&gt;&lt;a href="http&amp;#58;//www2.gov.bc.ca/assets/gov/british-columbians-our-governments/services-policies-for-government/policies-procedures/information-security-policy/isp.pdf"&gt;http&amp;#58;//www2.gov.bc.ca/assets/gov/british-columbians-our-governments/services-policies-for-government/policies-procedures/information-security-policy/isp.pdf&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Appropriate Use of Government Information and Information Technology Resources (“Appropriate Use Policy&amp;quot;) available at&amp;#58;
-   &lt;br&gt;
-   &lt;a href="http&amp;#58;//www2.gov.bc.ca/assets/gov/british-columbians-our-governments/services-policies-for-government/policies-procedures/appropriate-use-policy/appropriate_use_policy.pdf"&gt;http&amp;#58;//www2.gov.bc.ca/assets/gov/british-columbians-our-governments/services-policies-for-government/policies-procedures/appropriate-use-policy/appropriate_use_policy.pdf&lt;/a&gt;&lt;/p&gt;&lt;p&gt;
-   &lt;strong&gt;Termination&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;The Province reserves the right to terminate or suspend a user's access to the VICO Site at any time without prior notice, in its sole and entire discretion (including, without limitation, for any breach, suspected breach or anticipated breach of these Terms by any Proponent) and the Province shall not be liable to any party with respect to any action taken by the Province or its designees in this regard.&amp;#160; &lt;/p&gt;&lt;p&gt;All provisions of the Terms which by their nature should survive termination of the NRFP or a Proponent's use of the VICO Site shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of liability.&lt;br&gt;&lt;/p&gt;&lt;p&gt;
-   &lt;strong&gt;Disclaimer&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;The VICO Site is provided as a public service by Her Majesty the Queen in Right of the Province of British Columbia (the “Province&amp;quot;) in connection with the NRFP.&lt;/p&gt;&lt;p&gt;While the Province has used reasonable efforts to ensure the accurate representation of information in the NRFP and all documentation provided in the VICO Site or otherwise, such information is supplied solely as a guideline for Proponents.&amp;#160; The Province does not warrant or guarantee the form, content, usage rights or accuracy of such documents or information, nor is such documents and information necessarily comprehensive or exhaustive. Nothing held in the VICO is intended to relieve Proponents from forming their own opinions and conclusions with respect to the matters addressed in the NRFP.&amp;#160; Without limiting the generality of the foregoing, the VICO Site and all documents and information it contains are provided &amp;quot;as is&amp;quot; without warranty of any kind, whether express or implied; and in this regard, all implied warranties, including, without limitation, implied warranties of merchantability, fitness for a particular purpose, and non-infringement, are hereby expressly disclaimed by the Province.&amp;#160; Links and references to any other websites are provided for information only and listing shall not be taken as endorsement of any kind by the Province. The Province&amp;#160; is not responsible for the content or reliability of the linked websites and does not endorse the content, products, services or views expressed within them.&amp;#160; &amp;#160;The Province strongly advises Proponents to read the terms and conditions and privacy policies of any third ­party web sites or services that they visit and that Proponents consider the potential of underlying rights (including copyright) with respect their use or dissemination of any documents or information gathered from or via the VICO Site.&lt;/p&gt;&lt;p&gt;All information that may be provided by Proponents in connection with the VICO or the NRFP may be subject to the Province's disclosure obligations under the
-   &lt;em&gt;Freedom of Information and Protection of Privacy Act, &lt;/em&gt;British Columbia.&lt;/p&gt;&lt;p&gt;
-   &lt;strong&gt;Limitation of Liability&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Under no circumstances will the Province be liable to any person or business entity for any direct, indirect, special, incidental, consequential, or other damages&amp;#160; &amp;#160;based on any use of the VICO Site, related website or any other website to which the VICO Site is linked, including, without limitation, any lost profits, business interruption, or loss of programs or information, even if the Province has been specifically advised of the possibility of such damages.&lt;/p&gt;&lt;p&gt;
-   &lt;strong&gt;Governing Law&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;These Terms shall be governed and construed in accordance with the laws of the Province of British Columbia, without regard to its conflict of law provisions.&amp;#160; Any &amp;#160;failure by the Province to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between the Province and the Proponent &amp;#160;regarding use of the VICO Site, and supersede and replace any prior agreements the Province and the Proponent might have regarding the VICO Site&lt;/p&gt;&lt;p&gt;
-   &lt;strong&gt;Changes&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;The Province &amp;#160;reserves the right, at its sole discretion, to modify or replace these Terms at any time. If a revision is material we will try to the Proponent with reasonable notice prior to any new terms taking effect. What constitutes a material change or reasonable notice will be determined by the Province at its sole &amp;#160;discretion.&lt;/p&gt;&lt;p&gt;
-   &lt;strong&gt;Contact Us&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;If you have any questions about these Terms, please contact us by email&amp;#58;
-   &lt;a href="mailto:WTSProcurementPro@gov.bc.ca"&gt;WTSProcurementPro@gov.bc.ca&lt;/a&gt;.​&lt;br&gt;&lt;/p&gt;&lt;/div&gt;</Field>
+					<Field Name="MultiTextValue">[p:Please read these Terms of Use ("[b:Terms]" or "[b:Terms of Use]") carefully before using the [a:https://devicesprocurement.gov.bc.ca] SharePoint site referenced in NRFP ON-002893 as the Virtual Information Control Office (VICO) Site operated by Government of British Columbia ("[b:us]", "[b:we]", or "[b:our]").]
+
+[p:Your access to and use of the VICO Site is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the VICO Site.]
+
+[p:By accessing or using the VICO Site you agree to be bound by these Terms.]
+
+[p:If you disagree with any part of the terms then you may not access the VICO Site.]
+
+[h:Access]
+
+[p:Access to the VICO Site is granted in connection with Negotiated Request For Proposals No. ON-002893 (the “[b:NRFP]").]
+
+[p:Only Proponents who have completed and returned a Non-Disclosure Agreement (Appendix A, Exhibit 1 of the NRFP) and a valid Declaration of Interest (Appendix A of the NRFP), and have a Business BCeID will be given access to the VICO Site.  Proponents will be automatically able to grant access to the VICO Site to up to five representatives.  If more access is required by a Proponent, the Proponent may contact VICO Management via the “Ask a Question" button on the VICO Site and VICO Management will consider the request for additional access.]
+
+[p:BCeIDs and logins should not be shared with non-designated representatives at any time.   Only representatives who have signed the appropriate forms and received a valid Business BCeID from their company Business Accounts Manager may access the VICO Site.  Proponents should note that the VICO Site will be enabled to provide VICO Management with data of user log-ins.]
+
+[p:Access to the Province's information via the VICO Site is subject to all relevant policy and legislation pertaining to information management and security, specifically:]
+
+[p:Section 5 (Access Control) of the OCIO Information Security Policy available online at:
+[a:http://www2.gov.bc.ca/assets/gov/british-columbians-our-governments/services-policies-for-government/policies-procedures/information-security-policy/isp.pdf]]
+
+[p:Appropriate Use of Government Information and Information Technology Resources (“Appropriate Use Policy") available at:
+[a:http://www2.gov.bc.ca/assets/gov/british-columbians-our-governments/services-policies-for-government/policies-procedures/appropriate-use-policy/appropriate_use_policy.pdf]]
+
+[h:Termination]
+
+[p:The Province reserves the right to terminate or suspend a user's access to the VICO Site at any time without prior notice, in its sole and entire discretion (including, without limitation, for any breach, suspected breach or anticipated breach of these Terms by any Proponent) and the Province shall not be liable to any party with respect to any action taken by the Province or its designees in this regard.]
+
+[p:All provisions of the Terms which by their nature should survive termination of the NRFP or a Proponent's use of the VICO Site shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of liability.]
+
+[h:Disclaimer]
+
+[p:The VICO Site is provided as a public service by Her Majesty the Queen in Right of the Province of British Columbia (the “Province") in connection with the NRFP.]
+
+[p:While the Province has used reasonable efforts to ensure the accurate representation of information in the NRFP and all documentation provided in the VICO Site or otherwise, such information is supplied solely as a guideline for Proponents.  The Province does not warrant or guarantee the form, content, usage rights or accuracy of such documents or information, nor is such documents and information necessarily comprehensive or exhaustive. Nothing held in the VICO is intended to relieve Proponents from forming their own opinions and conclusions with respect to the matters addressed in the NRFP.  Without limiting the generality of the foregoing, the VICO Site and all documents and information it contains are provided "as is" without warranty of any kind, whether express or implied; and in this regard, all implied warranties, including, without limitation, implied warranties of merchantability, fitness for a particular purpose, and non-infringement, are hereby expressly disclaimed by the Province.  Links and references to any other websites are provided for information only and listing shall not be taken as endorsement of any kind by the Province. The Province  is not responsible for the content or reliability of the linked websites and does not endorse the content, products, services or views expressed within them.   The Province strongly advises Proponents to read the terms and conditions and privacy policies of any third ­party web sites or services that they visit and that Proponents consider the potential of underlying rights (including copyright) with respect their use or dissemination of any documents or information gathered from or via the VICO Site.]
+
+[p:All information that may be provided by Proponents in connection with the VICO or the NRFP may be subject to the Province's disclosure obligations under the Freedom of Information and Protection of Privacy Act, British Columbia.]
+
+[h:Limitation of Liability]
+
+[p:Under no circumstances will the Province be liable to any person or business entity for any direct, indirect, special, incidental, consequential, or other damages   based on any use of the VICO Site, related website or any other website to which the VICO Site is linked, including, without limitation, any lost profits, business interruption, or loss of programs or information, even if the Province has been specifically advised of the possibility of such damages.]
+
+[h:Governing Law]
+
+[p:These Terms shall be governed and construed in accordance with the laws of the Province of British Columbia, without regard to its conflict of law provisions.  Any  failure by the Province to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between the Province and the Proponent  regarding use of the VICO Site, and supersede and replace any prior agreements the Province and the Proponent might have regarding the VICO Site]
+
+[h:Changes]
+
+[p:The Province  reserves the right, at its sole discretion, to modify or replace these Terms at any time. If a revision is material we will try to the Proponent with reasonable notice prior to any new terms taking effect. What constitutes a material change or reasonable notice will be determined by the Province at its sole  discretion.]
+
+[h:Contact Us]
+
+[p:If you have any questions about these Terms, please contact us by email: [m:VICO.DeviceProcurement@gov.bc.ca].​]</Field>
 					<Field Name="NumberValue">3.00000000000000</Field>
 					<Field Name="YesNoValue">TRUE</Field>
+					<Field Name="Instructions">&lt;div class="ExternalClass95215AD8EF894E6EB9C376C5FF51100B"&gt;&lt;ul&gt;&lt;li&gt;​Wrap paragraphs in&amp;#160;[p&amp;#58;&lt;em&gt;sometext&lt;/em&gt;]&lt;/li&gt;&lt;li&gt;bold in&amp;#160;[b&amp;#58;&lt;em&gt;sometext&lt;/em&gt;]&lt;/li&gt;&lt;li&gt;urls in&amp;#160;[a&amp;#58;&lt;em&gt;sometext&lt;/em&gt;]&lt;/li&gt;&lt;li&gt;headers in&amp;#160;[h&amp;#58;&lt;em&gt;sometext&lt;/em&gt;]&lt;/li&gt;&lt;li&gt;email addresses in&amp;#160;[m&amp;#58;&lt;em&gt;sometext&lt;/em&gt;]&lt;/li&gt;&lt;/ul&gt;​&lt;br&gt;&lt;/div&gt;</Field>
 				</Row>
 				<Row>
 					<Field Name="ID">6</Field>
 					<Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
+					<Field Name="Title">Add User Email</Field>
 					<Field Name="_ModerationStatus">0</Field>
 					<Field Name="Order">600.000000000000</Field>
 					<Field Name="FSObjType">0</Field>
@@ -314,36 +355,21 @@
 					<Field Name="MetaInfo">6;#</Field>
 					<Field Name="Key">addUserEmail</Field>
 					<Field Name="TextValue">Welcome to the [Title]</Field>
-					<Field Name="MultiTextValue">&lt;div class=&quot;ExternalClassF96D9A3EFFBC428E9A5AE4BAEDC2C61A&quot;&gt;
-   &lt;p&gt;
-   &lt;/p&gt;
-   &lt;div&gt;Dear [Username]&amp;#160;&lt;/div&gt;
-   &lt;div&gt;
-      &lt;br/&gt;
-   &lt;/div&gt;
-   &lt;div&gt;You have been added to the BC Government&#8217;s [Title], as member of the [Proponent] organization.&lt;br/&gt;&lt;/div&gt;
-   &lt;div&gt;
-      &lt;br/&gt;
-   &lt;/div&gt;
-   &lt;div&gt;Visit [SiteLink]&amp;#160;to participate.&lt;br/&gt;&lt;/div&gt;
-   &lt;div&gt;
-      &lt;br/&gt;
-   &lt;/div&gt;
-   &lt;div&gt;If you encounter issues accessing the site, please contact [ContactEmail]&lt;br/&gt;&lt;/div&gt;
-   &lt;div&gt;
-      &lt;br/&gt;
-   &lt;/div&gt;
-   &lt;div&gt;Sincerely,&amp;#160;&lt;/div&gt;
-   &lt;div&gt;[Title] Administrator&#8203;&lt;br/&gt;&lt;/div&gt;
-   &lt;p&gt;
-      &lt;br/&gt;
-   &lt;/p&gt;
-&lt;/div&gt;</Field>
+					<Field Name="MultiTextValue">Dear [Username] 
+
+You have been added to the BC Government’s [Title], as member of the [Proponent] organization.Visit [SiteLink] to participate.
+
+If you encounter issues accessing the site, please contact [ContactEmail]
+
+Sincerely, 
+[Title] Administrator​</Field>
 					<Field Name="YesNoValue">TRUE</Field>
+					<Field Name="Instructions">&lt;div class="ExternalClassFD2A33CB41934BF0B59CF526DFCF4CBE"&gt;&lt;p&gt;​Subject and Body may insert site specific values automatically.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;[Title] = the site title&lt;/li&gt;&lt;li&gt;[Username] = the added user's name&lt;/li&gt;&lt;li&gt;[Proponent]&amp;#160;= the&amp;#160;​name of the proponent the user is added to&lt;br&gt;&lt;/li&gt;&lt;li&gt;[SiteLink] = the url to the current site&lt;br&gt;&lt;/li&gt;&lt;li&gt;[ContactEmail] = the email address provided in the contact email&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</Field>
 				</Row>
 				<Row>
 					<Field Name="ID">7</Field>
 					<Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
+					<Field Name="Title">Contact Email</Field>
 					<Field Name="_ModerationStatus">0</Field>
 					<Field Name="Order">700.000000000000</Field>
 					<Field Name="FSObjType">0</Field>
@@ -353,6 +379,7 @@
 					<Field Name="MultiTextValue"></Field>
 					<Field Name="TextValue">scott.toews@gov.bc.ca</Field>
 					<Field Name="YesNoValue">TRUE</Field>
+					<Field Name="Instructions">&lt;div class="ExternalClassF5AF51C30B7648579A0A2737A14D75E4"&gt;&lt;p&gt;Enter a valid email address&lt;br&gt;&lt;/p&gt;&lt;/div&gt;</Field>
 				</Row>
 			</Rows>
 		</Data>
