@@ -41,6 +41,7 @@ export { AddPermissionsToActivityLog } from 'components/ProponentManagementTab/A
 export { ToggleProponent } from 'components/ProponentManagementTab/ToggleProponent'
 export { SendAddUserConfirmationEmail } from 'components/ProponentManagementTab/ManageProponentUsers/SendAddUserConfirmationEmail/SendAddUserConfirmationEmail'
 export { ManageProponentUsers } from 'components/ProponentManagementTab/ManageProponentUsers/ManageProponentUsers'
+export { CreateProponentGroup } from 'components/ProponentManagementTab/CreateProponentGroup/CreateProponentGroup'
 
 export { SiteManagement } from 'components/SiteManagementTab/SiteManagement'
 
