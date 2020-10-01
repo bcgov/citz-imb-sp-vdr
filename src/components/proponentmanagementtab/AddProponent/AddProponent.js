@@ -10,12 +10,12 @@ import { CreateProponentGroup } from '../CreateProponentGroup/CreateProponentGro
 import { CreateProponentLibrary } from './CreateProponentLibrary/CreateProponentLibrary'
 import { CreateProponentQuestionList } from './CreateProponentQuestionList/CreateProponentQuestionList'
 
-export const AddProponent = async (name) => {
+export const AddProponent = async (name, roles) => {
 	const uniqueId = MakeUniqueID()
 
 	const currentUser = await GetCurrentUser({})
 	const associatedGroups = await GetAssociatedGroups()
-	const roles = await GetRoleDefinitions({})
+
 
 	const group = await CreateProponentGroup({
 		groupName: uniqueId,
