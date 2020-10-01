@@ -5,7 +5,7 @@ import {
 	AddItemsToList,
 	GetCurrentUser,
 } from 'citz-imb-sp-utilities'
-import { MakeUniqueID } from 'Components'
+import { MakeUniqueID, AddPermissionsToActivityLog } from 'Components'
 import { CreateProponentGroup } from '../CreateProponentGroup/CreateProponentGroup'
 import { CreateProponentLibrary } from './CreateProponentLibrary/CreateProponentLibrary'
 import { CreateProponentQuestionList } from './CreateProponentQuestionList/CreateProponentQuestionList'
@@ -51,6 +51,8 @@ export const AddProponent = async (name) => {
 		principalId: group.Id,
 		roleDefId: roles['Read'].Id,
 	})
+
+	let ActivityLogPermissions = await AddPermissionsToActivityLog(group, roles)
 
 	return uniqueId
 }
