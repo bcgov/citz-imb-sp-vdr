@@ -1,9 +1,10 @@
 import {
 	AddItemsToList,
 	GetGroupMembers,
+	SendEmail,
 } from 'citz-imb-sp-utilities'
 
-import { LogAction,SendQuestionConfirmationEmail } from 'Components'
+import { LogAction } from 'Components'
 
 export const AskQuestion = async ({
 	question,
@@ -27,5 +28,9 @@ export const AskQuestion = async ({
 		return user.Email
 	})
 
-	SendQuestionConfirmationEmail(groupMembers, proponent)
+	SendEmail({
+		to: groupEmails,
+		subject: 'test subject',
+		body: 'test body',
+	})
 }
