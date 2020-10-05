@@ -23,9 +23,6 @@ export const AskQuestion = async ({
 	handleDirty(true)
 
 	const groupMembers = await GetGroupMembers({ groupId: group })
-	const groupEmails = groupMembers.map((user) => {
-		return user.Email
-	})
 
 	SendQuestionConfirmationEmail(groupMembers, proponent)
 }

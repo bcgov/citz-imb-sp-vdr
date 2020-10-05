@@ -26,6 +26,7 @@ export const SendConfirmationEmail = async (
 	const site = await GetSite({})
 
 	let normalReplacementPairs = [
+		{ searchvalue: /\n/g, newvalue: '<br>' },
 		{ searchvalue: /\[Title\]/g, newvalue: site.Title },
 		{
 			searchvalue: /\[SiteLink\]/g,

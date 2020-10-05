@@ -13,7 +13,7 @@ export const SendAddUserConfirmationEmail = async (users, proponent) => {
 			proponent,
 			response[0].TextValue,
 			response[0].MultiTextValue,
-			[{ searchvalue: /\[Username\]/g, newvalue: user.Title }]
+			[{ searchvalue: /\[AddresseeName\]/g, newvalue: user.Title }]
 		)
 	})
 }
