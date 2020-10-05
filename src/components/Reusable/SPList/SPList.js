@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import MaterialTable from 'material-table'
-import { SPDialog, getListAndItems, icons , RTEditor} from 'Components'
+import { SPDialog, getListAndItems, icons} from 'Components'
 import {
 	DialogContentText,
 	TextField,
@@ -232,7 +232,7 @@ export const SPList = ({
 		} else {
 			setTitle(list.title)
 		}
-		console.log('list :>> ', list)
+		//console.log('list :>> ', list)
 		setColumns(list.columns)
 		setData(list.items)
 
@@ -259,15 +259,15 @@ export const SPList = ({
 	}, [isDirty])
 
 	useEffect(() => {
-		console.log('columns useEffect', columns)
+		//console.log('columns useEffect', columns)
 		if (rowValue) {
 			setDialogContent(
 				<DialogContentText>
 					<div />
 					{editOptions.content}
 					{columns.map((column, index) => {
-						console.log('column :>> ', column)
-						console.log('rowValue :>> ', rowValue)
+						//console.log('column :>> ', column)
+						//console.log('rowValue :>> ', rowValue)
 						switch (column.fieldTypeKind) {
 							case 2:
 								return (
@@ -283,7 +283,7 @@ export const SPList = ({
 								)
 								break
 							case 3:
-								return <RTEditor key={column.title} />
+								//return <RTEditor key={column.title} />
 								break
 							case 8:
 								return (

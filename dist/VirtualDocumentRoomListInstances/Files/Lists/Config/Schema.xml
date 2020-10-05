@@ -1,8 +1,4 @@
-<List Title="Config" Direction="none" Url="Lists/Config" BaseType="0" Type="100"
-MultipleDataList="FALSE" BrowserFileHandling="permissive" FolderCreation="FALSE"
-Catalog="FALSE" SendToLocation="|" ImageUrl="/_layouts/15/images/itgen.png?rev=40"
-xmlns:ows="Microsoft SharePoint" xmlns:spctf="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms"
-xmlns="http://schemas.microsoft.com/sharepoint/">
+<List Title="Config" Direction="none" Url="Lists/Config" BaseType="0" Type="100" MultipleDataList="FALSE" BrowserFileHandling="permissive" FolderCreation="FALSE" Catalog="FALSE" SendToLocation="|" ImageUrl="/_layouts/15/images/itgen.png?rev=40" xmlns:ows="Microsoft SharePoint" xmlns:spctf="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms" xmlns="http://schemas.microsoft.com/sharepoint/">
 	<MetaData>
 		<ContentTypes>
 			<ContentType ID="0x01" Name="Item" Group="List Content Types" Description="Create a new list item." FeatureId="{695b6570-a48b-4a8e-8ea5-26ea7fc1d162}">
@@ -16,6 +12,7 @@ xmlns="http://schemas.microsoft.com/sharepoint/">
 					<FieldRef ID="{d3fb1133-8556-40e4-96dc-e368df614f98}" Name="NumberValue" DisplayName="NumberValue" Required="FALSE" />
 					<FieldRef ID="{872f4f1b-07c4-4d1d-a14e-ee6b69d01da0}" Name="YesNoValue" DisplayName="YesNoValue" />
 					<FieldRef ID="{2ffeb477-1a75-4f56-b08e-c632c252dddf}" Name="GroupValue" DisplayName="GroupValue" Required="FALSE" />
+					<FieldRef ID="{f5481f1e-df69-4945-8f9f-4a9b2f922cbb}" Name="Instructions" Required="FALSE" />
 				</FieldRefs>
 				<XmlDocuments>
 					<XmlDocument NamespaceURI="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms">
@@ -843,12 +840,13 @@ xmlns="http://schemas.microsoft.com/sharepoint/">
 			<Field ID="{e08400f3-c779-4ed2-a18c-ab7f34caa318}" ColName="tp_AppEditor" RowOrdinal="0" ReadOnly="TRUE" Hidden="FALSE" Type="Lookup" List="AppPrincipals" Name="AppEditor" DisplayName="App Modified By" ShowField="Title" JoinColName="Id" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="AppEditor" FromBaseType="TRUE" />
 			<Field Type="Text" DisplayName="Key" Required="TRUE" EnforceUniqueValues="TRUE" Indexed="TRUE" MaxLength="255" ID="{be9763e2-5a02-4750-80e3-9cc3b5b84111}" SourceID="{$ListId:Lists/Config;}" StaticName="Key" Name="Key" ColName="nvarchar3" RowOrdinal="0" />
 			<Field Type="Text" DisplayName="TextValue" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" MaxLength="255" ID="{324d50b0-619d-4411-8c32-1c44f4a5d1f1}" SourceID="{$ListId:Lists/Config;}" StaticName="TextValue" Name="TextValue" ColName="nvarchar4" RowOrdinal="0" />
-			<Field Type="Note" DisplayName="MultiTextValue" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="TRUE" RichTextMode="FullHtml" IsolateStyles="TRUE" Sortable="FALSE" ID="{f5b6bae4-44db-460b-add7-ea0f9046e640}" SourceID="{$ListId:Lists/Config;}" StaticName="MultiTextValue" Name="MultiTextValue" ColName="ntext2" RowOrdinal="0" RestrictedMode="TRUE" AppendOnly="FALSE" />
+			<Field Type="Note" DisplayName="MultiTextValue" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="FALSE" RichTextMode="Compatible" IsolateStyles="FALSE" Sortable="FALSE" ID="{f5b6bae4-44db-460b-add7-ea0f9046e640}" SourceID="{$ListId:Lists/Config;}" StaticName="MultiTextValue" Name="MultiTextValue" ColName="ntext2" RowOrdinal="0" RestrictedMode="TRUE" AppendOnly="FALSE" />
 			<Field Type="Number" DisplayName="NumberValue" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" ID="{d3fb1133-8556-40e4-96dc-e368df614f98}" SourceID="{$ListId:Lists/Config;}" StaticName="NumberValue" Name="NumberValue" ColName="float1" RowOrdinal="0" />
 			<Field Type="Boolean" DisplayName="YesNoValue" EnforceUniqueValues="FALSE" Indexed="FALSE" ID="{872f4f1b-07c4-4d1d-a14e-ee6b69d01da0}" SourceID="{$ListId:Lists/Config;}" StaticName="YesNoValue" Name="YesNoValue" ColName="bit1" RowOrdinal="0">
 				<Default>1</Default>
 			</Field>
 			<Field Type="UserMulti" DisplayName="GroupValue" List="UserInfo" Required="FALSE" EnforceUniqueValues="FALSE" ShowField="Title" UserSelectionMode="PeopleOnly" UserSelectionScope="0" Mult="TRUE" Sortable="FALSE" ID="{2ffeb477-1a75-4f56-b08e-c632c252dddf}" SourceID="{$ListId:Lists/Config;}" StaticName="GroupValue" Name="GroupValue" ColName="int1" RowOrdinal="0" />
+			<Field Type="Note" DisplayName="Instructions" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" NumLines="6" RichText="TRUE" RichTextMode="FullHtml" IsolateStyles="TRUE" Sortable="FALSE" ID="{f5481f1e-df69-4945-8f9f-4a9b2f922cbb}" SourceID="{$ListId:Lists/Config;}" StaticName="Instructions" Name="Instructions" ColName="ntext1" RowOrdinal="0" />
 			<Field ID="{d48268e5-c65d-486c-bbf1-874cf986d7d3}" Name="ContentVersion" DisplaceOnUpgrade="TRUE" Hidden="TRUE" ReadOnly="TRUE" ShowInFileDlg="FALSE" Type="Lookup" DisplayName="$Resources:core,Content_Version;" List="Docs" FieldRef="ID" ShowField="ContentVersion" JoinColName="DoclibRowId" JoinRowOrdinal="0" JoinType="INNER" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="ContentVersion" FromBaseType="TRUE" />
 		</Fields>
 		<Forms />
@@ -862,15 +860,17 @@ xmlns="http://schemas.microsoft.com/sharepoint/">
 					</OrderBy>
 				</Query>
 				<ViewFields>
-					<FieldRef Name="LinkTitle" />
+					<FieldRef Name="Title" />
 					<FieldRef Name="Key" />
 					<FieldRef Name="TextValue" />
 					<FieldRef Name="MultiTextValue" />
 					<FieldRef Name="NumberValue" />
 					<FieldRef Name="YesNoValue" />
 					<FieldRef Name="GroupValue" />
+					<FieldRef Name="Instructions" />
 				</ViewFields>
 				<RowLimit Paged="TRUE">30</RowLimit>
+				<Aggregations Value="Off" />
 			</View>
 		</Views>
 	</MetaData>

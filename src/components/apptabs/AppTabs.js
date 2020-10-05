@@ -13,7 +13,7 @@ import {
 	GetIsOwner,
 	ProponentTab,
 	PublicTab,
-	ProponentManagement,
+	ProponentManagementTab,
 	SiteManagement,
 	TabPanel,
 
@@ -118,7 +118,7 @@ export const AppTabs = () => {
 			{isOwner ? (
 				<TabPanel value={value} index={2}>
 					<Paper>
-						<ProponentManagement />
+						<ProponentManagementTab />
 					</Paper>
 				</TabPanel>
 			) : (

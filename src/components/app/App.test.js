@@ -1,5 +1,5 @@
-import React from 'components/App/node_modules/react'
-import ReactDOM from 'components/App/node_modules/react-dom'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { App } from './App'
 
 it('renders without crashing', () => {
