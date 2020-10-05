@@ -6,7 +6,7 @@ import {
 	DialogContent,
 	Button,
 } from '@material-ui/core'
-import { GetTermsOfService, setCookie, LogAction } from 'Components'
+import { GetTermsOfService, setCookie, LogAction, FormatText } from 'Components'
 
 export const TermsOfServiceDialog = ({
 	cookieName,
@@ -33,7 +33,7 @@ export const TermsOfServiceDialog = ({
 		const terms = await GetTermsOfService()
 
 		setTitle(terms[0].TextValue)
-		setBody(terms[0].MultiTextValue)
+		setBody(FormatText(terms[0].MultiTextValue))
 		setIsLoading(false)
 	}
 
@@ -55,7 +55,7 @@ export const TermsOfServiceDialog = ({
 			aria-describedby='tor-dialog-description'>
 			<DialogTitle id='tor-dialog-title'>{title}</DialogTitle>
 			<DialogContent dividers={true}>
-				<div dangerouslySetInnerHTML={{ __html: body }} />
+				<div dangerouslySetInnerHTML={{__html:body}} />
 			</DialogContent>
 
 			<DialogActions>

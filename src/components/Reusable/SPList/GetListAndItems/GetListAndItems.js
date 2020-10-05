@@ -8,7 +8,7 @@ const getList = async (listName) => {
 		listName: listName,
 		expand: 'DefaultView,DefaultView/ViewFields,Fields,Items,Items/File',
 	})
-	console.log('getList :>> ', list)
+	//console.log('getList :>> ', list)
 
 	return list
 }

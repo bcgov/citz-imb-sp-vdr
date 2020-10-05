@@ -1,4 +1,4 @@
-<List Title="ActivityLog" Direction="none" Url="Lists/ActivityLog" BaseType="0" Type="100" MultipleDataList="FALSE" BrowserFileHandling="permissive" FolderCreation="FALSE" Catalog="FALSE" SendToLocation="|" ImageUrl="/_layouts/15/images/itgen.png?rev=40" xmlns:ows="Microsoft SharePoint" xmlns:spctf="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms" xmlns="http://schemas.microsoft.com/sharepoint/">
+<List Title="ActivityLog" Direction="none" Url="Lists/ActivityLog" BaseType="0" Type="100" MultipleDataList="FALSE" BrowserFileHandling="permissive" FolderCreation="FALSE" Catalog="FALSE" SendToLocation="|" ImageUrl="/_layouts/15/images/itgen.png?rev=40" SecurityBits="21" xmlns:ows="Microsoft SharePoint" xmlns:spctf="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms" xmlns="http://schemas.microsoft.com/sharepoint/">
 	<MetaData>
 		<ContentTypes>
 			<ContentType ID="0x01" Name="Item" Group="List Content Types" Description="Create a new list item." FeatureId="{695b6570-a48b-4a8e-8ea5-26ea7fc1d162}">
@@ -854,8 +854,6 @@
 				<ViewFields>
 					<FieldRef Name="Created" />
 					<FieldRef Name="LinkTitle" />
-					<FieldRef Name="Notes" />
-					<FieldRef Name="Success" />
 					<FieldRef Name="User" />
 				</ViewFields>
 				<RowLimit Paged="TRUE">100</RowLimit>
