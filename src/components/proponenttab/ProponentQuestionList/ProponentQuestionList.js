@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Grid, Paper, TextField } from '@material-ui/core'
 
-import { SPList, tableOptions, classes } from 'Components'
-import { AskQuestion } from 'Components'
+import { SPList, tableOptions, classes ,AskQuestion} from 'Components'
+
+import { useSnackbar } from 'notistack'
 
 export const ProponentQuestionList = ({ proponent, group }) => {
 	const listName = `${proponent}_Questions`
@@ -10,12 +11,14 @@ export const ProponentQuestionList = ({ proponent, group }) => {
 	const [question, setQuestion] = useState()
 	const [listIsDirty, setListIsDirty] = useState(true)
 
+	const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+
 	const handleDirty = (newDirty) => {
 		setListIsDirty(newDirty)
 	}
 
 	const askQuestion = () => {
-		AskQuestion({ question, listName, proponent, group, handleDirty })
+		AskQuestion({ question, listName, proponent, group, handleDirty, enqueueSnackbar })
 	}
 
 	const isValidQuestion = () => {
@@ -52,14 +55,14 @@ export const ProponentQuestionList = ({ proponent, group }) => {
 			),
 			saveButtonText: 'Save',
 			saveAction: askQuestion,
-			isValid: isValidQuestion,
-			validationText:
-				'Question can not be blank or longer than 255 characters',
 			cancelButtonText: 'Cancel',
 			cancelAction: (results) => {
 				console.warn('cancelAction :>> ', results)
 			},
 		},
+		isValid: isValidQuestion,
+		validationText:
+			'Question can not be blank or longer than 255 characters',
 		deleteItem: false,
 		editItem: false,
 		changeItemPermission: false,

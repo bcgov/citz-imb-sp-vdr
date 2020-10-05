@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core'
 
 import { UpdateListItem } from 'citz-imb-sp-utilities'
+import { useSnackbar } from 'notistack'
 
 export const SiteManagement = () => {
 	const listName = 'Config'
@@ -31,6 +32,8 @@ export const SiteManagement = () => {
 	const [instructions, setInstructions] = useState()
 	const [currentItem, setCurrentItem] = useState({})
 	const [dirty, setDirty] = useState(false)
+
+	const {enqueueSnackbar, closeSnackbar} = useSnackbar()
 
 	const getRender = (item) => {
 		switch (item.Key) {
@@ -298,6 +301,9 @@ export const SiteManagement = () => {
 			},
 		})
 		LogAction(`updated ${title} in config list`)
+		enqueueSnackbar(`updated ${title} in config list`,{
+			variant: 'success'
+		})
 		getItems()
 		setDialogOptions({ open: false })
 		setDirty(false)

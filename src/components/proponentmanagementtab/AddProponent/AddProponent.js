@@ -10,16 +10,19 @@ import { CreateProponentGroup } from '../CreateProponentGroup/CreateProponentGro
 import { CreateProponentLibrary } from './CreateProponentLibrary/CreateProponentLibrary'
 import { CreateProponentQuestionList } from './CreateProponentQuestionList/CreateProponentQuestionList'
 
-export const AddProponent = async (name, roles) => {
+
+export const AddProponent = async (name, roles, enqueueSnackbar) => {
 	const uniqueId = MakeUniqueID()
 
 	const currentUser = await GetCurrentUser({})
 	const associatedGroups = await GetAssociatedGroups()
 
-
 	const group = await CreateProponentGroup({
 		groupName: uniqueId,
 		associatedGroups: associatedGroups,
+	})
+	enqueueSnackbar('Created Proponent Group',{
+		variant: 'success'
 	})
 
 	const proponentLibrary = await CreateProponentLibrary({
@@ -29,6 +32,9 @@ export const AddProponent = async (name, roles) => {
 		group: group,
 		currentUser: currentUser.Id,
 	})
+	enqueueSnackbar('Created Proponent Library',{
+		variant: 'success'
+	})
 
 	const proponentQuestionList = await CreateProponentQuestionList({
 		listName: `${uniqueId}_Questions`,
@@ -36,6 +42,9 @@ export const AddProponent = async (name, roles) => {
 		roles: roles,
 		group: group,
 		currentUser: currentUser.Id,
+	})
+	enqueueSnackbar('Created Proponent Question List',{
+		variant: 'success'
 	})
 
 	let proponents = await AddItemsToList({
@@ -46,10 +55,16 @@ export const AddProponent = async (name, roles) => {
 			GroupId: group.Id,
 		},
 	})
+	enqueueSnackbar('Added Proponent to Proponent List',{
+		variant: 'success'
+	})
 
 	let sitePermissions = await AddPermissionsToSite({
 		principalId: group.Id,
 		roleDefId: roles['Read'].Id,
+	})
+	enqueueSnackbar('Granted Proponent Group access to site',{
+		variant: 'success'
 	})
 
 	let ActivityLogPermissions = await AddPermissionsToActivityLog(group, roles)

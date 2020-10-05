@@ -19,15 +19,17 @@ export const SPList = ({
 		saveAction: () => {
 			console.warn('I am saved')
 		},
-		isValid: () => {
-			console.warn('default isValid always returns true')
-			return true
-		},
+
 		cancelButtonText: 'Cancel',
 		cancelAction: () => {
 			console.warn('I am lost')
 		},
 	},
+	isValid= () => {
+		console.warn('default isValid always returns true')
+		return true
+	},
+	validationText= 'validate',
 	deleteItem = true,
 	editItem = true,
 	editOptions = {
@@ -37,11 +39,6 @@ export const SPList = ({
 		saveAction: () => {
 			console.warn('I am saved')
 		},
-		isValid: () => {
-			console.warn('default isValid always returns true')
-			return true
-		},
-		validationText: 'validate',
 		cancelButtonText: 'Cancel',
 		cancelAction: () => {
 			console.warn('I am lost')
@@ -77,13 +74,13 @@ export const SPList = ({
 	const {enqueueSnackbar, closeSnackbar} = useSnackbar()
 
 	const saveButtonHandler = (results) => {
-		if (addOptions.isValid()) {
+		if (isValid()) {
 			handlePreLoad(true)
 			addOptions.saveAction(results)
 			handleDirty(true)
 			setDialogOpen(false)
 		} else {
-			enqueueSnackbar(addOptions.validationText,{
+			enqueueSnackbar(validationText,{
 				variant: 'error'
 			})
 		}

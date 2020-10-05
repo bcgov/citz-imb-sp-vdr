@@ -11,6 +11,7 @@ export const AskQuestion = async ({
 	proponent,
 	group,
 	handleDirty,
+	enqueueSnackbar
 }) => {
 	await AddItemsToList({
 		listName: listName,
@@ -20,6 +21,9 @@ export const AskQuestion = async ({
 	})
 
 	LogAction(`asked '${question}'`)
+	enqueueSnackbar('Question Submitted Successfully',{
+		variant: 'success'
+	})
 	handleDirty(true)
 
 	const groupMembers = await GetGroupMembers({ groupId: group })

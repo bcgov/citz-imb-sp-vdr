@@ -30,7 +30,11 @@ export const App = () => {
 
 	return (
 		<MuiThemeProvider theme={theme}>
-			<SnackbarProvider>
+			<SnackbarProvider dense
+				anchorOrigin={{
+					vertical: 'bottom',
+					horizontal: 'right',
+				}}>
 				<TermsOfService />
 				{/* <Test /> */}
 			</SnackbarProvider>
