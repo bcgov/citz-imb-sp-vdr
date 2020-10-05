@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState } from 'react'
 import { TextField } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import ToggleOnIcon from '@material-ui/icons/ToggleOn'
@@ -17,16 +17,14 @@ import {
 	SendAddUserConfirmationEmail,
 	tableOptions,
 } from 'Components'
-import { GetRoleDefinitions } from 'citz-imb-sp-utilities'
 
-export const ProponentManagementTab = () => {
+export const ProponentManagement = () => {
 	const proponentListName = 'Proponents'
 
 	const [dialogParameters, setDialogParameters] = useState({ open: false })
 	const [isDirty, setIsDirty] = useState(true)
 	const [preLoad, setPreLoad] = useState(false)
 	const [proponentName, setProponentName] = useState()
-	const [roles, setRoles] = useState()
 
 	const handleDirty = (newDirty) => {
 		setIsDirty(newDirty)
@@ -110,7 +108,7 @@ export const ProponentManagementTab = () => {
 							LogAction(
 								`added ${users.join('; ')} to ${rowdata.Title}`
 							)
-							SendAddUserConfirmationEmail(response, rowdata.Title)
+							SendAddUserConfirmationEmail(response, rowdata)
 						}
 						const removeUserCallback = (response) => {
 							LogAction(
@@ -208,7 +206,7 @@ export const ProponentManagementTab = () => {
 		saveButtonText: 'Submit',
 		saveAction: (param) => {
 			handlePreLoad(true)
-			AddProponent(proponentName, roles)
+			AddProponent(proponentName)
 				.then((response) => {
 					LogAction(`added ${proponentName} as proponent`)
 					handlePreLoad(false)
@@ -223,34 +221,6 @@ export const ProponentManagementTab = () => {
 			console.warn(`${proponentName} cancelled`)
 		},
 	}
-
-	const getRoleDefinitions = async () => {
-		const roleDefs = await GetRoleDefinitions({})
-
-		if (roleDefs['Read with Add']) {
-			setRoles(roleDefs)
-		} else {
-			setDialogParameters({
-				open: true,
-				title: `ERROR`,
-				content: (
-					<Alert severity='error'>
-						Site Collection is missing the 'Read with Add' Permission Level, please contact your Site Collection Administrator
-					</Alert>
-				),
-				showSave: false,
-				cancelButtonText: 'Close',
-				cancelButtonAction: () => {
-					setDialogParameters({ open: false })
-				},
-			})
-		}
-	}
-
-	useEffect(() => {
-		getRoleDefinitions()
-		return () => {}
-	}, [])
 
 	return (
 		<Fragment>

@@ -7,7 +7,7 @@ import {
 	DeleteGroup,
 } from 'citz-imb-sp-utilities'
 
-import { CreateProponentGroup,AddPermissionsToActivityLog } from 'Components'
+import { CreateProponentGroup } from './CreateProponentGroup/CreateProponentGroup'
 
 export const ToggleProponent = async (proponentListName, rowdata, callBack) => {
 	if (rowdata.Active) {
@@ -49,7 +49,6 @@ export const ToggleProponent = async (proponentListName, rowdata, callBack) => {
 			principalId: group.Id,
 			roleDefId: roles['Contribute'].Id,
 		})
-		const addProponentToActivityLog = await AddPermissionsToActivityLog(group, roles)
 	}
 	callBack()
 }
