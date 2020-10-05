@@ -18,6 +18,18 @@ export const ProponentQuestionList = ({ proponent, group }) => {
 		AskQuestion({ question, listName, proponent, group, handleDirty })
 	}
 
+	const isValidQuestion = () => {
+		if (question) {
+			if (question.length < 0 || question.length > 255) {
+				return false
+			} else {
+				return true
+			}
+		} else {
+			return false
+		}
+	}
+
 	const questionOptions = {
 		listName: listName,
 		tableTitle: 'Our Submitted Questions',
@@ -40,6 +52,9 @@ export const ProponentQuestionList = ({ proponent, group }) => {
 			),
 			saveButtonText: 'Save',
 			saveAction: askQuestion,
+			isValid: isValidQuestion,
+			validationText:
+				'Question can not be blank or longer than 255 characters',
 			cancelButtonText: 'Cancel',
 			cancelAction: (results) => {
 				console.warn('cancelAction :>> ', results)
@@ -49,13 +64,16 @@ export const ProponentQuestionList = ({ proponent, group }) => {
 		editItem: false,
 		changeItemPermission: false,
 		// customActions:[],
-
 	}
 
 	return (
 		<Grid key={`${proponent}QuestionList`} item xs={6}>
 			<Paper className={classes.paper}>
-				<SPList isDirty={listIsDirty} handleDirty={handleDirty}  {...questionOptions} />
+				<SPList
+					isDirty={listIsDirty}
+					handleDirty={handleDirty}
+					{...questionOptions}
+				/>
 			</Paper>
 		</Grid>
 	)

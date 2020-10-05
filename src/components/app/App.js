@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import { deviceDetect } from 'react-device-detect'
-import {Test} from './Test'
+import { SnackbarProvider } from 'notistack'
+
+import { Test } from './Test'
 
 import './App.css'
 import { LogAction, TermsOfService } from 'Components'
@@ -28,8 +30,10 @@ export const App = () => {
 
 	return (
 		<MuiThemeProvider theme={theme}>
-			<TermsOfService />
-			{/* <Test /> */}
+			<SnackbarProvider>
+				<TermsOfService />
+				{/* <Test /> */}
+			</SnackbarProvider>
 		</MuiThemeProvider>
 	)
 }
