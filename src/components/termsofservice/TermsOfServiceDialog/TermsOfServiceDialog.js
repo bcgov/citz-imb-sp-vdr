@@ -23,9 +23,8 @@ export const TermsOfServiceDialog = ({
 		LogAction('agreed to TOS')
 	}
 
-	const handleDisagree = () => {
-		LogAction('disagreed to TOS')
-		window.close()
+	const handleDisagree = async () => {
+		await LogAction('disagreed to TOS')
 		window.location = '/_layouts/signout.aspx'
 	}
 
