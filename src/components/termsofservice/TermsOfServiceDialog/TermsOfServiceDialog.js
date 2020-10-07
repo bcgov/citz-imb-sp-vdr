@@ -39,7 +39,6 @@ export const TermsOfServiceDialog = ({
 
 	useEffect(() => {
 		getTermsOfService()
-
 		return () => {}
 	}, [])
 
