@@ -36,6 +36,7 @@ export { ProponentLibrary } from 'components/ProponentTab/ProponentLibrary/Propo
 export { ProponentQuestionList } from 'components/ProponentTab/ProponentQuestionList/ProponentQuestionList'
 export { AskQuestion } from 'components/ProponentTab/ProponentQuestionList/AskQuestion/AskQuestion'
 export { SendQuestionConfirmationEmail } from 'components/ProponentTab/ProponentQuestionList/AskQuestion/SendQuestionConfirmationEmail/SendQuestionConfirmationEmail'
+export { SendQuestionNotificationEmail } from 'components/ProponentTab/ProponentQuestionList/AskQuestion/SendQuestionNotificationEmail/SendQuestionNotificationEmail'
 
 export { ProponentManagementTab } from 'components/ProponentManagementTab/ProponentManagementTab'
 export { AddProponent } from 'components/ProponentManagementTab/AddProponent/AddProponent'

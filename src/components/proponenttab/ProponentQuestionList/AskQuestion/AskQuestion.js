@@ -3,7 +3,7 @@ import {
 	GetGroupMembers,
 } from 'citz-imb-sp-utilities'
 
-import { LogAction,SendQuestionConfirmationEmail } from 'Components'
+import { LogAction,SendQuestionConfirmationEmail,SendQuestionNotificationEmail } from 'Components'
 
 export const AskQuestion = async ({
 	question,
@@ -29,4 +29,5 @@ export const AskQuestion = async ({
 	const groupMembers = await GetGroupMembers({ groupId: group })
 
 	SendQuestionConfirmationEmail(groupMembers, proponent)
+	SendQuestionNotificationEmail(proponent)
 }
