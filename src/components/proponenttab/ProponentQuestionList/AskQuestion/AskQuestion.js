@@ -3,7 +3,7 @@ import {
 	GetGroupMembers,
 } from 'citz-imb-sp-utilities'
 
-import { LogAction,SendQuestionConfirmationEmail } from 'Components'
+import { LogAction,SendQuestionConfirmationEmail,SendQuestionNotificationEmail } from 'Components'
 
 export const AskQuestion = async ({
 	question,
@@ -11,6 +11,7 @@ export const AskQuestion = async ({
 	proponent,
 	group,
 	handleDirty,
+	enqueueSnackbar
 }) => {
 	await AddItemsToList({
 		listName: listName,
@@ -20,12 +21,13 @@ export const AskQuestion = async ({
 	})
 
 	LogAction(`asked '${question}'`)
+	enqueueSnackbar('Question Submitted Successfully',{
+		variant: 'success'
+	})
 	handleDirty(true)
 
 	const groupMembers = await GetGroupMembers({ groupId: group })
-	const groupEmails = groupMembers.map((user) => {
-		return user.Email
-	})
 
 	SendQuestionConfirmationEmail(groupMembers, proponent)
+	SendQuestionNotificationEmail(proponent)
 }

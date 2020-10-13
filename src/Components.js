@@ -1,5 +1,7 @@
 export { App } from 'components/App/App'
 
+export { useAuthentication } from 'components/hooks/useAuthentication'
+
 export * from 'components/Reusable/Constants/Constants'
 export { icons } from 'components/Reusable/Icons/Icons'
 export { LogAction } from 'components/Reusable/LogAction/LogAction'
@@ -36,6 +38,7 @@ export { ProponentLibrary } from 'components/ProponentTab/ProponentLibrary/Propo
 export { ProponentQuestionList } from 'components/ProponentTab/ProponentQuestionList/ProponentQuestionList'
 export { AskQuestion } from 'components/ProponentTab/ProponentQuestionList/AskQuestion/AskQuestion'
 export { SendQuestionConfirmationEmail } from 'components/ProponentTab/ProponentQuestionList/AskQuestion/SendQuestionConfirmationEmail/SendQuestionConfirmationEmail'
+export { SendQuestionNotificationEmail } from 'components/ProponentTab/ProponentQuestionList/AskQuestion/SendQuestionNotificationEmail/SendQuestionNotificationEmail'
 
 export { ProponentManagementTab } from 'components/ProponentManagementTab/ProponentManagementTab'
 export { AddProponent } from 'components/ProponentManagementTab/AddProponent/AddProponent'

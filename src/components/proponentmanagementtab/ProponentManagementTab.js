@@ -18,6 +18,7 @@ import {
 	tableOptions,
 } from 'Components'
 import { GetRoleDefinitions } from 'citz-imb-sp-utilities'
+import { useSnackbar } from 'notistack'
 
 export const ProponentManagementTab = () => {
 	const proponentListName = 'Proponents'
@@ -28,12 +29,26 @@ export const ProponentManagementTab = () => {
 	const [proponentName, setProponentName] = useState()
 	const [roles, setRoles] = useState()
 
+	const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+
 	const handleDirty = (newDirty) => {
 		setIsDirty(newDirty)
 	}
 
 	const handlePreLoad = (newPreLoad) => {
 		setPreLoad(newPreLoad)
+	}
+
+	const isValidProponentName = () => {
+		if (proponentName) {
+			if (proponentName.length < 0 || proponentName.length > 255) {
+				return false
+			} else {
+				return true
+			}
+		} else {
+			return false
+		}
 	}
 
 	const customActions = [
@@ -110,12 +125,18 @@ export const ProponentManagementTab = () => {
 							LogAction(
 								`added ${users.join('; ')} to ${rowdata.Title}`
 							)
+							enqueueSnackbar('User Added Successfully',{
+								variant: 'success'
+							})
 							SendAddUserConfirmationEmail(response, rowdata.Title)
 						}
 						const removeUserCallback = (response) => {
 							LogAction(
 								`removed ${response.Title} from ${rowdata.Title}`
 							)
+							enqueueSnackbar('User Removed Successfully',{
+								variant: 'warning'
+							})
 						}
 						setDialogParameters({
 							open: true,
@@ -159,6 +180,11 @@ export const ProponentManagementTab = () => {
 							rowdata.Active ? 'inactive' : 'active'
 						}`
 					)
+					enqueueSnackbar(`set ${rowdata.Title} to ${
+						rowdata.Active ? 'inactive' : 'active'
+					}`,{
+						variant: 'warning'
+					})
 					setDialogParameters({ open: false })
 					setIsDirty(true)
 				}
@@ -208,7 +234,7 @@ export const ProponentManagementTab = () => {
 		saveButtonText: 'Submit',
 		saveAction: (param) => {
 			handlePreLoad(true)
-			AddProponent(proponentName, roles)
+			AddProponent(proponentName, roles, enqueueSnackbar)
 				.then((response) => {
 					LogAction(`added ${proponentName} as proponent`)
 					handlePreLoad(false)
@@ -222,6 +248,9 @@ export const ProponentManagementTab = () => {
 		cancelAction: () => {
 			console.warn(`${proponentName} cancelled`)
 		},
+		isValid: isValidProponentName,
+		validationText:
+			'Proponent Name can not be blank or longer than 255 characters',
 	}
 
 	const getRoleDefinitions = async () => {

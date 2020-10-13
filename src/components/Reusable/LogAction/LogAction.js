@@ -34,4 +34,6 @@ export const LogAction = async (action) => {
 		listName: 'ActivityLog',
 		items: { Title: activity, User: user.name },
 	})
+
+	return
 }

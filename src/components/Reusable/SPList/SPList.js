@@ -1,12 +1,13 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import MaterialTable from 'material-table'
-import { SPDialog, getListAndItems, icons} from 'Components'
+import { SPDialog, getListAndItems, icons } from 'Components'
 import {
 	DialogContentText,
 	TextField,
 	Checkbox,
 	FormControlLabel,
 } from '@material-ui/core'
+import { useSnackbar } from 'notistack'
 
 export const SPList = ({
 	listName,
@@ -18,11 +19,17 @@ export const SPList = ({
 		saveAction: () => {
 			console.warn('I am saved')
 		},
+
 		cancelButtonText: 'Cancel',
 		cancelAction: () => {
 			console.warn('I am lost')
 		},
 	},
+	isValid= () => {
+		console.warn('default isValid always returns true')
+		return true
+	},
+	validationText= 'validate',
 	deleteItem = true,
 	editItem = true,
 	editOptions = {
@@ -64,11 +71,19 @@ export const SPList = ({
 	const [dialogCancelAction, setDialogCancelAction] = useState()
 	const [rowValue, setRowValue] = useState()
 
+	const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+
 	const saveButtonHandler = (results) => {
-		handlePreLoad(true)
-		addOptions.saveAction(results)
-		handleDirty(true)
-		setDialogOpen(false)
+		if (isValid()) {
+			handlePreLoad(true)
+			addOptions.saveAction(results)
+			handleDirty(true)
+			setDialogOpen(false)
+		} else {
+			enqueueSnackbar(validationText,{
+				variant: 'error'
+			})
+		}
 	}
 
 	const cancelButtonHandler = (results) => {
@@ -139,7 +154,6 @@ export const SPList = ({
 						setDialogTitle(addOptions.title)
 						setDialogContent(addOptions.content)
 						setDialogSaveButtonText(addOptions.saveButtonText)
-
 						setDialogCancelButtonText(addOptions.cancelButtonText)
 						setDialogCancelAction(() => {
 							return () => {

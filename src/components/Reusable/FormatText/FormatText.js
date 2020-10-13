@@ -92,7 +92,10 @@ const replaceHeadings = (text) => {
 		const nextBracket = text.indexOf(']', lastIndex)
 		const lengthOfText = nextBracket - lastIndex + 1
 		const textToReplace = newText.substr(lastIndex, lengthOfText)
-		const textToKeep = `<H3>${newText.substr(lastIndex + 3, lengthOfText - 4)}</H3>`
+		const textToKeep = `<H3>${newText.substr(
+			lastIndex + 3,
+			lengthOfText - 4
+		)}</H3>`
 
 		replacements.push({
 			searchValue: textToReplace,
@@ -109,25 +112,10 @@ const replaceHeadings = (text) => {
 
 const replaceParagraphs = (text) => {
 	let newText = text
-	const paragraphPattern = /\[p:/g
-	const replacements = []
+	const paragraphPattern = /\n/g
+	const replacements = '<br>'
 
-	while (paragraphPattern.test(newText) === true) {
-		const lastIndex = paragraphPattern.lastIndex - 3
-		const nextBracket = text.indexOf(']', lastIndex)
-		const lengthOfText = nextBracket - lastIndex + 1
-		const textToReplace = newText.substr(lastIndex, lengthOfText)
-		const textToKeep = `<p>${newText.substr(lastIndex + 3, lengthOfText - 4)}</p>`
-
-		replacements.push({
-			searchValue: textToReplace,
-			newValue: textToKeep,
-		})
-	}
-	replacements.map(({ searchValue, newValue }) => {
-		newText = newText.replace(searchValue, newValue)
-		return
-	})
+	newText = newText.replace(paragraphPattern, replacements)
 
 	return newText
 }
@@ -136,10 +124,10 @@ export const FormatText = (text) => {
 	let newText = text
 
 	newText = replaceBold(newText)
-    newText = replaceLinks(newText)
-    newText = replaceHeadings(newText)
-    newText = replaceMail(newText)
-    newText = replaceParagraphs(newText)
+	newText = replaceLinks(newText)
+	newText = replaceHeadings(newText)
+	newText = replaceMail(newText)
+	newText = replaceParagraphs(newText)
 
 	return newText
 }
