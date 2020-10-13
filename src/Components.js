@@ -1,5 +1,7 @@
 export { App } from 'components/App/App'
 
+export { useAuthentication } from 'components/hooks/useAuthentication'
+
 export * from 'components/Reusable/Constants/Constants'
 export { icons } from 'components/Reusable/Icons/Icons'
 export { LogAction } from 'components/Reusable/LogAction/LogAction'

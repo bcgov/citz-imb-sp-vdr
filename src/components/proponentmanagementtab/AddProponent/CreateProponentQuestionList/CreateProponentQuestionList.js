@@ -6,12 +6,18 @@ import {
 	RemoveListViewAllFields,
 	AddListViewField,
 	RemovePermissionsFromList,
+	AddFieldToList,
 } from 'citz-imb-sp-utilities'
 
 export const CreateProponentQuestionList = async (props) => {
 	const { listName, associatedGroups, roles, group, currentUser } = props
 
 	const list = await CreateList({ listName: listName })
+
+	const field = await AddFieldToList({ listName: listName, field: {
+		FieldTypeKind: 2,
+		Title: 'Answer'
+	} })
 
 	const defaultView = await GetListDefaultView({ listGUID: list.Id })
 
@@ -60,6 +66,12 @@ export const CreateProponentQuestionList = async (props) => {
 		listGUID: list.Id,
 		viewGUID: defaultView.Id,
 		field: 'Created',
+	})
+
+	const addAnswerIdToDefaultView = await AddListViewField({
+		listGUID: list.Id,
+		viewGUID: defaultView.Id,
+		field: 'Answer',
 	})
 
 	const removeCurrentUserPermissions = await RemovePermissionsFromList({

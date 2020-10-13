@@ -1,18 +1,20 @@
 import React from 'react'
-import { AddPermissionsToActivityLog } from 'Components'
-import { Button } from '@material-ui/core'
-import { GetGroup, GetRoleDefinitions } from 'citz-imb-sp-utilities'
+import Button from '@material-ui/core/Button'
+import { GetCurrentUser } from 'citz-imb-sp-utilities'
+import { useAuthentication } from 'Components'
 
 export const Test = () => {
-	const handleClick = async (element) => {
-		const group = await GetGroup({ groupId: 9 })
-		const roles = await GetRoleDefinitions({})
-		AddPermissionsToActivityLog(group, roles)
+
+	const getCurrentUser = useAuthentication(GetCurrentUser)
+
+	const clickHandler = async () => {
+		const currentUser = await getCurrentUser({})
+		console.log('currentUser :>> ', Date(), currentUser)
 	}
 
 	return (
-		<Button variant='outlined' color='primary' onClick={handleClick}>
-			Add Permssion
+		<Button variant='contained' color='primary' onClick={clickHandler}>
+			Get Current User
 		</Button>
 	)
 }

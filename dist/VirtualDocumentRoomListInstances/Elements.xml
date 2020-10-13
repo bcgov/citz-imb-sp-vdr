@@ -403,10 +403,13 @@ Sincerely,
 					<Field Name="FileLeafRef">5_.000</Field>
 					<Field Name="MetaInfo">5;#</Field>
 					<Field Name="Key">NewQuestionEmail</Field>
-					<Field Name="TextValue">A New Question Has Been Asked</Field>
-					<Field Name="MultiTextValue">[UserName] has submitted a question on behalf of [Proponent].
+					<Field Name="TextValue">New question submitted by a vendor</Field>
+					<Field Name="MultiTextValue">[Proponent] has submitted a question
 
-Site: [SiteLink]​</Field>
+Please click here [SiteLink] to view submitted Questions.
+
+Yours truly,
+[Title] System​</Field>
 					<Field Name="YesNoValue">TRUE</Field>
 					<Field Name="Instructions">&lt;div class="ExternalClassFD2A33CB41934BF0B59CF526DFCF4CBE"&gt;&lt;p&gt;​Subject and Body may insert site specific values automatically.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;[Title] = the site title&lt;/li&gt;&lt;li&gt;[Addressee] = the person the email is addressed to&lt;/li&gt;&lt;li&gt;[Username] = the added user's name&lt;/li&gt;&lt;li&gt;[Proponent]&amp;#160;= the&amp;#160;​name of the proponent the user is added to&lt;br&gt;&lt;/li&gt;&lt;li&gt;[SiteLink] = the url to the current site&lt;br&gt;&lt;/li&gt;&lt;li&gt;[ContactEmail] = the email address provided in the contact email&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</Field>
 				</Row>
