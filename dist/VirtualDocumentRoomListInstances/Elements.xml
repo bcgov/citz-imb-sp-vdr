@@ -402,7 +402,7 @@ Sincerely,
 					<Field Name="FSObjType">0</Field>
 					<Field Name="FileLeafRef">5_.000</Field>
 					<Field Name="MetaInfo">5;#</Field>
-					<Field Name="Key">NewQuestionEmail</Field>
+					<Field Name="Key">newQuestionEmail</Field>
 					<Field Name="TextValue">New question submitted by a vendor</Field>
 					<Field Name="MultiTextValue">[Proponent] has submitted a question
 
