@@ -12,7 +12,7 @@ import { SPDialog, PeoplePicker, icons } from 'Components'
 export const SPGroup = ({
 	groupId,
 	addUser = true,
-	addUserCallback = () => {
+	addUsersCallback = () => {
 		console.warn('default addUserCallback')
 	},
 	removeUserCallback = () => {
@@ -50,14 +50,17 @@ export const SPGroup = ({
 	]
 	const handleAddUserCancel = () => setDialogParameters({ open: false })
 
-	const handleAddUserSave = () => {
+	const handleAddUserSave = async () => {
 		setIsLoading(true)
-		AddUsersToGroup({ groupId: groupId, loginName: users }).then(
-			(response) => {
-				refreshData()
-				addUserCallback(response)
-			}
-		)
+
+		const addUsersResponse = await AddUsersToGroup({
+			groupId: groupId,
+			loginName: users,
+		})
+
+		refreshData()
+		addUsersCallback(addUsersResponse)
+
 		setDialogParameters({ open: false })
 	}
 

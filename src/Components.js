@@ -43,9 +43,9 @@ export { SendQuestionNotificationEmail } from 'components/ProponentTab/Proponent
 export { ProponentManagementTab } from 'components/ProponentManagementTab/ProponentManagementTab'
 export { AddProponent } from 'components/ProponentManagementTab/AddProponent/AddProponent'
 export { AddPermissionsToActivityLog } from 'components/ProponentManagementTab/AddProponent/AddPermissionsToActivityLog/AddPermissionsToActivityLog'
-export { ToggleProponent } from 'components/ProponentManagementTab/ToggleProponent'
+export { ToggleProponent } from 'components/ProponentManagementTab/ToggleProponent/ToggleProponent'
 export { SendAddUserConfirmationEmail } from 'components/ProponentManagementTab/SendAddUserConfirmationEmail/SendAddUserConfirmationEmail'
-export { CreateProponentGroup } from 'components/ProponentManagementTab/CreateProponentGroup/CreateProponentGroup'
+export { CreateProponentGroup } from 'components/ProponentManagementTab/AddProponent/CreateProponentGroup/CreateProponentGroup'
 
 export { SiteManagement } from 'components/SiteManagementTab/SiteManagement'
 

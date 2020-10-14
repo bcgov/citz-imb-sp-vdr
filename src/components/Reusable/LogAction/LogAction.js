@@ -29,7 +29,6 @@ export const LogAction = async (action) => {
 	const activity = `${user.name} ${action} on ${timeStamp}`
 
 	console.warn('LogAction :>> ', { action, timeStamp, user })
-
 	AddItemsToList({
 		listName: 'ActivityLog',
 		items: { Title: activity, User: user.name },

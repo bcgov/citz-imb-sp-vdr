@@ -391,7 +391,7 @@ Sincerely,
 					<Field Name="MultiTextValue"></Field>
 					<Field Name="TextValue">scott.toews@gov.bc.ca</Field>
 					<Field Name="YesNoValue">TRUE</Field>
-					<Field Name="Instructions">&lt;div class="ExternalClassF5AF51C30B7648579A0A2737A14D75E4"&gt;&lt;p&gt;Enter a valid email address&lt;br&gt;&lt;/p&gt;&lt;/div&gt;</Field>
+					<Field Name="Instructions">&lt;div class="ExternalClassF5AF51C30B7648579A0A2737A14D75E4"&gt;&lt;p&gt;Enter a valid email address&lt;br&gt;Capitalization counts and must match the GAL entry exactly.&lt;/p&gt;&lt;/div&gt;</Field>
 				</Row>
 				<Row>
 					<Field Name="ID">5</Field>

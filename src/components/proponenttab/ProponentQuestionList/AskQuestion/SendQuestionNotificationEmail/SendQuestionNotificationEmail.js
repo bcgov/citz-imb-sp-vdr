@@ -1,4 +1,4 @@
-import { GetListItems, GetCurrentUser } from 'citz-imb-sp-utilities'
+import { GetListItems, GetCurrentUser, GetUserByEmail } from 'citz-imb-sp-utilities'
 import { SendConfirmationEmail, GetCurrentProponent } from 'Components'
 
 export const SendQuestionNotificationEmail = async () => {
@@ -12,11 +12,13 @@ export const SendQuestionNotificationEmail = async () => {
 		filter: `Key eq 'contactemail'`,
 	})
 
+	const user = await GetUserByEmail({email: contactEmail[0].TextValue})
+
 	const currentProponent = await GetCurrentProponent()
 	const currentUser = await GetCurrentUser({})
 
 	SendConfirmationEmail(
-		contactEmail[0].TextValue,
+		user[0].LoginName,
 		currentProponent.Title,
 		emailText[0].TextValue,
 		emailText[0].MultiTextValue,

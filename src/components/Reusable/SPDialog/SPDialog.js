@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
 	Dialog,
 	DialogTitle,
@@ -6,6 +6,7 @@ import {
 	DialogActions,
 	Button,
 } from '@material-ui/core'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 export const SPDialog = ({
 	open,
@@ -13,18 +14,42 @@ export const SPDialog = ({
 	content = 'content',
 	showSave = true,
 	saveButtonText = 'Save',
-	saveButtonAction = () => {console.warn('default save action')},
+	saveButtonAction = () => {
+		console.warn('default save action')
+	},
 	cancelButtonText = 'Cancel',
-	cancelButtonAction = () => {console.warn('default cancel action')},
+	cancelButtonAction = () => {
+		console.warn('default cancel action')
+	},
 }) => {
+	const [isLoading, setIsLoading] = useState(false)
+
+	const saveHandler = () => {
+		setIsLoading(true)
+		saveButtonAction()
+	}
+	const cancelHandler = () => {
+		cancelButtonAction()
+	}
+
 	return (
 		<Dialog open={open} onClose={cancelButtonAction}>
 			<DialogTitle id='form-dialog-title'>{title}</DialogTitle>
 			<DialogContent>{content}</DialogContent>
-			<DialogActions>
-			{showSave ? (<Button onClick={saveButtonAction}>{saveButtonText}</Button>) : ('')}
-				<Button onClick={cancelButtonAction}>{cancelButtonText}</Button>
-			</DialogActions>
+			{isLoading ? (
+				<DialogActions>
+					<CircularProgress />
+				</DialogActions>
+			) : (
+				<DialogActions>
+					{showSave ? (
+						<Button onClick={saveHandler}>{saveButtonText}</Button>
+					) : (
+						''
+					)}
+					<Button onClick={cancelHandler}>{cancelButtonText}</Button>
+				</DialogActions>
+			)}
 		</Dialog>
 	)
 }

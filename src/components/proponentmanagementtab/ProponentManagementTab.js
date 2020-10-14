@@ -29,7 +29,7 @@ export const ProponentManagementTab = () => {
 	const [proponentName, setProponentName] = useState()
 	const [roles, setRoles] = useState()
 
-	const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
 	const handleDirty = (newDirty) => {
 		setIsDirty(newDirty)
@@ -117,25 +117,27 @@ export const ProponentManagementTab = () => {
 					icon: () => <PeopleIcon color={'primary'} />,
 					tooltip: 'Manage User Accounts',
 					onClick: (event, rowdata) => {
-						const addUserCallback = (response) => {
-							let users = []
-							for (let i = 0; i < response.length; i++) {
-								users.push(response[i].Title)
-							}
-							LogAction(
-								`added ${users.join('; ')} to ${rowdata.Title}`
-							)
-							enqueueSnackbar('User Added Successfully',{
-								variant: 'success'
+						const addUsersCallback = (users) => {
+							users.map((user) => {
+								LogAction(
+									`added ${user.Title} to ${rowdata.Title}`
+								)
+								enqueueSnackbar(
+									`${user.Title} Added to ${rowdata.Title}`,
+									{
+										variant: 'success',
+									}
+								)
 							})
-							SendAddUserConfirmationEmail(response, rowdata.Title)
+
+							SendAddUserConfirmationEmail(users, rowdata.Title)
 						}
 						const removeUserCallback = (response) => {
 							LogAction(
 								`removed ${response.Title} from ${rowdata.Title}`
 							)
-							enqueueSnackbar('User Removed Successfully',{
-								variant: 'warning'
+							enqueueSnackbar('User Removed Successfully', {
+								variant: 'warning',
 							})
 						}
 						setDialogParameters({
@@ -145,7 +147,7 @@ export const ProponentManagementTab = () => {
 								<SPGroup
 									groupId={rowdata.GroupId}
 									addUser={true}
-									addUserCallback={addUserCallback}
+									addUsersCallback={addUsersCallback}
 									removeUserCallback={removeUserCallback}
 									removeUser={true}
 									editGroup={false}
@@ -180,11 +182,14 @@ export const ProponentManagementTab = () => {
 							rowdata.Active ? 'inactive' : 'active'
 						}`
 					)
-					enqueueSnackbar(`set ${rowdata.Title} to ${
-						rowdata.Active ? 'inactive' : 'active'
-					}`,{
-						variant: 'warning'
-					})
+					enqueueSnackbar(
+						`set ${rowdata.Title} to ${
+							rowdata.Active ? 'inactive' : 'active'
+						}`,
+						{
+							variant: 'warning',
+						}
+					)
 					setDialogParameters({ open: false })
 					setIsDirty(true)
 				}
@@ -264,7 +269,9 @@ export const ProponentManagementTab = () => {
 				title: `ERROR`,
 				content: (
 					<Alert severity='error'>
-						Site Collection is missing the 'Read with Add' Permission Level, please contact your Site Collection Administrator
+						Site Collection is missing the 'Read with Add'
+						Permission Level, please contact your Site Collection
+						Administrator
 					</Alert>
 				),
 				showSave: false,

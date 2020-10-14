@@ -6,7 +6,7 @@ import {
 	GetCurrentUser,
 } from 'citz-imb-sp-utilities'
 import { MakeUniqueID, AddPermissionsToActivityLog } from 'Components'
-import { CreateProponentGroup } from '../CreateProponentGroup/CreateProponentGroup'
+import { CreateProponentGroup } from './CreateProponentGroup/CreateProponentGroup'
 import { CreateProponentLibrary } from './CreateProponentLibrary/CreateProponentLibrary'
 import { CreateProponentQuestionList } from './CreateProponentQuestionList/CreateProponentQuestionList'
 
