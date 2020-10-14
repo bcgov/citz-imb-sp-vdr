@@ -5,6 +5,7 @@ import ToggleOnIcon from '@material-ui/icons/ToggleOn'
 import ToggleOffIcon from '@material-ui/icons/ToggleOff'
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
+import Badge from '@material-ui/core/Badge'
 import PeopleIcon from '@material-ui/icons/People'
 import { green, red } from '@material-ui/core/colors'
 import {
@@ -17,7 +18,7 @@ import {
 	SendAddUserConfirmationEmail,
 	tableOptions,
 } from 'Components'
-import { GetRoleDefinitions } from 'citz-imb-sp-utilities'
+import { GetRoleDefinitions, GetListItems } from 'citz-imb-sp-utilities'
 import { useSnackbar } from 'notistack'
 
 export const ProponentManagementTab = () => {
@@ -51,6 +52,25 @@ export const ProponentManagementTab = () => {
 		}
 	}
 
+	const getUnansweredQuestionCount = async (questionListName) => {
+		const questions = await GetListItems({ listName: questionListName, filter: 'Answer eq null' })
+console.log('questions :>> ', questions);
+		const length = questions.length
+
+		return length
+	}
+
+	const additionalData = async (list) => {
+		const { title, columns, items } = list
+
+		for (let i = 0; i < items.length; i++) {
+			items[i].UnansweredQuestionCount = await getUnansweredQuestionCount(
+				`${items[i].UUID}_Questions`
+			)
+		}
+
+		return { title, columns, items }
+	}
 	const customActions = [
 		(rowData) => {
 			return {
@@ -85,7 +105,15 @@ export const ProponentManagementTab = () => {
 		(rowData) => {
 			return {
 				//manage proponent questions
-				icon: () => <QuestionAnswerIcon color={'primary'} />,
+				icon: () => {
+					return (
+						<Badge
+							badgeContent={rowData.UnansweredQuestionCount}
+							color='secondary'>
+							<QuestionAnswerIcon color={'primary'} />
+						</Badge>
+					)
+				},
 				tooltip: 'Open Proponent Questions',
 				onClick: (event, rowdata) => {
 					setDialogParameters({
@@ -303,6 +331,7 @@ export const ProponentManagementTab = () => {
 				isDirty={isDirty}
 				handleDirty={handleDirty}
 				handlePreLoad={handlePreLoad}
+				additionalData={additionalData}
 			/>
 			<SPDialog {...dialogParameters} />
 		</Fragment>
