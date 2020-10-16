@@ -1,3 +1,4 @@
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 export const configListName = 'config'
@@ -10,6 +11,9 @@ export const tableOptions = {
 	draggable: false,
 	actionsColumnIndex: -1,
 }
+
+export const TableOptionsContext = React.createContext()
+
 export const classes = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,

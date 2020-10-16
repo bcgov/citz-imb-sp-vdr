@@ -9,47 +9,54 @@ import {
 
 import { CreateProponentGroup,AddPermissionsToActivityLog } from 'Components'
 
-export const ToggleProponent = async (proponentListName, rowdata, callBack) => {
-	if (rowdata.Active) {
+export const ToggleProponent = async (active, groupId, proponentItemId, proponentId,enqueueSnackbar ) => {
+	const proponentListName = 'Proponents'
+	if (active) {
 		const deleteProponentGroup = await DeleteGroup({
-			groupId: rowdata.GroupId,
+			groupId: groupId,
 		})
+		enqueueSnackbar('deleted proponent group',{variant: 'warning'})
 		const updateProponentList = await UpdateListItem({
 			listName: proponentListName,
-			items: { Id: rowdata.Id, Active: false, GroupId: 0 },
+			items: { Id: proponentItemId, Active: false, GroupId: 0 },
 		})
+		enqueueSnackbar('updated proponent list',{variant: 'warning'})
 	} else {
 		const associatedGroups = await GetAssociatedGroups()
 		const roles = await GetRoleDefinitions({})
 		const group = await CreateProponentGroup({
-			groupName: rowdata.UUID,
+			groupName: proponentId,
 			associatedGroups: associatedGroups,
 		})
+		enqueueSnackbar('created proponent group',{variant: 'warning'})
 
 		const updateProponentList = await UpdateListItem({
 			listName: proponentListName,
 			items: {
-				Id: rowdata.Id,
+				Id: proponentItemId,
 				Active: true,
 				GroupId: group.Id,
 			},
 		})
+		enqueueSnackbar('updated proponent list',{variant: 'warning'})
 
 		const addProponentToSite = await AddPermissionsToSite({
 			principalId: group.Id,
 			roleDefId: roles['Read'].Id,
 		})
+
 		const addProponentToProponentLibrary = await AddPermissionsToList({
-			listName: rowdata.UUID,
+			listName: proponentId,
 			principalId: group.Id,
 			roleDefId: roles['Contribute'].Id,
 		})
+
 		const addProponentToProponentQuestionList = await AddPermissionsToList({
-			listName: `${rowdata.UUID}_Questions`,
+			listName: `${proponentId}_Questions`,
 			principalId: group.Id,
 			roleDefId: roles['Contribute'].Id,
 		})
 		const addProponentToActivityLog = await AddPermissionsToActivityLog(group, roles)
+		enqueueSnackbar('granted proponent site permissions',{variant: 'warning'})
 	}
-	callBack()
 }

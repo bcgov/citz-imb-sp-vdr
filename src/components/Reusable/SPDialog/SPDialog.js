@@ -33,7 +33,7 @@ export const SPDialog = ({
 	}
 
 	return (
-		<Dialog open={open} onClose={cancelButtonAction}>
+		<Dialog open={open} onClose={cancelButtonAction} fullWidth={true} maxWidth={'lg'}>
 			<DialogTitle id='form-dialog-title'>{title}</DialogTitle>
 			<DialogContent>{content}</DialogContent>
 			{isLoading ? (

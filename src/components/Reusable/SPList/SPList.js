@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import MaterialTable from 'material-table'
-import { SPDialog, getListAndItems, icons } from 'Components'
+import { SPDialog, GetListAndItems, icons } from 'Components'
 import {
 	DialogContentText,
 	TextField,
@@ -46,7 +46,7 @@ export const SPList = ({
 	},
 	changeItemPermission = true,
 	customActions,
-	options,
+	tableOptions,
 	isDirty = true,
 	preLoad = false,
 	handleDirty = (dirty) => {
@@ -147,7 +147,7 @@ export const SPList = ({
 	const populateTable = async () => {
 		setIsLoading(true)
 
-		const list = await getListAndItems(listName)
+		const list = await GetListAndItems(listName)
 
 		const listWithAdditions = await additionalData(list)
 
@@ -393,7 +393,7 @@ export const SPList = ({
 				columns={columns}
 				data={data}
 				title={title}
-				options={options}
+				options={tableOptions}
 				actions={actions}
 				isLoading={isLoading}
 			/>

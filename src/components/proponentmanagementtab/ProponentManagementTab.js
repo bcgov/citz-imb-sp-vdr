@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { TextField } from '@material-ui/core'
+import { TextField, Button } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import ToggleOnIcon from '@material-ui/icons/ToggleOn'
 import ToggleOffIcon from '@material-ui/icons/ToggleOff'
@@ -9,58 +9,71 @@ import Badge from '@material-ui/core/Badge'
 import PeopleIcon from '@material-ui/icons/People'
 import { green, red } from '@material-ui/core/colors'
 import {
+	SPTable,
 	SPList,
+	AddUserDialog,
 	LogAction,
+	icons,
 	SPDialog,
-	ToggleProponent,
-	AddProponent,
+	ToggleProponentDialog,
+	AddProponentDialog,
 	SPGroup,
 	SendAddUserConfirmationEmail,
 	tableOptions,
+	ProponentLibraryDialog,
+	ProponentQuestionDialog,
 } from 'Components'
 import { GetRoleDefinitions, GetListItems } from 'citz-imb-sp-utilities'
 import { useSnackbar } from 'notistack'
 
 export const ProponentManagementTab = () => {
-	const proponentListName = 'Proponents'
+	const listName = 'Proponents'
 
-	const [dialogParameters, setDialogParameters] = useState({ open: false })
-	const [isDirty, setIsDirty] = useState(true)
-	const [preLoad, setPreLoad] = useState(false)
-	const [proponentName, setProponentName] = useState()
-	const [roles, setRoles] = useState()
+	const [addProponentDialog, setAddProponentDialog] = useState(false)
+	const [proponentLibraryDialog, setproponentLibraryDialog] = useState(false)
+	const [proponentQuestionDialog, setproponentQuestionDialog] = useState(
+		false
+	)
+	const [userDialog, setUserDialog] = useState(false)
+	const [toggleDialog, setToggleDialog] = useState(false)
 
+	const [currentProponentId, setCurrentProponentId] = useState()
+	const [currentProponentName, setCurrentProponentName] = useState()
+	const [currentProponentGroup, setCurrentProponentGroup] = useState()
+	const [currentProponentActive, setCurrentProponentActive] = useState()
+	const [currentProponentItemId, setCurrentProponentItemId] = useState()
+
+	const [refreshTable, setRefreshTable] = useState(true)
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
-	const handleDirty = (newDirty) => {
-		setIsDirty(newDirty)
+	const handleCloseProponentDialog = () => {
+		setRefreshTable(!refreshTable)
+		setAddProponentDialog(false)
 	}
-
-	const handlePreLoad = (newPreLoad) => {
-		setPreLoad(newPreLoad)
+	const handleCloseProponentLibraryDialog = () => {
+		setproponentLibraryDialog(false)
 	}
-
-	const isValidProponentName = () => {
-		if (proponentName) {
-			if (proponentName.length < 0 || proponentName.length > 255) {
-				return false
-			} else {
-				return true
-			}
-		} else {
-			return false
-		}
+	const handleCloseProponentQuestionDialog = () => {
+		setproponentQuestionDialog(false)
+	}
+	const handleCloseUserDialog = () => {
+		setUserDialog(false)
+	}
+	const handleCloseToggleDialog = () => {
+		setRefreshTable(!refreshTable)
+		setToggleDialog(false)
 	}
 
 	const getUnansweredQuestionCount = async (questionListName) => {
-		const questions = await GetListItems({ listName: questionListName, filter: 'Answer eq null' })
-console.log('questions :>> ', questions);
-		const length = questions.length
+		const questions = await GetListItems({
+			listName: questionListName,
+			filter: 'Answer eq null',
+		})
 
-		return length
+		return questions.length
 	}
 
-	const additionalData = async (list) => {
+	const additionalProponentData = async (list) => {
 		const { title, columns, items } = list
 
 		for (let i = 0; i < items.length; i++) {
@@ -71,6 +84,44 @@ console.log('questions :>> ', questions);
 
 		return { title, columns, items }
 	}
+
+	const handlePublishAnswer = (event) => {
+		const proponentQuestionID = event.currentTarget.dataset.id
+		const proponentList = event.currentTarget.dataset.list
+
+		console.log('proponentQuestionID', proponentQuestionID)
+		console.log('proponentList :>> ', proponentList)
+	}
+
+	const additionalQuestionData = async (list) => {
+		const { title, columns, items } = list
+
+		for (let i = 0; i < columns.length; i++) {
+			if (columns[i].title === 'Answer') {
+				columns[i].render = (rowdata) => {
+					if (rowdata.Answer === null) {
+						return (
+							<Button
+								color='primary'
+								size='small'
+								variant='outlined'
+								data-id={rowdata.Id}
+								data-list={title}
+								onClick={handlePublishAnswer}>
+								Publish Answer
+							</Button>
+						)
+					} else {
+						console.log('rowdata :>> ', rowdata)
+						return <Button color='secondary'>View Answer</Button>
+					}
+				}
+			}
+		}
+
+		return { title, columns, items }
+	}
+
 	const customActions = [
 		(rowData) => {
 			return {
@@ -80,25 +131,9 @@ console.log('questions :>> ', questions);
 				},
 				tooltip: 'Open Proponent Library',
 				onClick: (event, rowdata) => {
-					setDialogParameters({
-						open: true,
-						title: `${rowdata.Title} - ${rowdata.UUID}`,
-						content: (
-							<SPList
-								listName={rowdata.UUID}
-								addItem={false}
-								deleteItem={false}
-								editItem={false}
-								changeItemPermission={false}
-								options={tableOptions}
-							/>
-						),
-						showSave: false,
-						cancelButtonText: 'Close',
-						cancelButtonAction: () => {
-							setDialogParameters({ open: false })
-						},
-					})
+					setCurrentProponentId(rowdata.UUID)
+					setCurrentProponentName(rowdata.Title)
+					setproponentLibraryDialog(true)
 				},
 			}
 		},
@@ -116,25 +151,9 @@ console.log('questions :>> ', questions);
 				},
 				tooltip: 'Open Proponent Questions',
 				onClick: (event, rowdata) => {
-					setDialogParameters({
-						open: true,
-						title: `${rowdata.Title} - ${rowdata.UUID}`,
-						content: (
-							<SPList
-								listName={`${rowdata.UUID}_Questions`}
-								addItem={false}
-								deleteItem={false}
-								editItem={false}
-								changeItemPermission={false}
-								options={tableOptions}
-							/>
-						),
-						showSave: false,
-						cancelButtonText: 'Close',
-						cancelButtonAction: () => {
-							setDialogParameters({ open: false })
-						},
-					})
+					setCurrentProponentId(`${rowdata.UUID}_Questions`)
+					setCurrentProponentName(rowdata.Title)
+					setproponentQuestionDialog(true)
 				},
 			}
 		},
@@ -145,49 +164,9 @@ console.log('questions :>> ', questions);
 					icon: () => <PeopleIcon color={'primary'} />,
 					tooltip: 'Manage User Accounts',
 					onClick: (event, rowdata) => {
-						const addUsersCallback = (users) => {
-							users.map((user) => {
-								LogAction(
-									`added ${user.Title} to ${rowdata.Title}`
-								)
-								enqueueSnackbar(
-									`${user.Title} Added to ${rowdata.Title}`,
-									{
-										variant: 'success',
-									}
-								)
-							})
-
-							SendAddUserConfirmationEmail(users, rowdata.Title)
-						}
-						const removeUserCallback = (response) => {
-							LogAction(
-								`removed ${response.Title} from ${rowdata.Title}`
-							)
-							enqueueSnackbar('User Removed Successfully', {
-								variant: 'warning',
-							})
-						}
-						setDialogParameters({
-							open: true,
-							title: `${rowdata.Title} - ${rowdata.UUID}`,
-							content: (
-								<SPGroup
-									groupId={rowdata.GroupId}
-									addUser={true}
-									addUsersCallback={addUsersCallback}
-									removeUserCallback={removeUserCallback}
-									removeUser={true}
-									editGroup={false}
-									options={tableOptions}
-								/>
-							),
-							showSave: false,
-							cancelButtonText: 'Close',
-							cancelButtonAction: () => {
-								setDialogParameters({ open: false })
-							},
-						})
+						setCurrentProponentGroup(rowdata.GroupId)
+						setCurrentProponentName(rowdata.Title)
+						setUserDialog(true)
 					},
 				}
 			} else {
@@ -204,136 +183,67 @@ console.log('questions :>> ', questions);
 				: () => <ToggleOffIcon style={{ color: red[500] }} />,
 			tooltip: 'Toggle Proponent Active / Inactive',
 			onClick: (event, rowdata) => {
-				const callBack = () => {
-					LogAction(
-						`set ${rowdata.Title} to ${
-							rowdata.Active ? 'inactive' : 'active'
-						}`
-					)
-					enqueueSnackbar(
-						`set ${rowdata.Title} to ${
-							rowdata.Active ? 'inactive' : 'active'
-						}`,
-						{
-							variant: 'warning',
-						}
-					)
-					setDialogParameters({ open: false })
-					setIsDirty(true)
-				}
-				setDialogParameters({
-					open: true,
-					title: `${rowdata.Title} - ${rowdata.UUID}`,
-					content: rowdata.Active ? (
-						<Alert severity='error'>
-							Proponent Group will be deleted; member users will
-							no-longer be able to access the site.
-						</Alert>
-					) : (
-						<Alert severity='info'>
-							A new group will be created for the proponent. You
-							will need to manually add users.
-						</Alert>
-					),
-					saveButtonText: rowdata.Active
-						? 'Set Inactive'
-						: 'Set Active',
-					saveButtonAction: () => {
-						ToggleProponent(proponentListName, rowdata, callBack)
-					},
-					cancelButtonAction: () => {
-						setDialogParameters({ open: false })
-					},
-				})
+				setCurrentProponentName(rowdata.Title)
+				setCurrentProponentActive(rowdata.Active)
+				setCurrentProponentGroup(rowdata.GroupId)
+				setCurrentProponentId(rowdata.UUID)
+				setCurrentProponentItemId(rowdata.Id)
+				setToggleDialog(true)
 			},
 		}),
+		{
+			icon: icons.Add,
+			tooltip: 'Add Item',
+			isFreeAction: true,
+			onClick: (event, rowdata) => {
+				setAddProponentDialog(true)
+			},
+		},
 	]
-
-	const addOptions = {
-		title: 'Add Proponent',
-		content: (
-			<TextField
-				autoFocus
-				margin='dense'
-				id='proponentName'
-				label="Proponent's Name"
-				type='text'
-				fullWidth
-				onChange={(e) => {
-					setProponentName(e.target.value)
-				}}
-			/>
-		),
-		saveButtonText: 'Submit',
-		saveAction: (param) => {
-			handlePreLoad(true)
-			AddProponent(proponentName, roles, enqueueSnackbar)
-				.then((response) => {
-					LogAction(`added ${proponentName} as proponent`)
-					handlePreLoad(false)
-					setIsDirty(true)
-				})
-				.catch((err) => {
-					console.error('add proponent error', err)
-				})
-		},
-		cancelButtonText: 'Cancel',
-		cancelAction: () => {
-			console.warn(`${proponentName} cancelled`)
-		},
-		isValid: isValidProponentName,
-		validationText:
-			'Proponent Name can not be blank or longer than 255 characters',
-	}
-
-	const getRoleDefinitions = async () => {
-		const roleDefs = await GetRoleDefinitions({})
-
-		if (roleDefs['Read with Add']) {
-			setRoles(roleDefs)
-		} else {
-			setDialogParameters({
-				open: true,
-				title: `ERROR`,
-				content: (
-					<Alert severity='error'>
-						Site Collection is missing the 'Read with Add'
-						Permission Level, please contact your Site Collection
-						Administrator
-					</Alert>
-				),
-				showSave: false,
-				cancelButtonText: 'Close',
-				cancelButtonAction: () => {
-					setDialogParameters({ open: false })
-				},
-			})
-		}
-	}
-
-	useEffect(() => {
-		getRoleDefinitions()
-		return () => {}
-	}, [])
 
 	return (
 		<Fragment>
-			<SPList
-				listName={proponentListName}
-				addItem={true}
-				addOptions={addOptions}
+			<AddProponentDialog
+				open={addProponentDialog}
+				closeDialog={handleCloseProponentDialog}
+			/>
+			<SPTable
+				listName={listName}
+				addItem={false}
 				deleteItem={false}
 				editItem={false}
-				changeItemPermission={false}
+				changeItemPermissions={false}
+				//				onClickCallback={onClickCallback}
 				customActions={customActions}
-				options={tableOptions}
-				preLoad={preLoad}
-				isDirty={isDirty}
-				handleDirty={handleDirty}
-				handlePreLoad={handlePreLoad}
-				additionalData={additionalData}
+				refresh={refreshTable}
 			/>
-			<SPDialog {...dialogParameters} />
+			<ProponentLibraryDialog
+				open={proponentLibraryDialog}
+				proponentName={currentProponentName}
+				closeDialog={handleCloseProponentLibraryDialog}
+				listName={currentProponentId}
+			/>
+			<ProponentQuestionDialog
+				open={proponentQuestionDialog}
+				proponentName={currentProponentName}
+				closeDialog={handleCloseProponentQuestionDialog}
+				listName={currentProponentId}
+			/>
+			<AddUserDialog
+				open={userDialog}
+				closeDialog={handleCloseUserDialog}
+				groupId={currentProponentGroup}
+				proponentName={currentProponentName}
+			/>
+			<ToggleProponentDialog
+				open={toggleDialog}
+				closeDialog={handleCloseToggleDialog}
+				active={currentProponentActive}
+				proponentName={currentProponentName}
+				groupId={currentProponentGroup}
+				proponentItemId={currentProponentItemId}
+				proponentId={currentProponentId}
+			/>
 		</Fragment>
 	)
 }

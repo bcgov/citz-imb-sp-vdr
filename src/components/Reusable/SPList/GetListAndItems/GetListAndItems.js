@@ -4,21 +4,27 @@ import { GetList } from 'citz-imb-sp-utilities'
 import Moment from 'react-moment'
 
 const getList = async (listName) => {
-	let list = await GetList({
-		listName: listName,
-		expand: 'DefaultView,DefaultView/ViewFields,Fields,Items,Items/File',
-	})
-	//console.log('getList :>> ', list)
+	try{
+		let list = await GetList({
+			listName: listName,
+			expand: 'DefaultView,DefaultView/ViewFields,Fields,Items,Items/File',
+		})
+		return list
+	}
+	catch(error){
+		console.log('error', error)
+	}
 
-	return list
+
 }
 
-export const getListAndItems = async (listName) => {
+export const GetListAndItems = async (listName) => {
 	let title, columns, items
 
 	let list = await getList(listName)
 
 	title = list.Title
+	items = list.Items.results
 
 	let listColumns = {}
 	for (let i = 0; i < list.Fields.results.length; i++) {
@@ -105,7 +111,7 @@ export const getListAndItems = async (listName) => {
 		})
 	}
 
-	items = list.Items.results
+
 
 	return { title, columns, items }
 }

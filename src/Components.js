@@ -1,38 +1,47 @@
 export { App } from 'components/App/App'
+export { Home } from 'components/Home/Home'
 
+//Hooks and Contexts and Constants
 export { useAuthentication } from 'components/hooks/useAuthentication'
-
 export * from 'components/Reusable/Constants/Constants'
 export { icons } from 'components/Reusable/Icons/Icons'
+
+//Reusable
 export { LogAction } from 'components/Reusable/LogAction/LogAction'
+export { SendConfirmationEmail } from 'components/Reusable/SendConfirmationEmail/SendConfirmationEmail'
 export { getCookie } from 'components/Reusable/GetCookie/getCookie'
 export { setCookie } from 'components/Reusable/SetCookie/SetCookie'
+
 export { SPDialog } from 'components/Reusable/SPDialog/SPDialog'
 export { SPGroup } from 'components/Reusable/SPGroup/SPGroup'
+
 export { SPList } from 'components/Reusable/SPList/SPList'
-export { SendConfirmationEmail } from 'components/Reusable/SendConfirmationEmail/SendConfirmationEmail'
+export { SPTable } from 'components/Reusable/SPTable/SPTable'
 
 export { GetCurrentProponent } from 'components/Reusable/GetCurrentProponent/GetCurrentProponent'
 export { GetIsOwner } from 'components/Reusable/GetIsOwner/GetIsOwner'
-export { getListAndItems } from 'components/Reusable/SPList/GetListAndItems/GetListAndItems'
+export { GetListAndItems } from 'components/Reusable/SPList/GetListAndItems/GetListAndItems'
 export { MakeUniqueID } from 'components/Reusable/MakeUniqueID/MakeUniqueID'
 export { PeoplePicker } from 'components/Reusable/PeoplePicker/PeoplePicker'
 export { FormatText } from 'components/Reusable/FormatText/FormatText'
 
+//Terms of Service
 export { TermsOfService } from 'components/TermsOfService/TermsOfService'
 export { GetTOSCookieConfig } from 'components/TermsOfService/GetCookieConfig/GetCookieConfig'
 export { TermsOfServiceDialog } from 'components/TermsOfService/TermsOfServiceDialog/TermsOfServiceDialog'
 export { GetTOSConfig } from 'components/TermsOfService/GetTermsOfServiceConfig/GetTermsOfServiceConfig'
+export { GetTermsOfService } from 'components/TermsOfService/GetTermsOfService/GetTermsOfService'
 
-export { Home } from 'components/Home/Home'
-
+//AppTabs
 export { AppTabs } from 'components/AppTabs/AppTabs'
 export { TabPanel } from 'components/AppTabs/TabPanel/TabPanel'
 
+//Public Tab
 export { PublicTab } from 'components/PublicTab/PublicTab'
 export { PublicLibrary } from 'components/PublicTab/PublicLibrary/PublicLibrary'
 export { PublicQuestionList } from 'components/PublicTab/PublicQuestionList/PublicQuestionList'
 
+//Proponent Tab
 export { ProponentTab } from 'components/ProponentTab/ProponentTab'
 export { ProponentLibrary } from 'components/ProponentTab/ProponentLibrary/ProponentLibrary'
 export { ProponentQuestionList } from 'components/ProponentTab/ProponentQuestionList/ProponentQuestionList'
@@ -40,13 +49,20 @@ export { AskQuestion } from 'components/ProponentTab/ProponentQuestionList/AskQu
 export { SendQuestionConfirmationEmail } from 'components/ProponentTab/ProponentQuestionList/AskQuestion/SendQuestionConfirmationEmail/SendQuestionConfirmationEmail'
 export { SendQuestionNotificationEmail } from 'components/ProponentTab/ProponentQuestionList/AskQuestion/SendQuestionNotificationEmail/SendQuestionNotificationEmail'
 
+//Proponent Management Tab
+export { AddProponentDialog } from 'components/ProponentManagementTab/AddProponentDialog/AddProponentDialog'
+export { AddPermissionsToActivityLog } from 'components/ProponentManagementTab/AddProponentDialog/AddPermissionsToActivityLog/AddPermissionsToActivityLog'
+export { CreateProponentGroup } from 'components/ProponentManagementTab/AddProponentDialog/CreateProponentGroup/CreateProponentGroup'
+export { AddUserDialog } from 'components/ProponentManagementTab/AddUserDialog/AddUserDialog'
+
+export { ProponentLibraryDialog } from 'components/ProponentManagementTab/ProponentLibraryDialog/ProponentLibraryDialog'
 export { ProponentManagementTab } from 'components/ProponentManagementTab/ProponentManagementTab'
-export { AddProponent } from 'components/ProponentManagementTab/AddProponent/AddProponent'
-export { AddPermissionsToActivityLog } from 'components/ProponentManagementTab/AddProponent/AddPermissionsToActivityLog/AddPermissionsToActivityLog'
-export { ToggleProponent } from 'components/ProponentManagementTab/ToggleProponent/ToggleProponent'
+export { ProponentQuestionDialog } from 'components/ProponentManagementTab/ProponentQuestionDialog/ProponentQuestionDialog'
+
 export { SendAddUserConfirmationEmail } from 'components/ProponentManagementTab/SendAddUserConfirmationEmail/SendAddUserConfirmationEmail'
-export { CreateProponentGroup } from 'components/ProponentManagementTab/AddProponent/CreateProponentGroup/CreateProponentGroup'
 
+export { ToggleProponentDialog } from 'components/ProponentManagementTab/ToggleProponentDialog/ToggleProponentDialog'
+export { ToggleProponent } from 'components/ProponentManagementTab/ToggleProponentDialog/ToggleProponent/ToggleProponent'
+
+//Site Management Tab
 export { SiteManagement } from 'components/SiteManagementTab/SiteManagement'
-
-export { GetTermsOfService } from 'components/TermsOfService/GetTermsOfService/GetTermsOfService'

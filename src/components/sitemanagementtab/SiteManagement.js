@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { getListAndItems, SPList, tableOptions, LogAction } from 'Components'
+import { GetListAndItems, SPList, tableOptions, LogAction } from 'Components'
 import {
 	Button,
 	Dialog,
@@ -308,7 +308,7 @@ export const SiteManagement = () => {
 	}
 
 	const getItems = async () => {
-		const list = await getListAndItems(listName)
+		const list = await GetListAndItems(listName)
 		setListItems(list.items)
 
 		let listObject = {}
