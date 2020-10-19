@@ -45,9 +45,10 @@ export { PublicQuestionList } from 'components/PublicTab/PublicQuestionList/Publ
 export { ProponentTab } from 'components/ProponentTab/ProponentTab'
 export { ProponentLibrary } from 'components/ProponentTab/ProponentLibrary/ProponentLibrary'
 export { ProponentQuestionList } from 'components/ProponentTab/ProponentQuestionList/ProponentQuestionList'
-export { AskQuestion } from 'components/ProponentTab/ProponentQuestionList/AskQuestion/AskQuestion'
-export { SendQuestionConfirmationEmail } from 'components/ProponentTab/ProponentQuestionList/AskQuestion/SendQuestionConfirmationEmail/SendQuestionConfirmationEmail'
-export { SendQuestionNotificationEmail } from 'components/ProponentTab/ProponentQuestionList/AskQuestion/SendQuestionNotificationEmail/SendQuestionNotificationEmail'
+export { AskQuestionDialog } from 'components/ProponentTab/ProponentQuestionList/AskQuestionDialog/AskQuestionDialog'
+export { AskQuestion } from 'components/ProponentTab/ProponentQuestionList/AskQuestionDialog/AskQuestion/AskQuestion'
+export { SendQuestionConfirmationEmail } from 'components/ProponentTab/ProponentQuestionList/AskQuestionDialog/SendQuestionConfirmationEmail/SendQuestionConfirmationEmail'
+export { SendQuestionNotificationEmail } from 'components/ProponentTab/ProponentQuestionList/AskQuestionDialog/SendQuestionNotificationEmail/SendQuestionNotificationEmail'
 
 //Proponent Management Tab
 export { AddProponentDialog } from 'components/ProponentManagementTab/AddProponentDialog/AddProponentDialog'

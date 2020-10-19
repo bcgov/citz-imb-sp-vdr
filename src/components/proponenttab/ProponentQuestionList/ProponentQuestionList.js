@@ -1,81 +1,54 @@
-import React, { useState, useEffect } from 'react'
-import { Grid, Paper, TextField } from '@material-ui/core'
+import React, { useState, Fragment } from 'react'
+import { Grid, Paper } from '@material-ui/core'
 
-import { SPTable, tableOptions, classes ,AskQuestion} from 'Components'
+import { SPTable, tableOptions, classes, AskQuestionDialog, icons } from 'Components'
 
 import { useSnackbar } from 'notistack'
 
-export const ProponentQuestionList = ({ proponent, group }) => {
-	const listName = `${proponent}_Questions`
+export const ProponentQuestionList = ({ proponentId, groupId, proponentName }) => {
+	const listName = `${proponentId}_Questions`
 
-	const [question, setQuestion] = useState()
-	const [listIsDirty, setListIsDirty] = useState(true)
+	const [askQuestionDialog, setAskQuestionDialog] = useState(false)
 
-	const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
-	const handleDirty = (newDirty) => {
-		setListIsDirty(newDirty)
-	}
-
-	const askQuestion = () => {
-		AskQuestion({ question, listName, proponent, group, handleDirty, enqueueSnackbar })
-	}
-
-	const isValidQuestion = () => {
-		if (question) {
-			if (question.length < 0 || question.length > 255) {
-				return false
-			} else {
-				return true
-			}
-		} else {
-			return false
-		}
+	const closeDialog = () => {
+		setAskQuestionDialog(false)
 	}
 
 	const questionOptions = {
 		listName: listName,
 		tableTitle: 'Our Submitted Questions',
 		options: tableOptions,
-		addItem: true,
-		addOptions: {
-			title: 'Submit a Question',
-			content: (
-				<TextField
-					autoFocus
-					margin='dense'
-					id='questionSubmission'
-					label='Question'
-					type='text'
-					fullWidth
-					onChange={(e) => {
-						setQuestion(e.target.value)
-					}}
-				/>
-			),
-			saveButtonText: 'Save',
-			saveAction: askQuestion,
-			cancelButtonText: 'Cancel',
-			cancelAction: (results) => {
-				console.warn('cancelAction :>> ', results)
-			},
-		},
-		isValid: isValidQuestion,
-		validationText:
-			'Question can not be blank or longer than 255 characters',
-		deleteItem: false,
+		addItem: false,
 		editItem: false,
 		changeItemPermission: false,
-		// customActions:[],
+		customActions: [
+			{
+				icon: icons.Add,
+				tooltip: 'Add Item',
+				isFreeAction: true,
+				onClick: (event, rowdata) => {
+					setAskQuestionDialog(true)
+				},
+			},
+		],
 	}
 
 	return (
-		<Grid key={`${proponent}QuestionList`} item xs={6}>
-			<Paper className={classes.paper}>
-				<SPTable
-					{...questionOptions}
-				/>
-			</Paper>
-		</Grid>
+		<Fragment>
+			<Grid key={`${proponentId}QuestionList`} item xs={6}>
+				<Paper className={classes.paper}>
+					<SPTable {...questionOptions} />
+				</Paper>
+			</Grid>
+			<AskQuestionDialog
+				open={askQuestionDialog}
+				closeDialog={closeDialog}
+				listName={listName}
+				proponentName={proponentName}
+				groupId={groupId}
+			/>
+		</Fragment>
 	)
 }
