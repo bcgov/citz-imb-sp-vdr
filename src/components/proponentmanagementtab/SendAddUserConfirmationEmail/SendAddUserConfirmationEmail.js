@@ -7,10 +7,7 @@ export const SendAddUserConfirmationEmail = async (users, proponentName) => {
 		filter: `Key eq 'addUserEmail'`,
 	})
 
-	console.log('SendAddUserConfirmationEmail :>> ', {users: users, proponent: proponentName, response});
-
 	users.map((user) => {
-		console.log('SendAddUserConfirmationEmail user :>> ', {user});
 		SendConfirmationEmail(
 			user.LoginName,
 			proponentName,

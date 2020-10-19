@@ -23,9 +23,10 @@ export const SPDialog = ({
 	},
 }) => {
 	const [isLoading, setIsLoading] = useState(false)
+	const [disableButtons, setDisableButtons] = useState(false)
 
 	const saveHandler = () => {
-		setIsLoading(true)
+		setDisableButtons(true)
 		saveButtonAction()
 	}
 	const cancelHandler = () => {
@@ -33,7 +34,11 @@ export const SPDialog = ({
 	}
 
 	return (
-		<Dialog open={open} onClose={cancelButtonAction} fullWidth={true} maxWidth={'lg'}>
+		<Dialog
+			open={open}
+			onClose={cancelButtonAction}
+			fullWidth={true}
+			maxWidth={'lg'}>
 			<DialogTitle id='form-dialog-title'>{title}</DialogTitle>
 			<DialogContent>{content}</DialogContent>
 			{isLoading ? (
@@ -42,12 +47,12 @@ export const SPDialog = ({
 				</DialogActions>
 			) : (
 				<DialogActions>
-					{showSave ? (
-						<Button onClick={saveHandler}>{saveButtonText}</Button>
-					) : (
-						''
-					)}
-					<Button onClick={cancelHandler}>{cancelButtonText}</Button>
+					<Button onClick={saveHandler} disabled={disableButtons}>
+						{saveButtonText}
+					</Button>
+					<Button onClick={cancelHandler} disabled={disableButtons}>
+						{cancelButtonText}
+					</Button>
 				</DialogActions>
 			)}
 		</Dialog>

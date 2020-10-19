@@ -63,7 +63,7 @@ export const SendConfirmationEmail = async (
 		})
 		LogAction(`SendEmail succeeded: ${addresses}`)
 	} catch (err) {
-		console.log('err :>> ', err)
+		console.error('err :>> ', err)
 		LogAction(`SendEmail failed: ${err.message}; addresses: ${addresses}`)
 	}
 }

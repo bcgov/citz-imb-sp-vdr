@@ -12,7 +12,7 @@ const getList = async (listName) => {
 		return list
 	}
 	catch(error){
-		console.log('error', error)
+		console.error('error', error)
 	}
 
 

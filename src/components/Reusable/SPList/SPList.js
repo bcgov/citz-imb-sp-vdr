@@ -156,7 +156,6 @@ export const SPList = ({
 		} else {
 			setTitle(listWithAdditions.title)
 		}
-		//console.log('list :>> ', list)
 		setColumns(listWithAdditions.columns)
 		setData(listWithAdditions.items)
 
@@ -276,15 +275,12 @@ export const SPList = ({
 	}, [isDirty])
 
 	useEffect(() => {
-		//console.log('columns useEffect', columns)
 		if (rowValue) {
 			setDialogContent(
 				<DialogContentText>
 					<div />
 					{editOptions.content}
 					{columns.map((column, index) => {
-						//console.log('column :>> ', column)
-						//console.log('rowValue :>> ', rowValue)
 						switch (column.fieldTypeKind) {
 							case 2:
 								return (

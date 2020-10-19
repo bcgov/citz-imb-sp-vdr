@@ -18,7 +18,6 @@ export const AskQuestionDialog = ({
 	proponentName,
 	groupId,
 }) => {
-    console.log('listName :>> ', listName);
 	const [question, setQuestion] = useState('')
 	const [disableButtons, setDisableButtons] = useState(false)
 	const [showAlert, setShowAlert] = useState(false)

@@ -13,7 +13,6 @@ export const AskQuestion = async (
 	proponentName,
 	groupId,
 ) => {
-	console.log('listName :>> ', listName);
 	await AddItemsToList({
 		listName: listName,
 		items: {

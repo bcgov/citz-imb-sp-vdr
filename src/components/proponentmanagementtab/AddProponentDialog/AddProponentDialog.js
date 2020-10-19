@@ -96,7 +96,6 @@ export const AddProponentDialog = ({ open, closeDialog }) => {
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
 	const saveHandler = () => {
-		console.log('proponentName :>> ', proponentName.length)
 		if (proponentName.length > 0 && proponentName.length < 256) {
 			setDisableButtons(true)
 			addProponent(proponentName, enqueueSnackbar, roles, closeDialog)
