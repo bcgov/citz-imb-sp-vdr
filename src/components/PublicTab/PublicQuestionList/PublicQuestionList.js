@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { Grid, Paper } from '@material-ui/core'
-import { SPList, tableOptions, classes } from 'Components'
+import { SPTable, tableOptions, classes } from 'Components'
 
 export const PublicQuestionList = () => {
 	const listOptions = {
@@ -20,11 +20,7 @@ export const PublicQuestionList = () => {
 	return (
 		<Grid key={'Questions'} item xs={6}>
 			<Paper className={classes.paper}>
-				<SPList
-					isDirty={isDirty}
-					handleDirty={handleDirty}
-					{...listOptions}
-				/>
+				<SPTable {...listOptions} />
 			</Paper>
 		</Grid>
 	)

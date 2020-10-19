@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment, forwardRef } from 'react'
+import React, { useState, useEffect, Fragment, forwardRef,useContext } from 'react'
 import MaterialTable from 'material-table'
 import {
 	GetGroup,
@@ -7,12 +7,12 @@ import {
 	RemoveUsersFromGroup,
 } from 'citz-imb-sp-utilities'
 import { Paper } from '@material-ui/core'
-import { SPDialog, PeoplePicker, icons } from 'Components'
+import { SPDialog, PeoplePicker, icons,TableOptionsContext } from 'Components'
 
 export const SPGroup = ({
 	groupId,
 	addUser = true,
-	addUserCallback = () => {
+	addUsersCallback = () => {
 		console.warn('default addUserCallback')
 	},
 	removeUserCallback = () => {
@@ -34,6 +34,8 @@ export const SPGroup = ({
 	const [actions, setActions] = useState([])
 	const [isLoading, setIsLoading] = useState(true)
 	//const [users, setUsers] = useState([])
+	const tableOptions = useContext(TableOptionsContext)
+
 	let users = []
 
 	const [dialogParameters, setDialogParameters] = useState({ open: false })
@@ -50,14 +52,17 @@ export const SPGroup = ({
 	]
 	const handleAddUserCancel = () => setDialogParameters({ open: false })
 
-	const handleAddUserSave = () => {
+	const handleAddUserSave = async () => {
 		setIsLoading(true)
-		AddUsersToGroup({ groupId: groupId, loginName: users }).then(
-			(response) => {
-				refreshData()
-				addUserCallback(response)
-			}
-		)
+
+		const addUsersResponse = await AddUsersToGroup({
+			groupId: groupId,
+			loginName: users,
+		})
+
+		refreshData()
+		addUsersCallback(addUsersResponse)
+
 		setDialogParameters({ open: false })
 	}
 
@@ -173,7 +178,7 @@ export const SPGroup = ({
 				columns={columns}
 				data={data}
 				title={groupTitle}
-				options={options}
+				options={tableOptions}
 				actions={actions}
 				isLoading={isLoading}
 			/>

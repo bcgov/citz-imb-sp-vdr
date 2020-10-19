@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import MaterialTable from 'material-table'
-import { SPDialog, getListAndItems, icons } from 'Components'
+import { SPDialog, GetListAndItems, icons } from 'Components'
 import {
 	DialogContentText,
 	TextField,
@@ -46,7 +46,7 @@ export const SPList = ({
 	},
 	changeItemPermission = true,
 	customActions,
-	options,
+	tableOptions,
 	isDirty = true,
 	preLoad = false,
 	handleDirty = (dirty) => {
@@ -56,6 +56,7 @@ export const SPList = ({
 		console.warn(`handlePreLoad Default has been passed '${preLoad}'`)
 	},
 	tableTitle,
+	additionalData = (list) => { return list}
 }) => {
 	const [data, setData] = useState([])
 	const [columns, setColumns] = useState([])
@@ -141,6 +142,29 @@ export const SPList = ({
 		// 			fullWidth={true}
 		// 			margin='normal' />
 		// 	</DialogContentText>
+	}
+
+	const populateTable = async () => {
+		setIsLoading(true)
+
+		const list = await GetListAndItems(listName)
+
+		const listWithAdditions = await additionalData(list)
+
+		if (tableTitle) {
+			setTitle(tableTitle)
+		} else {
+			setTitle(listWithAdditions.title)
+		}
+		//console.log('list :>> ', list)
+		setColumns(listWithAdditions.columns)
+		setData(listWithAdditions.items)
+
+		handleDirty(false)
+
+		if (!preLoad) {
+			setIsLoading(false)
+		}
 	}
 
 	useEffect(() => {
@@ -235,27 +259,6 @@ export const SPList = ({
 		}
 		return () => {}
 	}, [])
-
-	const populateTable = async () => {
-		setIsLoading(true)
-
-		const list = await getListAndItems(listName)
-
-		if (tableTitle) {
-			setTitle(tableTitle)
-		} else {
-			setTitle(list.title)
-		}
-		//console.log('list :>> ', list)
-		setColumns(list.columns)
-		setData(list.items)
-
-		handleDirty(false)
-
-		if (!preLoad) {
-			setIsLoading(false)
-		}
-	}
 
 	useEffect(() => {
 		if (preLoad) {
@@ -390,7 +393,7 @@ export const SPList = ({
 				columns={columns}
 				data={data}
 				title={title}
-				options={options}
+				options={tableOptions}
 				actions={actions}
 				isLoading={isLoading}
 			/>

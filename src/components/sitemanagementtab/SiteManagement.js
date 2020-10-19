@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { getListAndItems, SPList, tableOptions, LogAction } from 'Components'
+import { GetListAndItems, SPList, tableOptions, LogAction } from 'Components'
 import {
 	Button,
 	Dialog,
@@ -33,7 +33,7 @@ export const SiteManagement = () => {
 	const [currentItem, setCurrentItem] = useState({})
 	const [dirty, setDirty] = useState(false)
 
-	const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
 	const getRender = (item) => {
 		switch (item.Key) {
@@ -253,13 +253,62 @@ export const SiteManagement = () => {
 						</DialogActions>
 					</Fragment>
 				)
+			case 'newQuestionEmail':
+				return (
+					<Fragment>
+						<DialogTitle>{item.Title}</DialogTitle>
+						<DialogContent>
+							<DialogContentText component='div'>
+								<p
+									dangerouslySetInnerHTML={{
+										__html: item.Instructions,
+									}}
+								/>
+							</DialogContentText>
+							<TextField
+								variant='outlined'
+								id='newQuestionEmail_subject'
+								label='Subject Line'
+								defaultValue={item.TextValue}
+								fullWidth={true}
+								margin='normal'
+								onChange={(props) => {
+									setTextValue(props.target.value)
+								}}
+							/>
+							<TextField
+								variant='outlined'
+								id='newQuestionEmail_body'
+								label='Body'
+								defaultValue={item.MultiTextValue}
+								multiline={true}
+								rows={6}
+								fullWidth={true}
+								margin='normal'
+								onChange={(props) => {
+									setMultiTextValue(props.target.value)
+								}}
+							/>
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={handleSave} color='primary'>
+								<div class='saveButton' data-item={item.Id}>
+									Save
+								</div>
+							</Button>
+							<Button onClick={handleClose} color='primary'>
+								Cancel
+							</Button>
+						</DialogActions>
+					</Fragment>
+				)
 			default:
 				return <div>Key not Found</div>
 		}
 	}
 
 	const getItems = async () => {
-		const list = await getListAndItems(listName)
+		const list = await GetListAndItems(listName)
 		setListItems(list.items)
 
 		let listObject = {}
@@ -301,8 +350,8 @@ export const SiteManagement = () => {
 			},
 		})
 		LogAction(`updated ${title} in config list`)
-		enqueueSnackbar(`updated ${title} in config list`,{
-			variant: 'success'
+		enqueueSnackbar(`updated ${title} in config list`, {
+			variant: 'success',
 		})
 		getItems()
 		setDialogOptions({ open: false })

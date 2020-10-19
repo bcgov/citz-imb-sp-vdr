@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Grid, Paper, TextField } from '@material-ui/core'
 
-import { SPList, tableOptions, classes ,AskQuestion} from 'Components'
+import { SPTable, tableOptions, classes ,AskQuestion} from 'Components'
 
 import { useSnackbar } from 'notistack'
 
@@ -72,9 +72,7 @@ export const ProponentQuestionList = ({ proponent, group }) => {
 	return (
 		<Grid key={`${proponent}QuestionList`} item xs={6}>
 			<Paper className={classes.paper}>
-				<SPList
-					isDirty={listIsDirty}
-					handleDirty={handleDirty}
+				<SPTable
 					{...questionOptions}
 				/>
 			</Paper>

@@ -11,7 +11,7 @@ export const SendQuestionConfirmationEmail = async (users, proponent) => {
 
     users.map((user) => {
 		SendConfirmationEmail(
-			user.Email,
+			user.LoginName,
 			proponent,
 			response[0].TextValue,
 			response[0].MultiTextValue,
