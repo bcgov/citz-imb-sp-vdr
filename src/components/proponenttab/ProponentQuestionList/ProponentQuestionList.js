@@ -9,20 +9,22 @@ export const ProponentQuestionList = ({ proponentId, groupId, proponentName }) =
 	const listName = `${proponentId}_Questions`
 
 	const [askQuestionDialog, setAskQuestionDialog] = useState(false)
-
+	const [refresh, setRefresh] = useState(true)
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
 	const closeDialog = () => {
 		setAskQuestionDialog(false)
+		setRefresh(!refresh)
 	}
 
 	const questionOptions = {
 		listName: listName,
 		tableTitle: 'Our Submitted Questions',
 		options: tableOptions,
+		deleteItem: false,
 		addItem: false,
 		editItem: false,
-		changeItemPermission: false,
+		changeItemPermissions: false,
 		customActions: [
 			{
 				icon: icons.Add,
@@ -39,7 +41,7 @@ export const ProponentQuestionList = ({ proponentId, groupId, proponentName }) =
 		<Fragment>
 			<Grid key={`${proponentId}QuestionList`} item xs={6}>
 				<Paper className={classes.paper}>
-					<SPTable {...questionOptions} />
+					<SPTable {...questionOptions} refresh={refresh} />
 				</Paper>
 			</Grid>
 			<AskQuestionDialog
