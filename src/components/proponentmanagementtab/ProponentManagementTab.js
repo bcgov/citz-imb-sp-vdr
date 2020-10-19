@@ -89,8 +89,6 @@ export const ProponentManagementTab = () => {
 		const proponentQuestionID = event.currentTarget.dataset.id
 		const proponentList = event.currentTarget.dataset.list
 
-		console.log('proponentQuestionID', proponentQuestionID)
-		console.log('proponentList :>> ', proponentList)
 	}
 
 	const additionalQuestionData = async (list) => {
@@ -112,7 +110,6 @@ export const ProponentManagementTab = () => {
 							</Button>
 						)
 					} else {
-						console.log('rowdata :>> ', rowdata)
 						return <Button color='secondary'>View Answer</Button>
 					}
 				}
@@ -216,6 +213,7 @@ export const ProponentManagementTab = () => {
 				//				onClickCallback={onClickCallback}
 				customActions={customActions}
 				refresh={refreshTable}
+				additionalData={additionalProponentData}
 			/>
 			<ProponentLibraryDialog
 				open={proponentLibraryDialog}

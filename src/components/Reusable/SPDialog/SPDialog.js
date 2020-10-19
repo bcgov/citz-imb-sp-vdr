@@ -38,7 +38,7 @@ export const SPDialog = ({
 			open={open}
 			onClose={cancelButtonAction}
 			fullWidth={true}
-			maxWidth={'lg'}>
+			maxWidth={'md'}>
 			<DialogTitle id='form-dialog-title'>{title}</DialogTitle>
 			<DialogContent>{content}</DialogContent>
 			{isLoading ? (

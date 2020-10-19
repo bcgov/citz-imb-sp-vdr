@@ -57,6 +57,7 @@ export const SPTable = ({
 	},
 	refresh = false,
 	tableTitle,
+	additionalData = (list) => { return list}
 }) => {
 	const [tableState, tableDispatch] = useReducer(
 		tableReducer,
@@ -100,7 +101,9 @@ export const SPTable = ({
 	const getListAndItems = async () => {
 		try {
 			const listAndItems = await GetListAndItems(listName)
-			tableDispatch({ type: 'FETCH_SUCCESS', ...listAndItems })
+			const listWithAdditions = await additionalData(listAndItems)
+
+			tableDispatch({ type: 'FETCH_SUCCESS', ...listWithAdditions })
 			if (tableTitle)
 				tableDispatch({ type: 'CUSTOM_TITLE', title: tableTitle })
 		} catch (error) {
