@@ -11,12 +11,7 @@ export const PublicLibrary = () => {
 		addItem: false,
 		deleteItem: false,
 		editItem: false,
-		changeItemPermission: false,
-	}
-
-	const [isDirty, setIsDirty] = useState(true)
-	const handleDirty = (newDirty) => {
-		setIsDirty(newDirty)
+		changeItemPermissions: false,
 	}
 
 	return (

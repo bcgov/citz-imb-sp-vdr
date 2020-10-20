@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
 	Dialog,
 	DialogTitle,
@@ -7,7 +7,13 @@ import {
 	Button,
 } from '@material-ui/core'
 import { useSnackbar } from 'notistack'
-import { SPGroup, LogAction, SendAddUserConfirmationEmail } from 'Components'
+import {
+	SPDialog,
+	SPGroup,
+	LogAction,
+	SendAddUserConfirmationEmail,
+	DialogOptionsContext,
+} from 'Components'
 
 export const AddUserDialog = ({
 	open,
@@ -16,11 +22,10 @@ export const AddUserDialog = ({
 	proponentName,
 }) => {
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
-
 	const saveHandler = () => {
 		enqueueSnackbar('')
 	}
-	const cancelHandler = () => {
+	const cancelAction = () => {
 		closeDialog()
 	}
 
@@ -44,21 +49,19 @@ export const AddUserDialog = ({
 	}
 
 	return (
-		<Dialog
+		<SPDialog
 			open={open}
-			maxWidth={'md'}>
-			<DialogTitle id='form-dialog-title'>Manage Users</DialogTitle>
-			<DialogContent>
-				<SPGroup
-					groupId={groupId}
-					addUsersCallback={addUserCallback}
-					removeUserCallback={removeUserCallback}
-					editGroup={false}
-				/>
-			</DialogContent>
-			<DialogActions>
-				<Button onClick={cancelHandler}>Close</Button>
-			</DialogActions>
-		</Dialog>
+			title={`Manage Users for ${proponentName}`}
+			showSave={false}
+			cancelButtonAction={cancelAction}
+			fullScreen={true}
+			>
+			<SPGroup
+				groupId={groupId}
+				addUsersCallback={addUserCallback}
+				removeUserCallback={removeUserCallback}
+				editGroup={false}
+			/>
+		</SPDialog>
 	)
 }

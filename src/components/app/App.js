@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import { deviceDetect } from 'react-device-detect'
 import { SnackbarProvider } from 'notistack'
@@ -6,9 +6,12 @@ import { SnackbarProvider } from 'notistack'
 import { Test } from './Test'
 
 import './App.css'
-import { LogAction, TermsOfService, TableOptionsContext } from 'Components'
-
-
+import {
+	LogAction,
+	TermsOfService,
+	TableOptionsContext,
+	DialogOptionsContext,
+} from 'Components'
 
 export const App = () => {
 	const theme = createMuiTheme({
@@ -31,6 +34,11 @@ export const App = () => {
 		actionsColumnIndex: -1,
 	}
 
+	const dialogOptions = {
+		maxWidth: 'xs',
+		fullScreen: true
+	}
+
 	useEffect(() => {
 		const device = deviceDetect()
 		LogAction(
@@ -41,17 +49,19 @@ export const App = () => {
 
 	return (
 		<TableOptionsContext.Provider value={tableOptions}>
-			<MuiThemeProvider theme={theme}>
-				<SnackbarProvider
-					dense
-					anchorOrigin={{
-						vertical: 'bottom',
-						horizontal: 'right',
-					}}>
-					<TermsOfService />
-					{/* <Test /> */}
-				</SnackbarProvider>
-			</MuiThemeProvider>
+			<DialogOptionsContext.Provider value={dialogOptions}>
+				<MuiThemeProvider theme={theme}>
+					<SnackbarProvider
+						dense
+						anchorOrigin={{
+							vertical: 'bottom',
+							horizontal: 'right',
+						}}>
+						<TermsOfService />
+						{/* <Test>Fred</Test> */}
+					</SnackbarProvider>
+				</MuiThemeProvider>
+			</DialogOptionsContext.Provider>
 		</TableOptionsContext.Provider>
 	)
 }

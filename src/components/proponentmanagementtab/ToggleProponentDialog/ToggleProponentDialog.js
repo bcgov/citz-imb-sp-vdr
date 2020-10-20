@@ -1,47 +1,48 @@
 import React from 'react'
-import {
-	Dialog,
-	DialogTitle,
-	DialogContent,
-	DialogActions,
-	Button,
-} from '@material-ui/core'
-import { LogAction, ToggleProponent } from 'Components'
+import { SPDialog,LogAction, ToggleProponent } from 'Components'
 import { useSnackbar } from 'notistack'
 import { Alert } from '@material-ui/lab'
 
-export const ToggleProponentDialog = ({ open, closeDialog, active, proponentName, groupId, proponentItemId, proponentId }) => {
+export const ToggleProponentDialog = ({
+	open,
+	closeDialog,
+	active,
+	proponentName,
+	groupId,
+	proponentItemId,
+	proponentId,
+}) => {
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
-	const saveHandler = async () => {
-        await ToggleProponent(active, groupId, proponentItemId, proponentId, enqueueSnackbar)
-        LogAction(
-            `set ${proponentName} to ${
-                active ? 'inactive' : 'active'
-            }`
-        )
-        enqueueSnackbar(
-            `set ${proponentName} to ${
-                active ? 'inactive' : 'active'
-            }`,
-            {
-                variant: 'warning',
-            }
-        )
-        closeDialog()
+	const saveAction = async () => {
+		await ToggleProponent(
+			active,
+			groupId,
+			proponentItemId,
+			proponentId,
+			enqueueSnackbar
+		)
+		LogAction(`set ${proponentName} to ${active ? 'inactive' : 'active'}`)
+		enqueueSnackbar(
+			`set ${proponentName} to ${active ? 'inactive' : 'active'}`,
+			{
+				variant: 'warning',
+			}
+		)
+		closeDialog()
 	}
 
-	const cancelHandler = () => {
+	const cancelAction = () => {
 		closeDialog()
 	}
 
 	return (
-		<Dialog
+		<SPDialog
 			open={open}
-			//onClose={cancelButtonAction}
-			maxWidth={'md'}>
-			<DialogTitle id='form-dialog-title'>Toggle {proponentName}</DialogTitle>
-			<DialogContent>
+			title={`Toggle ${proponentName}`}
+			saveButtonText={active ? 'Set Inactive' : 'Set Active'}
+			saveButtonAction={saveAction}
+			cancelButtonAction={cancelAction}>
 				{active ? (
 					<Alert severity='error'>
 						Proponent Group will be deleted; member users will
@@ -53,15 +54,6 @@ export const ToggleProponentDialog = ({ open, closeDialog, active, proponentName
 						need to manually add users.
 					</Alert>
 				)}
-			</DialogContent>
-			<DialogActions>
-				<Button onClick={saveHandler} >
-					{active ? 'Set Inactive' : 'Set Active'}
-				</Button>
-				<Button onClick={cancelHandler} >
-					Cancel
-				</Button>
-			</DialogActions>
-		</Dialog>
+		</SPDialog>
 	)
 }

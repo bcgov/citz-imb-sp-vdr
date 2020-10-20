@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { TextField, Button } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
+import { Button } from '@material-ui/core'
 import ToggleOnIcon from '@material-ui/icons/ToggleOn'
 import ToggleOffIcon from '@material-ui/icons/ToggleOff'
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks'
@@ -10,21 +9,14 @@ import PeopleIcon from '@material-ui/icons/People'
 import { green, red } from '@material-ui/core/colors'
 import {
 	SPTable,
-	SPList,
 	AddUserDialog,
-	LogAction,
 	icons,
-	SPDialog,
 	ToggleProponentDialog,
 	AddProponentDialog,
-	SPGroup,
-	SendAddUserConfirmationEmail,
-	tableOptions,
 	ProponentLibraryDialog,
 	ProponentQuestionDialog,
 } from 'Components'
-import { GetRoleDefinitions, GetListItems } from 'citz-imb-sp-utilities'
-import { useSnackbar } from 'notistack'
+import { GetListItems } from 'citz-imb-sp-utilities'
 
 export const ProponentManagementTab = () => {
 	const listName = 'Proponents'
@@ -44,7 +36,6 @@ export const ProponentManagementTab = () => {
 	const [currentProponentItemId, setCurrentProponentItemId] = useState()
 
 	const [refreshTable, setRefreshTable] = useState(true)
-	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
 	const handleCloseProponentDialog = () => {
 		setRefreshTable(!refreshTable)

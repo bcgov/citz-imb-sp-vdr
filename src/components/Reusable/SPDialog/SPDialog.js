@@ -6,28 +6,30 @@ import {
 	DialogActions,
 	Button,
 } from '@material-ui/core'
-import CircularProgress from '@material-ui/core/CircularProgress'
 
-export const SPDialog = ({
-	open,
-	title,
-	content = 'content',
-	showSave = true,
-	saveButtonText = 'Save',
-	saveButtonAction = () => {
-		console.warn('default save action')
-	},
-	cancelButtonText = 'Cancel',
-	cancelButtonAction = () => {
-		console.warn('default cancel action')
-	},
-}) => {
-	const [isLoading, setIsLoading] = useState(false)
+export const SPDialog = (props) => {
+	const {
+		open,
+		title,
+		children,
+		showSave = true,
+		saveButtonText = 'Save',
+		saveButtonAction = () => {
+			console.warn('default save action')
+		},
+		cancelButtonText = 'Cancel',
+		cancelButtonAction = () => {
+			console.warn('default cancel action')
+		},
+		...otherProps
+	 } = props
+
 	const [disableButtons, setDisableButtons] = useState(false)
 
-	const saveHandler = () => {
+	const saveHandler = async () => {
 		setDisableButtons(true)
-		saveButtonAction()
+		await saveButtonAction()
+		setDisableButtons(false)
 	}
 	const cancelHandler = () => {
 		cancelButtonAction()
@@ -38,23 +40,21 @@ export const SPDialog = ({
 			open={open}
 			onClose={cancelButtonAction}
 			fullWidth={true}
-			maxWidth={'md'}>
+			maxWidth={'md'}
+			{...otherProps}
+			>
 			<DialogTitle id='form-dialog-title'>{title}</DialogTitle>
-			<DialogContent>{content}</DialogContent>
-			{isLoading ? (
-				<DialogActions>
-					<CircularProgress />
-				</DialogActions>
-			) : (
-				<DialogActions>
+			<DialogContent>{children}</DialogContent>
+			<DialogActions>
+				{showSave ? (
 					<Button onClick={saveHandler} disabled={disableButtons}>
 						{saveButtonText}
 					</Button>
-					<Button onClick={cancelHandler} disabled={disableButtons}>
-						{cancelButtonText}
-					</Button>
-				</DialogActions>
-			)}
+				) : null}
+				<Button onClick={cancelHandler} disabled={disableButtons}>
+					{cancelButtonText}
+				</Button>
+			</DialogActions>
 		</Dialog>
 	)
 }

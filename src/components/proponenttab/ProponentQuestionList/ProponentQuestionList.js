@@ -3,14 +3,11 @@ import { Grid, Paper } from '@material-ui/core'
 
 import { SPTable, tableOptions, classes, AskQuestionDialog, icons } from 'Components'
 
-import { useSnackbar } from 'notistack'
-
 export const ProponentQuestionList = ({ proponentId, groupId, proponentName }) => {
 	const listName = `${proponentId}_Questions`
 
 	const [askQuestionDialog, setAskQuestionDialog] = useState(false)
 	const [refresh, setRefresh] = useState(true)
-	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
 	const closeDialog = () => {
 		setAskQuestionDialog(false)

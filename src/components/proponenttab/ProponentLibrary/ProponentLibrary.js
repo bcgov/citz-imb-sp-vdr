@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Paper } from '@material-ui/core'
 
-import { SPTable, LogAction, tableOptions, classes } from 'Components'
+import { SPTable, classes } from 'Components'
 
 export const ProponentLibrary = ({ proponent }) => {
 	const libraryOptions = {

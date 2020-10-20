@@ -1,27 +1,28 @@
 import React from 'react'
-import {Dialog, DialogTitle, DialogContent, DialogActions, Button} from '@material-ui/core'
-import {SPTable} from 'Components'
+import { SPDialog, SPTable } from 'Components'
 
-export const ProponentQuestionDialog = ({proponentName, open, listName, closeDialog}) => {
-    return (
-        <Dialog
+export const ProponentQuestionDialog = ({
+	proponentName,
+	open,
+	listName,
+	closeDialog,
+}) => {
+	return (
+		<SPDialog
 			open={open}
-			//onClose={cancelButtonAction}
-			maxWidth={'lg'}>
-			<DialogTitle id='form-dialog-title'>{proponentName} Questions</DialogTitle>
-			<DialogContent>
-                <SPTable
-                listName={listName}
+			title={proponentName}
+			showSave={false}
+			cancelButtonText={'Close'}
+			cancelButtonAction={closeDialog}
+			fullScreen={true}>
+			<SPTable
+				listName={listName}
+				tableTitle={'Questions'}
 				addItem={false}
 				deleteItem={false}
 				editItem={false}
 				changeItemPermissions={false}
-				//				onClickCallback={onClickCallback}
-                />
-			</DialogContent>
-			<DialogActions>
-				<Button onClick={closeDialog}>Close</Button>
-			</DialogActions>
-		</Dialog>
-    )
+			/>
+		</SPDialog>
+	)
 }
