@@ -39,6 +39,7 @@ export const ProponentQuestionDialog = ({
 					},
 					tooltip: 'Submit Answer',
 					onClick: (event, rowdata) => {
+						console.log('rowdata :>> ', rowdata);
 						setQuestion(rowdata.Title)
 						setQuestionId(rowdata.Id)
 						setAnswerDialog(true)
@@ -91,6 +92,7 @@ export const ProponentQuestionDialog = ({
 				listName={listName}
 				questionId={questionId}
 				question={question}
+				proponentName={proponentName}
 			/>
 			<ViewQuestionDialog />
 		</Fragment>

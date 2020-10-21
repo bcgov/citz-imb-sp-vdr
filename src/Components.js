@@ -62,6 +62,8 @@ export { ProponentQuestionDialog } from 'components/ProponentManagementTab/Propo
 export { AnswerQuestionDialog } from 'components/ProponentManagementTab/ProponentQuestionDialog/AnswerQuestionDialog/AnswerQuestionDialog'
 export { AnswerQuestion } from 'components/ProponentManagementTab/ProponentQuestionDialog/AnswerQuestionDialog/AnswerQuestion/AnswerQuestion'
 export { ViewQuestionDialog } from 'components/ProponentManagementTab/ProponentQuestionDialog/ViewQuestionDialog/ViewQuestionDialog'
+export { SendPublicAnswerEmail } from 'components/ProponentManagementTab/ProponentQuestionDialog/AnswerQuestionDialog/AnswerQuestion/SendPublicAnswerEmail/SendPublicAnswerEmail'
+export { GetAllProponentUsers } from 'components/ProponentManagementTab/ProponentQuestionDialog/AnswerQuestionDialog/AnswerQuestion/SendPublicAnswerEmail/GetAllProponentUsers/GetAllProponentUsers'
 
 export { SendAddUserConfirmationEmail } from 'components/ProponentManagementTab/SendAddUserConfirmationEmail/SendAddUserConfirmationEmail'
 

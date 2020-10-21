@@ -10,8 +10,8 @@ export const AnswerQuestionDialog = ({
 	listName,
 	questionId,
 	question,
+	proponentName
 }) => {
-
 	const [validationAlert, setValidationAlert] = useState(false)
 	const [sanitizedQuestion, setSanitizedQuestion] = useState(question)
 	const [answer, setAnswer] = useState('')
@@ -30,7 +30,8 @@ export const AnswerQuestionDialog = ({
 				sanitizedQuestion,
 				answer,
 				listName,
-				questionId
+				questionId,
+				proponentName
 			)
 
 			close()
@@ -40,9 +41,9 @@ export const AnswerQuestionDialog = ({
 	}
 
 	useEffect(() => {
-		console.log('sanitizedQuestion :>> ', sanitizedQuestion);
+		setSanitizedQuestion(question)
 		return () => {}
-	}, [sanitizedQuestion])
+	}, [question])
 
 	return (
 		<SPDialog
