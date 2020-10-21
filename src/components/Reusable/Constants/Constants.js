@@ -13,7 +13,6 @@ export const tableOptions = {
 }
 
 export const TableOptionsContext = React.createContext()
-export const DialogOptionsContext = React.createContext()
 
 export const classes = makeStyles((theme) => ({
 	root: {

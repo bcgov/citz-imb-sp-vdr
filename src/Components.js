@@ -59,6 +59,9 @@ export { AddUserDialog } from 'components/ProponentManagementTab/AddUserDialog/A
 export { ProponentLibraryDialog } from 'components/ProponentManagementTab/ProponentLibraryDialog/ProponentLibraryDialog'
 export { ProponentManagementTab } from 'components/ProponentManagementTab/ProponentManagementTab'
 export { ProponentQuestionDialog } from 'components/ProponentManagementTab/ProponentQuestionDialog/ProponentQuestionDialog'
+export { AnswerQuestionDialog } from 'components/ProponentManagementTab/ProponentQuestionDialog/AnswerQuestionDialog/AnswerQuestionDialog'
+export { AnswerQuestion } from 'components/ProponentManagementTab/ProponentQuestionDialog/AnswerQuestionDialog/AnswerQuestion/AnswerQuestion'
+export { ViewQuestionDialog } from 'components/ProponentManagementTab/ProponentQuestionDialog/ViewQuestionDialog/ViewQuestionDialog'
 
 export { SendAddUserConfirmationEmail } from 'components/ProponentManagementTab/SendAddUserConfirmationEmail/SendAddUserConfirmationEmail'
 

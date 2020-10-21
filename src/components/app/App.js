@@ -10,7 +10,6 @@ import {
 	LogAction,
 	TermsOfService,
 	TableOptionsContext,
-	DialogOptionsContext,
 } from 'Components'
 
 export const App = () => {
@@ -34,11 +33,6 @@ export const App = () => {
 		actionsColumnIndex: -1,
 	}
 
-	const dialogOptions = {
-		maxWidth: 'xs',
-		fullScreen: true
-	}
-
 	useEffect(() => {
 		const device = deviceDetect()
 		LogAction(
@@ -49,7 +43,6 @@ export const App = () => {
 
 	return (
 		<TableOptionsContext.Provider value={tableOptions}>
-			<DialogOptionsContext.Provider value={dialogOptions}>
 				<MuiThemeProvider theme={theme}>
 					<SnackbarProvider
 						dense
@@ -57,11 +50,10 @@ export const App = () => {
 							vertical: 'bottom',
 							horizontal: 'right',
 						}}>
-						<TermsOfService />
-						{/* <Test>Fred</Test> */}
+						{/* <TermsOfService /> */}
+						<Test>Fred</Test>
 					</SnackbarProvider>
 				</MuiThemeProvider>
-			</DialogOptionsContext.Provider>
 		</TableOptionsContext.Provider>
 	)
 }
