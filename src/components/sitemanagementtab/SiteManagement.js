@@ -1,16 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { GetListAndItems, SPList, LogAction } from 'Components'
-import {
-	Button,
-	Dialog,
-	DialogTitle,
-	DialogActions,
-	DialogContent,
-	DialogContentText,
-	ListItem,
-	TextField,
-	List,
-} from '@material-ui/core'
+import { GetListAndItems, SPTable, SPDialog, LogAction } from 'Components'
+import { DialogContentText, ListItem, TextField, List } from '@material-ui/core'
 
 import { UpdateListItem } from 'citz-imb-sp-utilities'
 import { useSnackbar } from 'notistack'
@@ -30,7 +20,6 @@ export const SiteManagement = () => {
 	const [yesNoValue, setYesNoValue] = useState()
 	const [groupValue, setGroupValue] = useState()
 	const [instructions, setInstructions] = useState()
-	const [currentItem, setCurrentItem] = useState({})
 	const [dirty, setDirty] = useState(false)
 
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
@@ -40,265 +29,227 @@ export const SiteManagement = () => {
 			case 'TOS':
 				return (
 					<Fragment>
-						<DialogTitle>{item.Title}</DialogTitle>
-						<DialogContent>
-							<DialogContentText component='div'>
-								<p
-									dangerouslySetInnerHTML={{
-										__html: item.Instructions,
-									}}
-								/>
-							</DialogContentText>
-							<TextField
-								id='TOS_Title'
-								label='Title'
-								defaultValue={item.TextValue}
-								fullWidth={true}
-								onChange={(props) => {
-									setTextValue(props.target.value)
+						<DialogContentText component='div'>
+							<p
+								dangerouslySetInnerHTML={{
+									__html: item.Instructions,
 								}}
 							/>
-							<TextField
-								id='TOS_Days'
-								label='Days until TOS Prompt'
-								defaultValue={item.NumberValue}
-								fullWidth={true}
-								onChange={(props) => {
-									setNumberValue(props.target.value)
-								}}
-							/>
-							<TextField
-								variant='outlined'
-								id='TOS_body'
-								label='Body'
-								defaultValue={item.MultiTextValue}
-								multiline={true}
-								rows={6}
-								fullWidth={true}
-								margin='normal'
-								onChange={(props) => {
-									setMultiTextValue(props.target.value)
-								}}
-							/>
-						</DialogContent>
-						<DialogActions>
-							<Button
-								data-item={item}
-								onClick={handleSave}
-								color='primary'>
-								Save
-							</Button>
-							<Button onClick={handleClose} color='primary'>
-								Cancel
-							</Button>
-						</DialogActions>
+						</DialogContentText>
+						<TextField
+							id='TOS_Title'
+							label='Title'
+							defaultValue={item.TextValue}
+							fullWidth={true}
+							onChange={(props) => {
+								setTextValue(props.target.value)
+							}}
+						/>
+						<TextField
+							id='TOS_Days'
+							label='Days until TOS Prompt'
+							defaultValue={item.NumberValue}
+							fullWidth={true}
+							onChange={(props) => {
+								setNumberValue(props.target.value)
+							}}
+						/>
+						<TextField
+							variant='outlined'
+							id='TOS_body'
+							label='Body'
+							defaultValue={item.MultiTextValue}
+							multiline={true}
+							rows={6}
+							fullWidth={true}
+							margin='normal'
+							onChange={(props) => {
+								setMultiTextValue(props.target.value)
+							}}
+						/>
 					</Fragment>
 				)
 			case 'addUserEmail':
 				return (
 					<Fragment>
-						<DialogTitle>{item.Title}</DialogTitle>
-						<DialogContent>
-							<DialogContentText component='div'>
-								<p
-									dangerouslySetInnerHTML={{
-										__html: item.Instructions,
-									}}
-								/>
-							</DialogContentText>
-							<TextField
-								variant='outlined'
-								id='adduseremail_subject'
-								label='Subject Line'
-								defaultValue={item.TextValue}
-								fullWidth={true}
-								margin='normal'
-								onChange={(props) => {
-									setTextValue(props.target.value)
+						<DialogContentText component='div'>
+							<p
+								dangerouslySetInnerHTML={{
+									__html: item.Instructions,
 								}}
 							/>
-							<TextField
-								variant='outlined'
-								id='adduseremail_body'
-								label='Body'
-								defaultValue={item.MultiTextValue}
-								multiline={true}
-								rows={6}
-								fullWidth={true}
-								margin='normal'
-								onChange={(props) => {
-									setMultiTextValue(props.target.value)
-								}}
-							/>
-						</DialogContent>
-						<DialogActions>
-							<Button onClick={handleSave} color='primary'>
-								<div class='saveButton' data-item={item.Id}>
-									Save
-								</div>
-							</Button>
-							<Button onClick={handleClose} color='primary'>
-								Cancel
-							</Button>
-						</DialogActions>
+						</DialogContentText>
+						<TextField
+							variant='outlined'
+							id='adduseremail_subject'
+							label='Subject Line'
+							defaultValue={item.TextValue}
+							fullWidth={true}
+							margin='normal'
+							onChange={(props) => {
+								setTextValue(props.target.value)
+							}}
+						/>
+						<TextField
+							variant='outlined'
+							id='adduseremail_body'
+							label='Body'
+							defaultValue={item.MultiTextValue}
+							multiline={true}
+							rows={6}
+							fullWidth={true}
+							margin='normal'
+							onChange={(props) => {
+								setMultiTextValue(props.target.value)
+							}}
+						/>
 					</Fragment>
 				)
 			case 'contactemail':
 				return (
 					<Fragment>
-						<DialogTitle>{item.Title}</DialogTitle>
-						<DialogContent>
-							<DialogContentText component='div'>
-								<div
-									dangerouslySetInnerHTML={{
-										__html: item.Instructions,
-									}}></div>
-							</DialogContentText>
-							<TextField
-								id='contactemail'
-								label='Contact Email'
-								defaultValue={item.TextValue}
-								fullWidth={true}
-								onChange={(props) => {
-									setTextValue(props.target.value)
-								}}
-							/>
-						</DialogContent>
-						<DialogActions>
-							<Button
-								data-item={item}
-								onClick={handleSave}
-								color='primary'>
-								Save
-							</Button>
-							<Button onClick={handleClose} color='primary'>
-								Cancel
-							</Button>
-						</DialogActions>
+						<DialogContentText component='div'>
+							<div
+								dangerouslySetInnerHTML={{
+									__html: item.Instructions,
+								}}></div>
+						</DialogContentText>
+						<TextField
+							id='contactemail'
+							label='Contact Email'
+							defaultValue={item.TextValue}
+							fullWidth={true}
+							onChange={(props) => {
+								setTextValue(props.target.value)
+							}}
+						/>
 					</Fragment>
 				)
 			case 'ActivityLog':
 				return (
 					<Fragment>
-						<DialogTitle>{item.Title}</DialogTitle>
-						<DialogContent>
-							<DialogContentText>
-								<div
-									dangerouslySetInnerHTML={{
-										__html: item.Instructions,
-									}}></div>
-							</DialogContentText>
-							<SPList
-								listName={'ActivityLog'}
-								addItem={false}
-								deleteItem={false}
-								editItem={false}
-								changeItemPermission={false}
-							/>
-						</DialogContent>
-						<DialogActions>
-							<Button onClick={handleClose} color='primary'>
-								Close
-							</Button>
-						</DialogActions>
+						<DialogContentText>
+							<div
+								dangerouslySetInnerHTML={{
+									__html: item.Instructions,
+								}}></div>
+						</DialogContentText>
+						<SPTable
+							listName={'ActivityLog'}
+							addItem={false}
+							deleteItem={false}
+							editItem={false}
+							changeItemPermissions={false}
+							options={{search: true}}
+						/>
 					</Fragment>
 				)
 			case 'addQuestionEmail':
 				return (
 					<Fragment>
-						<DialogTitle>{item.Title}</DialogTitle>
-						<DialogContent>
-							<DialogContentText component='div'>
-								<p
-									dangerouslySetInnerHTML={{
-										__html: item.Instructions,
-									}}
-								/>
-							</DialogContentText>
-							<TextField
-								variant='outlined'
-								id='addQuestionEmail_subject'
-								label='Subject Line'
-								defaultValue={item.TextValue}
-								fullWidth={true}
-								margin='normal'
-								onChange={(props) => {
-									setTextValue(props.target.value)
+						<DialogContentText component='div'>
+							<p
+								dangerouslySetInnerHTML={{
+									__html: item.Instructions,
 								}}
 							/>
-							<TextField
-								variant='outlined'
-								id='addQuestionEmail_body'
-								label='Body'
-								defaultValue={item.MultiTextValue}
-								multiline={true}
-								rows={6}
-								fullWidth={true}
-								margin='normal'
-								onChange={(props) => {
-									setMultiTextValue(props.target.value)
-								}}
-							/>
-						</DialogContent>
-						<DialogActions>
-							<Button onClick={handleSave} color='primary'>
-								<div class='saveButton' data-item={item.Id}>
-									Save
-								</div>
-							</Button>
-							<Button onClick={handleClose} color='primary'>
-								Cancel
-							</Button>
-						</DialogActions>
+						</DialogContentText>
+						<TextField
+							variant='outlined'
+							id='addQuestionEmail_subject'
+							label='Subject Line'
+							defaultValue={item.TextValue}
+							fullWidth={true}
+							margin='normal'
+							onChange={(props) => {
+								setTextValue(props.target.value)
+							}}
+						/>
+						<TextField
+							variant='outlined'
+							id='addQuestionEmail_body'
+							label='Body'
+							defaultValue={item.MultiTextValue}
+							multiline={true}
+							rows={6}
+							fullWidth={true}
+							margin='normal'
+							onChange={(props) => {
+								setMultiTextValue(props.target.value)
+							}}
+						/>
 					</Fragment>
 				)
 			case 'newQuestionEmail':
 				return (
 					<Fragment>
-						<DialogTitle>{item.Title}</DialogTitle>
-						<DialogContent>
-							<DialogContentText component='div'>
-								<p
-									dangerouslySetInnerHTML={{
-										__html: item.Instructions,
-									}}
-								/>
-							</DialogContentText>
-							<TextField
-								variant='outlined'
-								id='newQuestionEmail_subject'
-								label='Subject Line'
-								defaultValue={item.TextValue}
-								fullWidth={true}
-								margin='normal'
-								onChange={(props) => {
-									setTextValue(props.target.value)
+						<DialogContentText component='div'>
+							<p
+								dangerouslySetInnerHTML={{
+									__html: item.Instructions,
 								}}
 							/>
-							<TextField
-								variant='outlined'
-								id='newQuestionEmail_body'
-								label='Body'
-								defaultValue={item.MultiTextValue}
-								multiline={true}
-								rows={6}
-								fullWidth={true}
-								margin='normal'
-								onChange={(props) => {
-									setMultiTextValue(props.target.value)
+						</DialogContentText>
+						<TextField
+							variant='outlined'
+							id='newQuestionEmail_subject'
+							label='Subject Line'
+							defaultValue={item.TextValue}
+							fullWidth={true}
+							margin='normal'
+							onChange={(props) => {
+								setTextValue(props.target.value)
+							}}
+						/>
+						<TextField
+							variant='outlined'
+							id='newQuestionEmail_body'
+							label='Body'
+							defaultValue={item.MultiTextValue}
+							multiline={true}
+							rows={6}
+							fullWidth={true}
+							margin='normal'
+							onChange={(props) => {
+								setMultiTextValue(props.target.value)
+							}}
+						/>
+					</Fragment>
+				)
+			case 'newAnswerEmail':
+				return (
+					<Fragment>
+						<DialogContentText component='div'>
+							<p
+								dangerouslySetInnerHTML={{
+									__html: item.Instructions,
 								}}
 							/>
-						</DialogContent>
-						<DialogActions>
-							<Button onClick={handleSave} color='primary'>
-								<div class='saveButton' data-item={item.Id}>
-									Save
-								</div>
-							</Button>
-							<Button onClick={handleClose} color='primary'>
-								Cancel
-							</Button>
-						</DialogActions>
+						</DialogContentText>
+						<TextField
+							variant='outlined'
+							id='newQuestionEmail_subject'
+							label='Subject Line'
+							defaultValue={item.TextValue}
+							fullWidth={true}
+							margin='normal'
+							onChange={(props) => {
+								setTextValue(props.target.value)
+							}}
+						/>
+						<TextField
+							variant='outlined'
+							id='newQuestionEmail_body'
+							label='Body'
+							defaultValue={item.MultiTextValue}
+							multiline={true}
+							rows={6}
+							fullWidth={true}
+							margin='normal'
+							onChange={(props) => {
+								setMultiTextValue(props.target.value)
+							}}
+						/>
 					</Fragment>
 				)
 			default:
@@ -423,8 +374,14 @@ export const SiteManagement = () => {
 					divider>
 					View Activity Log
 				</ListItem>
-				<Dialog {...dialogOptions}>{dialogOptions.content}</Dialog>
 			</List>
+			<SPDialog
+				open={dialogOptions.open}
+				title={dialogOptions.title}
+				saveButtonAction={handleSave}
+				cancelButtonAction={handleClose}>
+				{dialogOptions.content}
+			</SPDialog>
 		</Fragment>
 	)
 }
