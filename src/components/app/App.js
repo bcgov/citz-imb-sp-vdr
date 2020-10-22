@@ -24,14 +24,6 @@ export const App = () => {
 		},
 	})
 
-	const tableOptions = {
-		search: false,
-		sorting: false,
-		paging: false,
-		pageSize: 20,
-		draggable: false,
-		actionsColumnIndex: -1,
-	}
 
 	useEffect(() => {
 		const device = deviceDetect()
@@ -42,7 +34,6 @@ export const App = () => {
 	}, [])
 
 	return (
-		<TableOptionsContext.Provider value={tableOptions}>
 				<MuiThemeProvider theme={theme}>
 					<SnackbarProvider
 						dense
@@ -50,10 +41,9 @@ export const App = () => {
 							vertical: 'bottom',
 							horizontal: 'right',
 						}}>
-						{/* <TermsOfService /> */}
-						<Test>Fred</Test>
+						<TermsOfService />
+						{/* <Test>Fred</Test> */}
 					</SnackbarProvider>
 				</MuiThemeProvider>
-		</TableOptionsContext.Provider>
 	)
 }

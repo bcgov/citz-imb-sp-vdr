@@ -47,11 +47,11 @@ export const SPDialog = (props) => {
 			<DialogContent>{children}</DialogContent>
 			<DialogActions>
 				{showSave ? (
-					<Button onClick={saveHandler} disabled={disableButtons}>
+					<Button onClick={saveHandler} disabled={disableButtons} variant={"contained"}>
 						{saveButtonText}
 					</Button>
 				) : null}
-				<Button onClick={cancelHandler} disabled={disableButtons}>
+				<Button onClick={cancelHandler} disabled={disableButtons} variant={"contained"}>
 					{cancelButtonText}
 				</Button>
 			</DialogActions>

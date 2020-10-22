@@ -3,7 +3,8 @@ import {
 	SPDialog,
 	SPTable,
 	AnswerQuestionDialog,
-	ViewQuestionDialog,
+	ViewAnswerDialog,
+	ViewAnswerButton,
 } from 'Components'
 import { Button } from '@material-ui/core'
 
@@ -17,10 +18,18 @@ export const ProponentQuestionDialog = ({
 	const [question, setQuestion] = useState('')
 	const [questionId, setQuestionId] = useState()
 	const [refresh, setRefresh] = useState(true)
+	const [viewAnswerDialog, setViewAnswerDialog] = useState(false)
+	const [currentItemId, setCurrentItemId] = useState()
 
 	const closeAnswerDialog = () => {
 		setRefresh(!refresh)
 		setAnswerDialog(false)
+		setViewAnswerDialog(false)
+	}
+
+	const openAnswerDialog = (itemId) => {
+		setCurrentItemId(itemId)
+		setViewAnswerDialog(true)
 	}
 
 	const customActions = [
@@ -39,7 +48,7 @@ export const ProponentQuestionDialog = ({
 					},
 					tooltip: 'Submit Answer',
 					onClick: (event, rowdata) => {
-						console.log('rowdata :>> ', rowdata);
+						console.log('rowdata :>> ', rowdata)
 						setQuestion(rowdata.Title)
 						setQuestionId(rowdata.Id)
 						setAnswerDialog(true)
@@ -49,18 +58,14 @@ export const ProponentQuestionDialog = ({
 				return {
 					icon: () => {
 						return (
-							<Button
-								color='primary'
-								size='small'
-								variant='outlined'>
-								View
-							</Button>
+							<ViewAnswerButton
+								itemId={rowData.Id}
+								onClick={openAnswerDialog}
+							/>
 						)
 					},
 					tooltip: 'View Answer',
-					onClick: (event, rowdata) => {
-						console.log('custom action>>', event, rowdata)
-					},
+					onClick: (event, rowdata) => {},
 				}
 			}
 		},
@@ -94,7 +99,12 @@ export const ProponentQuestionDialog = ({
 				question={question}
 				proponentName={proponentName}
 			/>
-			<ViewQuestionDialog />
+			<ViewAnswerDialog
+				open={viewAnswerDialog}
+				closeDialog={closeAnswerDialog}
+				listName={listName}
+				itemId={currentItemId}
+			/>
 		</Fragment>
 	)
 }

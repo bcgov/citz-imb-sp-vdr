@@ -1,23 +1,40 @@
 import React, { useState, Fragment } from 'react'
 import { Grid, Paper } from '@material-ui/core'
 
-import { SPTable, tableOptions, classes, AskQuestionDialog, icons } from 'Components'
+import {
+	AskQuestionDialog,
+	classes,
+	icons,
+	SPTable,
+	ViewAnswerButton,
+	ViewAnswerDialog,
+} from 'Components'
 
-export const ProponentQuestionList = ({ proponentId, groupId, proponentName }) => {
+export const ProponentQuestionList = ({
+	proponentId,
+	groupId,
+	proponentName,
+}) => {
 	const listName = `${proponentId}_Questions`
 
-	const [askQuestionDialog, setAskQuestionDialog] = useState(false)
 	const [refresh, setRefresh] = useState(true)
+	const [askQuestionDialog, setAskQuestionDialog] = useState(false)
+	const [viewAnswerDialog, setViewAnswerDialog] = useState(false)
+	const [currentItemId, setCurrentItemId] = useState()
 
 	const closeDialog = () => {
 		setAskQuestionDialog(false)
+		setViewAnswerDialog(false)
 		setRefresh(!refresh)
+	}
+	const openAnswerDialog = (itemId) => {
+		setCurrentItemId(itemId)
+		setViewAnswerDialog(true)
 	}
 
 	const questionOptions = {
 		listName: listName,
 		tableTitle: 'Our Submitted Questions',
-		options: tableOptions,
 		deleteItem: false,
 		addItem: false,
 		editItem: false,
@@ -32,6 +49,20 @@ export const ProponentQuestionList = ({ proponentId, groupId, proponentName }) =
 				},
 			},
 		],
+		additionalData: (list) => {
+			const items = list.items.map((item) => {
+				let newItem = item
+				if (item.Answer)
+					newItem.Answer = (
+						<ViewAnswerButton
+							itemId={item.Id}
+							onClick={openAnswerDialog}
+						/>
+					)
+				return newItem
+			})
+			return list
+		},
 	}
 
 	return (
@@ -47,6 +78,12 @@ export const ProponentQuestionList = ({ proponentId, groupId, proponentName }) =
 				listName={listName}
 				proponentName={proponentName}
 				groupId={groupId}
+			/>
+			<ViewAnswerDialog
+				open={viewAnswerDialog}
+				closeDialog={closeDialog}
+				listName={listName}
+				itemId={currentItemId}
 			/>
 		</Fragment>
 	)

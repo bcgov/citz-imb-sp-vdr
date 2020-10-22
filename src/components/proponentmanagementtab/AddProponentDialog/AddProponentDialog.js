@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react'
 import { TextField } from '@material-ui/core'
 import { GetRoleDefinitions } from 'citz-imb-sp-utilities'
-import { SPDialog } from 'Components'
+import { SPDialog, AddProponent } from 'Components'
 import { useSnackbar } from 'notistack'
 import { Alert } from '@material-ui/lab'
-import { addProponent } from './addProponent'
 
 export const AddProponentDialog = ({ open, closeDialog }) => {
 	const [proponentName, setProponentName] = useState('')
@@ -16,7 +15,7 @@ export const AddProponentDialog = ({ open, closeDialog }) => {
 
 	const saveAction = async () => {
 		if (proponentName.length > 0 && proponentName.length < 256) {
-			await addProponent(
+			await AddProponent(
 				proponentName,
 				enqueueSnackbar,
 				roles,

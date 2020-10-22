@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment, forwardRef,useContext } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import MaterialTable from 'material-table'
 import {
 	GetGroup,
@@ -7,7 +7,7 @@ import {
 	RemoveUsersFromGroup,
 } from 'citz-imb-sp-utilities'
 import { Paper } from '@material-ui/core'
-import { SPDialog, PeoplePicker, icons,TableOptionsContext } from 'Components'
+import { SPDialog, PeoplePicker, icons } from 'Components'
 
 export const SPGroup = ({
 	groupId,
@@ -34,7 +34,14 @@ export const SPGroup = ({
 	const [actions, setActions] = useState([])
 	const [isLoading, setIsLoading] = useState(true)
 	//const [users, setUsers] = useState([])
-	const tableOptions = useContext(TableOptionsContext)
+	const tableOptions = {
+		search: false,
+		sorting: false,
+		paging: false,
+		pageSize: 20,
+		draggable: false,
+		actionsColumnIndex: -1,
+	}
 
 	let users = []
 

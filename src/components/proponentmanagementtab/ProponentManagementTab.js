@@ -8,13 +8,14 @@ import Badge from '@material-ui/core/Badge'
 import PeopleIcon from '@material-ui/icons/People'
 import { green, red } from '@material-ui/core/colors'
 import {
-	SPTable,
-	AddUserDialog,
-	icons,
-	ToggleProponentDialog,
 	AddProponentDialog,
+	icons,
+	ProponentGroupDialog,
 	ProponentLibraryDialog,
 	ProponentQuestionDialog,
+	SPTable,
+	ToggleProponentDialog,
+	ViewAnswerButton,
 } from 'Components'
 import { GetListItems } from 'citz-imb-sp-utilities'
 
@@ -79,7 +80,6 @@ export const ProponentManagementTab = () => {
 	const handlePublishAnswer = (event) => {
 		const proponentQuestionID = event.currentTarget.dataset.id
 		const proponentList = event.currentTarget.dataset.list
-
 	}
 
 	const additionalQuestionData = async (list) => {
@@ -101,7 +101,7 @@ export const ProponentManagementTab = () => {
 							</Button>
 						)
 					} else {
-						return <Button color='secondary'>View Answer</Button>
+						return <ViewAnswerButton />
 					}
 				}
 			}
@@ -218,7 +218,7 @@ export const ProponentManagementTab = () => {
 				closeDialog={handleCloseProponentQuestionDialog}
 				listName={currentProponentId}
 			/>
-			<AddUserDialog
+			<ProponentGroupDialog
 				open={userDialog}
 				closeDialog={handleCloseUserDialog}
 				groupId={currentProponentGroup}

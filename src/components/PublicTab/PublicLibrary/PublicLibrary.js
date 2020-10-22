@@ -7,7 +7,6 @@ export const PublicLibrary = () => {
 	const libraryOptions = {
 		listName: 'Documents',
 		tableTitle: 'Public Documents',
-		options: tableOptions,
 		addItem: false,
 		deleteItem: false,
 		editItem: false,

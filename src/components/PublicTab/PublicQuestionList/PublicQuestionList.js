@@ -7,11 +7,14 @@ export const PublicQuestionList = () => {
 	const listOptions = {
 		listName: 'Questions',
 		tableTitle: 'Public Questions',
-		options: tableOptions,
 		addItem: false,
 		deleteItem: false,
 		editItem: false,
 		changeItemPermissions: false,
+		options: {
+			cellStyle: {
+			padding: '4px'
+		}}
 	}
 
 	return (

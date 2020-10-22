@@ -15,7 +15,7 @@ import {
 	DialogOptionsContext,
 } from 'Components'
 
-export const AddUserDialog = ({
+export const ProponentGroupDialog = ({
 	open,
 	closeDialog,
 	groupId,

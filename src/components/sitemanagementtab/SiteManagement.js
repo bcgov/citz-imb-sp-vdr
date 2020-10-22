@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { GetListAndItems, SPList, tableOptions, LogAction } from 'Components'
+import { GetListAndItems, SPList, LogAction } from 'Components'
 import {
 	Button,
 	Dialog,
@@ -194,7 +194,6 @@ export const SiteManagement = () => {
 								deleteItem={false}
 								editItem={false}
 								changeItemPermission={false}
-								options={tableOptions}
 							/>
 						</DialogContent>
 						<DialogActions>
