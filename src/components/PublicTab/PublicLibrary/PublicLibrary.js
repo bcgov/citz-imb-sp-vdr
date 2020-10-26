@@ -7,16 +7,10 @@ export const PublicLibrary = () => {
 	const libraryOptions = {
 		listName: 'Documents',
 		tableTitle: 'Public Documents',
-		options: tableOptions,
 		addItem: false,
 		deleteItem: false,
 		editItem: false,
-		changeItemPermission: false,
-	}
-
-	const [isDirty, setIsDirty] = useState(true)
-	const handleDirty = (newDirty) => {
-		setIsDirty(newDirty)
+		changeItemPermissions: false,
 	}
 
 	return (

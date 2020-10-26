@@ -1,49 +1,8 @@
-import React, { useReducer, useEffect, useContext } from 'react'
+import React, { useReducer, useEffect } from 'react'
 import MaterialTable from 'material-table'
-import { GetListAndItems, icons, TableOptionsContext } from 'Components'
+import { GetListAndItems, icons } from 'Components'
 
-const tableInitialState = {
-	isLoading: true,
-	items: [],
-	columns: [],
-	title: '',
-	actions: [],
-	options: {},
-	listName: '',
-}
-
-const tableReducer = (state, action) => {
-	switch (action.type) {
-		case 'FETCH_SUCCESS':
-			return {
-				...state,
-				isLoading: false,
-				items: action.items,
-				columns: action.columns,
-				title: action.title,
-			}
-		case 'FETCH_ERROR':
-			console.error(action.error.message)
-			return tableInitialState
-		case 'ADD_ACTION':
-			return {
-				...state,
-				actions: [...state.actions, action.tableAction],
-			}
-		case 'ADD_CUSTOM_ACTIONS':
-			return {
-				...state,
-				actions: [...state.actions, ...action.tableAction],
-			}
-		case 'CUSTOM_TITLE':
-			return {
-				...state,
-				title: action.title,
-			}
-		default:
-			return state
-	}
-}
+const paginationSize = 20
 
 export const SPTable = ({
 	listName,
@@ -57,13 +16,31 @@ export const SPTable = ({
 	},
 	refresh = false,
 	tableTitle,
+	additionalData = (list) => {
+		return list
+	},
+	options,
 }) => {
-	const [tableState, tableDispatch] = useReducer(
-		tableReducer,
-		tableInitialState
-	)
-
-	const tableOptions = useContext(TableOptionsContext)
+	const tableInitialState = {
+		isLoading: true,
+		items: [],
+		columns: [],
+		title: '',
+		actions: [],
+		listName: '',
+		options: {
+			search: false,
+			sorting: false,
+			paging: false,
+			emptyRowsWhenPaging: false,
+			pageSize: paginationSize,
+			draggable: false,
+			actionsColumnIndex: -1,
+			cellStyle: {
+				padding: '4px',
+			},
+		},
+	}
 
 	const defaultActions = {
 		addItem: {
@@ -97,10 +74,75 @@ export const SPTable = ({
 		},
 	}
 
+	const tableReducer = (state, action) => {
+		switch (action.type) {
+			case 'FETCH_SUCCESS':
+				let newState = {}
+				if (action.items.length > paginationSize) {
+					newState = {
+						...state,
+						isLoading: false,
+						items: action.items,
+						columns: action.columns,
+						title: action.title,
+						options: {
+							...state.options,
+							paging: true
+						}
+					}
+				} else {
+					newState = {
+						...state,
+						isLoading: false,
+						items: action.items,
+						columns: action.columns,
+						title: action.title,
+					}
+				}
+
+				return newState
+			case 'FETCH_ERROR':
+				console.error(action.error.message)
+				return tableInitialState
+			case 'ADD_ACTION':
+				return {
+					...state,
+					actions: [...state.actions, action.tableAction],
+				}
+			case 'ADD_CUSTOM_ACTIONS':
+				return {
+					...state,
+					actions: [...state.actions, ...action.tableAction],
+				}
+			case 'CUSTOM_TITLE':
+				return {
+					...state,
+					title: action.title,
+				}
+			case 'CUSTOM_OPTIONS':
+				return {
+					...state,
+					options: {
+						...state.options,
+						...action.options,
+					},
+				}
+			default:
+				return state
+		}
+	}
+
+	const [tableState, tableDispatch] = useReducer(
+		tableReducer,
+		tableInitialState
+	)
+
 	const getListAndItems = async () => {
 		try {
 			const listAndItems = await GetListAndItems(listName)
-			tableDispatch({ type: 'FETCH_SUCCESS', ...listAndItems })
+			const listWithAdditions = await additionalData(listAndItems)
+
+			tableDispatch({ type: 'FETCH_SUCCESS', ...listWithAdditions })
 			if (tableTitle)
 				tableDispatch({ type: 'CUSTOM_TITLE', title: tableTitle })
 		} catch (error) {
@@ -145,6 +187,12 @@ export const SPTable = ({
 				tableAction: customActions,
 			})
 
+		if (options)
+			tableDispatch({
+				type: 'CUSTOM_OPTIONS',
+				options: options,
+			})
+
 		return () => {}
 	}, [])
 
@@ -154,8 +202,9 @@ export const SPTable = ({
 			columns={tableState.columns}
 			data={tableState.items}
 			isLoading={tableState.isLoading}
-			options={tableOptions}
+			options={tableState.options}
 			title={tableState.title}
+			icons={icons}
 		/>
 	)
 }

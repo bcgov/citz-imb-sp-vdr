@@ -9,14 +9,16 @@ import {
 
 export const ProponentTab = () => {
 	const [proponentID, setProponentID] = useState()
-	const [proponentGroup, setProponentGroup] = useState()
+	const [proponentName, setProponentName] = useState()
+	const [groupId, setGroupId] = useState()
 	const [hasAssociatedProponent, setHasAssociatedProponent] = useState(false)
 
 	const getCurrentProponent = async () => {
 		const currentProponent = await GetCurrentProponent()
 		if (currentProponent !== undefined) {
 			setProponentID(currentProponent.UUID)
-			setProponentGroup(currentProponent.GroupId)
+			setProponentName(currentProponent.Title)
+			setGroupId(currentProponent.GroupId)
 			setHasAssociatedProponent(true)
 		}
 	}
@@ -35,8 +37,9 @@ export const ProponentTab = () => {
 							<Fragment>
 								<ProponentLibrary proponent={proponentID} />
 								<ProponentQuestionList
-									proponent={proponentID}
-									group={proponentGroup}
+									proponentId={proponentID}
+									groupId={groupId}
+									proponentName={proponentName}
 								/>
 							</Fragment>
 						) : (

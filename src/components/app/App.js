@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import { deviceDetect } from 'react-device-detect'
 import { SnackbarProvider } from 'notistack'
@@ -6,9 +6,11 @@ import { SnackbarProvider } from 'notistack'
 import { Test } from './Test'
 
 import './App.css'
-import { LogAction, TermsOfService, TableOptionsContext } from 'Components'
-
-
+import {
+	LogAction,
+	TermsOfService,
+	TableOptionsContext,
+} from 'Components'
 
 export const App = () => {
 	const theme = createMuiTheme({
@@ -22,14 +24,6 @@ export const App = () => {
 		},
 	})
 
-	const tableOptions = {
-		search: false,
-		sorting: false,
-		paging: false,
-		pageSize: 20,
-		draggable: false,
-		actionsColumnIndex: -1,
-	}
 
 	useEffect(() => {
 		const device = deviceDetect()
@@ -40,18 +34,16 @@ export const App = () => {
 	}, [])
 
 	return (
-		<TableOptionsContext.Provider value={tableOptions}>
-			<MuiThemeProvider theme={theme}>
-				<SnackbarProvider
-					dense
-					anchorOrigin={{
-						vertical: 'bottom',
-						horizontal: 'right',
-					}}>
-					<TermsOfService />
-					{/* <Test /> */}
-				</SnackbarProvider>
-			</MuiThemeProvider>
-		</TableOptionsContext.Provider>
+				<MuiThemeProvider theme={theme}>
+					<SnackbarProvider
+						dense
+						anchorOrigin={{
+							vertical: 'bottom',
+							horizontal: 'right',
+						}}>
+						<TermsOfService />
+						{/* <Test /> */}
+					</SnackbarProvider>
+				</MuiThemeProvider>
 	)
 }

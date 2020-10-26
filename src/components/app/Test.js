@@ -1,7 +1,7 @@
 import React from 'react'
-import Button from '@material-ui/core/Button'
-import { ProponentManagementTab } from 'Components'
+import { SiteManagement } from 'components/SiteManagementTab/SiteManagement2'
 
 export const Test = () => {
-	return <ProponentManagementTab />
+
+	return <SiteManagement/>
 }

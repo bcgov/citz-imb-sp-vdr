@@ -1,27 +1,110 @@
-import React from 'react'
-import {Dialog, DialogTitle, DialogContent, DialogActions, Button} from '@material-ui/core'
-import {SPTable} from 'Components'
+import React, { Fragment, useState } from 'react'
+import {
+	SPDialog,
+	SPTable,
+	AnswerQuestionDialog,
+	ViewAnswerDialog,
+	ViewAnswerButton,
+} from 'Components'
+import { Button } from '@material-ui/core'
 
-export const ProponentQuestionDialog = ({proponentName, open, listName, closeDialog}) => {
-    return (
-        <Dialog
-			open={open}
-			//onClose={cancelButtonAction}
-			maxWidth={'lg'}>
-			<DialogTitle id='form-dialog-title'>{proponentName} Questions</DialogTitle>
-			<DialogContent>
-                <SPTable
-                listName={listName}
-				addItem={false}
-				deleteItem={false}
-				editItem={false}
-				changeItemPermissions={false}
-				//				onClickCallback={onClickCallback}
-                />
-			</DialogContent>
-			<DialogActions>
-				<Button onClick={closeDialog}>Close</Button>
-			</DialogActions>
-		</Dialog>
-    )
+export const ProponentQuestionDialog = ({
+	proponentName,
+	open,
+	listName,
+	closeDialog,
+}) => {
+	const [answerDialog, setAnswerDialog] = useState(false)
+	const [question, setQuestion] = useState('')
+	const [questionId, setQuestionId] = useState()
+	const [refresh, setRefresh] = useState(true)
+	const [viewAnswerDialog, setViewAnswerDialog] = useState(false)
+	const [currentItemId, setCurrentItemId] = useState()
+
+	const closeAnswerDialog = () => {
+		setRefresh(!refresh)
+		setAnswerDialog(false)
+		setViewAnswerDialog(false)
+	}
+
+	const openAnswerDialog = (itemId) => {
+		setCurrentItemId(itemId)
+		setViewAnswerDialog(true)
+	}
+
+	const customActions = [
+		(rowData) => {
+			if (rowData.Answer === null) {
+				return {
+					icon: () => {
+						return (
+							<Button
+								color='secondary'
+								size='small'
+								variant='contained'>
+								Answer
+							</Button>
+						)
+					},
+					tooltip: 'Submit Answer',
+					onClick: (event, rowdata) => {
+						console.log('rowdata :>> ', rowdata)
+						setQuestion(rowdata.Title)
+						setQuestionId(rowdata.Id)
+						setAnswerDialog(true)
+					},
+				}
+			} else {
+				return {
+					icon: () => {
+						return (
+							<ViewAnswerButton
+								itemId={rowData.Id}
+								onClick={openAnswerDialog}
+							/>
+						)
+					},
+					tooltip: 'View Answer',
+					onClick: (event, rowdata) => {},
+				}
+			}
+		},
+	]
+
+	return (
+		<Fragment>
+			<SPDialog
+				open={open}
+				title={proponentName}
+				showSave={false}
+				cancelButtonText={'Close'}
+				cancelButtonAction={closeDialog}
+				fullScreen={true}>
+				<SPTable
+					listName={listName}
+					tableTitle={'Questions'}
+					addItem={false}
+					deleteItem={false}
+					editItem={false}
+					changeItemPermissions={false}
+					customActions={customActions}
+					refresh={refresh}
+				/>
+			</SPDialog>
+			<AnswerQuestionDialog
+				open={answerDialog}
+				close={closeAnswerDialog}
+				listName={listName}
+				questionId={questionId}
+				question={question}
+				proponentName={proponentName}
+			/>
+			<ViewAnswerDialog
+				open={viewAnswerDialog}
+				closeDialog={closeAnswerDialog}
+				listName={listName}
+				itemId={currentItemId}
+			/>
+		</Fragment>
+	)
 }

@@ -1,7 +1,7 @@
 import {GetListItems, GetCurrentUser} from 'citz-imb-sp-utilities'
 import {SendConfirmationEmail} from 'Components'
 
-export const SendQuestionConfirmationEmail = async (users, proponent) => {
+export const SendQuestionConfirmationEmail = async (users, proponentName) => {
     const response = await GetListItems({
         listName: 'Config',
         filter: `Key eq 'addQuestionEmail'`,
@@ -12,7 +12,7 @@ export const SendQuestionConfirmationEmail = async (users, proponent) => {
     users.map((user) => {
 		SendConfirmationEmail(
 			user.LoginName,
-			proponent,
+			proponentName,
 			response[0].TextValue,
 			response[0].MultiTextValue,
             [

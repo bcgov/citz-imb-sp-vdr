@@ -81,7 +81,7 @@ export const SPList2 = ({
 			</DialogActions>
 		),
 		cancelButtonAction: () => {
-			console.log('default dialog cancel action')
+			console.info('default dialog cancel action')
 		},
 	}
 
@@ -107,7 +107,7 @@ export const SPList2 = ({
 					),
 				}
 			default:
-				console.log('dialogReducer', { action, state })
+				console.info('dialogReducer', { action, state })
 				return state
 		}
 	}
