@@ -3,15 +3,15 @@ import {
 	GetListAndItems,
 	SPTable,
 	SPDialog,
-	LogAction,
-	EditTOS,
+	ViewActivityLog,
+	EditDialog,
 } from 'Components'
 import { DialogContentText, ListItem, TextField, List } from '@material-ui/core'
 
 import { UpdateListItem } from 'citz-imb-sp-utilities'
 import { useSnackbar } from 'notistack'
 
-export const SiteManagement = () => {
+export const SiteManagementTab = () => {
 	const listName = 'Config'
 
 	const [items, setItems] = useState({ listRender: [] })
@@ -29,7 +29,7 @@ export const SiteManagement = () => {
 		})
 	}
 
-	const saveCurrentItem = (event) => {
+	const saveCurrentItem = () => {
 		console.log('saveCurrentItem currentItem :>> ', currentItem)
 	}
 
@@ -49,13 +49,94 @@ export const SiteManagement = () => {
 			switch (item.Key) {
 				case 'TOS':
 					editDialog = (
-						<EditTOS
+						<EditDialog
 							open={true}
 							title={item.Title}
 							instructions={item.Instructions}
 							textValue={item.TextValue}
+							textValueLabel={'Title'}
 							numberValue={item.NumberValue}
+							numberValueLabel={'Days until TOS Prompt'}
 							multiTextValue={item.MultiTextValue}
+							multiTextValueLabel={'Body'}
+							onValueChange={updateCurrentItem}
+							saveAction={saveCurrentItem}
+							closeAction={closeDialog}
+						/>
+					)
+					break
+				case 'addUserEmail':
+					editDialog = (
+						<EditDialog
+							open={true}
+							title={item.Title}
+							instructions={item.Instructions}
+							textValue={item.TextValue}
+							textValueLabel={'Title'}
+							multiTextValue={item.MultiTextValue}
+							multiTextValueLabel={'Body'}
+							onValueChange={updateCurrentItem}
+							saveAction={saveCurrentItem}
+							closeAction={closeDialog}
+						/>
+					)
+					break
+				case 'contactemail':
+					editDialog = (
+						<EditDialog
+							open={true}
+							title={item.Title}
+							instructions={item.Instructions}
+							textValue={item.TextValue}
+							textValueLabel={'Title'}
+							onValueChange={updateCurrentItem}
+							saveAction={saveCurrentItem}
+							closeAction={closeDialog}
+						/>
+					)
+					break
+				case 'addQuestionEmail':
+					editDialog = (
+						<EditDialog
+							open={true}
+							title={item.Title}
+							instructions={item.Instructions}
+							textValue={item.TextValue}
+							textValueLabel={'Title'}
+							multiTextValue={item.MultiTextValue}
+							multiTextValueLabel={'Body'}
+							onValueChange={updateCurrentItem}
+							saveAction={saveCurrentItem}
+							closeAction={closeDialog}
+						/>
+					)
+					break
+				case 'newQuestionEmail':
+					editDialog = (
+						<EditDialog
+							open={true}
+							title={item.Title}
+							instructions={item.Instructions}
+							textValue={item.TextValue}
+							textValueLabel={'Title'}
+							multiTextValue={item.MultiTextValue}
+							multiTextValueLabel={'Body'}
+							onValueChange={updateCurrentItem}
+							saveAction={saveCurrentItem}
+							closeAction={closeDialog}
+						/>
+					)
+					break
+				case 'newAnswerEmail':
+					editDialog = (
+						<EditDialog
+							open={true}
+							title={item.Title}
+							instructions={item.Instructions}
+							textValue={item.TextValue}
+							textValueLabel={'Title'}
+							multiTextValue={item.MultiTextValue}
+							multiTextValueLabel={'Body'}
 							onValueChange={updateCurrentItem}
 							saveAction={saveCurrentItem}
 							closeAction={closeDialog}
@@ -93,7 +174,9 @@ export const SiteManagement = () => {
 		let listItemRender = (
 			<ListItem
 				key={'viewActivityLog'}
-				onClick={() => {}}
+				onClick={() => {
+					setDialog(<ViewActivityLog />)
+				}}
 				id={'viewActivityLog'}
 				button
 				divider>

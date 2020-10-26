@@ -1,7 +1,7 @@
 import React from 'react'
-import { SiteManagement } from 'components/SiteManagementTab/SiteManagement2'
+import { ViewActivityLog } from 'Components'
 
 export const Test = () => {
 
-	return <SiteManagement/>
+	return <ViewActivityLog/>
 }
