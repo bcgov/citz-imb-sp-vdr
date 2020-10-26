@@ -2,20 +2,22 @@ import React from 'react'
 import { SPDialog, SPTable } from 'Components'
 import moment from 'moment'
 
-export const ViewActivityLog = () => {
+export const ViewActivityLog = ({
+	closeAction = () => {}
+}) => {
 	const setDefaultSort = (list) => {
 		console.log('setDefaultSort :>> ', list)
 		for (let i = 0; i < list.columns.length; i++) {
 			if (list.columns[i].title === 'Created') {
 				list.columns[i].defaultSort = 'desc'
-				list.columns[i].customSort = (a, b) => moment(a.Created) - moment(b.Created)
+				list.columns[i].customSort = (a, b) =>
+					moment(a.Created) - moment(b.Created)
 				console.log('column :>> ', list.columns[i])
-            }
-            if (list.columns[i].title === 'Action') {
+			}
+			if (list.columns[i].title === 'Action') {
 				list.columns[i].sorting = false
 				console.log('column :>> ', list.columns[i])
-            }
-
+			}
 		}
 		return list
 	}
@@ -25,7 +27,7 @@ export const ViewActivityLog = () => {
 			title={'View Activity Log'}
 			showSave={false}
 			cancelButtonText={'Close'}
-			//cancelButtonAction = (event) => {}
+			cancelButtonAction={closeAction}
 			fullScreen={true}>
 			<SPTable
 				listName={'ActivityLog'}
@@ -42,8 +44,8 @@ export const ViewActivityLog = () => {
 				options={{
 					search: true,
 					sorting: true,
-                    pageSize: 20,
-                    filtering: true
+					pageSize: 20,
+					filtering: true,
 				}}
 			/>
 		</SPDialog>

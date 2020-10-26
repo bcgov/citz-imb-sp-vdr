@@ -175,7 +175,7 @@ export const SiteManagementTab = () => {
 			<ListItem
 				key={'viewActivityLog'}
 				onClick={() => {
-					setDialog(<ViewActivityLog />)
+					setDialog(<ViewActivityLog closeAction={closeDialog} />)
 				}}
 				id={'viewActivityLog'}
 				button
