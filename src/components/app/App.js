@@ -42,7 +42,7 @@ export const App = () => {
 							horizontal: 'right',
 						}}>
 						<TermsOfService />
-						{/* <Test>Fred</Test> */}
+						{/* <Test /> */}
 					</SnackbarProvider>
 				</MuiThemeProvider>
 	)

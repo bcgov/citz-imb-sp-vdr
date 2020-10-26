@@ -1,7 +1,7 @@
 import React from 'react'
-import {Dialog, DialogTitle, DialogContent, DialogActions, Button} from '@material-ui/core'
-import { ProponentManagementTab } from 'Components'
+import { SiteManagement } from 'components/SiteManagementTab/SiteManagement2'
 
-export const Test = ({children}) => {
-	return <ProponentManagementTab />
+export const Test = () => {
+
+	return <SiteManagement/>
 }

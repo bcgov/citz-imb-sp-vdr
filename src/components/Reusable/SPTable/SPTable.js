@@ -27,7 +27,6 @@ export const SPTable = ({
 		columns: [],
 		title: '',
 		actions: [],
-		options: {},
 		listName: '',
 		options: {
 			search: false,

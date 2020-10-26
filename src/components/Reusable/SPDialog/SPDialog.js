@@ -14,25 +14,21 @@ export const SPDialog = (props) => {
 		children,
 		showSave = true,
 		saveButtonText = 'Save',
-		saveButtonAction = () => {
-			console.warn('default save action')
-		},
+		saveButtonAction = (event) => {},
 		cancelButtonText = 'Cancel',
-		cancelButtonAction = () => {
-			console.warn('default cancel action')
-		},
+		cancelButtonAction = (event) => {},
 		...otherProps
-	 } = props
+	} = props
 
 	const [disableButtons, setDisableButtons] = useState(false)
 
-	const saveHandler = async () => {
+	const saveHandler = async (event) => {
 		setDisableButtons(true)
-		await saveButtonAction()
+		await saveButtonAction(event)
 		setDisableButtons(false)
 	}
-	const cancelHandler = () => {
-		cancelButtonAction()
+	const cancelHandler = (event) => {
+		cancelButtonAction(event)
 	}
 
 	return (
@@ -41,17 +37,22 @@ export const SPDialog = (props) => {
 			onClose={cancelButtonAction}
 			fullWidth={true}
 			maxWidth={'md'}
-			{...otherProps}
-			>
+			{...otherProps}>
 			<DialogTitle id='form-dialog-title'>{title}</DialogTitle>
 			<DialogContent>{children}</DialogContent>
 			<DialogActions>
 				{showSave ? (
-					<Button onClick={saveHandler} disabled={disableButtons} variant={"contained"}>
+					<Button
+						onClick={saveHandler}
+						disabled={disableButtons}
+						variant={'contained'}>
 						{saveButtonText}
 					</Button>
 				) : null}
-				<Button onClick={cancelHandler} disabled={disableButtons} variant={"contained"}>
+				<Button
+					onClick={cancelHandler}
+					disabled={disableButtons}
+					variant={'contained'}>
 					{cancelButtonText}
 				</Button>
 			</DialogActions>

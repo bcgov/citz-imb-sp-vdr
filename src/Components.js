@@ -78,3 +78,4 @@ export { ToggleProponent } from 'components/ProponentManagementTab/TogglePropone
 
 //Site Management Tab
 export { SiteManagement } from 'components/SiteManagementTab/SiteManagement'
+export { EditTOS } from 'components/SiteManagementTab/EditTOS/EditTOS'

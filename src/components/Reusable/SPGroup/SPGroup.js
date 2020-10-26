@@ -98,7 +98,7 @@ export const SPGroup = ({
 							setDialogParameters({
 								open: true,
 								title: `Add user to ${response.Title}`,
-								content: (
+								children: (
 									<Paper style={styles.paper}>
 										<PeoplePicker
 											schema={{
