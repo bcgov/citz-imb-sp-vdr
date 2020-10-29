@@ -1,23 +1,22 @@
 /* Resets */
-#vdr-root input[type=button], #vdr-root input[type=reset], #vdr-root input[type=submit], #vdr-root button{
-  min-width: auto;
-}
-
-#vdr-root .fred {
-  border: 1px solid orangered;
+/* #vdr-root input[type='button'],
+#vdr-root input[type='reset'],
+#vdr-root input[type='submit'],
+#vdr-root button {
+	min-width: auto;
 }
 
 #vdr-root .column {
-  float: left;
-  width: 50%;
+	float: left;
+	width: 50%;
 }
 
 #vdr-root .row:after {
-  content: "";
-  display: table;
-  clear: both;
+	content: '';
+	display: table;
+	clear: both;
 }
 
 #vdr-root .MuiIconButton-root {
-  min-width: auto;
-}
+	min-width: auto;
+} */

@@ -1,7 +1,6 @@
 import React from 'react'
-import { ViewActivityLog } from 'Components'
+import { FormikTest } from 'Components'
 
 export const Test = () => {
-
-	return <ViewActivityLog/>
+	return <FormikTest />
 }

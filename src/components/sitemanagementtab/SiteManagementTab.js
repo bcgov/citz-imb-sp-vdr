@@ -4,8 +4,9 @@ import {
 	SPTable,
 	SPDialog,
 	ViewActivityLog,
-	EditDialog,
+	// EditDialog,
 } from 'Components'
+import {EditDialog} from './EditDialog/EditDialog2'
 import { DialogContentText, ListItem, TextField, List } from '@material-ui/core'
 
 import { UpdateListItem } from 'citz-imb-sp-utilities'
@@ -16,14 +17,16 @@ export const SiteManagementTab = () => {
 
 	const [items, setItems] = useState({ listRender: [] })
 	const [dialog, setDialog] = useState()
-	const [currentItem, setCurrentItem] = useState()
+	const [currentItem, setCurrentItem] = useState({ test: 'test' })
 
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
 	const updateCurrentItem = (field, newValue) => {
 		//console.log('updateCurrentItem currentItem :>> ', currentItem)
 		setCurrentItem((prevState) => {
-			let newState = { ...prevState }
+			console.log('prevState', prevState)
+			let newState = {  }
+			newState = prevState
 			newState[field] = newValue
 			return newState
 		})
@@ -92,6 +95,7 @@ export const SiteManagementTab = () => {
 							onValueChange={updateCurrentItem}
 							saveAction={saveCurrentItem}
 							closeAction={closeDialog}
+							initialValues={{textValue: item.TextValue}}
 						/>
 					)
 					break

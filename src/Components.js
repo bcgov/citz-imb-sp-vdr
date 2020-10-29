@@ -7,6 +7,7 @@ export * from 'components/Reusable/Constants/Constants'
 export { icons } from 'components/Reusable/Icons/Icons'
 
 //Reusable
+export * from 'components/Reusable/Formik/Formik'
 export { FormatText } from 'components/Reusable/FormatText/FormatText'
 export { GetAllProponentUsers } from 'components/Reusable/GetAllProponentUsers/GetAllProponentUsers'
 export { getCookie } from 'components/Reusable/GetCookie/getCookie'
