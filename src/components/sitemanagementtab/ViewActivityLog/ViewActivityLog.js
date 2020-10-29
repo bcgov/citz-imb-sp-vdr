@@ -3,7 +3,8 @@ import { SPDialog, SPTable } from 'Components'
 import moment from 'moment'
 
 export const ViewActivityLog = ({
-	closeAction = () => {}
+	open,
+	close = () => {}
 }) => {
 	const setDefaultSort = (list) => {
 		console.log('setDefaultSort :>> ', list)
@@ -23,11 +24,11 @@ export const ViewActivityLog = ({
 	}
 	return (
 		<SPDialog
-			open={true}
+			open={open}
 			title={'View Activity Log'}
 			showSave={false}
 			cancelButtonText={'Close'}
-			cancelButtonAction={closeAction}
+			cancelButtonAction={close}
 			fullScreen={true}>
 			<SPTable
 				listName={'ActivityLog'}

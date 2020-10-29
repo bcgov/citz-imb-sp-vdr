@@ -79,5 +79,5 @@ export { ToggleProponent } from 'components/ProponentManagementTab/TogglePropone
 
 //Site Management Tab
 export { SiteManagementTab } from 'components/SiteManagementTab/SiteManagementTab'
-export { EditDialog } from 'components/SiteManagementTab/EditDialog/EditDialog'
+//!export { EditDialog } from 'components/SiteManagementTab/EditDialog/EditDialog'
 export { ViewActivityLog } from 'components/SiteManagementTab/ViewActivityLog/ViewActivityLog'

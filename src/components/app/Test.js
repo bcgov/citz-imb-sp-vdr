@@ -1,6 +1,6 @@
 import React from 'react'
-import { FormikTest } from 'Components'
+import { ProponentManagementTab } from 'Components'
 
 export const Test = () => {
-	return <FormikTest />
+	return <ProponentManagementTab />
 }

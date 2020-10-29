@@ -41,8 +41,8 @@ export const App = () => {
 							vertical: 'bottom',
 							horizontal: 'right',
 						}}>
-						{/* <TermsOfService /> */}
-						<Test />
+						<TermsOfService />
+						{/* <Test /> */}
 					</SnackbarProvider>
 				</MuiThemeProvider>
 	)
