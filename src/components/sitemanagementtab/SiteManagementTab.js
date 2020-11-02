@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect, Fragment } from 'react'
-import { LogAction, FormikDialog, ViewActivityLog } from 'Components'
+import { useLogAction, FormikDialog, ViewActivityLog } from 'Components'
 import { ListItem, List } from '@material-ui/core'
 import * as Yup from 'yup'
 import { GetListItems, UpdateListItem } from 'citz-imb-sp-utilities'
@@ -27,7 +27,7 @@ export const SiteManagementTab = () => {
 		try {
 			await UpdateListItem({ listName, items: newValues })
 			dialogDispatch('reset')
-			LogAction(`updated '${key}'`)
+			useLogAction(`updated '${key}'`)
 			enqueueSnackbar(`${key} updated successfully`, {
 				variant: 'success',
 			})

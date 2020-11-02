@@ -10,7 +10,7 @@ import { useSnackbar } from 'notistack'
 import {
 	SPDialog,
 	SPGroup,
-	LogAction,
+	useLogAction,
 	SendAddUserConfirmationEmail,
 	DialogOptionsContext,
 } from 'Components'
@@ -35,7 +35,7 @@ export const ProponentGroupDialog = ({
 				`added ${users[i].Title} to ${proponentName} group`,
 				{ variant: 'success' }
 			)
-			LogAction(`added ${users[i].Title} to ${proponentName} group`)
+			useLogAction(`added ${users[i].Title} to ${proponentName} group`)
 			SendAddUserConfirmationEmail(users, proponentName)
 		}
 	}
@@ -45,7 +45,7 @@ export const ProponentGroupDialog = ({
 			`removed ${response.Title} from ${proponentName} group`,
 			{ variant: 'warning' }
 		)
-		LogAction(`added ${response.Title} to ${proponentName} group`)
+		useLogAction(`added ${response.Title} to ${proponentName} group`)
 	}
 
 	return (

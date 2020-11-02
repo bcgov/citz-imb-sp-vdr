@@ -6,7 +6,7 @@ import {
 	DialogContent,
 	Button,
 } from '@material-ui/core'
-import { GetTermsOfService, setCookie, LogAction, FormatText } from 'Components'
+import { GetTermsOfService, setCookie, useLogAction, FormatText } from 'Components'
 
 export const TermsOfServiceDialog = ({
 	cookieName,
@@ -20,11 +20,11 @@ export const TermsOfServiceDialog = ({
 	const handleAgree = () => {
 		setCookie(cookieName, 'true', cookieDays)
 		updateHasCookie(true)
-		LogAction('agreed to TOS')
+		useLogAction('agreed to TOS')
 	}
 
 	const handleDisagree = async () => {
-		await LogAction('disagreed to TOS')
+		await useLogAction('disagreed to TOS')
 		window.location = '/_layouts/signout.aspx'
 	}
 

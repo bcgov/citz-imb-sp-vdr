@@ -1,7 +1,7 @@
 import { AddItemsToList, GetGroupMembers } from 'citz-imb-sp-utilities'
 
 import {
-	LogAction,
+	useLogAction,
 	SendQuestionConfirmationEmail,
 	SendQuestionNotificationEmail,
 } from 'Components'
@@ -20,7 +20,7 @@ export const AskQuestion = async (
 		},
 	})
 
-	LogAction(`asked '${question}'`)
+	useLogAction(`asked '${question}'`)
 	enqueueSnackbar('Question Submitted Successfully', {
 		variant: 'success',
 	})

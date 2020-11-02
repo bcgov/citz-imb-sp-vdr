@@ -1,5 +1,5 @@
 import React from 'react'
-import { SPDialog,LogAction, ToggleProponent } from 'Components'
+import { SPDialog,useLogAction, ToggleProponent } from 'Components'
 import { useSnackbar } from 'notistack'
 import { Alert } from '@material-ui/lab'
 
@@ -22,7 +22,7 @@ export const ToggleProponentDialog = ({
 			proponentId,
 			enqueueSnackbar
 		)
-		LogAction(`set ${proponentName} to ${active ? 'inactive' : 'active'}`)
+		useLogAction(`set ${proponentName} to ${active ? 'inactive' : 'active'}`)
 		enqueueSnackbar(
 			`set ${proponentName} to ${active ? 'inactive' : 'active'}`,
 			{
