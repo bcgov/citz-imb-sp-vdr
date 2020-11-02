@@ -1,9 +1,9 @@
-import { GetCurrentUser, AddItemsToList } from 'citz-imb-sp-utilities'
+import {
+	GetCurrentUser,
+	AddItemsToList,
+	GetListItems,
+} from 'citz-imb-sp-utilities'
 import * as moment from 'moment'
-
-const getCurrentUser = async () => {
-	return await GetCurrentUser({})
-}
 
 const CurrentUser = async () => {
 	if (CurrentUser._instance) {
@@ -11,11 +11,24 @@ const CurrentUser = async () => {
 	}
 
 	try {
-		const response = await getCurrentUser()
+		const user = await GetCurrentUser({ expand: 'Groups' })
+		const proponents = await GetListItems({ listName: 'Proponents' })
+
+		let proponent = ''
+
+		for (let i = 0; i < proponents.length; i++) {
+			for (let j = 0; j < user.Groups.results.length; j++) {
+				if (proponents[i].GroupId === user.Groups.results[j].Id) {
+					proponent = proponents[i].UUID
+					break
+				}
+			}
+		}
 		CurrentUser._instance = {
-			name: response.Title,
-			id: response.Id,
-			email: response.Email,
+			name: user.Title,
+			id: user.Id,
+			email: user.Email,
+			proponent: proponent,
 		}
 		return CurrentUser._instance
 	} catch (err) {
@@ -25,13 +38,14 @@ const CurrentUser = async () => {
 
 export const LogAction = async (action) => {
 	const user = await CurrentUser()
+
 	const timeStamp = moment().format('dddd, MMMM Do, YYYY @ h:mm:ss a')
 	const activity = `${user.name} ${action} on ${timeStamp}`
 
 	console.warn('LogAction :>> ', { action, timeStamp, user })
 	await AddItemsToList({
 		listName: 'ActivityLog',
-		items: { Title: activity, User: user.name },
+		items: { Title: activity, User: user.name, Proponent: user.proponent },
 	})
 
 	return

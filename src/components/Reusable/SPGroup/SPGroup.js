@@ -7,6 +7,7 @@ import {
 	RemoveUsersFromGroup,
 } from 'citz-imb-sp-utilities'
 import { Paper } from '@material-ui/core'
+import {Alert} from '@material-ui/lab'
 import { SPDialog, PeoplePicker, icons } from 'Components'
 
 export const SPGroup = ({
@@ -133,13 +134,29 @@ export const SPGroup = ({
 						icon: icons.Delete,
 						tooltip: 'Remove User',
 						onClick: (event, rowdata) => {
-							setIsLoading(true)
-							RemoveUsersFromGroup({
-								groupId: groupId,
-								userId: rowdata.Id,
-							}).then((response) => {
-								removeUserCallback(rowdata)
-								refreshData()
+							setDialogParameters({
+								open: true,
+								title: `Remove user from ${response.Title}`,
+								children: (
+									<Alert severity='warning'>
+										this will remove {rowdata.Title} from group Do you
+										wish to continue?
+									</Alert>
+								),
+								saveButtonText: 'Remove User',
+								saveButtonAction: () => {
+									setIsLoading(true)
+									RemoveUsersFromGroup({
+										groupId: groupId,
+										userId: rowdata.Id,
+									}).then((response) => {
+										removeUserCallback(rowdata)
+										refreshData()
+										handleAddUserCancel()
+									})
+								},
+
+								cancelButtonAction: handleAddUserCancel,
 							})
 						},
 					})

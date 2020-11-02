@@ -9,6 +9,7 @@
 					<FieldRef ID="{6971cbc6-1532-48b8-9362-9a38bbe373ea}" Name="Success" DisplayName="Success" />
 					<FieldRef ID="{360657ca-f41c-4e71-840a-2455a42e2ac5}" Name="User" DisplayName="User" Required="FALSE" />
 					<FieldRef ID="{c042a256-787d-4a6f-8a8a-cf6ab767f12d}" Name="ContentType" />
+					<FieldRef ID="{86a41b2a-9da7-45af-9709-37946691b7bb}" Name="Proponent" Required="FALSE" />
 				</FieldRefs>
 				<XmlDocuments>
 					<XmlDocument NamespaceURI="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms">
@@ -839,6 +840,7 @@
 				<Default>0</Default>
 			</Field>
 			<Field Type="Text" DisplayName="User" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="TRUE" MaxLength="255" ID="{360657ca-f41c-4e71-840a-2455a42e2ac5}" SourceID="{$ListId:Lists/ActivityLog;}" StaticName="User" Name="User" ColName="nvarchar3" RowOrdinal="0" />
+			<Field Type="Text" DisplayName="Proponent" Required="FALSE" EnforceUniqueValues="FALSE" Indexed="FALSE" MaxLength="255" ID="{86a41b2a-9da7-45af-9709-37946691b7bb}" SourceID="{$ListId:Lists/ActivityLog;}" StaticName="Proponent" Name="Proponent" ColName="nvarchar1" RowOrdinal="0" />
 			<Field ID="{d48268e5-c65d-486c-bbf1-874cf986d7d3}" Name="ContentVersion" DisplaceOnUpgrade="TRUE" Hidden="TRUE" ReadOnly="TRUE" ShowInFileDlg="FALSE" Type="Lookup" DisplayName="$Resources:core,Content_Version;" List="Docs" FieldRef="ID" ShowField="ContentVersion" JoinColName="DoclibRowId" JoinRowOrdinal="0" JoinType="INNER" SourceID="http://schemas.microsoft.com/sharepoint/v3" StaticName="ContentVersion" FromBaseType="TRUE" />
 		</Fields>
 		<Forms />
@@ -855,6 +857,7 @@
 					<FieldRef Name="Created" />
 					<FieldRef Name="LinkTitle" />
 					<FieldRef Name="User" />
+					<FieldRef Name="Proponent" />
 				</ViewFields>
 				<RowLimit Paged="TRUE">100</RowLimit>
 				<Aggregations Value="Off" />

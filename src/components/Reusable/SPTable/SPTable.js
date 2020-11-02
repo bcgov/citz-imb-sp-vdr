@@ -1,8 +1,6 @@
-import React, { useReducer, useEffect } from 'react'
+import React, { useState, useReducer, useEffect } from 'react'
 import MaterialTable from 'material-table'
 import { GetListAndItems, icons } from 'Components'
-
-const paginationSize = 20
 
 export const SPTable = ({
 	listName,
@@ -21,6 +19,8 @@ export const SPTable = ({
 	},
 	options,
 }) => {
+	const [pageSize, setPageSize] = useState(20)
+
 	const tableInitialState = {
 		isLoading: true,
 		items: [],
@@ -33,7 +33,7 @@ export const SPTable = ({
 			sorting: false,
 			paging: false,
 			emptyRowsWhenPaging: false,
-			pageSize: paginationSize,
+			pageSize: 20,
 			draggable: false,
 			actionsColumnIndex: -1,
 			cellStyle: {
@@ -78,7 +78,7 @@ export const SPTable = ({
 		switch (action.type) {
 			case 'FETCH_SUCCESS':
 				let newState = {}
-				if (action.items.length > paginationSize) {
+				if (action.items.length > pageSize) {
 					newState = {
 						...state,
 						isLoading: false,
@@ -87,8 +87,8 @@ export const SPTable = ({
 						title: action.title,
 						options: {
 							...state.options,
-							paging: true
-						}
+							paging: true,
+						},
 					}
 				} else {
 					newState = {
@@ -157,6 +157,10 @@ export const SPTable = ({
 	}, [refresh])
 
 	useEffect(() => {
+		if (options) {
+			if (options.pageSize) setPageSize(options.pageSize)
+		}
+
 		if (addItem)
 			tableDispatch({
 				type: 'ADD_ACTION',

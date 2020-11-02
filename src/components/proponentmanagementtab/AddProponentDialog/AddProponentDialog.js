@@ -1,36 +1,39 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react'
-import { TextField } from '@material-ui/core'
-import { GetRoleDefinitions } from 'citz-imb-sp-utilities'
-import { SPDialog, AddProponent } from 'Components'
+import { GetListItems, GetRoleDefinitions } from 'citz-imb-sp-utilities'
+import { FormikDialog, AddProponent } from 'Components'
 import { useSnackbar } from 'notistack'
 import { Alert } from '@material-ui/lab'
+import * as Yup from 'yup'
 
-export const AddProponentDialog = ({ open, closeDialog }) => {
-	const [proponentName, setProponentName] = useState('')
-	const [showValidationAlert, setValidationShowAlert] = useState(false)
-	const [showRoleAlert, setShowRoleAlert] = useState(false)
-	const [roles, setRoles] = useState()
-
+export const AddProponentDialog = ({ open, close }) => {
+	const [proponentNames, setProponentNames] = useState([])
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+	const [roles, setRoles] = useState()
+	const [showRoleAlert, setShowRoleAlert] = useState(false)
 
-	const saveAction = async () => {
-		if (proponentName.length > 0 && proponentName.length < 256) {
-			await AddProponent(
-				proponentName,
-				enqueueSnackbar,
-				roles,
-				closeDialog
-			)
-			closeDialog()
-		} else {
-			setValidationShowAlert(true)
-		}
+	const dialogProps = {
+		fields: [
+			{
+				name: 'proponentName',
+				label: 'Proponent Name',
+				initialValue: '',
+				validationSchema: Yup.string()
+					.required('Required')
+					.transform((value, originalvalue) => {
+						return value.toLowerCase()
+					})
+					.notOneOf(proponentNames, 'Proponent already exists'),
+				control: 'input',
+				required: true,
+			},
+		],
+		onSubmit: (values) => {
+			console.log('values', values)
+			AddProponent(values.proponentName, enqueueSnackbar, roles, close)
+		},
+
+		title: 'Add Proponent',
 	}
-
-	const cancelAction = () => {
-		closeDialog()
-	}
-
 	const getRoleDefinitions = async () => {
 		const roleDefs = await GetRoleDefinitions({})
 
@@ -41,8 +44,17 @@ export const AddProponentDialog = ({ open, closeDialog }) => {
 		}
 	}
 
+	const getProponentNames = async () => {
+		const items = await GetListItems({
+			listName: 'Proponents',
+			select: 'Title',
+		})
+		setProponentNames(items.map((item) => item.Title.toLowerCase()))
+	}
+
 	useEffect(() => {
 		getRoleDefinitions()
+		getProponentNames()
 		return () => {}
 	}, [])
 
@@ -54,28 +66,7 @@ export const AddProponentDialog = ({ open, closeDialog }) => {
 					Level, please contact your Site Collection Administrator
 				</Alert>
 			) : (
-				<SPDialog
-					open={open}
-					title={'Add Proponent'}
-					saveButtonAction={saveAction}
-					cancelButtonAction={cancelAction}>
-					{showValidationAlert ? (
-						<Alert severity='error'>
-							Proponent Name must be between 1 and 255 characters
-						</Alert>
-					) : null}
-					<TextField
-						autoFocus
-						margin='dense'
-						id='proponentName'
-						label="Proponent's Name"
-						type='text'
-						fullWidth
-						onChange={(e) => {
-							setProponentName(e.target.value)
-						}}
-					/>
-				</SPDialog>
+				<FormikDialog open={open} close={close} {...dialogProps} />
 			)}
 		</Fragment>
 	)

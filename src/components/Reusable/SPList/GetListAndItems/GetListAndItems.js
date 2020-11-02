@@ -1,14 +1,24 @@
 import React from 'react'
 
-import { GetList } from 'citz-imb-sp-utilities'
+import { GetList,GetListItems } from 'citz-imb-sp-utilities'
 import Moment from 'react-moment'
 
 const getList = async (listName) => {
 	try{
 		let list = await GetList({
 			listName: listName,
-			expand: 'DefaultView,DefaultView/ViewFields,Fields,Items,Items/File',
+			expand: 'DefaultView,DefaultView/ViewFields,Fields'
 		})
+
+		let items = await GetListItems({
+			listName: listName,
+			expand: 'File',
+			sort: 'Created',
+			sortDir: 'Desc'
+		})
+
+		list.Items.results = items
+
 		return list
 	}
 	catch(error){

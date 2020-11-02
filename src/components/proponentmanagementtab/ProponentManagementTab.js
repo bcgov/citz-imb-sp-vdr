@@ -193,7 +193,7 @@ export const ProponentManagementTab = () => {
 		<Fragment>
 			<AddProponentDialog
 				open={addProponentDialog}
-				closeDialog={handleCloseProponentDialog}
+				close={handleCloseProponentDialog}
 			/>
 			<SPTable
 				listName={listName}
