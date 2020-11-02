@@ -1,1 +1,1 @@
-export {useLogAction} from './useLogAction/useLogAction'
+export { useLogAction } from './useLogAction/useLogAction'

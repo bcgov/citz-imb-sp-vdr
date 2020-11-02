@@ -19,29 +19,29 @@ export const App = () => {
 			},
 		},
 	})
+
+	const LogAction = useLogAction()
+
 	const device = deviceDetect()
-	useLogAction(
+	LogAction(
 		`logged in using ${device.browserName} ${device.browserMajorVersion} and ${device.osName} ${device.osVersion}`
 	)
 
 	useEffect(() => {
-
-
-
 		return () => {}
 	}, [])
 
 	return (
 		<MuiThemeProvider theme={theme}>
-				<SnackbarProvider
-					dense
-					anchorOrigin={{
-						vertical: 'bottom',
-						horizontal: 'right',
-					}}>
-					<TermsOfService />
-					{/* <Test /> */}
-				</SnackbarProvider>
+			<SnackbarProvider
+				dense
+				anchorOrigin={{
+					vertical: 'bottom',
+					horizontal: 'right',
+				}}>
+				<TermsOfService />
+				{/* <Test /> */}
+			</SnackbarProvider>
 		</MuiThemeProvider>
 	)
 }

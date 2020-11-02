@@ -19,6 +19,7 @@ export const SendConfirmationEmail = async (
 	body,
 	additionalReplacementPairs = []
 ) => {
+	const LogAction = useLogAction()
 	const contactEmailConfig = await GetListItems({
 		listName: 'Config',
 		filter: `Key eq 'contactemail'`,
@@ -61,9 +62,9 @@ export const SendConfirmationEmail = async (
 			body: newBody,
 			bcc: ['scott.toews@gov.bc.ca'],
 		})
-		useLogAction(`SendEmail succeeded: ${addresses}`)
+		LogAction(`SendEmail succeeded: ${addresses}`)
 	} catch (err) {
 		console.error('err :>> ', err)
-		useLogAction(`SendEmail failed: ${err.message}; addresses: ${addresses}`)
+		LogAction(`SendEmail failed: ${err.message}; addresses: ${addresses}`)
 	}
 }

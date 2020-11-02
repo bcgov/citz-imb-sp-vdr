@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
 	Dialog,
 	DialogTitle,
@@ -21,6 +21,7 @@ export const ProponentGroupDialog = ({
 	groupId,
 	proponentName,
 }) => {
+	const [userResults, setUserResults] = useState()
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 	const saveHandler = () => {
 		enqueueSnackbar('')
@@ -35,7 +36,7 @@ export const ProponentGroupDialog = ({
 				`added ${users[i].Title} to ${proponentName} group`,
 				{ variant: 'success' }
 			)
-			useLogAction(`added ${users[i].Title} to ${proponentName} group`)
+			setUserResults(`added ${users[i].Title} to ${proponentName} group`)
 			SendAddUserConfirmationEmail(users, proponentName)
 		}
 	}
@@ -45,8 +46,15 @@ export const ProponentGroupDialog = ({
 			`removed ${response.Title} from ${proponentName} group`,
 			{ variant: 'warning' }
 		)
-		useLogAction(`added ${response.Title} to ${proponentName} group`)
+		setUserResults(`added ${response.Title} to ${proponentName} group`)
 	}
+
+	useEffect(() => {
+		if (userResults) {
+			//useLogAction(userResults)
+		}
+		return () => {}
+	}, [userResults])
 
 	return (
 		<SPDialog
@@ -54,8 +62,7 @@ export const ProponentGroupDialog = ({
 			title={`Manage Users for ${proponentName}`}
 			showSave={false}
 			cancelButtonAction={cancelAction}
-			fullScreen={true}
-			>
+			fullScreen={true}>
 			<SPGroup
 				groupId={groupId}
 				addUsersCallback={addUserCallback}

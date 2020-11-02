@@ -36,7 +36,7 @@ export const FormikDialog = (props) => {
 		for (let i = 0; i < fields.length; i++) {
 			_initialValues[fields[i].name] = fields[i].initialValue
 			_validationSchema[fields[i].name] = fields[i].validationSchema
-			console.log('fields[i] :>> ', fields[i])
+			//console.log('fields[i] :>> ', fields[i])
 			_controls.push(
 				<FormikControls
 					control={fields[i].control}

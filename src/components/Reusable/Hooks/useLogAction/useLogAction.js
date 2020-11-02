@@ -7,7 +7,7 @@ import {
 
 import * as moment from 'moment'
 
-export const useLogAction = (action) => {
+export const useLogAction = () => {
 	const [currentUser, setCurrentUser] = useState({})
 
 	const getCurrentUser = async () => {
@@ -20,7 +20,6 @@ export const useLogAction = (action) => {
 			for (let i = 0; i < proponents.length; i++) {
 				for (let j = 0; j < user.Groups.results.length; j++) {
 					if (proponents[i].GroupId === user.Groups.results[j].Id) {
-
 						proponent = proponents[i].UUID
 						break
 					}
@@ -42,12 +41,13 @@ export const useLogAction = (action) => {
 		return () => {}
 	}, [])
 
-	useEffect(() => {
+
+	const logAction = (message)=>{
 		if (currentUser.name) {
 			const timeStamp = moment().format('dddd, MMMM Do, YYYY @ h:mm:ss a')
-			const activity = `${currentUser.name} ${action} on ${timeStamp}`
+			const activity = `${currentUser.name} ${message} on ${timeStamp}`
 
-			console.warn('useLogAction :>> ', { action, timeStamp, currentUser })
+			console.warn('LogAction :>> ', { message, timeStamp, currentUser })
 
 			AddItemsToList({
 				listName: 'ActivityLog',
@@ -58,8 +58,7 @@ export const useLogAction = (action) => {
 				},
 			})
 		}
-		return () => {}
-	}, [currentUser, action])
+	}
 
-	return
+	return logAction
 }

@@ -11,8 +11,10 @@ export const AskQuestion = async (
 	listName,
 	enqueueSnackbar,
 	proponentName,
-	groupId,
+	groupId
 ) => {
+
+	const LogAction = useLogAction()
 	await AddItemsToList({
 		listName: listName,
 		items: {
@@ -20,7 +22,7 @@ export const AskQuestion = async (
 		},
 	})
 
-	useLogAction(`asked '${question}'`)
+	LogAction(`asked '${question}'`)
 	enqueueSnackbar('Question Submitted Successfully', {
 		variant: 'success',
 	})

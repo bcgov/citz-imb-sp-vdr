@@ -9,7 +9,7 @@ import {
 	AddPermissionsToActivityLog,
 	CreateProponentGroup,
 	CreateProponentLibrary,
-	CreateProponentQuestionList,
+	CreateProponentQuestionList,useLogAction
 } from 'Components'
 
 export const AddProponent = async (
@@ -18,6 +18,7 @@ export const AddProponent = async (
 	roles,
 	closeDialog
 ) => {
+	const LogAction = useLogAction()
 	const uniqueId = MakeUniqueID()
 
 	const currentUser = await GetCurrentUser({})
@@ -74,5 +75,6 @@ export const AddProponent = async (
 	})
 
 	let ActivityLogPermissions = await AddPermissionsToActivityLog(group, roles)
+	LogAction(`added ${proponentName}`)
 	closeDialog()
 }

@@ -6,7 +6,12 @@ import {
 	DialogContent,
 	Button,
 } from '@material-ui/core'
-import { GetTermsOfService, setCookie, useLogAction, FormatText } from 'Components'
+import {
+	GetTermsOfService,
+	setCookie,
+	useLogAction,
+	FormatText,
+} from 'Components'
 
 export const TermsOfServiceDialog = ({
 	cookieName,
@@ -16,15 +21,16 @@ export const TermsOfServiceDialog = ({
 	const [title, setTitle] = useState()
 	const [body, setBody] = useState()
 	const [isLoading, setIsLoading] = useState(true)
+	const LogAction = useLogAction()
 
 	const handleAgree = () => {
 		setCookie(cookieName, 'true', cookieDays)
 		updateHasCookie(true)
-		useLogAction('agreed to TOS')
+		LogAction('agreed to TOS')
 	}
 
 	const handleDisagree = async () => {
-		await useLogAction('disagreed to TOS')
+		LogAction('disagreed to TOS')
 		window.location = '/_layouts/signout.aspx'
 	}
 
@@ -53,7 +59,7 @@ export const TermsOfServiceDialog = ({
 			aria-describedby='tor-dialog-description'>
 			<DialogTitle id='tor-dialog-title'>{title}</DialogTitle>
 			<DialogContent dividers={true}>
-				<div dangerouslySetInnerHTML={{__html:body}} />
+				<div dangerouslySetInnerHTML={{ __html: body }} />
 			</DialogContent>
 
 			<DialogActions>

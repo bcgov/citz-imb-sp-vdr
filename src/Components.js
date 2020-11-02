@@ -14,7 +14,7 @@ export { GetAllProponentUsers } from 'components/Reusable/GetAllProponentUsers/G
 export { getCookie } from 'components/Reusable/GetCookie/getCookie'
 export { GetCurrentProponent } from 'components/Reusable/GetCurrentProponent/GetCurrentProponent'
 export { GetIsOwner } from 'components/Reusable/GetIsOwner/GetIsOwner'
-//! export { LogAction } from 'components/Reusable/LogAction/LogAction'
+export { LogAction } from 'components/Reusable/LogAction/LogAction'
 export { MakeUniqueID } from 'components/Reusable/MakeUniqueID/MakeUniqueID'
 export { PeoplePicker } from 'components/Reusable/PeoplePicker/PeoplePicker'
 //! RichTextField

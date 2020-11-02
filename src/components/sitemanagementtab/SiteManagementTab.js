@@ -12,6 +12,7 @@ export const SiteManagementTab = () => {
 	const [items, setItems] = useState({})
 	const [viewActivityLogDialog, setViewActivityLogDialog] = useState(false)
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+	const LogAction = useLogAction()
 
 	const initialDialogProps = {
 		fields: [],
@@ -27,7 +28,7 @@ export const SiteManagementTab = () => {
 		try {
 			await UpdateListItem({ listName, items: newValues })
 			dialogDispatch('reset')
-			useLogAction(`updated '${key}'`)
+			LogAction(`updated '${key}'`)
 			enqueueSnackbar(`${key} updated successfully`, {
 				variant: 'success',
 			})

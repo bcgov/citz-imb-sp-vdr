@@ -1,5 +1,5 @@
 import React from 'react'
-import { SPDialog,useLogAction, ToggleProponent } from 'Components'
+import { SPDialog, useLogAction, ToggleProponent } from 'Components'
 import { useSnackbar } from 'notistack'
 import { Alert } from '@material-ui/lab'
 
@@ -13,6 +13,7 @@ export const ToggleProponentDialog = ({
 	proponentId,
 }) => {
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+	const LogAction = useLogAction()
 
 	const saveAction = async () => {
 		await ToggleProponent(
@@ -22,7 +23,7 @@ export const ToggleProponentDialog = ({
 			proponentId,
 			enqueueSnackbar
 		)
-		useLogAction(`set ${proponentName} to ${active ? 'inactive' : 'active'}`)
+		LogAction(`set ${proponentName} to ${active ? 'inactive' : 'active'}`)
 		enqueueSnackbar(
 			`set ${proponentName} to ${active ? 'inactive' : 'active'}`,
 			{
@@ -43,17 +44,17 @@ export const ToggleProponentDialog = ({
 			saveButtonText={active ? 'Set Inactive' : 'Set Active'}
 			saveButtonAction={saveAction}
 			cancelButtonAction={cancelAction}>
-				{active ? (
-					<Alert severity='error'>
-						Proponent Group will be deleted; member users will
-						no-longer be able to access the site.
-					</Alert>
-				) : (
-					<Alert severity='info'>
-						A new group will be created for the proponent. You will
-						need to manually add users.
-					</Alert>
-				)}
+			{active ? (
+				<Alert severity='error'>
+					Proponent Group will be deleted; member users will no-longer
+					be able to access the site.
+				</Alert>
+			) : (
+				<Alert severity='info'>
+					A new group will be created for the proponent. You will need
+					to manually add users.
+				</Alert>
+			)}
 		</SPDialog>
 	)
 }
