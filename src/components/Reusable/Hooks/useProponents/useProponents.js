@@ -235,7 +235,6 @@ export const useProponents = () => {
 	}
 
 	const getUnansweredQuestionCount = async (questionListName) => {
-		console.log('getting unanswered questions', questionListName)
 		const questions = await GetListItems({
 			listName: questionListName,
 			filter: 'Answer eq null',

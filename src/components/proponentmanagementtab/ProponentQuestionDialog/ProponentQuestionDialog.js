@@ -1,5 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import {
+	FormikDialog,
+	ListTable,
 	SPDialog,
 	SPTable,
 	AnswerQuestionDialog,
@@ -7,6 +9,8 @@ import {
 	ViewAnswerButton,
 } from 'Components'
 import { Button } from '@material-ui/core'
+import * as Yup from 'yup'
+
 //TODO: convert to ListTable
 export const ProponentQuestionDialog = ({
 	proponentName,
@@ -14,6 +18,83 @@ export const ProponentQuestionDialog = ({
 	listName,
 	closeDialog,
 }) => {
+	const publicQuestionList = 'Questions'
+	const [questionDialogOptions, setQuestionsDialogOptions] = useState({
+		open: true,
+		close: () => {
+			setQuestionsDialogOptions({ open: false })
+		},
+		title: `${proponentName} Submitted Questions`,
+		fullScreen: true,
+		dialogContent: (
+			<ListTable
+				listName={listName}
+				customColumns={[
+					{
+						accessor: 'Answer',
+						Cell: ({ value, row }) => {
+							console.log('{value, row} :>> ', { value, row })
+							return value ? (
+								<Button
+									data-id={row.original.Id}
+									data-answer={row.values.answer}
+									onClick={handleAnswerClick}
+									variant={'contained'}
+									color={'secondary'}>
+									View Answer
+								</Button>
+							) : (
+								<Button
+									data-id={row.original.Id}
+									onClick={handleAnswerClick}
+									variant={'contained'}
+									color={'primary'}>
+									Answer
+								</Button>
+							)
+						},
+					},
+				]}
+			/>
+		),
+	})
+	const [formDialogOptions, setFormDialogOptions] = useState({ open: false })
+
+	const handleAnswerClick = (event) => {
+		const dataId = event.currentTarget.getAttribute('data-id')
+
+		console.log('dataId :>> ', dataId)
+		console.log('listName :>> ', listName)
+		console.log('publicQuestionList :>> ', publicQuestionList)
+
+		setFormDialogOptions({
+			open: true,
+			close: () => {
+				setFormDialogOptions({ open: false })
+			},
+
+			fields: [
+				{
+					name: 'title',
+					label: 'Title',
+					initialValue: '',
+					validationSchema: Yup.string().required('Required'),
+					control: 'input',
+				},
+			],
+			onSubmit: (values, { setSubmitting }) => {
+				setTimeout(() => {
+					setSubmitting(false)
+					alert(JSON.stringify(values, null, 2))
+				}, 500)
+			},
+			title: 'Formik Dialog Form',
+			instructions: 'this is how you do it',
+			fullWidth: true,
+		})
+	}
+
+	//======================
 	const [answerDialog, setAnswerDialog] = useState(false)
 	const [question, setQuestion] = useState('')
 	const [questionId, setQuestionId] = useState()
@@ -73,7 +154,9 @@ export const ProponentQuestionDialog = ({
 
 	return (
 		<Fragment>
-			<SPDialog
+			<FormikDialog {...questionDialogOptions} />
+			<FormikDialog {...formDialogOptions} />
+			{/* <SPDialog
 				open={open}
 				title={proponentName}
 				showSave={false}
@@ -90,21 +173,21 @@ export const ProponentQuestionDialog = ({
 					customActions={customActions}
 					refresh={refresh}
 				/>
-			</SPDialog>
-			<AnswerQuestionDialog
+			</SPDialog> */}
+			{/* <AnswerQuestionDialog
 				open={answerDialog}
 				close={closeAnswerDialog}
 				listName={listName}
 				questionId={questionId}
 				question={question}
 				proponentName={proponentName}
-			/>
-			<ViewAnswerDialog
+			/> */}
+			{/* <ViewAnswerDialog
 				open={viewAnswerDialog}
 				closeDialog={closeAnswerDialog}
 				listName={listName}
 				itemId={currentItemId}
-			/>
+			/> */}
 		</Fragment>
 	)
 }
