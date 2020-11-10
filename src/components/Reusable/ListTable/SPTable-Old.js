@@ -18,6 +18,7 @@ export const SPTable = ({
 		return list
 	},
 	options,
+	columns,
 }) => {
 	const [pageSize, setPageSize] = useState(20)
 
@@ -127,6 +128,7 @@ export const SPTable = ({
 						...action.options,
 					},
 				}
+
 			default:
 				return state
 		}
@@ -199,6 +201,8 @@ export const SPTable = ({
 
 		return () => {}
 	}, [])
+
+
 
 	return (
 		<MaterialTable

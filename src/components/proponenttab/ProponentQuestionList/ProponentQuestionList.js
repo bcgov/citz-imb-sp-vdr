@@ -1,11 +1,11 @@
 import React, { useState, Fragment } from 'react'
 import { Grid, Paper } from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
 
 import {
 	AskQuestionDialog,
 	classes,
-	icons,
-	SPTable,
+	ListTable,
 	ViewAnswerButton,
 	ViewAnswerDialog,
 } from 'Components'
@@ -22,11 +22,14 @@ export const ProponentQuestionList = ({
 	const [viewAnswerDialog, setViewAnswerDialog] = useState(false)
 	const [currentItemId, setCurrentItemId] = useState()
 
-	const closeDialog = () => {
-		setAskQuestionDialog(false)
+	const closeAnswerDialog = () => {
 		setViewAnswerDialog(false)
+	}
+	const closeQuestionDialog = () => {
+		setAskQuestionDialog(false)
 		setRefresh(!refresh)
 	}
+
 	const openAnswerDialog = (itemId) => {
 		setCurrentItemId(itemId)
 		setViewAnswerDialog(true)
@@ -35,53 +38,51 @@ export const ProponentQuestionList = ({
 	const questionOptions = {
 		listName: listName,
 		tableTitle: 'Our Submitted Questions',
-		deleteItem: false,
-		addItem: false,
-		editItem: false,
-		changeItemPermissions: false,
+		refresh: refresh,
+		initialState: { sortBy: [{ id: 'Created', desc: true }] },
+		columnFiltering: false,
+		customColumns: [
+			{
+				accessor: 'Answer',
+				Cell: ({ value }) => {
+					return value ? (
+						<ViewAnswerButton
+							itemId={value}
+							onClick={openAnswerDialog}
+						/>
+					) : null
+				},
+			},
+		],
 		customActions: [
 			{
-				icon: icons.Add,
-				tooltip: 'Add Item',
+				icon: <AddIcon />,
+				tooltip: 'Submit Question',
 				isFreeAction: true,
-				onClick: (event, rowdata) => {
+				onClick: () => {
 					setAskQuestionDialog(true)
 				},
 			},
 		],
-		additionalData: (list) => {
-			const items = list.items.map((item) => {
-				let newItem = item
-				if (item.Answer)
-					newItem.Answer = (
-						<ViewAnswerButton
-							itemId={item.Id}
-							onClick={openAnswerDialog}
-						/>
-					)
-				return newItem
-			})
-			return list
-		},
 	}
 
 	return (
 		<Fragment>
 			<Grid key={`${proponentId}QuestionList`} item xs={6}>
 				<Paper className={classes.paper}>
-					<SPTable {...questionOptions} refresh={refresh} />
+					<ListTable {...questionOptions} />
 				</Paper>
 			</Grid>
 			<AskQuestionDialog
 				open={askQuestionDialog}
-				closeDialog={closeDialog}
+				closeDialog={closeQuestionDialog}
 				listName={listName}
 				proponentName={proponentName}
 				groupId={groupId}
 			/>
 			<ViewAnswerDialog
 				open={viewAnswerDialog}
-				closeDialog={closeDialog}
+				closeDialog={closeAnswerDialog}
 				listName={listName}
 				itemId={currentItemId}
 			/>

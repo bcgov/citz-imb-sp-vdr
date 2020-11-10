@@ -67,6 +67,7 @@ export const PeoplePicker = ({ schema, elementName, getUserInfo }) => {
 
 		return () => {}
 	}, [])
+	
 	useEffect(() => {
 		if (resolvedListElement) {
 			observer.observe(resolvedListElement, { childList: true })

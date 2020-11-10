@@ -1,5 +1,5 @@
 import React from 'react'
-import { SPDialog, SPTable } from 'Components'
+import { SPDialog, ListTable } from 'Components'
 
 export const ProponentLibraryDialog = ({
 	proponentName,
@@ -16,7 +16,7 @@ export const ProponentLibraryDialog = ({
 			cancelButtonText={'Close'}
 			cancelButtonAction={closeDialog}
 			fullScreen={true}>
-			<SPTable
+			<ListTable
 				listName={listName}
 				tableTitle={'Library'}
 				addItem={false}

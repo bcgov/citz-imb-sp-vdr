@@ -5,7 +5,7 @@ import {
 	GetCurrentUser,
 } from 'citz-imb-sp-utilities'
 import {
-	MakeUniqueID,
+	//MakeUniqueID,
 	AddPermissionsToActivityLog,
 	CreateProponentGroup,
 	CreateProponentLibrary,
@@ -19,7 +19,7 @@ export const AddProponent = async (
 	closeDialog
 ) => {
 	const LogAction = useLogAction()
-	const uniqueId = MakeUniqueID()
+	const uniqueId=''// = MakeUniqueID()
 
 	const currentUser = await GetCurrentUser({})
 	const associatedGroups = await GetAssociatedGroups()

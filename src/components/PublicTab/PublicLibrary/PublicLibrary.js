@@ -1,22 +1,19 @@
 import React, { useState } from 'react'
 
 import { Grid, Paper } from '@material-ui/core'
-import { SPTable, tableOptions, classes } from 'Components'
+import { ListTable, tableOptions, classes } from 'Components'
 
 export const PublicLibrary = () => {
 	const libraryOptions = {
 		listName: 'Documents',
+		columnFiltering: false,
 		tableTitle: 'Public Documents',
-		addItem: false,
-		deleteItem: false,
-		editItem: false,
-		changeItemPermissions: false,
 	}
 
 	return (
 		<Grid key={'Documents'} item xs={6}>
 			<Paper className={classes.paper}>
-				<SPTable {...libraryOptions} />
+				<ListTable {...libraryOptions} />
 			</Paper>
 		</Grid>
 	)

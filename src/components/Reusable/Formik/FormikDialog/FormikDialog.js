@@ -7,6 +7,7 @@ import {
 	DialogContent,
 	DialogActions,
 	Grid,
+	LinearProgress,
 } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import { FormikControls } from 'Components'
@@ -16,12 +17,13 @@ import * as Yup from 'yup'
 export const FormikDialog = (props) => {
 	//console.log('props :>> ', props)
 	const {
-		fields,
+		fields = [],
 		onSubmit,
 		open,
 		close,
 		title,
 		instructions,
+		dialogContent,
 		...rest
 	} = props
 	const [initialValues, setInitialValues] = useState({})
@@ -75,7 +77,9 @@ export const FormikDialog = (props) => {
 									container
 									direction={'column'}
 									spacing={1}>
-									{instructions ? (
+									{dialogContent ? (
+										dialogContent
+									) : instructions ? (
 										<Grid item>
 											<Alert severity={'info'}>
 												<AlertTitle>
@@ -87,19 +91,27 @@ export const FormikDialog = (props) => {
 											</Alert>
 										</Grid>
 									) : null}
-									{controls.map((control,index) => {
-										return <Grid key={`control_${index}`} item>{control}</Grid>
+									{controls.map((control, index) => {
+										return (
+											<Grid key={`control_${index}`} item>
+												{control}
+											</Grid>
+										)
 									})}
+									{isSubmitting ? <LinearProgress /> : null}
 								</Grid>
 							</DialogContent>
 							<DialogActions>
-								<Button
-									variant='contained'
-									color='primary'
-									disabled={isSubmitting}
-									onClick={submitForm}>
-									Submit
-								</Button>
+								{onSubmit ? (
+									<Button
+										variant='contained'
+										color='primary'
+										disabled={isSubmitting}
+										onClick={submitForm}>
+										Submit
+									</Button>
+								) : null}
+
 								<Button
 									variant='contained'
 									color='primary'

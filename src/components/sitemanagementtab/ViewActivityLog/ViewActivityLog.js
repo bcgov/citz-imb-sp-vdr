@@ -1,27 +1,62 @@
-import React from 'react'
-import { SPDialog, SPTable } from 'Components'
+import React, { useState, useEffect } from 'react'
+import { SPDialog, ListTable, useSiteUsersAndProponents } from 'Components'
 import moment from 'moment'
 
-export const ViewActivityLog = ({
-	open,
-	close = () => {}
-}) => {
-	const setDefaultSort = (list) => {
-		console.log('setDefaultSort :>> ', list)
+export const ViewActivityLog = ({ open, close = () => {} }) => {
+	const [users, proponents, groups, refresh] = useSiteUsersAndProponents()
+	const [proponentFilter, setProponentFilter] = useState({})
+	const [userFilter, setUserFilter] = useState({})
+	useEffect(() => {
+		let proponentsObject = {}
+
+		if (proponents.length > 0) {
+			for (let i = 0; i < proponents.length; i++) {
+				proponentsObject[proponents[i]] = proponents[i]
+			}
+		}
+
+		setProponentFilter(proponentsObject)
+		return () => {}
+	}, [proponents])
+
+	useEffect(() => {
+		let usersObject = {}
+
+		if (users.length > 0) {
+			for (let i = 0; i < users.length; i++) {
+				usersObject[users[i].Title] = users[i].Title
+			}
+		}
+		setUserFilter(usersObject)
+		return () => {}
+	}, [users])
+
+	const setDefaultSort = async (list) => {
 		for (let i = 0; i < list.columns.length; i++) {
 			if (list.columns[i].title === 'Created') {
 				list.columns[i].defaultSort = 'desc'
 				list.columns[i].customSort = (a, b) =>
 					moment(a.Created) - moment(b.Created)
-				console.log('column :>> ', list.columns[i])
+				list.columns[i].filtering = false
 			}
 			if (list.columns[i].title === 'Action') {
 				list.columns[i].sorting = false
-				console.log('column :>> ', list.columns[i])
+				list.columns[i].filtering = false
+			}
+			if (list.columns[i].title === 'User') {
+				list.columns[i].sorting = false
+				list.columns[i].filtering = true
+				list.columns[i].lookup = userFilter
+			}
+			if (list.columns[i].title === 'Proponent') {
+				list.columns[i].sorting = false
+				list.columns[i].filtering = true
+				list.columns[i].lookup = proponentFilter
 			}
 		}
 		return list
 	}
+
 	return (
 		<SPDialog
 			open={open}
@@ -30,7 +65,7 @@ export const ViewActivityLog = ({
 			cancelButtonText={'Close'}
 			cancelButtonAction={close}
 			fullScreen={true}>
-			<SPTable
+			<ListTable
 				listName={'ActivityLog'}
 				addItem={false}
 				deleteItem={false}

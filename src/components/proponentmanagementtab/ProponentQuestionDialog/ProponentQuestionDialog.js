@@ -7,7 +7,7 @@ import {
 	ViewAnswerButton,
 } from 'Components'
 import { Button } from '@material-ui/core'
-
+//TODO: convert to ListTable
 export const ProponentQuestionDialog = ({
 	proponentName,
 	open,
