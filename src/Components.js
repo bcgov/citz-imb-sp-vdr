@@ -16,7 +16,7 @@ export { GetCurrentProponent } from 'components/Reusable/GetCurrentProponent/Get
 export { GetIsOwner } from 'components/Reusable/GetIsOwner/GetIsOwner'
 export { LogAction } from 'components/Reusable/LogAction/LogAction'
 //! export { MakeUniqueID } from 'components/Reusable/MakeUniqueID/MakeUniqueID'
-export { PeoplePicker } from 'components/Reusable/PeoplePicker/PeoplePicker'
+//! export { PeoplePicker } from 'components/Reusable/PeoplePicker/PeoplePicker'
 //! RichTextField
 //! RTEditor
 export { SendConfirmationEmail } from 'components/Reusable/SendConfirmationEmail/SendConfirmationEmail'
@@ -29,6 +29,7 @@ export { SPTable } from 'components/Reusable/ListTable/SPTable-Old'
 export { ViewAnswerButton } from 'components/Reusable/ViewAnswerButton/ViewAnswerButton'
 export { ViewAnswerDialog } from 'components/Reusable/ViewAnswerDialog/ViewAnswerDialog'
 export { GetQuestionAndAnswer } from 'components/Reusable/ViewAnswerDialog/GetAnswer/GetAnswer'
+export { PeoplePicker } from 'components/Reusable/Hooks/usePeoplePicker/PeoplePicker'
 
 //Terms of Service
 export { TermsOfService } from 'components/TermsOfService/TermsOfService'

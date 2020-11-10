@@ -3,3 +3,4 @@ export { useSiteUsersAndProponents } from './useSiteUsersAndProponents/useSiteUs
 export { useList } from './useList/useList'
 export { useProponents } from './useProponents/useProponents'
 export { useGroup } from './useGroup/useGroup'
+export { usePeoplePicker } from './usePeoplePicker/usePeoplePicker'
