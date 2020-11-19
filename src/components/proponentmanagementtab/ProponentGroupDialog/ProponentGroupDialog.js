@@ -13,14 +13,22 @@ import {
 	useLogAction,
 	SendAddUserConfirmationEmail,
 	DialogOptionsContext,
-	FormikDialog
+	GroupTable,
+	FormikDialog,
 } from 'Components'
 
+export const ProponentGroupDialog = ({ open, close }) => {
+	const dialogContent = <GroupTable groupName={'Dev Site Visitors'} addRecord={true}
 
-export const ProponentGroupDialog = ({
+	/>
 
-}) => {
+	return (
+		<FormikDialog
+			open={open}
+			close={close}
+			title={'Manage Group'}
 
-
-	return <br/>
+			dialogContent={dialogContent}
+		/>
+	)
 }

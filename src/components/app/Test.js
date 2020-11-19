@@ -1,24 +1,33 @@
-import React, { useState, useEffect } from 'react'
-import { TextField } from '@material-ui/core'
+import React, { useState, useEffect, Fragment } from 'react'
 
-import { PeoplePicker } from 'Components'
+import { ProponentGroupDialog, PeoplePicker } from 'Components'
+import { FormikTest } from 'components/Reusable/Reusable'
+import { Grid } from '@material-ui/core'
 
 export const Test = () => {
-	const [userInfo, setUserInfo] = useState([])
-
-	useEffect(() => {
-		console.log('userInfo :>> ', userInfo)
-		return () => {}
-	}, [userInfo])
+	const [open, setOpen] = useState(true)
+	// return <ProponentGroupDialog proponentName={'Proponent A'}
+	// open={open}
+	// listName={'VBFD126_Questions'}
+	// closeDialog={()=>{setOpen(false)}} />
 
 	return (
-		<PeoplePicker
-			label='People I want to Add'
-			variant={'outlined'}
-			getUserInfo={(users) => {
-				setUserInfo(users)
-			}}
-			multiple={false}
-		/>
+		<Fragment>
+			<Grid container direction={'column'} spacing={1}>
+				<Grid item>
+					<PeoplePicker
+						getUserInfo={(value) => {
+							console.log('value', value)
+						}}
+					/>
+				</Grid>
+			</Grid>
+			<FormikTest
+				open={open}
+				close={() => {
+					setOpen(false)
+				}}
+			/>
+		</Fragment>
 	)
 }

@@ -39,15 +39,27 @@ export const FormikDialog = (props) => {
 			_initialValues[fields[i].name] = fields[i].initialValue
 			_validationSchema[fields[i].name] = fields[i].validationSchema
 			//console.log('fields[i] :>> ', fields[i])
-			_controls.push(
-				<FormikControls
-					control={fields[i].control}
-					name={fields[i].name}
-					label={fields[i].label}
-					required={fields[i].required || false}
-					options={fields[i].options || []}
-				/>
-			)
+			let options = {}
+			if (fields[i].control === 'peoplepicker') {
+				options = {
+					control: fields[i].control,
+					name: fields[i].name,
+					label: fields[i].label,
+					required: fields[i].required,
+					options: fields[i].options,
+					getUserInfo: fields[i].getUserInfo,
+				}
+			} else {
+				options = {
+					control: fields[i].control,
+					name: fields[i].name,
+					label: fields[i].label,
+					required: fields[i].required,
+					options: fields[i].options,
+				}
+
+			}
+			_controls.push(<FormikControls {...options} />)
 		}
 
 		setInitialValues(_initialValues)

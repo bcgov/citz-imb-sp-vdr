@@ -1,4 +1,12 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
+import { Button } from '@material-ui/core'
+import { Alert, AlertTitle } from '@material-ui/lab'
+import * as Yup from 'yup'
+import {
+	AddItemsToList,
+	GetListItems,
+	UpdateListItem,
+} from 'citz-imb-sp-utilities'
 import {
 	FormikDialog,
 	ListTable,
@@ -8,8 +16,6 @@ import {
 	ViewAnswerDialog,
 	ViewAnswerButton,
 } from 'Components'
-import { Button } from '@material-ui/core'
-import * as Yup from 'yup'
 
 //TODO: convert to ListTable
 export const ProponentQuestionDialog = ({
@@ -19,16 +25,16 @@ export const ProponentQuestionDialog = ({
 	closeDialog,
 }) => {
 	const publicQuestionList = 'Questions'
+	const [refreshTable, setRefreshTable] = useState(true)
 	const [questionDialogOptions, setQuestionsDialogOptions] = useState({
-		open: true,
-		close: () => {
-			setQuestionsDialogOptions({ open: false })
-		},
+		open: open,
+		close: closeDialog,
 		title: `${proponentName} Submitted Questions`,
 		fullScreen: true,
 		dialogContent: (
 			<ListTable
 				listName={listName}
+				refresh={refreshTable}
 				customColumns={[
 					{
 						accessor: 'Answer',
@@ -38,9 +44,9 @@ export const ProponentQuestionDialog = ({
 								<Button
 									data-id={row.original.Id}
 									data-answer={row.values.answer}
-									onClick={handleAnswerClick}
+									onClick={handleViewAnswerClick}
 									variant={'contained'}
-									color={'secondary'}>
+									>
 									View Answer
 								</Button>
 							) : (
@@ -60,12 +66,35 @@ export const ProponentQuestionDialog = ({
 	})
 	const [formDialogOptions, setFormDialogOptions] = useState({ open: false })
 
-	const handleAnswerClick = (event) => {
+	const handleViewAnswerClick = (event) => {
+		
+	}
+
+	const saveAnswer = async (dataId, values) => {
+		const { Answer, SanitizedQuestion } = values
+		const item = await AddItemsToList({
+			listName: publicQuestionList,
+			items: { Question: SanitizedQuestion, Answer },
+		})
+		await UpdateListItem({
+			listName,
+			items: { Id: dataId, Answer: item[0].Id.toString() },
+		})
+		console.log('item :>> ', item)
+	}
+
+	const handleAnswerClick = async (event) => {
 		const dataId = event.currentTarget.getAttribute('data-id')
 
 		console.log('dataId :>> ', dataId)
 		console.log('listName :>> ', listName)
 		console.log('publicQuestionList :>> ', publicQuestionList)
+
+		const question = await GetListItems({
+			listName,
+			filter: `Id eq ${dataId}`,
+		})
+		console.log('question :>> ', question)
 
 		setFormDialogOptions({
 			open: true,
@@ -75,24 +104,44 @@ export const ProponentQuestionDialog = ({
 
 			fields: [
 				{
-					name: 'title',
-					label: 'Title',
+					name: 'SanitizedQuestion',
+					label: 'Sanitized Question',
+					initialValue: question[0].Title,
+					validationSchema: Yup.string().required('Required'),
+					control: 'input',
+				},
+				{
+					name: 'Answer',
+					label: 'Answer',
 					initialValue: '',
 					validationSchema: Yup.string().required('Required'),
 					control: 'input',
 				},
 			],
-			onSubmit: (values, { setSubmitting }) => {
-				setTimeout(() => {
-					setSubmitting(false)
-					alert(JSON.stringify(values, null, 2))
-				}, 500)
+
+			onSubmit: async (values, { setSubmitting }) => {
+				await saveAnswer(dataId, values)
+				setSubmitting(false)
+				setRefreshTable(!refreshTable)
+				setFormDialogOptions({ open: false })
 			},
-			title: 'Formik Dialog Form',
-			instructions: 'this is how you do it',
+			title: 'Answer Question',
+			dialogContent: (
+				<Alert severity='info'>
+					<AlertTitle>Original Question</AlertTitle>
+					{question[0].Title}
+				</Alert>
+			),
 			fullWidth: true,
 		})
 	}
+
+	useEffect(() => {
+		console.log('refreshTable :>> ', refreshTable);
+		return () => {
+
+		}
+	}, [refreshTable])
 
 	//======================
 	const [answerDialog, setAnswerDialog] = useState(false)

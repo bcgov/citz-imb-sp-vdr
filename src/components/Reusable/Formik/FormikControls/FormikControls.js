@@ -4,6 +4,7 @@ import { TextArea } from './TextArea/TextArea'
 import { Select } from './Select/Select'
 import { Radio } from './Radio/Radio'
 import { CheckboxGroup } from './CheckboxGroup/CheckboxGroup'
+import { PeoplePicker } from './PeoplePicker/PeoplePicker'
 
 export const FormikControls = (props) => {
 	const { control, ...rest } = props
@@ -19,6 +20,17 @@ export const FormikControls = (props) => {
 			return <Radio {...rest} />
 		case 'checkbox':
 			return <CheckboxGroup {...rest} />
+		case 'peoplepicker':
+			console.log('rest', rest)
+			const { getUserInfo, label, name, required } = rest
+			return (
+				<PeoplePicker
+					label={label}
+					name={name}
+					//required={required}
+					getUserInfo={getUserInfo}
+				/>
+			)
 		case 'date':
 		default:
 			return null

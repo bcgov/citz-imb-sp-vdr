@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core'
 import { FormikDialog } from 'Components'
 import * as Yup from 'yup'
 
-export const FormikTest = () => {
+export const FormikTest = ({open, close}) => {
 	const fields = [
 		{
 			name: 'title',
@@ -11,6 +11,15 @@ export const FormikTest = () => {
 			initialValue: '',
 			validationSchema: Yup.string().required('Required'),
 			control: 'input',
+			required: true,
+		},
+		{
+			name: 'peoplepicker',
+			label: 'People Picker',
+			initialValue: '',
+			// validationSchema: Yup.string().required('Required'),
+			control: 'peoplepicker',
+			getUserInfo: (userInfo)=>{console.log('userInfo', userInfo)}
 		},
 		{
 			name: 'description',
@@ -18,6 +27,7 @@ export const FormikTest = () => {
 			initialValue: '',
 			validationSchema: Yup.string().required('Required'),
 			control: 'textarea',
+			required: true,
 		},
 		{
 			name: 'select',
@@ -31,6 +41,7 @@ export const FormikTest = () => {
 				{ key: 'second', value: 'second' },
 				{ key: 'third', value: 'third' },
 			],
+			required: true,
 		},
 		// {
 		// 	name: 'checkbox',
@@ -55,10 +66,9 @@ export const FormikTest = () => {
 				{ key: 'second', value: 'second' },
 				{ key: 'third', value: 'third' },
 			],
+			required: true,
 		},
 	]
-
-	const [open, setOpen] = useState(false)
 
 	const onSubmit = (values, { setSubmitting }) => {
 		setTimeout(() => {
@@ -69,21 +79,11 @@ export const FormikTest = () => {
 
 	return (
 		<div>
-			<Button
-				variant='contained'
-				color='primary'
-				onClick={() => {
-					setOpen(true)
-				}}>
-				Open Form
-			</Button>
 			<FormikDialog
 				fields={fields}
 				onSubmit={onSubmit}
 				open={open}
-				close={() => {
-					setOpen(false)
-				}}
+				close={close}
 				title={'Formik Dialog Form'}
 				instructions={'this is how you do it'}
 				fullWidth={true}
