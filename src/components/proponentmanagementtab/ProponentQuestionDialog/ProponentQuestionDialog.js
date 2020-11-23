@@ -39,7 +39,6 @@ export const ProponentQuestionDialog = ({
 					{
 						accessor: 'Answer',
 						Cell: ({ value, row }) => {
-							console.log('{value, row} :>> ', { value, row })
 							return value ? (
 								<Button
 									data-id={row.original.Id}
@@ -67,7 +66,7 @@ export const ProponentQuestionDialog = ({
 	const [formDialogOptions, setFormDialogOptions] = useState({ open: false })
 
 	const handleViewAnswerClick = (event) => {
-		
+
 	}
 
 	const saveAnswer = async (dataId, values) => {

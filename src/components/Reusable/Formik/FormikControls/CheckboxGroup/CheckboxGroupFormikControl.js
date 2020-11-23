@@ -9,7 +9,7 @@ import {
 	FormControlLabel,
 } from '@material-ui/core'
 
-export const CheckboxGroup = (props) => {
+export const CheckboxGroupFormikControl = (props) => {
 	const { label, name, required, options, ...rest } = props
 	return (
 		<Field name={name}>

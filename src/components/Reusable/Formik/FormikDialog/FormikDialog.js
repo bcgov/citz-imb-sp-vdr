@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Formik, Form, Field } from 'formik'
+import { Formik, Form } from 'formik'
 import {
 	Button,
 	Dialog,
@@ -15,7 +15,6 @@ import { Markup } from 'interweave'
 import * as Yup from 'yup'
 
 export const FormikDialog = (props) => {
-	//console.log('props :>> ', props)
 	const {
 		fields = [],
 		onSubmit,
@@ -24,7 +23,7 @@ export const FormikDialog = (props) => {
 		title,
 		instructions,
 		dialogContent,
-		...rest
+		...remainingDialogProps
 	} = props
 	const [initialValues, setInitialValues] = useState({})
 	const [validationSchema, setValidationSchema] = useState({})
@@ -38,27 +37,14 @@ export const FormikDialog = (props) => {
 		for (let i = 0; i < fields.length; i++) {
 			_initialValues[fields[i].name] = fields[i].initialValue
 			_validationSchema[fields[i].name] = fields[i].validationSchema
-			//console.log('fields[i] :>> ', fields[i])
-			let options = {}
-			if (fields[i].control === 'peoplepicker') {
-				options = {
-					control: fields[i].control,
-					name: fields[i].name,
-					label: fields[i].label,
-					required: fields[i].required,
-					options: fields[i].options,
-					getUserInfo: fields[i].getUserInfo,
-				}
-			} else {
-				options = {
-					control: fields[i].control,
-					name: fields[i].name,
-					label: fields[i].label,
-					required: fields[i].required,
-					options: fields[i].options,
-				}
-
+			let options = {
+				control: fields[i].control,
+				name: fields[i].name,
+				label: fields[i].label,
+				required: fields[i].required,
+				options: fields[i].options,
 			}
+
 			_controls.push(<FormikControls {...options} />)
 		}
 
@@ -69,13 +55,8 @@ export const FormikDialog = (props) => {
 		return () => {}
 	}, [props])
 
-	useEffect(() => {
-		//console.log('useEffect controls :>> ', controls)
-		return () => {}
-	}, [controls])
-
 	return (
-		<Dialog open={open} onClose={close} {...rest}>
+		<Dialog open={open} onClose={close} {...remainingDialogProps}>
 			<Formik
 				initialValues={initialValues}
 				validationSchema={validationSchema}

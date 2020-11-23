@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react'
-import { GetGroup, GetGroupMembers } from 'citz-imb-sp-utilities'
+import {
+	AddUsersToGroup,
+	GetGroup,
+	GetGroupMembers,
+	RemoveUsersFromGroup,
+} from 'citz-imb-sp-utilities'
 
 export const useGroup = (groupId, groupName) => {
 	const [isLoading, setIsLoading] = useState(true)
@@ -9,10 +14,8 @@ export const useGroup = (groupId, groupName) => {
 	const getGroup = async () => {
 		try {
 			const _group = await GetGroup({ groupId, groupName })
-			console.log('_group :>> ', _group)
 			setGroup(_group)
 			const _members = await GetGroupMembers({ groupId, groupName })
-			console.log('_members :>> ', _members)
 			setMembers(_members)
 			setIsLoading(false)
 		} catch (error) {
@@ -23,8 +26,26 @@ export const useGroup = (groupId, groupName) => {
 	// const createGroup = async () => {}
 	const deleteGroup = async () => {}
 	const updateGroup = async () => {}
-	const addGroupMember = async () => {}
-	const removeGroupMember = async () => {}
+
+	const addGroupMember = async (values) => {
+		console.log('group :>> ', group)
+		await AddUsersToGroup({
+			groupId: group.Id,
+			loginName: values.members.map((user) => user.Key),
+		})
+		await getGroup()
+	}
+
+	const removeGroupMember = async (userId) => {
+		console.log('userId :>> ', userId)
+		console.log('group :>> ', group)
+
+		await RemoveUsersFromGroup({
+			groupId: group.Id,
+			userId,
+		})
+		await getGroup()
+	}
 
 	useEffect(() => {
 		getGroup()

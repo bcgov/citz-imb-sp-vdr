@@ -4,12 +4,12 @@ import {
 	FormControl,
 	FormLabel,
 	FormHelperText,
-	Radio as MURadio,
+	Radio,
 	RadioGroup,
 	FormControlLabel,
 } from '@material-ui/core'
 
-export const Radio = (props) => {
+export const RadioFormikControl = (props) => {
 	const { label, name, required, options, ...rest } = props
 	return (
 		<Field name={name}>
@@ -25,7 +25,7 @@ export const Radio = (props) => {
 									<FormControlLabel
 										key={`${name}_option_${index}`}
 										value={option.value}
-										control={<MURadio />}
+										control={<Radio />}
 										label={option.key}
 									/>
 								)

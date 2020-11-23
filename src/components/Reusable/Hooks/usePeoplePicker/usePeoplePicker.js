@@ -9,7 +9,6 @@ export const usePeoplePicker = () => {
 	}
 
 	const onChange = async (event) => {
-		console.log('event.currentTarget.value', event.currentTarget.value)
 		if (event.currentTarget.value.length > 2) {
 			const options = {
 				endPoint:

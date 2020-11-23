@@ -5,11 +5,11 @@ import {
     FormLabel,
 	InputLabel,
 	FormHelperText,
-    Select as MUSelect,
+    Select,
     MenuItem
 } from '@material-ui/core'
 
-export const Select = (props) => {
+export const SelectFormikControl = (props) => {
 	const { label, name, required, options, ...rest } = props
 	return (
 		<Field name={name}>
@@ -19,7 +19,7 @@ export const Select = (props) => {
 						error={form.errors[name] && form.touched[name]}
 						required={required}>
 						<FormLabel htmlFor={name}>{label}</FormLabel>
-						<MUSelect id={name} variant={'outlined'} {...rest} {...field}>
+						<Select id={name} variant={'outlined'} {...rest} {...field}>
 							{options.map((option, index) => {
 								return (
 									<MenuItem
@@ -29,7 +29,7 @@ export const Select = (props) => {
 									</MenuItem>
 								)
 							})}
-						</MUSelect>
+						</Select>
 						<FormHelperText>{form.errors[name]}</FormHelperText>
 					</FormControl>
 				)

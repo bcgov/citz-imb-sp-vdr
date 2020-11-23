@@ -14,11 +14,12 @@ import {
 	TableSortLabel,
 	TablePagination,
 } from '@material-ui/core'
+import { Alert, AlertTitle } from '@material-ui/lab'
 import AddIcon from '@material-ui/icons/Add'
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 import * as Yup from 'yup'
 
 //TODO: CRUD operations
-//TODO: addRecord is incomplete!
 //TODO: global filter
 
 export const GroupTable = ({
@@ -30,12 +31,12 @@ export const GroupTable = ({
 	refresh = true,
 }) => {
 	const [dialog, setDialog] = useState({
-		fields: [],
-		onSubmit: () => {},
+		// fields: [],
+		// onSubmit: () => {},
 		open: false,
-		close: () => {},
-		title: '',
-		instructions: '',
+		// close: () => {},
+		// title: '',
+		// instructions: '',
 	})
 	const {
 		addGroupMember,
@@ -62,12 +63,25 @@ export const GroupTable = ({
 				Filter: true,
 				disableFilters: true,
 			},
+			{
+				Header: 'Remove',
+				id: 'removeMember',
+				Cell: ({ row  }) => {
+					const clickHandler = () => {
+						removeItemDialog(row)
+					}
+
+					return (
+						<IconButton color={'primary'} onClick={clickHandler}>
+							<DeleteOutlineIcon />
+						</IconButton>
+					)
+				},
+			},
 		]
-	}, [])
+	}, [group])
 
 	const data = useMemo(() => members, [members])
-
-	const [newMembers, setNewMembers] = useState([])
 
 	const {
 		getTableProps,
@@ -96,25 +110,49 @@ export const GroupTable = ({
 					name: 'members',
 					label: 'Members',
 					initialValue: '',
-					validationSchema: Yup.string().required('Required'),
+					//validationSchema: Yup.string().required('Required'),
 					control: 'peoplepicker',
-					getUserInfo: (values) => {
-						console.log('values', values)
-						setNewMembers(values)
-					},
 				},
 			],
-			onSubmit: (values, { setSubmitting }) => {
-				setSubmitting(false)
-				alert(JSON.stringify(values, null, 2))
+			onSubmit: async (values, { setSubmitting }) => {
+				console.log('group', group)
+				try {
+					await addGroupMember(values)
+					setDialog({ open: false })
+				} catch (error) {
+					throw error
+				} finally {
+					setSubmitting(false)
+				}
 			},
 			open: true,
 			close: () => {
 				setDialog({ open: false })
 			},
 			title: 'Add Member',
-			instructions: '',
 		})
+	}
+
+	const removeItemDialog = ({original}) => {
+		setDialog({
+		dialogContent:<Alert><AlertTitle>Remove {original.Title} from Group?</AlertTitle>{original.Title} will no longer have access to this site</Alert>,
+			onSubmit: async (values, { setSubmitting }) => {
+				try {
+					await removeGroupMember(original.Id)
+					setDialog({ open: false })
+				} catch (error) {
+					throw error
+				} finally {
+					setSubmitting(false)
+				}
+			},
+			open: true,
+			close: () => {
+				setDialog({ open: false })
+			},
+			title: 'Remove Member',
+		})
+
 	}
 
 	return (

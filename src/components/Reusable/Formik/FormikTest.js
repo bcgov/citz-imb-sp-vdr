@@ -4,6 +4,9 @@ import { FormikDialog } from 'Components'
 import * as Yup from 'yup'
 
 export const FormikTest = ({open, close}) => {
+
+	const [peoplePicker, setPeoplePicker] = useState()
+
 	const fields = [
 		{
 			name: 'title',
@@ -19,7 +22,7 @@ export const FormikTest = ({open, close}) => {
 			initialValue: '',
 			// validationSchema: Yup.string().required('Required'),
 			control: 'peoplepicker',
-			getUserInfo: (userInfo)=>{console.log('userInfo', userInfo)}
+			getUserInfo: (userInfo)=>{setPeoplePicker(userInfo)}
 		},
 		{
 			name: 'description',
@@ -71,6 +74,9 @@ export const FormikTest = ({open, close}) => {
 	]
 
 	const onSubmit = (values, { setSubmitting }) => {
+		console.log('values :>> ', values);
+		console.log('peoplePicker :>> ', peoplePicker);
+		values.peoplepicker = peoplePicker
 		setTimeout(() => {
 			setSubmitting(false)
 			alert(JSON.stringify(values, null, 2))
