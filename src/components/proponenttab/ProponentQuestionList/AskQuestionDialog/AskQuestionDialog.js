@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TextField } from '@material-ui/core'
-import { SPDialog, AskQuestion } from 'Components'
+import { FormikDialog, useList, useLogAction } from 'Components'
 import { useSnackbar } from 'notistack'
 import { Alert } from '@material-ui/lab'
+import * as Yup from 'yup'
 
 export const AskQuestionDialog = ({
 	open,
@@ -13,22 +14,31 @@ export const AskQuestionDialog = ({
 }) => {
 	const [question, setQuestion] = useState('')
 	const [showAlert, setShowAlert] = useState(false)
+	const {
+		title,
+		columns,
+		items,
+		fields,
+		views,
+		refresh,
+		changeView,
+		addItem,
+		addColumns,
+	} = useList(listName)
+
+	const logAction = useLogAction()
 
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
-	const saveAction = async () => {
-		if (question.length > 0 && question.length < 256) {
-			await AskQuestion(
-				question,
-				listName,
-				enqueueSnackbar,
-				proponentName,
-				groupId
-			)
+	const onSubmit = (values, { setSubmitting }) => {
+		addItem(values).then((response) => {
+			setSubmitting(false)
+			console.log('values :>> ', values)
+			logAction(`asked ${values.Title}`)
 			closeDialog()
-		} else {
-			setShowAlert(true)
-		}
+		}).catch(error=>{
+			console.log('error :>> ', error);
+		})
 	}
 
 	const cancelAction = () => {
@@ -36,28 +46,22 @@ export const AskQuestionDialog = ({
 	}
 
 	return (
-		<SPDialog
+		<FormikDialog
+			fields={[
+				{
+					name: 'Title',
+					label: 'Question',
+					initialValue: '',
+					validationSchema: Yup.string().required('Required'),
+					required: true,
+					control: 'input',
+				},
+			]}
+			onSubmit={onSubmit}
 			open={open}
+			close={closeDialog}
 			title={'Ask Question'}
-			saveButtonText='Submit'
-			saveButtonAction={saveAction}
-			cancelButtonAction={cancelAction}>
-			{showAlert ? (
-				<Alert severity='error'>
-					Question must be between 1 and 255 characters
-				</Alert>
-			) : null}
-			<TextField
-				autoFocus
-				margin='dense'
-				id='question'
-				label='Question'
-				type='text'
-				fullWidth
-				onChange={(e) => {
-					setQuestion(e.target.value)
-				}}
-			/>
-		</SPDialog>
+			instructions={''}
+		/>
 	)
 }

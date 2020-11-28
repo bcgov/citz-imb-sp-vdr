@@ -1,90 +1,95 @@
-import React, { useState, Fragment } from 'react'
-import { Grid, Paper } from '@material-ui/core'
+import React, { useState, useContext, Fragment } from 'react'
+import { IconButton } from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
+import { UserContext } from 'Components'
 
 import {
-	AskQuestionDialog,
+	// AskQuestionDialog,
 	classes,
-	icons,
-	SPTable,
-	ViewAnswerButton,
-	ViewAnswerDialog,
+	ListTable,
+	// ViewAnswerButton,
+	// ViewAnswerDialog,
 } from 'Components'
 
-export const ProponentQuestionList = ({
-	proponentId,
-	groupId,
-	proponentName,
-}) => {
-	const listName = `${proponentId}_Questions`
+export const ProponentQuestionList = () => {
+
+const currentUser = useContext(UserContext)
+
+const listOptions = {
+	listName: `${currentUser.proponent}_Questions`,
+	columnFiltering: false,
+	showTitle: false,
+}
 
 	const [refresh, setRefresh] = useState(true)
 	const [askQuestionDialog, setAskQuestionDialog] = useState(false)
 	const [viewAnswerDialog, setViewAnswerDialog] = useState(false)
 	const [currentItemId, setCurrentItemId] = useState()
 
-	const closeDialog = () => {
-		setAskQuestionDialog(false)
+	const closeAnswerDialog = () => {
 		setViewAnswerDialog(false)
+	}
+	const closeQuestionDialog = () => {
+		setAskQuestionDialog(false)
 		setRefresh(!refresh)
 	}
+
 	const openAnswerDialog = (itemId) => {
 		setCurrentItemId(itemId)
 		setViewAnswerDialog(true)
 	}
 
 	const questionOptions = {
-		listName: listName,
 		tableTitle: 'Our Submitted Questions',
-		deleteItem: false,
-		addItem: false,
-		editItem: false,
-		changeItemPermissions: false,
-		customActions: [
+		refresh: refresh,
+		initialState: { sortBy: [{ id: 'Created', desc: true }] },
+		columnFiltering: false,
+		customColumns: [
 			{
-				icon: icons.Add,
-				tooltip: 'Add Item',
-				isFreeAction: true,
-				onClick: (event, rowdata) => {
-					setAskQuestionDialog(true)
+				accessor: 'Answer',
+				Cell: ({ value }) => {
+					return value
+						? // <ViewAnswerButton
+						  // 	itemId={value}
+						  // 	onClick={openAnswerDialog}
+						  // />
+						  null
+						: null
 				},
 			},
 		],
-		additionalData: (list) => {
-			const items = list.items.map((item) => {
-				let newItem = item
-				if (item.Answer)
-					newItem.Answer = (
-						<ViewAnswerButton
-							itemId={item.Id}
-							onClick={openAnswerDialog}
-						/>
-					)
-				return newItem
-			})
-			return list
-		},
+		customActions: [
+			{
+				render: (
+					<IconButton
+						onClick={() => {
+							setAskQuestionDialog(true)
+						}}>
+						<AddIcon />
+					</IconButton>
+				),
+				tooltip: 'Submit Question',
+				isFreeAction: true,
+			},
+		],
 	}
 
 	return (
 		<Fragment>
-			<Grid key={`${proponentId}QuestionList`} item xs={6}>
-				<Paper className={classes.paper}>
-					<SPTable {...questionOptions} refresh={refresh} />
-				</Paper>
-			</Grid>
-			<AskQuestionDialog
+			<ListTable {...listOptions} />
+			{/* <AskQuestionDialog
 				open={askQuestionDialog}
-				closeDialog={closeDialog}
+				closeDialog={closeQuestionDialog}
 				listName={listName}
 				proponentName={proponentName}
 				groupId={groupId}
 			/>
 			<ViewAnswerDialog
 				open={viewAnswerDialog}
-				closeDialog={closeDialog}
+				closeDialog={closeAnswerDialog}
 				listName={listName}
 				itemId={currentItemId}
-			/>
+			/> */}
 		</Fragment>
 	)
 }

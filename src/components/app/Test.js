@@ -1,6 +1,7 @@
 import React from 'react'
-import { ProponentManagementTab } from 'Components'
+import { SiteManagement } from 'Components'
 
 export const Test = () => {
-	return <ProponentManagementTab />
+
+	return <SiteManagement />
 }

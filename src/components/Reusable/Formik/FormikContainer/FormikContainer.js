@@ -1,5 +1,5 @@
 import React from 'react'
-import { Formik, Form, Field } from 'formik'
+import { Formik, Form} from 'formik'
 import { Button, LinearProgress, Grid } from '@material-ui/core'
 import { FormikControls } from 'Components'
 import * as Yup from 'yup'
@@ -11,7 +11,6 @@ export const FormikContainer = (props) => {
 		select: '',
 		checkbox: '',
 		radio: '',
-		checkbox: [],
 	}
 	const validationSchema = Yup.object({
 		title: Yup.string().required('Required'),

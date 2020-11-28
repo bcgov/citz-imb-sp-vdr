@@ -1,7 +1,7 @@
 import { AddItemsToList, GetGroupMembers } from 'citz-imb-sp-utilities'
 
 import {
-	LogAction,
+	useLogAction,
 	SendQuestionConfirmationEmail,
 	SendQuestionNotificationEmail,
 } from 'Components'
@@ -11,8 +11,10 @@ export const AskQuestion = async (
 	listName,
 	enqueueSnackbar,
 	proponentName,
-	groupId,
+	groupId
 ) => {
+
+	const LogAction = useLogAction()
 	await AddItemsToList({
 		listName: listName,
 		items: {

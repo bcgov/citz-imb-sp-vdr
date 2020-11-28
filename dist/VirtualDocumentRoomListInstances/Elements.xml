@@ -354,7 +354,7 @@ All information that may be provided by Proponents in connection with the VICO o
         <Row>
           <Field Name="ID">2</Field>
           <Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
-          <Field Name="Title">Add User Email</Field>
+          <Field Name="Title">User Welcome Email</Field>
           <Field Name="_ModerationStatus">0</Field>
           <Field Name="Order">200.000000000000</Field>
           <Field Name="FSObjType">0</Field>
@@ -375,7 +375,7 @@ Sincerely,[Title] Administrator​</Field>
         <Row>
           <Field Name="ID">3</Field>
           <Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
-          <Field Name="Title">Add Question Email</Field>
+          <Field Name="Title">Proponent Question Email</Field>
           <Field Name="_ModerationStatus">0</Field>
           <Field Name="Order">300.000000000000</Field>
           <Field Name="FSObjType">0</Field>
@@ -400,7 +400,7 @@ Sincerely,[Title] Administrator​</Field>
         <Row>
           <Field Name="ID">4</Field>
           <Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
-          <Field Name="Title">Contact Email</Field>
+          <Field Name="Title">Contact Email Address</Field>
           <Field Name="_ModerationStatus">0</Field>
           <Field Name="Order">400.000000000000</Field>
           <Field Name="FSObjType">0</Field>
@@ -415,7 +415,7 @@ Sincerely,[Title] Administrator​</Field>
         <Row>
           <Field Name="ID">5</Field>
           <Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
-          <Field Name="Title">New Question Email</Field>
+          <Field Name="Title">VICO Manager Question Email</Field>
           <Field Name="_ModerationStatus">0</Field>
           <Field Name="Order">500.000000000000</Field>
           <Field Name="FSObjType">0</Field>
@@ -434,7 +434,7 @@ Yours truly,[Title] System​</Field>
         <Row>
           <Field Name="ID">6</Field>
           <Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
-          <Field Name="Title">New Answer Email</Field>
+          <Field Name="Title">Proponent Answer Email</Field>
           <Field Name="_ModerationStatus">0</Field>
           <Field Name="Order">600.000000000000</Field>
           <Field Name="FSObjType">0</Field>

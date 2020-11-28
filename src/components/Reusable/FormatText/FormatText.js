@@ -20,7 +20,7 @@ const replaceBold = (text) => {
 	}
 	replacements.map(({ searchValue, newValue }) => {
 		newText = newText.replace(searchValue, newValue)
-		return
+		return newText
 	})
 
 	return newText
@@ -48,7 +48,7 @@ const replaceLinks = (text) => {
 	}
 	replacements.map(({ searchValue, newValue }) => {
 		newText = newText.replace(searchValue, newValue)
-		return
+		return newText
 	})
 
 	return newText
@@ -76,7 +76,7 @@ const replaceMail = (text) => {
 	}
 	replacements.map(({ searchValue, newValue }) => {
 		newText = newText.replace(searchValue, newValue)
-		return
+		return newText
 	})
 
 	return newText
@@ -104,7 +104,7 @@ const replaceHeadings = (text) => {
 	}
 	replacements.map(({ searchValue, newValue }) => {
 		newText = newText.replace(searchValue, newValue)
-		return
+		return newText
 	})
 
 	return newText

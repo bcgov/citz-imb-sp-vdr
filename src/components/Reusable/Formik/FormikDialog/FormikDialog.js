@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Formik, Form, Field } from 'formik'
+import { Formik, Form } from 'formik'
 import {
 	Button,
 	Dialog,
@@ -7,6 +7,7 @@ import {
 	DialogContent,
 	DialogActions,
 	Grid,
+	LinearProgress,
 } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import { FormikControls } from 'Components'
@@ -14,54 +15,53 @@ import { Markup } from 'interweave'
 import * as Yup from 'yup'
 
 export const FormikDialog = (props) => {
-	//console.log('props :>> ', props)
 	const {
-		fields,
+		fields = [],
 		onSubmit,
 		open,
 		close,
 		title,
 		instructions,
-		...rest
+		dialogContent,
+		...remainingDialogProps
 	} = props
 	const [initialValues, setInitialValues] = useState({})
 	const [validationSchema, setValidationSchema] = useState({})
 	const [controls, setControls] = useState([])
 
 	useEffect(() => {
-		const _initialValues = {}
-		const _validationSchema = {}
-		const _controls = []
+		if (open) {
+			const _initialValues = {}
+			const _validationSchema = {}
+			const _controls = []
 
-		for (let i = 0; i < fields.length; i++) {
-			_initialValues[fields[i].name] = fields[i].initialValue
-			_validationSchema[fields[i].name] = fields[i].validationSchema
-			console.log('fields[i] :>> ', fields[i])
-			_controls.push(
-				<FormikControls
-					control={fields[i].control}
-					name={fields[i].name}
-					label={fields[i].label}
-					required={fields[i].required || false}
-					options={fields[i].options || []}
-				/>
-			)
+			for (let i = 0; i < fields.length; i++) {
+				_initialValues[fields[i].name] = fields[i].initialValue
+				_validationSchema[fields[i].name] = fields[i].validationSchema
+				let options = {
+					control: fields[i].control,
+					name: fields[i].name,
+					label: fields[i].label,
+					required: fields[i].required,
+					options: fields[i].options,
+				}
+
+				_controls.push(<FormikControls {...options} />)
+			}
+
+			setInitialValues(_initialValues)
+			setValidationSchema(Yup.object(_validationSchema))
+			setControls(_controls)
+		} else {
+			setInitialValues({})
+			setValidationSchema({})
+			setControls([])
 		}
-
-		setInitialValues(_initialValues)
-		setValidationSchema(Yup.object(_validationSchema))
-		setControls(_controls)
-
 		return () => {}
-	}, [props])
-
-	useEffect(() => {
-		//console.log('useEffect controls :>> ', controls)
-		return () => {}
-	}, [controls])
+	}, [open])
 
 	return (
-		<Dialog open={open} onClose={close} {...rest}>
+		<Dialog open={open} onClose={close} {...remainingDialogProps}>
 			<Formik
 				initialValues={initialValues}
 				validationSchema={validationSchema}
@@ -75,7 +75,9 @@ export const FormikDialog = (props) => {
 									container
 									direction={'column'}
 									spacing={1}>
-									{instructions ? (
+									{dialogContent ? (
+										dialogContent
+									) : instructions ? (
 										<Grid item>
 											<Alert severity={'info'}>
 												<AlertTitle>
@@ -87,19 +89,27 @@ export const FormikDialog = (props) => {
 											</Alert>
 										</Grid>
 									) : null}
-									{controls.map((control,index) => {
-										return <Grid key={`control_${index}`} item>{control}</Grid>
+									{controls.map((control, index) => {
+										return (
+											<Grid key={`control_${index}`} item>
+												{control}
+											</Grid>
+										)
 									})}
+									{isSubmitting ? <LinearProgress /> : null}
 								</Grid>
 							</DialogContent>
 							<DialogActions>
-								<Button
-									variant='contained'
-									color='primary'
-									disabled={isSubmitting}
-									onClick={submitForm}>
-									Submit
-								</Button>
+								{onSubmit ? (
+									<Button
+										variant='contained'
+										color='primary'
+										disabled={isSubmitting}
+										onClick={submitForm}>
+										Submit
+									</Button>
+								) : null}
+
 								<Button
 									variant='contained'
 									color='primary'

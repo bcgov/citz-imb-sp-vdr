@@ -1,24 +1,27 @@
 import React from 'react'
-import { Input } from './Input/Input'
-import { TextArea } from './TextArea/TextArea'
-import { Select } from './Select/Select'
-import { Radio } from './Radio/Radio'
-import { CheckboxGroup } from './CheckboxGroup/CheckboxGroup'
+import { InputFormikControl } from './Input/InputFormikControl'
+import { TextAreaFormikControl } from './TextArea/TextAreaFormikControl'
+import { SelectFormikControl } from './Select/SelectFormikControl'
+import { RadioFormikControl } from './Radio/RadioFormikControl'
+import { CheckboxGroupFormikControl } from './CheckboxGroup/CheckboxGroupFormikControl'
+import { PeoplePickerFormikControl } from './PeoplePicker/PeoplePickerFormikControl'
 
 export const FormikControls = (props) => {
 	const { control, ...rest } = props
 
 	switch (control) {
 		case 'input':
-			return <Input {...rest} />
+			return <InputFormikControl {...rest} />
 		case 'textarea':
-			return <TextArea {...rest} />
+			return <TextAreaFormikControl {...rest} />
 		case 'select':
-			return <Select {...rest} />
+			return <SelectFormikControl {...rest} />
 		case 'radio':
-			return <Radio {...rest} />
+			return <RadioFormikControl {...rest} />
 		case 'checkbox':
-			return <CheckboxGroup {...rest} />
+			return <CheckboxGroupFormikControl {...rest} />
+		case 'peoplepicker':
+			return <PeoplePickerFormikControl {...rest} />
 		case 'date':
 		default:
 			return null
