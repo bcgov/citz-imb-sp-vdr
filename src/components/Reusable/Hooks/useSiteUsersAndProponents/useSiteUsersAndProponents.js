@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react'
 import { GetGroupMembers, GetListItems } from 'citz-imb-sp-utilities'
 
-import * as moment from 'moment'
-
 export const useSiteUsersAndProponents = () => {
 	const listName = 'Proponents'
-	const [users, setUsers] = useState([])
-	const [proponents, setProponents] = useState([])
-	const [groups, setGroups] = useState([])
-	const [membership, setMembership] = useState([])
+	const [isLoading, setIsLoading] = useState(true)
+	const [users, setUsers] = useState()
+	const [proponents, setProponents] = useState()
+	const [groups, setGroups] = useState()
+	const [membership, setMembership] = useState()
 
 	const refresh = async () => {
 		let _users = []
@@ -26,12 +25,14 @@ export const useSiteUsersAndProponents = () => {
 			})
 
 			for (let i = 0; i < _groups.length; i++) {
-				let members = await GetGroupMembers({
-					groupId: _groups[i],
-				})
+				if (_groups[i] > 0) {
+					let members = await GetGroupMembers({
+						groupId: _groups[i],
+					})
 
-				for (let j = 0; j < members.length; j++) {
-					_users.push(members[i])
+					for (let j = 0; j < members.length; j++) {
+						_users.push(members[i])
+					}
 				}
 			}
 
@@ -51,5 +52,13 @@ export const useSiteUsersAndProponents = () => {
 		return () => {}
 	}, [])
 
-	return [users, proponents, groups, refresh]
+	useEffect(() => {
+		if (users && membership && groups && proponents) {
+			setIsLoading(false)
+
+		}
+		return () => {}
+	}, [users, membership, groups, proponents])
+
+	return { users, proponents, groups, refresh, isLoading }
 }

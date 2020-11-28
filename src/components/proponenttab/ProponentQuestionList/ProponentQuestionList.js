@@ -1,21 +1,25 @@
-import React, { useState, Fragment } from 'react'
-import { Grid, Paper } from '@material-ui/core'
+import React, { useState, useContext, Fragment } from 'react'
+import { IconButton } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
+import { UserContext } from 'Components'
 
 import {
-	AskQuestionDialog,
+	// AskQuestionDialog,
 	classes,
 	ListTable,
-	ViewAnswerButton,
-	ViewAnswerDialog,
+	// ViewAnswerButton,
+	// ViewAnswerDialog,
 } from 'Components'
 
-export const ProponentQuestionList = ({
-	proponentId,
-	groupId,
-	proponentName,
-}) => {
-	const listName = `${proponentId}_Questions`
+export const ProponentQuestionList = () => {
+
+const currentUser = useContext(UserContext)
+
+const listOptions = {
+	listName: `${currentUser.proponent}_Questions`,
+	columnFiltering: false,
+	showTitle: false,
+}
 
 	const [refresh, setRefresh] = useState(true)
 	const [askQuestionDialog, setAskQuestionDialog] = useState(false)
@@ -36,7 +40,6 @@ export const ProponentQuestionList = ({
 	}
 
 	const questionOptions = {
-		listName: listName,
 		tableTitle: 'Our Submitted Questions',
 		refresh: refresh,
 		initialState: { sortBy: [{ id: 'Created', desc: true }] },
@@ -45,35 +48,36 @@ export const ProponentQuestionList = ({
 			{
 				accessor: 'Answer',
 				Cell: ({ value }) => {
-					return value ? (
-						<ViewAnswerButton
-							itemId={value}
-							onClick={openAnswerDialog}
-						/>
-					) : null
+					return value
+						? // <ViewAnswerButton
+						  // 	itemId={value}
+						  // 	onClick={openAnswerDialog}
+						  // />
+						  null
+						: null
 				},
 			},
 		],
 		customActions: [
 			{
-				icon: <AddIcon />,
+				render: (
+					<IconButton
+						onClick={() => {
+							setAskQuestionDialog(true)
+						}}>
+						<AddIcon />
+					</IconButton>
+				),
 				tooltip: 'Submit Question',
 				isFreeAction: true,
-				onClick: () => {
-					setAskQuestionDialog(true)
-				},
 			},
 		],
 	}
 
 	return (
 		<Fragment>
-			<Grid key={`${proponentId}QuestionList`} item xs={6}>
-				<Paper className={classes.paper}>
-					<ListTable {...questionOptions} />
-				</Paper>
-			</Grid>
-			<AskQuestionDialog
+			<ListTable {...listOptions} />
+			{/* <AskQuestionDialog
 				open={askQuestionDialog}
 				closeDialog={closeQuestionDialog}
 				listName={listName}
@@ -85,7 +89,7 @@ export const ProponentQuestionList = ({
 				closeDialog={closeAnswerDialog}
 				listName={listName}
 				itemId={currentItemId}
-			/>
+			/> */}
 		</Fragment>
 	)
 }

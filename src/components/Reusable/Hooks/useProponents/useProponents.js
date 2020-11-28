@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useSnackbar } from 'notistack'
-import { useList, useGroup } from 'Components'
+import { useList } from 'Components'
 import {
 	AddPermissionsToList,
 	AddPermissionsToSite,
@@ -21,17 +21,18 @@ import {
 } from 'citz-imb-sp-utilities'
 
 export const useProponents = () => {
-	const [proponents, setProponents] = useState()
+	//const [proponents, setProponents] = useState()
+	const [proponentsObject, setProponentsObject] = useState()
 	const [isLoading, setIsLoading] = useState(true)
+
 	const {
 		addItem,
 		isLoading: listIsLoading,
 		items,
 		refresh,
-		title,
 		updateItem,
 	} = useList('Proponents')
-	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+	const { enqueueSnackbar } = useSnackbar()
 
 	const MakeUniqueID = () => {
 		return (
@@ -148,26 +149,28 @@ export const useProponents = () => {
 			},
 		})
 
-		const defaultView = await GetListDefaultView({ listGUID: questionList.Id })
+		const defaultView = await GetListDefaultView({
+			listGUID: questionList.Id,
+		})
 
-		const removeAllDefaultViewFields = await RemoveListViewAllFields({
+		await RemoveListViewAllFields({
 			listGUID: questionList.Id,
 			viewGUID: defaultView.Id,
 		})
 
-		const addTitleToDefaultView = await AddListViewField({
+		await AddListViewField({
 			listGUID: questionList.Id,
 			viewGUID: defaultView.Id,
 			field: 'Title',
 		})
 
-		const addCreatedToDefaultView = await AddListViewField({
+		await AddListViewField({
 			listGUID: questionList.Id,
 			viewGUID: defaultView.Id,
 			field: 'Created',
 		})
 
-		const addAnswerIdToDefaultView = await AddListViewField({
+		await AddListViewField({
 			listGUID: questionList.Id,
 			viewGUID: defaultView.Id,
 			field: 'Answer',
@@ -193,6 +196,7 @@ export const useProponents = () => {
 		enqueueSnackbar('added proponent to proponent list', {
 			variant: 'warning',
 		})
+		await refresh()
 	}
 
 	const setProponentActive = async (UUID) => {
@@ -205,21 +209,22 @@ export const useProponents = () => {
 		})
 
 		await updateItem([
-			{ Id: proponents[UUID].Id, Active: true, GroupId: group },
+			{ Id: proponentsObject[UUID].Id, Active: true, GroupId: group },
 		])
 		enqueueSnackbar('updated proponent list', { variant: 'warning' })
+		await refresh()
 	}
 
 	const setProponentInactive = async (UUID) => {
 		await DeleteGroup({
-			groupId: proponents[UUID].GroupId,
+			groupId: proponentsObject[UUID].GroupId,
 		})
 		enqueueSnackbar('deleted proponent group', { variant: 'warning' })
 		await updateItem([
-			{ Id: proponents[UUID].Id, Active: false, GroupId: 0 },
+			{ Id: proponentsObject[UUID].Id, Active: false, GroupId: 0 },
 		])
 		enqueueSnackbar('updated proponent list', { variant: 'warning' })
-		refresh()
+		await refresh()
 	}
 
 	const addUserToProponent = async (userId, UUID) => {
@@ -231,45 +236,50 @@ export const useProponents = () => {
 	}
 
 	const getProponent = (UUID) => {
-		return proponents[UUID]
+		return proponentsObject[UUID]
 	}
 
-	const getUnansweredQuestionCount = async (questionListName) => {
+	const getQuestionCount = async (questionListName) => {
 		const questions = await GetListItems({
 			listName: questionListName,
-			filter: 'Answer eq null',
 		})
 
-		return questions.length
+		return { asked: questions.length, answered: 0, withdrawn: 0 }
 	}
 
-	const setUpProponents = async () =>{
-		let itemObject = {}
-
-		items.map(async (item) => {
-			itemObject[item.UUID] = item
-
-			itemObject[item.UUID].unansweredQuestionCount = await getUnansweredQuestionCount(`${item.UUID}_Questions`)
-
-			return item
-		})
-
-		setProponents(itemObject)
-
-	}
-
-	useEffect(() => {
-		if (!listIsLoading) {
-			setUpProponents()
-		}
-		return () => {}
+	const proponents = useMemo(() => {
+			return items
 	}, [listIsLoading])
 
 	useEffect(() => {
-		if (proponents) setIsLoading(false)
+		const setUpProponents = async () => {
+			let itemObject = {}
+
+			for (let i = 0; i < items.length; i++) {
+				itemObject[items[i].UUID] = { ...items[i] }
+
+				itemObject[items[i].UUID].questionCount = await getQuestionCount(
+					`${items[i].UUID}_Questions`
+				)
+
+			}
+
+			setProponentsObject(itemObject)
+		}
+
+		if (!listIsLoading) {
+			setUpProponents()
+		} else {
+			setIsLoading(true)
+		}
+		return () => {}
+	}, [listIsLoading, proponents])
+
+	useEffect(() => {
+		if (proponents && proponentsObject) setIsLoading(false)
 
 		return () => {}
-	}, [proponents])
+	}, [proponents, proponentsObject])
 
 	return {
 		addProponent,

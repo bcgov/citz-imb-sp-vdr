@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo, Fragment } from 'react'
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table'
 import { useList, FormikDialog } from 'Components'
 import {
-	Button,
 	IconButton,
 	LinearProgress,
 	TableContainer,
@@ -21,19 +20,22 @@ import AddIcon from '@material-ui/icons/Add'
 //TODO: addRecord is incomplete!
 //TODO: global filter
 
-export const ListTable = ({
-	listName,
-	columnFiltering = true,
-	tableTitle,
-	initialState = {},
-	addRecord = false,
-	// deleteItem = false,
-	// editItem = false,
-	// changeItemPermissions = false,
-	refresh = true,
-	customColumns = [],
-	customActions = [],
-}) => {
+export const ListTable = React.memo((props) => {
+	const {
+		listName,
+		columnFiltering = true,
+		tableTitle,
+		showTitle = true,
+		initialState = {},
+		addRecord = false,
+		// deleteItem = false,
+		// editItem = false,
+		// changeItemPermissions = false,
+		refresh = true,
+		customColumns = [],
+		customActions = [],
+	} = props
+
 	const [dialog, setDialog] = useState({
 		fields: [],
 		onSubmit: () => {},
@@ -44,15 +46,16 @@ export const ListTable = ({
 	})
 	const [freeActions, setFreeActions] = useState([])
 	const [rowActions, setRowActions] = useState([])
+	const [isLoading, setIsLoading] = useState(true)
 
 	const {
 		title,
 		columns: tableColumns,
 		items,
-		addItem,
+		// addItem,
 		addColumns,
 		refresh: refreshData,
-		isLoading,
+		isLoading: listIsLoading,
 	} = useList(listName)
 
 	const columns = useMemo(() => {
@@ -132,14 +135,21 @@ export const ListTable = ({
 		return () => {}
 	}, [refresh])
 
+	useEffect(() => {
+		if(!listIsLoading) setIsLoading(false)
+		return () => {}
+	}, [listIsLoading])
+
 	return (
 		<Fragment>
 			{isLoading ? (
 				<LinearProgress />
 			) : (
-				<TableContainer>
+				<TableContainer className={'scott'}>
 					<div>
-						<h2>{tableTitle ? tableTitle : title}</h2>
+						{showTitle ? (
+							<h2>{tableTitle ? tableTitle : title}</h2>
+						) : null}
 						{addRecord ? (
 							<IconButton
 								aria-label='add'
@@ -149,8 +159,10 @@ export const ListTable = ({
 							</IconButton>
 						) : null}
 						{freeActions.map((action, index) => {
-							return (<span key={`${listName}_freeActions_${index}`}>{action.render}</span>
-
+							return (
+								<span key={`${listName}_freeActions_${index}`}>
+									{action.render}
+								</span>
 							)
 						})}
 					</div>
@@ -265,4 +277,4 @@ export const ListTable = ({
 			<FormikDialog {...dialog} />
 		</Fragment>
 	)
-}
+})

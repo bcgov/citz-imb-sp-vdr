@@ -1,35 +1,32 @@
-import React, { useState, useEffect, useMemo, Fragment } from 'react'
+import React, { useState, useMemo, useContext, Fragment } from 'react'
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table'
-import { useGroup, FormikDialog } from 'Components'
 import {
-	Button,
-	IconButton,
-	LinearProgress,
-	TableContainer,
-	Table,
-	TableHead,
-	TableBody,
-	TableRow,
-	TableCell,
-	TableSortLabel,
-	TablePagination,
-} from '@material-ui/core'
+	useGroup,
+	useLogAction,
+	FormikDialog,
+	CustomTable,
+	SendConfirmationEmail,
+	ConfigContext,
+} from 'Components'
+import { IconButton, LinearProgress } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
-import AddIcon from '@material-ui/icons/Add'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
-import * as Yup from 'yup'
 
 //TODO: CRUD operations
 //TODO: global filter
 
-export const GroupTable = ({
-	groupId,
-	groupName,
-	addRecord = false,
-	// deleteItem = false,
-	// editItem = false,
-	refresh = true,
-}) => {
+export const GroupTable = (props) => {
+	const {
+		groupId,
+		groupName,
+		proponent,
+		addRecord = false,
+		showTitle = true,
+		// deleteItem = false,
+		// editItem = false,
+		refresh = true,
+	} = props
+
 	const [dialog, setDialog] = useState({
 		// fields: [],
 		// onSubmit: () => {},
@@ -38,15 +35,20 @@ export const GroupTable = ({
 		// title: '',
 		// instructions: '',
 	})
+
+	const logAction = useLogAction()
+	const { items } = useContext(ConfigContext)
+	const { addUserEmail } = items
+
 	const {
 		addGroupMember,
-		createGroup,
-		deleteGroup,
+		// createGroup,
+		// deleteGroup,
 		group,
 		isLoading,
 		members,
 		removeGroupMember,
-		updateGroup,
+		// updateGroup,
 	} = useGroup(groupId, groupName)
 
 	const columns = useMemo(() => {
@@ -66,7 +68,7 @@ export const GroupTable = ({
 			{
 				Header: 'Remove',
 				id: 'removeMember',
-				Cell: ({ row  }) => {
+				Cell: ({ row }) => {
 					const clickHandler = () => {
 						removeItemDialog(row)
 					}
@@ -83,25 +85,12 @@ export const GroupTable = ({
 
 	const data = useMemo(() => members, [members])
 
-	const {
-		getTableProps,
-		getTableBodyProps,
-		headerGroups,
-		page,
-		rows,
-		pageOptions,
-		state,
-		gotoPage,
-		setPageSize,
-		prepareRow,
-	} = useTable(
+	const tableDataOptions = useTable(
 		{ columns, data, initialState: {} },
 		useFilters,
 		useSortBy,
 		usePagination
 	)
-
-	const { pageIndex, pageSize } = state
 
 	const addItemDialog = () => {
 		setDialog({
@@ -115,14 +104,34 @@ export const GroupTable = ({
 				},
 			],
 			onSubmit: async (values, { setSubmitting }) => {
-				console.log('group', group)
+				console.log('values', values)
+				const members = values.members.map(member=>member.DisplayText)
 				try {
 					await addGroupMember(values)
+					logAction(
+						`added ${members.join('; ')} to ${proponent} group`
+					)
+					const addresses = values.members.map(async (member) => {
+						console.log('member :>> ', member)
+						await SendConfirmationEmail({
+							addresses: member.Key,
+							proponent,
+							subject: addUserEmail.TextValue,
+							body: addUserEmail.MultiTextValue,
+							additionalReplacementPairs: [
+								{
+									searchvalue: /\[AddresseeName\]/g,
+									newvalue: member.DisplayText,
+								},
+							],
+						})
+						logAction(`sent email to ${members.join('; ')}`)
+					})
+
+					setSubmitting(false)
 					setDialog({ open: false })
 				} catch (error) {
 					throw error
-				} finally {
-					setSubmitting(false)
 				}
 			},
 			open: true,
@@ -133,17 +142,24 @@ export const GroupTable = ({
 		})
 	}
 
-	const removeItemDialog = ({original}) => {
+	const removeItemDialog = ({ original }) => {
 		setDialog({
-		dialogContent:<Alert><AlertTitle>Remove {original.Title} from Group?</AlertTitle>{original.Title} will no longer have access to this site</Alert>,
+			dialogContent: (
+				<Alert>
+					<AlertTitle>Remove {original.Title} from Group?</AlertTitle>
+					{original.Title} will no longer have access to this site
+				</Alert>
+			),
 			onSubmit: async (values, { setSubmitting }) => {
 				try {
 					await removeGroupMember(original.Id)
+					logAction(
+						`removed ${original.Title} from ${proponent} group`
+					)
+					setSubmitting(false)
 					setDialog({ open: false })
 				} catch (error) {
 					throw error
-				} finally {
-					setSubmitting(false)
 				}
 			},
 			open: true,
@@ -152,133 +168,19 @@ export const GroupTable = ({
 			},
 			title: 'Remove Member',
 		})
+	}
 
+	const tableOptions = {
+		showTitle,
+		addRecord,
+		addItemCallback: addItemDialog,
+		tableDataOptions,
+		columns,
 	}
 
 	return (
 		<Fragment>
-			{isLoading ? (
-				<LinearProgress />
-			) : (
-				<TableContainer>
-					<div>
-						<h2>{group.Title}</h2>
-						{addRecord ? (
-							<IconButton
-								aria-label='add'
-								color={'primary'}
-								onClick={addItemDialog}>
-								<AddIcon />
-							</IconButton>
-						) : null}
-					</div>
-					<Table {...getTableProps()}>
-						<TableHead>
-							{headerGroups.map((headerGroup, index) => {
-								return (
-									<TableRow
-										key={`group_${group.Id}_tableHeadRow_${index}`}
-										{...headerGroup.getHeaderGroupProps()}>
-										{headerGroup.headers.map((column) => {
-											return (
-												<TableCell
-													{...column.getHeaderProps(
-														column.getSortByToggleProps()
-													)}>
-													<div>
-														{column.render(
-															'Header'
-														)}
-														<span>
-															{column.isSorted ? (
-																column.isSortedDesc ? (
-																	<TableSortLabel
-																		direction={
-																			'desc'
-																		}
-																	/>
-																) : (
-																	<TableSortLabel
-																		direction={
-																			'asc'
-																		}
-																	/>
-																)
-															) : (
-																<TableSortLabel
-																	hideSortIcon={
-																		true
-																	}
-																/>
-															)}
-														</span>
-													</div>
-
-													<div>
-														{column.canFilter
-															? column.render(
-																	'Filter'
-															  )
-															: null}
-													</div>
-												</TableCell>
-											)
-										})}
-									</TableRow>
-								)
-							})}
-						</TableHead>
-						<TableBody {...getTableBodyProps()}>
-							{page.length ? (
-								page.map((row, index) => {
-									prepareRow(row)
-									return (
-										<TableRow
-											key={`group_${group.Id}_tableBodyRow_${index}`}
-											{...row.getRowProps()}>
-											{row.cells.map((cell) => {
-												return (
-													<TableCell
-														{...cell.getCellProps()}>
-														{cell.render('Cell')}
-													</TableCell>
-												)
-											})}
-										</TableRow>
-									)
-								})
-							) : (
-								<TableRow
-									key={`group_${group.Id}_tableBodyRow_NoRecords`}>
-									<TableCell colSpan={columns.length}>
-										No Records Found
-									</TableCell>
-								</TableRow>
-							)}
-						</TableBody>
-					</Table>
-					{pageSize < rows.length ? (
-						<TablePagination
-							component='div'
-							rowsPerPage={pageSize}
-							count={rows.length}
-							page={pageIndex}
-							onChangePage={(event, newPage) => {
-								gotoPage(newPage)
-							}}
-							labelDisplayedRows={(from, to, count) => {
-								return `Page ${pageIndex + 1} of ${
-									pageOptions.length
-								}`
-							}}
-							onChangeRowsPerPage={(event) => {
-								setPageSize(parseInt(event.target.value, 10))
-								gotoPage(0)
-							}}
-						/>
-					) : null}
-				</TableContainer>
-			)}
+			{isLoading ? <LinearProgress /> : <CustomTable {...tableOptions} />}
 			<FormikDialog {...dialog} />
 		</Fragment>
 	)

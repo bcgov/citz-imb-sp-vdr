@@ -1,7 +1,5 @@
-import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
-export const UserContext = React.createContext()
 
 export const configListName = 'config'
 export const configTOSFilter = `Key eq 'TOS'`

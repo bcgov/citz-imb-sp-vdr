@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { usePeoplePicker } from './usePeoplePicker'
 import { TextField } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
@@ -42,34 +42,3 @@ export const PeoplePicker = (props) => {
 		/>
 	)
 }
-
-// <Autocomplete
-// 	autoHighlight={true}
-// 	multiple
-// 	options={searchResults}
-// 	getOptionLabel={(option) => option.DisplayText}
-// 	onChange={changeHandler}
-// 	filterSelectedOptions
-// 	renderInput={(params) => (
-// 		<FormControl
-// 			error={
-// 				form.errors[name] && form.touched[name]
-// 			}
-// 			required={required}>
-// 			<FormLabel htmlFor={name}>
-// 				{label}
-// 			</FormLabel>
-// 			<MUInput
-// 				id={name}
-// 				onChange={onChange}
-// 				// {...rest}
-// 				{...params.inputProps}
-// 				{...field}
-// 			/>
-// 			<FormHelperText>
-// 				{form.errors[name]}
-// 			</FormHelperText>
-// 		</FormControl>
-// 	)}
-// 	{...rest}
-// />

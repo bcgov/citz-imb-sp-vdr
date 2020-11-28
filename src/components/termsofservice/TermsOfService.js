@@ -1,51 +1,66 @@
-import React, { useEffect, useState } from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import React, { useContext, useEffect, useState } from 'react'
+import Cookies from 'universal-cookie'
 import {
+	ConfigContext,
+	UserContext,
+	useLogAction,
+	FormikDialog,
+	FormatText,
 	Home,
-	GetTOSCookieConfig,
-	getCookie,
-	TermsOfServiceDialog,
 } from 'Components'
 
 export const TermsOfService = () => {
-	const [isLoadingCookie, setIsLoadingCookie] = useState(true)
+	const [dialog, setDialog] = useState({ open: false })
 	const [hasCookie, setHasCookie] = useState(false)
 
-	const [cookieName, setCookieName] = useState()
-	const [cookieDays, setCookieDays] = useState()
+	const { items: configItems } = useContext(ConfigContext)
+	const currentUser = useContext(UserContext)
 
-	const getTOSCookieConfig = async () => {
-		const cookieConfig = await GetTOSCookieConfig()
-		setCookieName(cookieConfig.name)
-		setCookieDays(cookieConfig.Days)
+	const cookies = new Cookies()
 
-		const cookie = getCookie(cookieConfig.name)
-		updateHasCookie(cookie)
-		setIsLoadingCookie(false)
-	}
-
-	const updateHasCookie = (newHasCookie) => {
-		setHasCookie(newHasCookie)
-	}
+	const logAction = useLogAction()
 
 	useEffect(() => {
-		if (isLoadingCookie) {
-			getTOSCookieConfig()
+		if (
+			cookies.get(
+				`${configItems.TOS.Key}-${currentUser.id}-${configItems.TOS.Modified}`
+			)
+		) {
+			setHasCookie(true)
+		} else {
+			setHasCookie(false)
 		}
-		return () => {}
-	}, [isLoadingCookie])
 
-	return isLoadingCookie ? (
-		<CircularProgress />
-	) : hasCookie ? (
-		<Home />
-	) : (
-		<TermsOfServiceDialog
-			dialogTitle='title'
-			dialogBody='body'
-			cookieName={cookieName}
-			cookieDays={cookieDays}
-			updateHasCookie={updateHasCookie}
-		/>
-	)
+		setDialog({
+			onSubmit: (values, { setSubmitting }) => {
+				cookies.set(
+					`${configItems.TOS.Key}-${currentUser.id}-${configItems.TOS.Modified}`,
+					true,
+					{
+						path: '/',
+						maxAge: configItems.TOS.NumberValue * 24 * 60 * 60,
+					}
+				)
+				logAction('agreed to TOS', false)
+				setHasCookie(true)
+			},
+			open: true,
+			close: () => {
+				logAction('disagreed to TOS', false)
+				window.location = '/_layouts/signout.aspx'
+			},
+			title: configItems.TOS.TextValue,
+			dialogContent: (
+				<div
+					dangerouslySetInnerHTML={{
+						__html: FormatText(configItems.TOS.MultiTextValue),
+					}}
+				/>
+			),
+		})
+
+		return () => {}
+	}, [configItems])
+
+	return hasCookie ? <Home /> : <FormikDialog {...dialog} />
 }

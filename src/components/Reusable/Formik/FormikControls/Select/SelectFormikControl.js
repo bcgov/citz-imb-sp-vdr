@@ -3,7 +3,6 @@ import { Field } from 'formik'
 import {
     FormControl,
     FormLabel,
-	InputLabel,
 	FormHelperText,
     Select,
     MenuItem

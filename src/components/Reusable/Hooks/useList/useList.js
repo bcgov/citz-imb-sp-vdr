@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
-import { GetList, GetListItems, AddItemsToList,UpdateListItem  } from 'citz-imb-sp-utilities'
+import {
+	GetList,
+	GetListItems,
+	AddItemsToList,
+	UpdateListItem,
+} from 'citz-imb-sp-utilities'
 import moment from 'moment'
-import { useScrollTrigger } from '@material-ui/core'
 import { ColumnFilter } from 'Components'
 import * as Yup from 'yup'
 
@@ -13,7 +17,7 @@ export const useList = (listName) => {
 	const [currentView, setCurrentView] = useState()
 	const [columns, setColumns] = useState([])
 	const [addColumns, setAddColumns] = useState([])
-	const [items, setItems] = useState([])
+	const [items, setItems] = useState()
 	const [isLoading, setIsLoading] = useState(true)
 
 	const getColumns = () => {
@@ -66,9 +70,10 @@ export const useList = (listName) => {
 		try {
 			let list = await GetList({
 				listName: listName,
-				expand:
-					'DefaultView,DefaultView/ViewFields,Views,Fields,Items,Items/File',
+				expand: 'DefaultView,DefaultView/ViewFields,Views,Fields',
 			})
+			let _items = await GetListItems({ listGUID: list.Id })
+
 			setTitle(list.Title)
 
 			let fieldObject = {}
@@ -98,7 +103,6 @@ export const useList = (listName) => {
 							break
 						case 1: //integer Specifies that the field contains an integer value.
 						case 3: //note Specifies that the field contains multiple lines of text.
-						// console.log('----------------------------------')
 						case 4: //dateTime Specifies that the field contains a date and time value or a date-only value.
 						case 5: //counter Specifies that the field contains a monotonically increasing integer.
 						case 6: //choice Specifies that the field contains a single value from a set of specified values.
@@ -137,12 +141,13 @@ export const useList = (listName) => {
 				}
 
 				fieldObject[field.InternalName] = field
+				return field
 			})
 			setFields(fieldObject)
 			setAddColumns(_addColumns)
 			setViews(list.Views.results)
 			changeView(list.DefaultView)
-			setItems(list.Items.results)
+			setItems(_items)
 		} catch (error) {
 			console.error('error in getting list', error)
 		}
@@ -160,7 +165,7 @@ export const useList = (listName) => {
 
 	const addItem = async (addItems) => {
 		try {
-			return await AddItemsToList({ listName, items:addItems })
+			await AddItemsToList({ listName, items: addItems })
 			refresh()
 		} catch (error) {
 			console.error('useList addItem error:', error)
@@ -168,10 +173,10 @@ export const useList = (listName) => {
 		}
 	}
 
-	const updateItem = async (updateItems)=>{
-		console.log('updateItems :>> ', updateItems);
+	const updateItem = async (updateItems) => {
+		console.log('updateItems :>> ', updateItems)
 		try {
-			return await UpdateListItem({ listName, items: updateItems })
+			await UpdateListItem({ listName, items: updateItems })
 			refresh()
 		} catch (error) {
 			console.error('useList updateItem error:', error)

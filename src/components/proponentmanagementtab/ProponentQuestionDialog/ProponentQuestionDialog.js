@@ -18,55 +18,61 @@ import {
 } from 'Components'
 
 //TODO: convert to ListTable
-export const ProponentQuestionDialog = ({
-	proponentName,
-	open,
-	listName,
-	closeDialog,
-}) => {
+export const ProponentQuestionDialog = (props) => {
+	const { proponentName, open, listName, close } = props
+
 	const publicQuestionList = 'Questions'
 	const [refreshTable, setRefreshTable] = useState(true)
-	const [questionDialogOptions, setQuestionsDialogOptions] = useState({
-		open: open,
-		close: closeDialog,
-		title: `${proponentName} Submitted Questions`,
-		fullScreen: true,
-		dialogContent: (
-			<ListTable
-				listName={listName}
-				refresh={refreshTable}
-				customColumns={[
-					{
-						accessor: 'Answer',
-						Cell: ({ value, row }) => {
-							return value ? (
-								<Button
-									data-id={row.original.Id}
-									data-answer={row.values.answer}
-									onClick={handleViewAnswerClick}
-									variant={'contained'}
-									>
-									View Answer
-								</Button>
-							) : (
-								<Button
-									data-id={row.original.Id}
-									onClick={handleAnswerClick}
-									variant={'contained'}
-									color={'primary'}>
-									Answer
-								</Button>
-							)
-						},
-					},
-				]}
-			/>
-		),
-	})
+	const [questionDialogOptions, setQuestionsDialogOptions] = useState()
 	const [formDialogOptions, setFormDialogOptions] = useState({ open: false })
 
-	const handleViewAnswerClick = (event) => {
+	const handleViewAnswerClick = async (event) => {
+		const dataId = event.currentTarget.getAttribute('data-id')
 
+		console.log('dataId :>> ', dataId)
+		console.log('listName :>> ', listName)
+		console.log('publicQuestionList :>> ', publicQuestionList)
+
+		const question = await GetListItems({
+			listName,
+			filter: `Id eq ${dataId}`,
+		})
+		console.log('question :>> ', question[0].Answer)
+
+		const answer = await GetListItems({
+			listName: 'Questions',
+			filter: `Id eq ${question[0].Answer}`,
+		})
+
+		console.log('answer :>> ', answer)
+
+		setFormDialogOptions({
+			open: true,
+			close: () => {
+				setFormDialogOptions({ open: false })
+			},
+
+			title: 'Question and Answer',
+			dialogContent: (
+				<Fragment>
+					<Alert severity='info'>
+						<AlertTitle>Original Question</AlertTitle>
+						{question[0].Title}
+					</Alert>
+					{question[0].Title === answer[0].Question ? null : (
+						<Alert severity='warning'>
+							<AlertTitle>Sanitized Question</AlertTitle>
+							{answer[0].Question}
+						</Alert>
+					)}
+					<Alert severity='success'>
+						<AlertTitle>Answer</AlertTitle>
+						{answer[0].Answer}
+					</Alert>
+				</Fragment>
+			),
+			fullWidth: true,
+		})
 	}
 
 	const saveAnswer = async (dataId, values) => {
@@ -80,6 +86,7 @@ export const ProponentQuestionDialog = ({
 			items: { Id: dataId, Answer: item[0].Id.toString() },
 		})
 		console.log('item :>> ', item)
+		setRefreshTable(!refreshTable)
 	}
 
 	const handleAnswerClick = async (event) => {
@@ -93,7 +100,6 @@ export const ProponentQuestionDialog = ({
 			listName,
 			filter: `Id eq ${dataId}`,
 		})
-		console.log('question :>> ', question)
 
 		setFormDialogOptions({
 			open: true,
@@ -136,73 +142,113 @@ export const ProponentQuestionDialog = ({
 	}
 
 	useEffect(() => {
-		console.log('refreshTable :>> ', refreshTable);
-		return () => {
-
-		}
+		// console.log('refreshTable :>> ', refreshTable)
+		return () => {}
 	}, [refreshTable])
 
+	useEffect(() => {
+		setQuestionsDialogOptions({
+			title: `${proponentName} Submitted Questions`,
+			fullScreen: true,
+			dialogContent: (
+				<ListTable
+					listName={listName}
+					refresh={refreshTable}
+					customColumns={[
+						{
+							accessor: 'Answer',
+							Cell: ({ value, row }) => {
+								return value ? (
+									<Button
+										data-id={row.original.Id}
+										data-answer={row.values.answer}
+										onClick={handleViewAnswerClick}
+										variant={'contained'}>
+										View Answer
+									</Button>
+								) : (
+									<Button
+										data-id={row.original.Id}
+										onClick={handleAnswerClick}
+										variant={'contained'}
+										color={'primary'}>
+										Answer
+									</Button>
+								)
+							},
+						},
+					]}
+				/>
+			),
+		})
+		return () => {}
+	}, [listName])
+
 	//======================
-	const [answerDialog, setAnswerDialog] = useState(false)
-	const [question, setQuestion] = useState('')
-	const [questionId, setQuestionId] = useState()
-	const [refresh, setRefresh] = useState(true)
-	const [viewAnswerDialog, setViewAnswerDialog] = useState(false)
-	const [currentItemId, setCurrentItemId] = useState()
+	// const [answerDialog, setAnswerDialog] = useState(false)
+	// const [question, setQuestion] = useState('')
+	// const [questionId, setQuestionId] = useState()
+	// const [refresh, setRefresh] = useState(true)
+	// const [viewAnswerDialog, setViewAnswerDialog] = useState(false)
+	// const [currentItemId, setCurrentItemId] = useState()
 
-	const closeAnswerDialog = () => {
-		setRefresh(!refresh)
-		setAnswerDialog(false)
-		setViewAnswerDialog(false)
-	}
+	// const closeAnswerDialog = () => {
+	// 	setRefresh(!refresh)
+	// 	setAnswerDialog(false)
+	// 	setViewAnswerDialog(false)
+	// }
 
-	const openAnswerDialog = (itemId) => {
-		setCurrentItemId(itemId)
-		setViewAnswerDialog(true)
-	}
+	// const openAnswerDialog = (itemId) => {
+	// 	setCurrentItemId(itemId)
+	// 	setViewAnswerDialog(true)
+	// }
 
-	const customActions = [
-		(rowData) => {
-			if (rowData.Answer === null) {
-				return {
-					icon: () => {
-						return (
-							<Button
-								color='secondary'
-								size='small'
-								variant='contained'>
-								Answer
-							</Button>
-						)
-					},
-					tooltip: 'Submit Answer',
-					onClick: (event, rowdata) => {
-						console.log('rowdata :>> ', rowdata)
-						setQuestion(rowdata.Title)
-						setQuestionId(rowdata.Id)
-						setAnswerDialog(true)
-					},
-				}
-			} else {
-				return {
-					icon: () => {
-						return (
-							<ViewAnswerButton
-								itemId={rowData.Id}
-								onClick={openAnswerDialog}
-							/>
-						)
-					},
-					tooltip: 'View Answer',
-					onClick: (event, rowdata) => {},
-				}
-			}
-		},
-	]
+	// const customActions = [
+	// 	(rowData) => {
+	// 		if (rowData.Answer === null) {
+	// 			return {
+	// 				icon: () => {
+	// 					return (
+	// 						<Button
+	// 							color='secondary'
+	// 							size='small'
+	// 							variant='contained'>
+	// 							Answer
+	// 						</Button>
+	// 					)
+	// 				},
+	// 				tooltip: 'Submit Answer',
+	// 				onClick: (event, rowdata) => {
+	// 					console.log('rowdata :>> ', rowdata)
+	// 					setQuestion(rowdata.Title)
+	// 					setQuestionId(rowdata.Id)
+	// 					setAnswerDialog(true)
+	// 				},
+	// 			}
+	// 		} else {
+	// 			return {
+	// 				icon: () => {
+	// 					return (
+	// 						<ViewAnswerButton
+	// 							itemId={rowData.Id}
+	// 							onClick={openAnswerDialog}
+	// 						/>
+	// 					)
+	// 				},
+	// 				tooltip: 'View Answer',
+	// 				onClick: (event, rowdata) => {},
+	// 			}
+	// 		}
+	// 	},
+	// ]
 
 	return (
 		<Fragment>
-			<FormikDialog {...questionDialogOptions} />
+			<FormikDialog
+				open={open}
+				close={close}
+				{...questionDialogOptions}
+			/>
 			<FormikDialog {...formDialogOptions} />
 			{/* <SPDialog
 				open={open}

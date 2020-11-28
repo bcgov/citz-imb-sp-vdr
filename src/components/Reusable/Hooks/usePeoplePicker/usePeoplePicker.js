@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { RestCall } from '../../../../../node_modules/citz-imb-sp-utilities/dist/js/components/Reusable/RestCall/RestCall'
 
 export const usePeoplePicker = () => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { TextField } from '@material-ui/core'
-import { FormikDialog, useList, AskQuestion } from 'Components'
+import { FormikDialog, useList, useLogAction } from 'Components'
 import { useSnackbar } from 'notistack'
 import { Alert } from '@material-ui/lab'
 import * as Yup from 'yup'
@@ -26,12 +26,15 @@ export const AskQuestionDialog = ({
 		addColumns,
 	} = useList(listName)
 
+	const logAction = useLogAction()
+
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
 	const onSubmit = (values, { setSubmitting }) => {
 		addItem(values).then((response) => {
 			setSubmitting(false)
-			console.log('response :>> ', response)
+			console.log('values :>> ', values)
+			logAction(`asked ${values.Title}`)
 			closeDialog()
 		}).catch(error=>{
 			console.log('error :>> ', error);

@@ -1,10 +1,6 @@
 import React from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
-import { deviceDetect } from 'react-device-detect'
-import { SnackbarProvider } from 'notistack'
-import { useLogAction, TermsOfService } from 'Components'
-
-import { Test } from './Test'
+import { AppContexts } from './AppContexts/AppContexts'
 
 import './App.css'
 
@@ -20,25 +16,9 @@ export const App = () => {
 		},
 	})
 
-	const LogAction = useLogAction()
-
-	const device = deviceDetect()
-
-	LogAction(
-		`logged in using ${device.browserName} ${device.browserMajorVersion} and ${device.osName} ${device.osVersion}`
-	)
-
 	return (
 		<MuiThemeProvider theme={theme}>
-			<SnackbarProvider
-				dense
-				anchorOrigin={{
-					vertical: 'bottom',
-					horizontal: 'right',
-				}}>
-				<TermsOfService />
-				{/* <Test /> */}
-			</SnackbarProvider>
+			<AppContexts />
 		</MuiThemeProvider>
 	)
 }
