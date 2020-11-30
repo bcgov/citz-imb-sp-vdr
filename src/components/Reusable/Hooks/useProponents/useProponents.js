@@ -129,6 +129,7 @@ export const useProponents = () => {
 	}
 
 	const addProponent = async (proponentName) => {
+		setIsLoading(true)
 		const UUID = MakeUniqueID()
 
 		await BreakListPermissionsInheritance({ listName: 'ActivityLog' })
@@ -197,6 +198,7 @@ export const useProponents = () => {
 			variant: 'warning',
 		})
 		await refresh()
+		setIsLoading(false)
 	}
 
 	const setProponentActive = async (UUID) => {
@@ -244,7 +246,7 @@ export const useProponents = () => {
 			listName: questionListName,
 		})
 
-		return { asked: questions.length, answered: 0, withdrawn: 0 }
+		return { asked: questions.length, answered: null, withdrawn: null }
 	}
 
 	const proponents = useMemo(() => {
