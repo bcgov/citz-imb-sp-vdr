@@ -150,6 +150,7 @@ export const ProponentManagement = () => {
 							})}
 						</Tabs>
 						{proponents.map((proponent, index) => {
+							console.log('proponent', proponent)
 							return (
 								<VerticalTabPanel
 									key={index}

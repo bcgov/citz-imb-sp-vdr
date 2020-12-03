@@ -28,7 +28,6 @@ export const useGroup = (groupId, groupName) => {
 	const updateGroup = async () => {}
 
 	const addGroupMember = async (values) => {
-		console.log('group :>> ', group)
 		await AddUsersToGroup({
 			groupId: group.Id,
 			loginName: values.members.map((user) => user.Key),
@@ -37,9 +36,6 @@ export const useGroup = (groupId, groupName) => {
 	}
 
 	const removeGroupMember = async (userId) => {
-		console.log('userId :>> ', userId)
-		console.log('group :>> ', group)
-
 		await RemoveUsersFromGroup({
 			groupId: group.Id,
 			userId,

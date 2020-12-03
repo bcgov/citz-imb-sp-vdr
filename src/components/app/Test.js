@@ -1,7 +1,8 @@
 import React from 'react'
-import { SiteManagement } from 'Components'
+import { ProponentQuestionList } from 'Components'
 
 export const Test = () => {
+	const options = {}
 
-	return <SiteManagement />
+	return <ProponentQuestionList {...options} />
 }

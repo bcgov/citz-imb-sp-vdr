@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AppBar, Tabs, Tab, Paper } from '@material-ui/core'
+import { AppBar, Tabs, Tab, Paper, Typography } from '@material-ui/core'
 
 import {
 	HorizontalTabPanel,
@@ -24,7 +24,7 @@ export const ManagementTab = (props) => {
 	}
 
 	return (
-		<Paper>
+		<Paper variant={'elevation'}>
 			<AppBar position='static' color='default'>
 				<Tabs
 					value={value}
@@ -38,7 +38,7 @@ export const ManagementTab = (props) => {
 			</AppBar>
 
 			<HorizontalTabPanel value={value} index={0}>
-				<OverView {...props} />
+						<OverView {...props} />
 			</HorizontalTabPanel>
 
 			<HorizontalTabPanel value={value} index={1}>
