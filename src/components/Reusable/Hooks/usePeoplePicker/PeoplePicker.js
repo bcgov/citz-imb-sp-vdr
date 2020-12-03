@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React from 'react'
 import { usePeoplePicker } from './usePeoplePicker'
 import { TextField, LinearProgress } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
@@ -33,23 +33,12 @@ export const PeoplePicker = (props) => {
 		reset()
 	}
 
-	const searchOptions = useMemo(() => {
-		console.log('useMemo searchResults :>> ', searchResults)
-		return searchResults
-	}, [searchResults])
-
-	useEffect(() => {
-		console.log('searchOptions :>> ', searchOptions)
-		return () => {}
-	}, [searchOptions])
-
 	return (
 		<Autocomplete
 			autoHighlight={true}
 			multiple
 			options={searchResults}
 			getOptionLabel={(option) => {
-				console.log('option', option)
 				return option.DisplayText
 			}}
 			loading={isLoading}

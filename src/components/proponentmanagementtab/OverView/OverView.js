@@ -23,10 +23,10 @@ export const OverView = (props) => {
 	} = props
 
 	const [dialogOptions, setDialogOptions] = useState({ open: false })
-	const [questionsAnswered, setQuestionsAnswered] = useState('-value tbd-')
+	const [questionsAnswered, setQuestionsAnswered] = useState()
 	const [questionsAsked, setQuestionsAsked] = useState()
-	const [questionsWithdrawn, setQuestionWithdrawn] = useState('-value tbd-')
-	const [documentCount, setDocumentCount] = useState('-value tbd-')
+	const [questionsWithdrawn, setQuestionWithdrawn] = useState()
+	const [documentCount, setDocumentCount] = useState()
 
 	const handleToggle = (event) => {
 		setDialogOptions({
@@ -63,9 +63,10 @@ export const OverView = (props) => {
 	useEffect(() => {
 		if (UUID) {
 			const _proponent = getProponent(UUID)
-			setQuestionsAsked(_proponent.questionCount.asked)
-			// setQuestionsAnswered(_proponent.questionCount.answered)
-			// setQuestionWithdrawn(_proponent.questionCount.withdrawn)
+			setQuestionsAsked(_proponent?.questionCount?.asked ?? 'unavailable')
+			setQuestionsAnswered(_proponent?.questionCount?.answered ?? 'unavailable')
+			setQuestionWithdrawn(_proponent?.questionCount?.withdrawn ?? 'unavailable')
+			setDocumentCount(_proponent?.documentCount ?? 'unavailable')
 		}
 		return () => {}
 	}, [UUID])

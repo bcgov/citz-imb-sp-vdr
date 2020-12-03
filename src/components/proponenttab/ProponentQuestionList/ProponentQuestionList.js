@@ -17,6 +17,7 @@ const currentUser = useContext(UserContext)
 
 const listOptions = {
 	listName: `${currentUser.proponent}_Questions`,
+	addRecord: true,
 	// columnFiltering: false,
 	// showTitle: false,
 }

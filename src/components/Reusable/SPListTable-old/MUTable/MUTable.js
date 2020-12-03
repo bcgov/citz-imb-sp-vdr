@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
 	Box,
 	Typography,
@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core'
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table'
 import AddIcon from '@material-ui/icons/Add'
+import { FormikDialog } from 'Components'
 
 export const MUTable = (props) => {
 	const {
@@ -45,6 +46,8 @@ export const MUTable = (props) => {
 		// addItemDialog,
 	} = props
 
+	const [dialog, setDialog] = useState({ open: false })
+
 	const {
 		getTableProps,
 		getTableBodyProps,
@@ -65,6 +68,12 @@ export const MUTable = (props) => {
 
 	const { pageIndex, pageSize } = state
 
+	const handleAddRecordClick = () => {
+		console.log('Hello There :>> ')
+		setDialog({})
+		//addRecordCallback()
+	}
+
 	return (
 		<TableContainer>
 			<Box>
@@ -75,7 +84,7 @@ export const MUTable = (props) => {
 					<IconButton
 						aria-label='add'
 						color={'primary'}
-						onClick={addRecordCallback}>
+						onClick={handleAddRecordClick}>
 						<AddIcon />
 					</IconButton>
 				) : null}
@@ -187,6 +196,7 @@ export const MUTable = (props) => {
 					}}
 				/>
 			) : null}
+			<FormikDialog open={false} />
 		</TableContainer>
 	)
 }

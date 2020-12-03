@@ -6,9 +6,9 @@ export const ProponentLibrary = ({ proponent }) => {
 
 	const libraryOptions = {
 		listName: currentUser.proponent,
-		columnFiltering: false,
-		showTitle: false,
+		// columnFiltering: false,
+		//showTitle: false,
 	}
 
-	return <ListTable {...libraryOptions} />
+	return currentUser.proponent === 'not a proponent' ? null :<ListTable {...libraryOptions} />
 }

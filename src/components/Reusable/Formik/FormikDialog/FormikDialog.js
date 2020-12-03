@@ -30,6 +30,7 @@ export const FormikDialog = (props) => {
 	const [controls, setControls] = useState([])
 
 	useEffect(() => {
+		console.log('FormikDialog props :>> ', props);
 		if (open) {
 			const _initialValues = {}
 			const _validationSchema = {}

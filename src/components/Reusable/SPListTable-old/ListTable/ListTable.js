@@ -15,9 +15,9 @@ export const SPListTable = (props) => {
 		listName,
 		// columnFiltering = true,
 		// tableTitle,
-		// showTitle = true,
+		showTitle,
 		// initialState = {},
-		// addRecord = false,
+		addRecord,
 		// deleteItem = false,
 		// editItem = false,
 		// changeItemPermissions = false,
@@ -27,24 +27,17 @@ export const SPListTable = (props) => {
 	} = props
 
 	const [tableOptions, setTableOptions] = useState()
+	const [isLoading, setIsLoading] = useState(true)
+	const [dialog, setDialog] = useState({ open: false })
 
-	// const [dialog, setDialog] = useState({
-	// 	fields: [],
-	// 	onSubmit: () => {},
-	// 	open: false,
-	// 	close: () => {},
-	// 	title: '',
-	// 	instructions: '',
-	// })
 	// const [freeActions, setFreeActions] = useState([])
 	// const [rowActions, setRowActions] = useState([])
-	const [isLoading, setIsLoading] = useState(true)
 
 	const {
 		title,
 		columns,
 		items,
-		// addItem,
+		addItem,
 		// addColumns,
 		refresh: refreshData,
 		isLoading: listIsLoading,
@@ -65,11 +58,37 @@ export const SPListTable = (props) => {
 		return [...columns]
 	}, [columns])
 
+	const addRecordCallback = () => {
+		console.log('addRecordCallback')
+		setDialog({
+			fields: {
+				name: 'title',
+				label: 'Title',
+				initialValue: '',
+				//validationSchema: Yup.string().required('Required'),
+				control: 'input',
+				required: true,
+			},
+			// onSubmit: (values, { setSubmitting }) => {
+			// 	console.log('values :>> ', values);
+			// 	setTimeout(() => {
+			// 		setSubmitting(false)
+			// 		alert(JSON.stringify(values, null, 2))
+			// 	}, 500)
+			// },
+			open: true,
+			// close: () => {setDialog({open: false})},
+			// title: '',
+			// instructions: '',
+		})
+	}
+
 	const data = useMemo(() => {
 		const _items = items?.map((item) => {
 			item.Answer = item.Answer ?? 'question under review'
-			console.log('item :>> ', item);
-			return item})
+			console.log('item :>> ', item)
+			return item
+		})
 		return _items
 	}, [items])
 
@@ -121,26 +140,22 @@ export const SPListTable = (props) => {
 	}, [])
 
 	useEffect(() => {
-		console.log('title :>> ', title)
-		console.log('columns :>> ', columns)
-		console.log('data :>> ', data)
-
+		console.log('props :>> ', props)
 		setTableOptions({
-			title: 'hello worlds',
+			title,
+			showTitle,
 			columns,
 			data,
-			addRecord: true,
-			addRecordCallback: () => {
-				console.log('addRecordCallback')
-			},
+			addRecord,
+		//	addRecordCallback,
 		})
 		return () => {}
-	}, [title, columns, data])
+	}, [])
 
 	return (
 		<Fragment>
 			{isLoading ? <LinearProgress /> : <MUTable {...tableOptions} />}
-			{/* <FormikDialog {...dialog} /> */}
+
 		</Fragment>
 	)
 }
