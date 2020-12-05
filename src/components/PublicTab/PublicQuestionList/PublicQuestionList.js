@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListTable } from 'Components'
+import { SPList } from 'Components'
 
 export const PublicQuestionList = () => {
 	const listOptions = {
@@ -8,5 +8,5 @@ export const PublicQuestionList = () => {
 		showTitle: false,
 	}
 
-	return <ListTable {...listOptions} />
+	return <SPList {...listOptions} />
 }

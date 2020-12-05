@@ -9,7 +9,7 @@ import {
 } from 'citz-imb-sp-utilities'
 import {
 	FormikDialog,
-	ListTable,
+	SPList,
 	SPDialog,
 	SPTable,
 	AnswerQuestionDialog,
@@ -17,7 +17,7 @@ import {
 	ViewAnswerButton,
 } from 'Components'
 
-//TODO: convert to ListTable
+//TODO: convert to SPList
 export const ProponentQuestionDialog = (props) => {
 	const { proponentName, open, listName, close } = props
 
@@ -151,7 +151,7 @@ export const ProponentQuestionDialog = (props) => {
 			title: `${proponentName} Submitted Questions`,
 			fullScreen: true,
 			dialogContent: (
-				<ListTable
+				<SPList
 					listName={listName}
 					refresh={refreshTable}
 					customColumns={[

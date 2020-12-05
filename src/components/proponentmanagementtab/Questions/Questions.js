@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListTable } from 'Components'
+import { SPList } from 'Components'
 
 export const Questions = (props) => {
 	const { UUID } = props
@@ -11,5 +11,5 @@ export const Questions = (props) => {
 		showTitle: false,
 	}
 
-	return <ListTable {...listOptions} />
+	return <SPList {...listOptions} />
 }

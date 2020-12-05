@@ -30,7 +30,6 @@ export const FormikDialog = (props) => {
 	const [controls, setControls] = useState([])
 
 	useEffect(() => {
-		console.log('FormikDialog props :>> ', props);
 		if (open) {
 			const _initialValues = {}
 			const _validationSchema = {}
@@ -45,6 +44,7 @@ export const FormikDialog = (props) => {
 					label: fields[i].label,
 					required: fields[i].required,
 					options: fields[i].options,
+					fullWidth: true,
 				}
 
 				_controls.push(<FormikControls {...options} />)
@@ -92,7 +92,10 @@ export const FormikDialog = (props) => {
 									) : null}
 									{controls.map((control, index) => {
 										return (
-											<Grid key={`control_${index}`} item>
+											<Grid
+												key={`control_${index}`}
+												item
+												xs={'auto'}>
 												{control}
 											</Grid>
 										)

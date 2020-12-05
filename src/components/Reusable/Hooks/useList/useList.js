@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 import {
 	GetList,
@@ -7,8 +7,9 @@ import {
 	UpdateListItem,
 } from 'citz-imb-sp-utilities'
 import moment from 'moment'
-import { ColumnFilter } from 'Components'
+import { ColumnFilter, SPList } from 'Components'
 import * as Yup from 'yup'
+import { User } from './User'
 
 export const useList = (listName) => {
 	const [title, setTitle] = useState('')
@@ -41,9 +42,8 @@ export const useList = (listName) => {
 					newColumn.disableFilters = false
 					break
 				case 4: //DateTime
-					newColumn.Cell = ({ value }) => {
-						return moment(value).format('MMMM Do, YYYY h:mm a')
-					}
+					newColumn.Cell = ({ value }) =>
+						moment(value).format('MMMM Do, YYYY h:mm a')
 					newColumn.disableSortBy = false
 					break
 				case 12: //LinkTitle
@@ -53,6 +53,13 @@ export const useList = (listName) => {
 						newColumn.accessor = fields.Title.InternalName
 						newColumn.disableFilters = false
 					}
+					break
+				case 20: //User
+					newColumn.Header = fields[column].Title
+					newColumn.Footer = fields[column].Title
+					newColumn.accessor = `${fields[column].InternalName}Id`
+					newColumn.Cell = ({ value }) => <User userId={value} />
+					newColumn.disableFilters = false
 					break
 
 				default:
@@ -143,6 +150,7 @@ export const useList = (listName) => {
 				fieldObject[field.InternalName] = field
 				return field
 			})
+
 			setFields(fieldObject)
 			setAddColumns(_addColumns)
 			setViews(list.Views.results)
@@ -163,6 +171,19 @@ export const useList = (listName) => {
 		setCurrentView(view)
 	}
 
+	const getRender = (props) => {
+		return (
+			<SPList
+				listName={listName}
+				columns={columns}
+				items={items}
+				addColumns={addColumns}
+				isLoading={isLoading}
+				{...props}
+			/>
+		)
+	}
+
 	const addItem = async (addItems) => {
 		try {
 			await AddItemsToList({ listName, items: addItems })
@@ -174,7 +195,6 @@ export const useList = (listName) => {
 	}
 
 	const updateItem = async (updateItems) => {
-		console.log('updateItems :>> ', updateItems)
 		try {
 			await UpdateListItem({ listName, items: updateItems })
 			refresh()
@@ -206,5 +226,6 @@ export const useList = (listName) => {
 		title,
 		updateItem,
 		views,
+		getRender,
 	}
 }

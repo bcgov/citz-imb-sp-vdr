@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { ListTable, UserContext } from 'Components'
+import { SPList, UserContext } from 'Components'
 
 export const ProponentLibrary = ({ proponent }) => {
 	const currentUser = useContext(UserContext)
@@ -10,5 +10,5 @@ export const ProponentLibrary = ({ proponent }) => {
 		//showTitle: false,
 	}
 
-	return currentUser.proponent === 'not a proponent' ? null :<ListTable {...libraryOptions} />
+	return currentUser.proponent === 'not a proponent' ? null :<SPList {...libraryOptions} />
 }

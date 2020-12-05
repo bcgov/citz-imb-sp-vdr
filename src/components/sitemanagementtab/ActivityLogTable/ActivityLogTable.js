@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListTable } from 'Components'
+import { SPList } from 'Components'
 
 export const ActivityLogTable = () => {
 	function SelectColumnFilter({
@@ -33,7 +33,7 @@ export const ActivityLogTable = () => {
 	}
 
 	return (
-		<ListTable
+		<SPList
 			listName={'ActivityLog'}
 			showTitle = {false}
 			refresh={true}
