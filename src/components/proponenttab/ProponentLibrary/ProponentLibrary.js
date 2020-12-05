@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
-import { SPList, UserContext } from 'Components'
+import { useList, UserContext } from 'Components'
+import { LinearProgress } from '@material-ui/core'
 
-export const ProponentLibrary = ({ proponent }) => {
+export const ProponentLibrary = () => {
 	const currentUser = useContext(UserContext)
 
 	const libraryOptions = {
@@ -10,5 +11,11 @@ export const ProponentLibrary = ({ proponent }) => {
 		//showTitle: false,
 	}
 
-	return currentUser.proponent === 'not a proponent' ? null :<SPList {...libraryOptions} />
+	const { isLoading, getRender } = useList(currentUser.proponent)
+
+	return currentUser.proponent === 'not a proponent' ? null : isLoading ? (
+		<LinearProgress />
+	) : (
+		getRender(libraryOptions)
+	)
 }

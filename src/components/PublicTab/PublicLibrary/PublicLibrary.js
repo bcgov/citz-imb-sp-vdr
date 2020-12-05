@@ -1,12 +1,14 @@
 import React from 'react'
-import { SPList } from 'Components'
+import { useList } from 'Components'
+import { LinearProgress } from '@material-ui/core'
 
 export const PublicLibrary = () => {
 	const libraryOptions = {
-		listName: 'Documents',
 		columnFiltering: false,
 		showTitle: false,
 	}
 
-	return <SPList {...libraryOptions} />
+	const { isLoading, getRender } = useList('Documents')
+
+	return isLoading ? <LinearProgress /> : getRender(libraryOptions)
 }
