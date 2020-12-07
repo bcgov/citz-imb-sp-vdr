@@ -104,7 +104,10 @@ export const GroupTable = (props) => {
 				},
 			],
 			onSubmit: async (values, { setSubmitting }) => {
-				const members = values.members.map(member=>member.DisplayText)
+				console.log('values', values)
+				const members = values.members.map(
+					(member) => member.DisplayText
+				)
 				try {
 					await addGroupMember(values)
 					logAction(
@@ -123,7 +126,11 @@ export const GroupTable = (props) => {
 								},
 							],
 						})
-						logAction(`sent ${addUserEmail.Title} to ${members.join('; ')}`)
+						logAction(
+							`sent ${addUserEmail.Title} to ${members.join(
+								'; '
+							)}`
+						)
 					})
 
 					setSubmitting(false)

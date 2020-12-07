@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import {
-	Container,
+	Paper,
+	Grid,
 	List,
 	ListItem,
 	ListItemText,
@@ -61,77 +62,75 @@ export const OverView = (props) => {
 	useEffect(() => {
 		if (UUID) {
 			const _proponent = getProponent(UUID)
-			setQuestionsAsked(_proponent?.questionCount?.asked ?? 'undetermined')
-			setQuestionsAnswered(_proponent?.questionCount?.answered ?? 'undetermined')
-			setQuestionWithdrawn(_proponent?.questionCount?.withdrawn ?? 'undetermined')
-			setDocumentCount(_proponent?.documentCount ?? 'undetermined')
+			setQuestionsAsked(_proponent?.questionCount?.asked ?? 'unavailable')
+			setQuestionsAnswered(_proponent?.questionCount?.answered ?? 'unavailable')
+			setQuestionWithdrawn(_proponent?.questionCount?.withdrawn ?? 'unavailable')
+			setDocumentCount(_proponent?.documentCount ?? 'unavailable')
 		}
 		return () => {}
 	}, [UUID])
 
 	return (
 		<Fragment>
-			<Container fixed>
-				<List>
-					<ListItem>
-						<ListItemText id='overview-list-label-uuid'>
-							Unique Id
-						</ListItemText>
-						<ListItemSecondaryAction>
-							{UUID}
-						</ListItemSecondaryAction>
-					</ListItem>
-					<ListItem>
-						<ListItemText id='overview-list-label-active'>
-							{Active ? 'Active' : 'Inactive'}
-						</ListItemText>
-						<ListItemSecondaryAction>
-							<Switch
-								edge='end'
-								onChange={handleToggle}
-								checked={Active}
-								inputProps={{
-									'aria-labelledby':
-										'overview-list-label-active',
-								}}
-							/>
-						</ListItemSecondaryAction>
-					</ListItem>
-					<ListItem>
-						<ListItemText id='overview-list-label-uuid'>
-							Questions Asked
-						</ListItemText>
-						<ListItemSecondaryAction>
-							{questionsAsked}
-						</ListItemSecondaryAction>
-					</ListItem>
-					<ListItem>
-						<ListItemText id='overview-list-label-uuid'>
-							Questions Answered
-						</ListItemText>
-						<ListItemSecondaryAction>
-							{questionsAnswered}
-						</ListItemSecondaryAction>
-					</ListItem>
-					<ListItem>
-						<ListItemText id='overview-list-label-uuid'>
-							Questions Withdrawn
-						</ListItemText>
-						<ListItemSecondaryAction>
-							{questionsWithdrawn}
-						</ListItemSecondaryAction>
-					</ListItem>
-					<ListItem>
-						<ListItemText id='overview-list-label-uuid'>
-							Documents Submitted
-						</ListItemText>
-						<ListItemSecondaryAction>
-							{documentCount}
-						</ListItemSecondaryAction>
-					</ListItem>
-				</List>
-			</Container>
-			<FormikDialog {...dialogOptions} />
+					<List>
+						<ListItem>
+							<ListItemText id='overview-list-label-uuid'>
+								Unique Id
+							</ListItemText>
+							<ListItemSecondaryAction>
+								{UUID}
+							</ListItemSecondaryAction>
+						</ListItem>
+						<ListItem>
+							<ListItemText id='overview-list-label-active'>
+								{Active ? 'Active' : 'Inactive'}
+							</ListItemText>
+							<ListItemSecondaryAction>
+								<Switch
+									edge='end'
+									onChange={handleToggle}
+									checked={Active}
+									inputProps={{
+										'aria-labelledby':
+											'overview-list-label-active',
+									}}
+								/>
+							</ListItemSecondaryAction>
+						</ListItem>
+						<ListItem>
+							<ListItemText id='overview-list-label-uuid'>
+								Questions Asked
+							</ListItemText>
+							<ListItemSecondaryAction>
+								{questionsAsked}
+							</ListItemSecondaryAction>
+						</ListItem>
+						<ListItem>
+							<ListItemText id='overview-list-label-uuid'>
+								Questions Answered
+							</ListItemText>
+							<ListItemSecondaryAction>
+								{questionsAnswered}
+							</ListItemSecondaryAction>
+						</ListItem>
+						<ListItem>
+							<ListItemText id='overview-list-label-uuid'>
+								Questions Withdrawn
+							</ListItemText>
+							<ListItemSecondaryAction>
+								{questionsWithdrawn}
+							</ListItemSecondaryAction>
+						</ListItem>
+						<ListItem>
+							<ListItemText id='overview-list-label-uuid'>
+								Documents Submitted
+							</ListItemText>
+							<ListItemSecondaryAction>
+								{documentCount}
+							</ListItemSecondaryAction>
+						</ListItem>
+					</List>
+				<FormikDialog {...dialogOptions} />
 		</Fragment>
 	)
 }

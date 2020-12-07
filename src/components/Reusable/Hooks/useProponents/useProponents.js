@@ -18,6 +18,8 @@ import {
 	GetListDefaultView,
 	RemoveListViewAllFields,
 	AddListViewField,
+	UpdateField,
+	CreateView,
 } from 'citz-imb-sp-utilities'
 
 export const useProponents = () => {
@@ -128,8 +130,90 @@ export const useProponents = () => {
 		return list
 	}
 
+	const createQuestionList = async (listName) => {
+		const questionList = await createList({ listName })
+		const listGUID = questionList.Id
+
+    await AddFieldToList({
+			listGUID,
+			field: [
+				{
+					FieldTypeKind: 2,
+					Title: 'Answer',
+				},
+				{
+					FieldTypeKind: 2,
+					Title: 'QuestionID',
+				},
+				{
+					FieldTypeKind: 2,
+					Title: 'AnswerStatus',
+					DefaultValue: 'Not Started',
+				},
+				{
+					FieldTypeKind: 2,
+					Title: 'Assignee',
+				},
+			],
+		})
+
+		await UpdateField({
+			listGUID,
+			fieldName: 'AnswerStatus',
+			field: { Title: 'Answer Status' },
+		})
+
+		await UpdateField({
+			listGUID,
+			fieldName: 'Title',
+			field: { Title: 'Question' },
+		})
+
+		await UpdateField({
+			listGUID,
+			fieldName: 'Created By',
+			field: { Title: 'Submitted By' },
+		})
+
+		const defaultView = await GetListDefaultView({ listGUID })
+		const viewGUID = defaultView.Id
+
+		await RemoveListViewAllFields({ listGUID, viewGUID })
+
+		await AddListViewField({ listGUID, viewGUID, field: 'Question' })
+
+		await AddListViewField({ listGUID, viewGUID, field: 'Answer' })
+
+		await AddListViewField({ listGUID, viewGUID, field: 'Submitted By' })
+
+		await AddListViewField({ listGUID, viewGUID, field: 'Created' })
+
+		const VICOManagerView = await CreateView({
+			listGUID,
+			viewName: 'VICO Manager',
+		})
+		const managerViewId = VICOManagerView.Id
+
+		await AddListViewField({
+			listGUID,
+			viewGUID: managerViewId,
+			field: 'QuestionID',
+		})
+
+		await AddListViewField({
+			listGUID,
+			viewGUID: managerViewId,
+			field: 'Assignee',
+		})
+
+		await AddListViewField({
+			listGUID,
+			viewGUID: managerViewId,
+			field: 'Answer Status',
+		})
+	}
+
 	const addProponent = async (proponentName) => {
-		setIsLoading(true)
 		const UUID = MakeUniqueID()
 
 		await BreakListPermissionsInheritance({ listName: 'ActivityLog' })
@@ -140,43 +224,7 @@ export const useProponents = () => {
 		await createList({ listName: UUID, baseTemplate: 101 })
 		enqueueSnackbar('created proponent library', { variant: 'warning' })
 
-		const questionList = await createList({ listName: `${UUID}_Questions` })
-
-		await AddFieldToList({
-			listName: questionList.Title,
-			field: {
-				FieldTypeKind: 2,
-				Title: 'Answer',
-			},
-		})
-
-		const defaultView = await GetListDefaultView({
-			listGUID: questionList.Id,
-		})
-
-		await RemoveListViewAllFields({
-			listGUID: questionList.Id,
-			viewGUID: defaultView.Id,
-		})
-
-		await AddListViewField({
-			listGUID: questionList.Id,
-			viewGUID: defaultView.Id,
-			field: 'Title',
-		})
-
-		await AddListViewField({
-			listGUID: questionList.Id,
-			viewGUID: defaultView.Id,
-			field: 'Created',
-		})
-
-		await AddListViewField({
-			listGUID: questionList.Id,
-			viewGUID: defaultView.Id,
-			field: 'Answer',
-		})
-
+		await createQuestionList(`${UUID}_Questions`)
 		enqueueSnackbar('created proponent Question List', {
 			variant: 'warning',
 		})
@@ -250,7 +298,7 @@ export const useProponents = () => {
 	}
 
 	const proponents = useMemo(() => {
-			return items
+		return items
 	}, [listIsLoading])
 
 	useEffect(() => {
@@ -260,10 +308,11 @@ export const useProponents = () => {
 			for (let i = 0; i < items.length; i++) {
 				itemObject[items[i].UUID] = { ...items[i] }
 
-				itemObject[items[i].UUID].questionCount = await getQuestionCount(
+				itemObject[
+					items[i].UUID
+				].questionCount = await getQuestionCount(
 					`${items[i].UUID}_Questions`
 				)
-
 			}
 
 			setProponentsObject(itemObject)

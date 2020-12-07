@@ -1,6 +1,6 @@
 import React from 'react'
 import { usePeoplePicker } from './usePeoplePicker'
-import { TextField } from '@material-ui/core'
+import { TextField, LinearProgress } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 
 export const PeoplePicker = (props) => {
@@ -11,9 +11,22 @@ export const PeoplePicker = (props) => {
 		variant,
 		setFieldValue,
 		options,
+		AllowEmailAddresses,
+		AllowMultipleEntities,
+		AllUrlZones,
+		MaximumEntitySuggestions,
+		PrincipalSource,
+		PrincipalType,
 		...remainingProps
 	} = props
-	const { onChange, searchResults, reset } = usePeoplePicker()
+	const { onChange, searchResults, reset, isLoading } = usePeoplePicker({
+		AllowEmailAddresses,
+		AllowMultipleEntities,
+		AllUrlZones,
+		MaximumEntitySuggestions,
+		PrincipalSource,
+		PrincipalType,
+	})
 
 	const changeHandler = (event, value, reason) => {
 		setFieldValue(name, value, false)
@@ -25,9 +38,13 @@ export const PeoplePicker = (props) => {
 			autoHighlight={true}
 			multiple
 			options={searchResults}
-			getOptionLabel={(option) => option.DisplayText}
+			getOptionLabel={(option) => {
+				return option.DisplayText
+			}}
+			loading={isLoading}
+			loadingText={<LinearProgress />}
 			onChange={changeHandler}
-			filterSelectedOptions
+			filterOptions={(option) => option}
 			renderInput={(params) => (
 				<TextField
 					{...params}

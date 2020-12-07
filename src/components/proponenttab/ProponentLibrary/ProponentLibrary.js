@@ -1,14 +1,21 @@
 import React, { useContext } from 'react'
-import { ListTable, UserContext } from 'Components'
+import { useList, UserContext } from 'Components'
+import { LinearProgress } from '@material-ui/core'
 
-export const ProponentLibrary = ({ proponent }) => {
+export const ProponentLibrary = () => {
 	const currentUser = useContext(UserContext)
 
 	const libraryOptions = {
 		listName: currentUser.proponent,
-		columnFiltering: false,
-		showTitle: false,
+		// columnFiltering: false,
+		//showTitle: false,
 	}
 
-	return <ListTable {...libraryOptions} />
+	const { isLoading, getRender } = useList(currentUser.proponent)
+
+	return currentUser.proponent === 'not a proponent' ? null : isLoading ? (
+		<LinearProgress />
+	) : (
+		getRender(libraryOptions)
+	)
 }

@@ -85,13 +85,13 @@ export const FormikTest = ({open, close}) => {
 	return (
 		<div>
 			<FormikDialog
-				fields={fields}
-				onSubmit={onSubmit}
+				//fields={fields}
+				//onSubmit={onSubmit}
 				open={open}
-				close={close}
-				title={'Formik Dialog Form'}
-				instructions={'this is how you do it'}
-				fullWidth={true}
+				//close={close}
+				//title={'Formik Dialog Form'}
+				//instructions={'this is how you do it'}
+				//fullWidth={true}
 				//fullScreen={true}
 			/>
 		</div>

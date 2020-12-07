@@ -1,5 +1,6 @@
-export { ColumnFilter } from './ListTable/ColumnFilter/ColumnFilter'
-export { ListTable } from './ListTable/ListTable'
+export { ColumnFilter } from './SPListTable-old/ColumnFilter/ColumnFilter'
+// export { SPListTable } from './SPListTable-old/SPListTable'
+// export { SPListTable as ListTable } from './SPListTable-old/SPListTable'
 export { GroupTable } from './GroupTable/GroupTable'
 export { VerticalTabPanel } from './VerticalTabPanel/VerticalTabPanel'
 export { HorizontalTabPanel } from './HorizontalTabPanel/HorizontalTabPanel'
@@ -10,3 +11,4 @@ export { SendConfirmationEmail } from './SendConfirmationEmail/SendConfirmationE
 export * from './Constants/Constants'
 export * from './Hooks/Hooks'
 export * from './Formik/Formik'
+export * from './SharePoint/SharePoint'

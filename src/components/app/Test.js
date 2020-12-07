@@ -1,7 +1,10 @@
 import React from 'react'
-import { ProponentManagement } from 'Components'
+import { Public } from 'Components'
+import {FormikTest} from 'components/Reusable/Formik/FormikTest'
 
 export const Test = () => {
+	const options = {}
 
-	return <ProponentManagement />
+	return <Public {...options} />
+	// return <FormikTest open={true} close={()=>{}} />
 }

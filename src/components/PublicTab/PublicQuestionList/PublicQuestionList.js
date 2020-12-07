@@ -1,12 +1,14 @@
 import React from 'react'
-import { ListTable } from 'Components'
+import { useList } from 'Components'
+import { LinearProgress } from '@material-ui/core'
 
 export const PublicQuestionList = () => {
 	const listOptions = {
-		listName: 'Questions',
 		columnFiltering: false,
 		showTitle: false,
 	}
 
-	return <ListTable {...listOptions} />
+	const { isLoading, getRender } = useList('Questions')
+
+	return isLoading ? <LinearProgress /> : getRender(listOptions)
 }
