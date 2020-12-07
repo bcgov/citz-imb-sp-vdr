@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import { FormikDialog } from 'Components'
-import { Proponent } from 'components/ProponentTab/ProponentTab'
 
 export const OverView = (props) => {
 	const {

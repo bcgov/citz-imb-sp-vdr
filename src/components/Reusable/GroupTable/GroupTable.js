@@ -113,8 +113,7 @@ export const GroupTable = (props) => {
 					logAction(
 						`added ${members.join('; ')} to ${proponent} group`
 					)
-					const addresses = values.members.map(async (member) => {
-						console.log('member :>> ', member)
+					values.members.map(async (member) => {
 						await SendConfirmationEmail({
 							addresses: member.Key,
 							proponent,
