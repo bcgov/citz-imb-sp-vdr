@@ -77,7 +77,7 @@ export const useList = (listName) => {
 		try {
 			let list = await GetList({
 				listName: listName,
-				expand: 'DefaultView,DefaultView/ViewFields,Views,Fields',
+				expand: 'DefaultView,DefaultView/ViewFields,Views,Views/ViewFields,Fields',
 			})
 			let _items = await GetListItems({ listGUID: list.Id })
 
@@ -168,6 +168,14 @@ export const useList = (listName) => {
 	}
 
 	const changeView = (view) => {
+		if (typeof view === 'string') {
+			for (let i = 0; i < views.length; i++) {
+				if (views[i].Title === view) {
+					setCurrentView(views[i])
+				}
+			}
+			return
+		}
 		setCurrentView(view)
 	}
 

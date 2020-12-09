@@ -22,6 +22,8 @@ export const FormikControls = (props) => {
 			return <CheckboxGroupFormikControl {...rest} />
 		case 'peoplepicker':
 			return <PeoplePickerFormikControl {...rest} />
+		case 'autocomplete':
+			// return <AutoCompleteFormikControl {...rest} />
 		case 'date':
 		default:
 			return null

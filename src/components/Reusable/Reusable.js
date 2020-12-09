@@ -7,6 +7,7 @@ export { HorizontalTabPanel } from './HorizontalTabPanel/HorizontalTabPanel'
 export { FormatText } from './FormatText/FormatText'
 export { CustomTable } from './CustomTable/CustomTable'
 export { SendConfirmationEmail } from './SendConfirmationEmail/SendConfirmationEmail'
+export { DropdownButtons } from './DropdownButtons/DropdownButtons'
 
 export * from './Constants/Constants'
 export * from './Hooks/Hooks'
