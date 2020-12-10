@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react'
 import { Button, IconButton, LinearProgress } from '@material-ui/core'
+import { Alert } from '@material-ui/lab'
 import AddIcon from '@material-ui/icons/Add'
 import { GetGroupMembers, GetUserByEmail } from 'citz-imb-sp-utilities'
 import {
@@ -79,15 +80,23 @@ export const ProponentQuestionList = () => {
 
 	const onQuestionSubmit = async (values, { setSubmitting }) => {
 		let latestItem = { Id: 0 }
+		let nextQuestionNumber
 
-		for (let i = 0; i < items.length; i++) {
-			if (items[i].Id > latestItem.Id) latestItem = items[i]
+		if (items.length > 0) {
+			for (let i = 0; i < items.length; i++) {
+				if (items[i].Id > latestItem.Id) latestItem = items[i]
+			}
+
+			nextQuestionNumber = parseInt(latestItem.QuestionID.slice(-3)) + 1
+		} else {
+			nextQuestionNumber = 1
 		}
 
-		const nextQuestionNumber = parseInt(latestItem.QuestionID.slice(-3)) + 1
 		const nextQuestionNumberString = nextQuestionNumber.toString()
 
-		values.QuestionID = `${currentUser.proponent}-${nextQuestionNumberString.padStart(3,'0')}`
+		values.QuestionID = `${
+			currentUser.proponent
+		}-${nextQuestionNumberString.padStart(3, '0')}`
 
 		try {
 			await addItem(values)
@@ -117,6 +126,7 @@ export const ProponentQuestionList = () => {
 	}
 
 	const listOptions = {
+		tableTitle: 'Submitted Questions',
 		customActions: [
 			{
 				render: (
@@ -204,7 +214,9 @@ export const ProponentQuestionList = () => {
 		return () => {}
 	}, [listIsLoading, proponentsIsLoading])
 
-	return (
+	return currentUser.proponent === 'not a proponent' ? (
+		<Alert severity={'info'}>User is not a proponent</Alert>
+	) : (
 		<Fragment>
 			{isLoading ? <LinearProgress /> : getRender(listOptions)}
 			<FormikDialog {...dialogOptions} />

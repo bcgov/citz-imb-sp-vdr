@@ -15,5 +15,5 @@ export const User = ({ userId }) => {
 		return () => {}
 	}, [])
 
-	return <div>{user ? user.Title : <LinearProgress />}</div>
+	return (user ? user.Title : <LinearProgress />)
 }

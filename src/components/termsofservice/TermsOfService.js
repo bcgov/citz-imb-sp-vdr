@@ -57,6 +57,8 @@ export const TermsOfService = () => {
 					}}
 				/>
 			),
+			submitButtonText: 'Accept',
+			cancelButtonText: 'Reject'
 		})
 
 		return () => {}

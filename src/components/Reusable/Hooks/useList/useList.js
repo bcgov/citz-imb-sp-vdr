@@ -7,9 +7,12 @@ import {
 	UpdateListItem,
 } from 'citz-imb-sp-utilities'
 import moment from 'moment'
-import { ColumnFilter, SPList } from 'Components'
+import { SPList } from 'Components'
+import { ColumnFilter } from './ColumnFilter/ColumnFilter'
+import { SelectColumnFilter } from './SelectColumnFilter/SelectColumnFilter.js'
+import { SelectUserColumnFilter } from './SelectUserColumnFilter/SelectUserColumnFilter'
 import * as Yup from 'yup'
-import { User } from './User'
+import { User } from './User/User'
 
 export const useList = (listName) => {
 	const [title, setTitle] = useState('')
@@ -60,6 +63,7 @@ export const useList = (listName) => {
 					newColumn.accessor = `${fields[column].InternalName}Id`
 					newColumn.Cell = ({ value }) => <User userId={value} />
 					newColumn.disableFilters = false
+					newColumn.Filter = SelectUserColumnFilter
 					break
 
 				default:
@@ -68,7 +72,6 @@ export const useList = (listName) => {
 				// 	fields[column]
 				// )
 			}
-
 			return newColumn
 		})
 	}
@@ -77,7 +80,8 @@ export const useList = (listName) => {
 		try {
 			let list = await GetList({
 				listName: listName,
-				expand: 'DefaultView,DefaultView/ViewFields,Views,Views/ViewFields,Fields',
+				expand:
+					'DefaultView,DefaultView/ViewFields,Views,Views/ViewFields,Fields',
 			})
 			let _items = await GetListItems({ listGUID: list.Id })
 
@@ -187,6 +191,7 @@ export const useList = (listName) => {
 				items={items}
 				addColumns={addColumns}
 				isLoading={isLoading}
+				title={title}
 				{...props}
 			/>
 		)
@@ -234,6 +239,7 @@ export const useList = (listName) => {
 		title,
 		updateItem,
 		views,
+		SelectColumnFilter,
 		getRender,
 	}
 }

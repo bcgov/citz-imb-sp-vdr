@@ -23,6 +23,8 @@ export const FormikDialog = (props) => {
 		title,
 		instructions,
 		dialogContent,
+		submitButtonText = 'Submit',
+		cancelButtonText = 'Cancel',
 		...remainingDialogProps
 	} = props
 	const [initialValues, setInitialValues] = useState({})
@@ -44,7 +46,7 @@ export const FormikDialog = (props) => {
 					label: fields[i].label,
 					required: fields[i].required,
 					options: fields[i].options,
-					fullWidth: true,
+					// fullWidth: true,
 				}
 
 				_controls.push(<FormikControls {...options} />)
@@ -110,7 +112,7 @@ export const FormikDialog = (props) => {
 										color='primary'
 										disabled={isSubmitting}
 										onClick={submitForm}>
-										Submit
+										{submitButtonText}
 									</Button>
 								) : null}
 
@@ -119,7 +121,7 @@ export const FormikDialog = (props) => {
 									color='primary'
 									disabled={isSubmitting}
 									onClick={close}>
-									Cancel
+									{cancelButtonText}
 								</Button>
 							</DialogActions>
 						</Form>

@@ -1,2 +1,2 @@
 export { SiteManagement } from './SiteManagement/SiteManagement'
-export { ActivityLogTable } from './ActivityLogTable/ActivityLogTable'
+export { ActivityLog as ActivityLogTable } from './ActivityLog/ActivityLog'

@@ -1,7 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import {
-	Paper,
-	Grid,
 	List,
 	ListItem,
 	ListItemText,
@@ -9,7 +7,7 @@ import {
 	Switch,
 } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
-import { FormikDialog } from 'Components'
+import { FormikDialog, useLogAction } from 'Components'
 
 export const OverView = (props) => {
 	const {
@@ -26,6 +24,8 @@ export const OverView = (props) => {
 	const [questionsAsked, setQuestionsAsked] = useState()
 	const [questionsWithdrawn, setQuestionWithdrawn] = useState()
 	const [documentCount, setDocumentCount] = useState()
+
+	const logAction = useLogAction()
 
 	const handleToggle = (event) => {
 		setDialogOptions({
@@ -48,10 +48,16 @@ export const OverView = (props) => {
 				</Alert>
 			),
 			onSubmit: async (values, { setSubmitting }) => {
-				if (Active) {
-					await setProponentInactive(UUID)
-				} else {
-					await setProponentActive(UUID)
+				try {
+					if (Active) {
+						await setProponentInactive(UUID)
+						logAction(`successfully Inactivated ${UUID}`)
+					} else {
+						await setProponentActive(UUID)
+						logAction(`successfully Activated ${UUID}`)
+					}
+				} catch (error) {
+					throw error
 				}
 				setSubmitting(false)
 				setDialogOptions({ open: false })
@@ -63,8 +69,12 @@ export const OverView = (props) => {
 		if (UUID) {
 			const _proponent = getProponent(UUID)
 			setQuestionsAsked(_proponent?.questionCount?.asked ?? 'unavailable')
-			setQuestionsAnswered(_proponent?.questionCount?.answered ?? 'unavailable')
-			setQuestionWithdrawn(_proponent?.questionCount?.withdrawn ?? 'unavailable')
+			setQuestionsAnswered(
+				_proponent?.questionCount?.answered ?? 'unavailable'
+			)
+			setQuestionWithdrawn(
+				_proponent?.questionCount?.withdrawn ?? 'unavailable'
+			)
 			setDocumentCount(_proponent?.documentCount ?? 'unavailable')
 		}
 		return () => {}
@@ -72,65 +82,62 @@ export const OverView = (props) => {
 
 	return (
 		<Fragment>
-					<List>
-						<ListItem>
-							<ListItemText id='overview-list-label-uuid'>
-								Unique Id
-							</ListItemText>
-							<ListItemSecondaryAction>
-								{UUID}
-							</ListItemSecondaryAction>
-						</ListItem>
-						<ListItem>
-							<ListItemText id='overview-list-label-active'>
-								{Active ? 'Active' : 'Inactive'}
-							</ListItemText>
-							<ListItemSecondaryAction>
-								<Switch
-									edge='end'
-									onChange={handleToggle}
-									checked={Active}
-									inputProps={{
-										'aria-labelledby':
-											'overview-list-label-active',
-									}}
-								/>
-							</ListItemSecondaryAction>
-						</ListItem>
-						<ListItem>
-							<ListItemText id='overview-list-label-uuid'>
-								Questions Asked
-							</ListItemText>
-							<ListItemSecondaryAction>
-								{questionsAsked}
-							</ListItemSecondaryAction>
-						</ListItem>
-						<ListItem>
-							<ListItemText id='overview-list-label-uuid'>
-								Questions Answered
-							</ListItemText>
-							<ListItemSecondaryAction>
-								{questionsAnswered}
-							</ListItemSecondaryAction>
-						</ListItem>
-						<ListItem>
-							<ListItemText id='overview-list-label-uuid'>
-								Questions Withdrawn
-							</ListItemText>
-							<ListItemSecondaryAction>
-								{questionsWithdrawn}
-							</ListItemSecondaryAction>
-						</ListItem>
-						<ListItem>
-							<ListItemText id='overview-list-label-uuid'>
-								Documents Submitted
-							</ListItemText>
-							<ListItemSecondaryAction>
-								{documentCount}
-							</ListItemSecondaryAction>
-						</ListItem>
-					</List>
-				<FormikDialog {...dialogOptions} />
+			<List>
+				<ListItem>
+					<ListItemText id='overview-list-label-uuid'>
+						Unique Id
+					</ListItemText>
+					<ListItemSecondaryAction>{UUID}</ListItemSecondaryAction>
+				</ListItem>
+				<ListItem>
+					<ListItemText id='overview-list-label-active'>
+						{Active ? 'Active' : 'Inactive'}
+					</ListItemText>
+					<ListItemSecondaryAction>
+						<Switch
+							edge='end'
+							onChange={handleToggle}
+							checked={Active}
+							inputProps={{
+								'aria-labelledby': 'overview-list-label-active',
+							}}
+						/>
+					</ListItemSecondaryAction>
+				</ListItem>
+				<ListItem>
+					<ListItemText id='overview-list-label-uuid'>
+						Questions Asked
+					</ListItemText>
+					<ListItemSecondaryAction>
+						{questionsAsked}
+					</ListItemSecondaryAction>
+				</ListItem>
+				<ListItem>
+					<ListItemText id='overview-list-label-uuid'>
+						Questions Answered
+					</ListItemText>
+					<ListItemSecondaryAction>
+						{questionsAnswered}
+					</ListItemSecondaryAction>
+				</ListItem>
+				<ListItem>
+					<ListItemText id='overview-list-label-uuid'>
+						Questions Withdrawn
+					</ListItemText>
+					<ListItemSecondaryAction>
+						{questionsWithdrawn}
+					</ListItemSecondaryAction>
+				</ListItem>
+				<ListItem>
+					<ListItemText id='overview-list-label-uuid'>
+						Documents Submitted
+					</ListItemText>
+					<ListItemSecondaryAction>
+						{documentCount}
+					</ListItemSecondaryAction>
+				</ListItem>
+			</List>
+			<FormikDialog {...dialogOptions} />
 		</Fragment>
 	)
 }
