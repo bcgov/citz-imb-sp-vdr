@@ -73,8 +73,6 @@ export const FormikTest = ({open, close}) => {
 	]
 
 	const onSubmit = (values, { setSubmitting }) => {
-		console.log('values :>> ', values);
-		console.log('peoplePicker :>> ', peoplePicker);
 		values.peoplepicker = peoplePicker
 		setTimeout(() => {
 			setSubmitting(false)

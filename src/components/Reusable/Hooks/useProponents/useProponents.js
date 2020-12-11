@@ -35,6 +35,7 @@ export const useProponents = () => {
 		refresh,
 		updateItem,
 	} = useList('Proponents')
+
 	const { enqueueSnackbar } = useSnackbar()
 
 	const MakeUniqueID = () => {
@@ -154,7 +155,7 @@ export const useProponents = () => {
 				{
 					FieldTypeKind: 2,
 					Title: 'Assignee',
-					DefaultValue: 'VICO Manager'
+					DefaultValue: 'VICO Manager',
 				},
 				{
 					FieldTypeKind: 8,
@@ -306,11 +307,17 @@ export const useProponents = () => {
 	}
 
 	const getQuestionCount = async (questionListName) => {
-		const questions = await GetListItems({
-			listName: questionListName,
-		})
+		try {
+			const questions = await GetListItems({
+				listName: questionListName,
+			})
 
-		return { asked: questions.length, answered: null, withdrawn: null }
+			return { asked: questions.length, answered: null, withdrawn: null }
+		} catch (error) {
+			console.error(error)
+			return { asked: null, answered: null, withdrawn: null }
+		}
+
 	}
 
 	const proponents = useMemo(() => {

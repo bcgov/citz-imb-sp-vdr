@@ -83,6 +83,7 @@ export const useList = (listName) => {
 				expand:
 					'DefaultView,DefaultView/ViewFields,Views,Views/ViewFields,Fields',
 			})
+			
 			let _items = await GetListItems({ listGUID: list.Id })
 
 			setTitle(list.Title)

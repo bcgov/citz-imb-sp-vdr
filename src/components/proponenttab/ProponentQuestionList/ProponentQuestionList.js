@@ -205,7 +205,6 @@ export const ProponentQuestionList = () => {
 	}
 
 	useEffect(() => {
-		console.log('items :>> ', items)
 		if (!listIsLoading && !proponentsIsLoading) {
 			setIsLoading(false)
 		} else {

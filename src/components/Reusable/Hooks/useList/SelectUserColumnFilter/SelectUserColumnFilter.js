@@ -16,16 +16,12 @@ export const SelectUserColumnFilter = (props) => {
 			values.push(row.values[id])
 		})
 
-		console.log('values :>> ', values);
-
 		values.forEach(async option => {
 			console.log('option :>> ', option);
 			const user = await GetUser({userId:option})
 			console.log('user :>> ', user);
 			userOptions.push({value: option, display: user.Title})
 		})
-
-		console.log('userOptions :>> ', userOptions.length);
 
 	}, [id, preFilteredRows])
 

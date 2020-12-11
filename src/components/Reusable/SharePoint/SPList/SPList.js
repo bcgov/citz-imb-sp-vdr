@@ -22,7 +22,6 @@ import { SPTable } from '../SPTable/SPTable'
 //TODO: global filter
 
 export const SPList = (props) => {
-	console.log('SPList props :>> ', props);
 	const {
 		listName,
 		columnFiltering = true,
