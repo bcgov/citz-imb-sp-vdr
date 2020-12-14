@@ -52,5 +52,9 @@ export const useCurrentUser = () => {
 		return () => {}
 	}, [])
 
+	useEffect(() => {
+		return () => {}
+	}, [currentUser])
+
 	return currentUser
 }

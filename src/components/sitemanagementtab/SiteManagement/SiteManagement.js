@@ -108,7 +108,7 @@ export const SiteManagement = () => {
 					title: items[action].Title,
 					instructions: items[action].Instructions,
 				}
-			case 'contactemail':
+			case 'contactEmail':
 				return {
 					fields: [
 						{
@@ -238,6 +238,7 @@ export const SiteManagement = () => {
 					title: 'Activity Log',
 					dialogContent: <ActivityLogTable />,
 					fullScreen: true,
+					cancelButtonText: 'Close'
 				}
 			default:
 				console.log(`${action} not defined`)

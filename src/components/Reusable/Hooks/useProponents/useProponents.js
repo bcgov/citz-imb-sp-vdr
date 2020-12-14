@@ -18,6 +18,7 @@ import {
 	GetListDefaultView,
 	RemoveListViewAllFields,
 	AddListViewField,
+	RemoveListViewField,
 	UpdateField,
 	CreateView,
 } from 'citz-imb-sp-utilities'
@@ -34,6 +35,7 @@ export const useProponents = () => {
 		refresh,
 		updateItem,
 	} = useList('Proponents')
+
 	const { enqueueSnackbar } = useSnackbar()
 
 	const MakeUniqueID = () => {
@@ -134,7 +136,7 @@ export const useProponents = () => {
 		const questionList = await createList({ listName })
 		const listGUID = questionList.Id
 
-    await AddFieldToList({
+		await AddFieldToList({
 			listGUID,
 			field: [
 				{
@@ -153,6 +155,12 @@ export const useProponents = () => {
 				{
 					FieldTypeKind: 2,
 					Title: 'Assignee',
+					DefaultValue: 'VICO Manager',
+				},
+				{
+					FieldTypeKind: 8,
+					Title: 'Withdrawn',
+					DefaultValue: '0',
 				},
 			],
 		})
@@ -188,11 +196,20 @@ export const useProponents = () => {
 
 		await AddListViewField({ listGUID, viewGUID, field: 'Created' })
 
+		await AddListViewField({ listGUID, viewGUID, field: 'Withdrawn' })
+
 		const VICOManagerView = await CreateView({
 			listGUID,
-			viewName: 'VICO Manager',
+			viewName: 'VICO_Manager',
 		})
+		console.log('VICOManagerView :>> ', VICOManagerView)
 		const managerViewId = VICOManagerView.Id
+
+		await RemoveListViewField({
+			listGUID,
+			viewGUID: managerViewId,
+			field: 'Withdrawn',
+		})
 
 		await AddListViewField({
 			listGUID,
@@ -290,11 +307,17 @@ export const useProponents = () => {
 	}
 
 	const getQuestionCount = async (questionListName) => {
-		const questions = await GetListItems({
-			listName: questionListName,
-		})
+		try {
+			const questions = await GetListItems({
+				listName: questionListName,
+			})
 
-		return { asked: questions.length, answered: null, withdrawn: null }
+			return { asked: questions.length, answered: null, withdrawn: null }
+		} catch (error) {
+			console.error(error)
+			return { asked: null, answered: null, withdrawn: null }
+		}
+
 	}
 
 	const proponents = useMemo(() => {

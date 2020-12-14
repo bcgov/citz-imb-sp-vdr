@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react'
-import { IconButton, LinearProgress } from '@material-ui/core'
+import { Button, IconButton, LinearProgress } from '@material-ui/core'
+import { Alert } from '@material-ui/lab'
 import AddIcon from '@material-ui/icons/Add'
 import { GetGroupMembers, GetUserByEmail } from 'citz-imb-sp-utilities'
 import {
@@ -78,6 +79,25 @@ export const ProponentQuestionList = () => {
 	}
 
 	const onQuestionSubmit = async (values, { setSubmitting }) => {
+		let latestItem = { Id: 0 }
+		let nextQuestionNumber
+
+		if (items.length > 0) {
+			for (let i = 0; i < items.length; i++) {
+				if (items[i].Id > latestItem.Id) latestItem = items[i]
+			}
+
+			nextQuestionNumber = parseInt(latestItem.QuestionID.slice(-3)) + 1
+		} else {
+			nextQuestionNumber = 1
+		}
+
+		const nextQuestionNumberString = nextQuestionNumber.toString()
+
+		values.QuestionID = `${
+			currentUser.proponent
+		}-${nextQuestionNumberString.padStart(3, '0')}`
+
 		try {
 			await addItem(values)
 			await sendEmails()
@@ -90,7 +110,23 @@ export const ProponentQuestionList = () => {
 		setDialogOptions({ open: false })
 	}
 
+	const withdrawQuestion = async (values) => {
+		console.log('withdrawQuestion :>> ', values)
+		try {
+			await updateItem({
+				Id: values.Id,
+				Withdrawn: true,
+				AnswerStatus: 'Withdrawn',
+				Assignee: '',
+			})
+			logAction(`successfully withdrew ${values.Title}`)
+		} catch (error) {
+			console.error('error withdrawing question', error)
+		}
+	}
+
 	const listOptions = {
+		tableTitle: 'Submitted Questions',
 		customActions: [
 			{
 				render: (
@@ -128,20 +164,44 @@ export const ProponentQuestionList = () => {
 		customColumns: [
 			{
 				accessor: 'Answer',
-				Cell: ({ value }) => {
-					return value ? "true" : "Not Started"
+				Cell: ({ value, row }) => {
+					return value ? 'true' : row.original.AnswerStatus
+				},
+			},
+			{
+				accessor: 'Withdrawn',
+				Header: 'Withdraw',
+				Cell: ({ value, row }) => {
+					return value ? null : row.original.Answer ? null : (
+						<Button
+							size={'small'}
+							variant={'contained'}
+							onClick={() => {
+								setDialogOptions({
+									open: true,
+									close: () => {
+										setDialogOptions({ open: false })
+									},
+
+									onSubmit: async (
+										values,
+										{ setSubmitting }
+									) => {
+										await withdrawQuestion(row.original)
+										setSubmitting(false)
+										setDialogOptions({ open: false })
+									},
+									title: 'Withdraw Question?',
+									instructions:
+										'Once withdrawn, the answer process will be stopped.  To start it again, you will need to submit a new question.',
+								})
+							}}>
+							Withdraw
+						</Button>
+					)
 				},
 			},
 		],
-		//addRecord: true,
-		// columnFiltering: false,
-
-		// showTitle: false,
-		// 	tableTitle,
-		// deleteItem = false,
-		// editItem = false,
-		// changeItemPermissions = false,
-		// 	refresh = true,
 	}
 
 	useEffect(() => {
@@ -153,51 +213,12 @@ export const ProponentQuestionList = () => {
 		return () => {}
 	}, [listIsLoading, proponentsIsLoading])
 
-	// const [refresh, setRefresh] = useState(true)
-	// const [askQuestionDialog, setAskQuestionDialog] = useState(false)
-	// const [viewAnswerDialog, setViewAnswerDialog] = useState(false)
-	// const [currentItemId, setCurrentItemId] = useState()
-
-	// const closeAnswerDialog = () => {
-	// 	setViewAnswerDialog(false)
-	// }
-	// const closeQuestionDialog = () => {
-	// 	setAskQuestionDialog(false)
-	// 	setRefresh(!refresh)
-	// }
-
-	// const openAnswerDialog = (itemId) => {
-	// 	setCurrentItemId(itemId)
-	// 	setViewAnswerDialog(true)
-	// }
-
-	// const questionOptions = {
-	// 	tableTitle: 'Our Submitted Questions',
-	// 	refresh: refresh,
-	// 	initialState: { sortBy: [{ id: 'Created', desc: true }] },
-	// 	columnFiltering: false,
-	//
-
-	// }
-
-	return (
+	return currentUser.proponent === 'not a proponent' ? (
+		<Alert severity={'info'}>User is not a proponent</Alert>
+	) : (
 		<Fragment>
 			{isLoading ? <LinearProgress /> : getRender(listOptions)}
 			<FormikDialog {...dialogOptions} />
-			{/* <SPList {...listOptions} /> */}
-			{/* <AskQuestionDialog
-				open={askQuestionDialog}
-				closeDialog={closeQuestionDialog}
-				listName={listName}
-				proponentName={proponentName}
-				groupId={groupId}
-			/>
-			<ViewAnswerDialog
-				open={viewAnswerDialog}
-				closeDialog={closeAnswerDialog}
-				listName={listName}
-				itemId={currentItemId}
-			/> */}
 		</Fragment>
 	)
 }

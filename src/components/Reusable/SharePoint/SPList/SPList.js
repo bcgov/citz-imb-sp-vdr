@@ -39,6 +39,7 @@ export const SPList = (props) => {
 		items,
 		title,
 		addColumns,
+		additionalColumns,
 		isLoading,
 	} = props
 
@@ -59,17 +60,7 @@ export const SPList = (props) => {
 			}
 		}
 		return columns
-	}, columns)
-
-	// const {
-	// 	title,
-	// 	columns,
-	// 	items,
-	// 	// addItem,
-	// 	addColumns,
-	// 	refresh: refreshData,
-	// 	isLoading: listIsLoading,
-	// } = useList(listName)
+	}, [columns, customColumns])
 
 	const addItemDialog = () => {
 		setDialog({
@@ -90,33 +81,6 @@ export const SPList = (props) => {
 		})
 	}
 
-	// useEffect(() => {
-	// 	let _freeActions = []
-	// 	let _rowActions = []
-
-	// 	for (let i = 0; i < customActions.length; i++) {
-	// 		if (customActions[i].isFreeAction) {
-	// 			_freeActions.push(customActions[i])
-	// 		} else {
-	// 			_rowActions.push(customActions[i])
-	// 		}
-	// 	}
-
-	// 	setFreeActions(_freeActions)
-	// 	setRowActions(_rowActions)
-	// 	return () => {}
-	// }, [])
-
-	// useEffect(() => {
-	// 	refreshData()
-	// 	return () => {}
-	// }, [refresh])
-
-	// useEffect(() => {
-	// 	if (!listIsLoading) setIsLoading(false)
-	// 	return () => {}
-	// }, [listIsLoading])
-
 	useEffect(() => {
 		if (!isLoading) {
 			setFreeActions(
@@ -131,8 +95,6 @@ export const SPList = (props) => {
 				columnFiltering,
 			})
 		}
-
-
 
 		return () => {}
 	}, [isLoading])

@@ -33,7 +33,6 @@ export const AskQuestionDialog = ({
 	const onSubmit = (values, { setSubmitting }) => {
 		addItem(values).then((response) => {
 			setSubmitting(false)
-			console.log('values :>> ', values)
 			logAction(`asked ${values.Title}`)
 			closeDialog()
 		}).catch(error=>{

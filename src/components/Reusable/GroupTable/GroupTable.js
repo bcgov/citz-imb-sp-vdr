@@ -104,7 +104,6 @@ export const GroupTable = (props) => {
 				},
 			],
 			onSubmit: async (values, { setSubmitting }) => {
-				console.log('values', values)
 				const members = values.members.map(
 					(member) => member.DisplayText
 				)

@@ -61,11 +61,13 @@ export const AppTabs = () => {
 						icon={<HomeIcon />}
 						{...a11yProps(0)}
 					/>
+					{/* {currentUser.proponent === 'not a proponent' ? null : ( */}
 					<Tab
 						label='My Organization'
 						icon={<QuestionAnswerIcon />}
 						{...a11yProps(1)}
 					/>
+					{/* )} */}
 					{currentUser.isOwner ? (
 						<Tab
 							label='Proponent Management'
@@ -85,9 +87,11 @@ export const AppTabs = () => {
 			<HorizontalTabPanel value={value} index={0}>
 				<Public />
 			</HorizontalTabPanel>
+			{/* {currentUser.proponent === 'not a proponent' ? null : ( */}
 			<HorizontalTabPanel value={value} index={1}>
 				<Proponent />
 			</HorizontalTabPanel>
+			{/* )} */}
 			{currentUser.isOwner ? (
 				<HorizontalTabPanel value={value} index={2}>
 					<ProponentManagement />
