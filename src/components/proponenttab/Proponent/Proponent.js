@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import { Tabs, Tab, makeStyles } from '@material-ui/core'
-import {
-	ProponentLibrary,
-	ProponentQuestionList,
-	VerticalTabPanel,
-} from 'Components'
+import { VerticalTabPanel } from 'Components'
+import { ProponentLibrary } from '../ProponentLibrary/ProponentLibrary'
+import { ProponentQuestionList } from '../ProponentQuestionList/ProponentQuestionList'
 
 function a11yProps(index) {
 	return {
@@ -46,7 +44,7 @@ export const Proponent = () => {
 				<Tab label='Submitted Questions' {...a11yProps(1)} />
 			</Tabs>
 			<VerticalTabPanel value={value} index={0}>
-					<ProponentLibrary />
+				<ProponentLibrary />
 			</VerticalTabPanel>
 			<VerticalTabPanel value={value} index={1}>
 				<ProponentQuestionList />

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Tabs, Tab, makeStyles } from '@material-ui/core'
-import { PublicLibrary, PublicQuestionList, VerticalTabPanel } from 'Components'
+import { VerticalTabPanel } from 'Components'
+import { PublicLibrary } from '../PublicLibrary/PublicLibrary'
+import { PublicQuestionList } from '../PublicQuestionList/PublicQuestionList'
 
 function a11yProps(index) {
 	return {

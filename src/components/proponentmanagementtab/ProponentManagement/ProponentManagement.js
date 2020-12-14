@@ -6,17 +6,17 @@ import {
 	Tab,
 	makeStyles,
 } from '@material-ui/core'
-import {Alert, AlertTitle} from '@material-ui/lab'
+import { Alert, AlertTitle } from '@material-ui/lab'
 import AddIcon from '@material-ui/icons/Add'
-import {GetRoleDefinitions} from 'citz-imb-sp-utilities'
+import { GetRoleDefinitions } from 'citz-imb-sp-utilities'
 import {
 	FormikDialog,
 	useProponents,
 	useLogAction,
 	VerticalTabPanel,
-	ManagementTab,
 } from 'Components'
 import * as Yup from 'yup'
+import { ManagementTab } from '../ManagementTab/ManagementTab'
 
 function a11yProps(index) {
 	return {

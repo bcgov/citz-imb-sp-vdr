@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
-import { AppBar, Tabs, Tab, Paper, Typography } from '@material-ui/core'
+import { AppBar, Tabs, Tab, Paper } from '@material-ui/core'
 
-import {
-	HorizontalTabPanel,
-	Library,
-	Questions,
-	Membership,
-	OverView,
-} from 'Components'
+import { HorizontalTabPanel } from 'Components'
+import { Questions } from '../Questions/Questions'
+import { Library } from '../Library/Library'
+import { Membership } from '../Membership/Membership'
+import { OverView } from '../OverView/OverView'
 
 function a11yProps(index) {
 	return {
@@ -38,7 +36,7 @@ export const ManagementTab = (props) => {
 			</AppBar>
 
 			<HorizontalTabPanel value={value} index={0}>
-						<OverView {...props} />
+				<OverView {...props} />
 			</HorizontalTabPanel>
 
 			<HorizontalTabPanel value={value} index={1}>
