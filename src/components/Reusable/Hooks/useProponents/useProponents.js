@@ -150,7 +150,7 @@ export const useProponents = () => {
 				{
 					FieldTypeKind: 2,
 					Title: 'AnswerStatus',
-					DefaultValue: 'Not Started',
+					DefaultValue: 'Received',
 				},
 				{
 					FieldTypeKind: 2,
