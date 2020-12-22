@@ -10,14 +10,13 @@ const AssigneeOptions = [
 ]
 
 export const Assignee = (props) => {
-	const { assignedTo, status, questionId, id, updateItem } = props
+	const { assignedTo, status, questionId, id, updateItem, postAnswer, question, updateAnswer } = props
 
-	const handleChange = async (event) => {
-		if (event.target.value === 'Posted') {
-			console.log('POSTED: event.target.value :>> ', event.target.value)
+	const handleChange = (event) => {
+		if (event.target.value === 'post') {
+			postAnswer({ questionId, id, question })
 		} else {
-			console.log('event.target.value :>> ', event.target.value)
-			await updateItem({
+			updateItem({
 				Id: id,
 				AnswerStatus: 'Under Review',
 				Assignee: event.target.value,
@@ -25,12 +24,12 @@ export const Assignee = (props) => {
 		}
 	}
 
-	const handleClick = (questionId) => {
-		console.log('questionId :>> ', questionId)
+	const handleClick = () => {
+		updateAnswer({questionId, id, question})
 	}
 
-	return assignedTo === 'Posted' ? (
-		<Button variant={'outlined'} onClick={() => handleClick(questionId)}>
+	return status === 'Posted' ? (
+		<Button variant={'outlined'} onClick={handleClick}>
 			Edit Answer
 		</Button>
 	) : (

@@ -5,6 +5,7 @@ import { SelectFormikControl } from './Select/SelectFormikControl'
 import { RadioFormikControl } from './Radio/RadioFormikControl'
 import { CheckboxGroupFormikControl } from './CheckboxGroup/CheckboxGroupFormikControl'
 import { PeoplePickerFormikControl } from './PeoplePicker/PeoplePickerFormikControl'
+import { HiddenFormikControl } from './Hidden/HiddenFormikControl'
 
 export const FormikControls = (props) => {
 	const { control, ...rest } = props
@@ -22,8 +23,10 @@ export const FormikControls = (props) => {
 			return <CheckboxGroupFormikControl {...rest} />
 		case 'peoplepicker':
 			return <PeoplePickerFormikControl {...rest} />
+		case 'hidden':
+			return <HiddenFormikControl {...rest} />
 		case 'autocomplete':
-			// return <AutoCompleteFormikControl {...rest} />
+		// return <AutoCompleteFormikControl {...rest} />
 		case 'date':
 		default:
 			return null

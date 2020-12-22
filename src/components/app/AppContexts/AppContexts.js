@@ -31,8 +31,8 @@ export const AppContexts = () => {
 			}}>
 			<UserContext.Provider value={currentUser}>
 				<ConfigContext.Provider value={configList}>
-					{/* <Logon /> */}
-					<Test />
+					<Logon />
+					{/* <Test /> */}
 				</ConfigContext.Provider>
 			</UserContext.Provider>
 		</SnackbarProvider>

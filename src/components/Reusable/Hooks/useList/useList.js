@@ -83,7 +83,7 @@ export const useList = (listName) => {
 				expand:
 					'DefaultView,DefaultView/ViewFields,Views,Views/ViewFields,Fields',
 			})
-			
+
 			let _items = await GetListItems({ listGUID: list.Id })
 
 			setTitle(list.Title)
@@ -200,8 +200,9 @@ export const useList = (listName) => {
 
 	const addItem = async (addItems) => {
 		try {
-			await AddItemsToList({ listName, items: addItems })
+			const newItem = await AddItemsToList({ listName, items: addItems })
 			refresh()
+			return newItem
 		} catch (error) {
 			console.error('useList addItem error:', error)
 			return error
