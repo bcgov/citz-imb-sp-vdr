@@ -45,8 +45,8 @@ export const TermsOfService = () => {
 				setHasCookie(true)
 			},
 			open: true,
-			close: () => {
-				logAction('disagreed to TOS', false)
+			close: async () => {
+				await logAction('disagreed to TOS', false)
 				window.location = '/_layouts/signout.aspx'
 			},
 			title: configItems.TOS.TextValue,
