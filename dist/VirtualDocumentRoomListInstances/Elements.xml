@@ -366,7 +366,7 @@ All information that may be provided by Proponents in connection with the VICO o
 
 You have been added to the BC Government’s [Title], as member of the [Proponent] organization.Visit [SiteLink] to participate.
 
-If you encounter issues accessing the site, please contact [contactEmail]
+If you encounter issues accessing the site, please contact [ContactEmail]
 
 Sincerely,[Title] Administrator​</Field>
           <Field Name="YesNoValue">TRUE</Field>
@@ -391,7 +391,7 @@ Visit [SiteLink] to view the submitted question privately.
 
 Questions are typically answered between 24 – 48 hours, depending on the availability of Subject Matter Experts. Some questions may take more than 48 hours, depending on the complexity of the question.
 
-If you encounter issues accessing the site, please contact [contactEmail]
+If you encounter issues accessing the site, please contact [ContactEmail]
 
 Sincerely,[Title] Administrator​</Field>
           <Field Name="YesNoValue">TRUE</Field>
