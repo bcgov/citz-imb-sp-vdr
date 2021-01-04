@@ -311,8 +311,19 @@ export const useProponents = () => {
 			const questions = await GetListItems({
 				listName: questionListName,
 			})
+			let numAnswered = 0
+			let numWithdrawn = 0
 
-			return { asked: questions.length, answered: null, withdrawn: null }
+			for (let i = 0; i < questions.length; i++) {
+				const question = questions[i];
+
+				console.log('question :>> ', question);
+				if(question.Withdrawn) numWithdrawn++
+				if(question.Answer) numAnswered++
+
+			}
+
+			return { asked: questions.length, answered: numAnswered, withdrawn: numWithdrawn }
 		} catch (error) {
 			console.error(error)
 			return { asked: null, answered: null, withdrawn: null }
