@@ -1,3 +1,4 @@
+export { AnswerCell } from './AnswerCell/AnswerCell'
 export * from './Constants/Constants'
 export { CustomTable } from './CustomTable/CustomTable'
 export { FormatText } from './FormatText/FormatText'

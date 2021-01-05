@@ -101,7 +101,7 @@ export const Questions = (props) => {
 
 	const updateAnswer = (props) => {
 		alert('edit not yet functional')
-		console.log('updateAnswer props :>> ', props)
+
 		return false
 		const { questionId, id, question } = props
 		setDialogOptions({

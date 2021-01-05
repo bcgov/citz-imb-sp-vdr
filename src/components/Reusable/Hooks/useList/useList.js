@@ -219,6 +219,10 @@ export const useList = (listName) => {
 		}
 	}
 
+	const getItemById = (id) => {
+		return items.find((item) => item.Id === id)
+	}
+
 	useEffect(() => {
 		refresh()
 		return () => {}
@@ -235,13 +239,14 @@ export const useList = (listName) => {
 		changeView,
 		columns,
 		fields,
+		getRender,
+		getItemById,
 		isLoading,
 		items,
 		refresh,
+		SelectColumnFilter,
 		title,
 		updateItem,
 		views,
-		SelectColumnFilter,
-		getRender,
 	}
 }

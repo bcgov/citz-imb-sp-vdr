@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 		backgroundColor: theme.palette.background.paper,
 		display: 'flex',
-		// height: 224,
 	},
 	tabs: {
 		borderRight: `1px solid ${theme.palette.divider}`,
@@ -35,7 +34,6 @@ export const Proponent = () => {
 		<div className={classes.root}>
 			<Tabs
 				orientation='vertical'
-				//variant='scrollable'
 				value={value}
 				onChange={handleChange}
 				aria-label='Vertical tabs example'

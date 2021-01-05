@@ -196,20 +196,12 @@ export const useProponents = () => {
 
 		await AddListViewField({ listGUID, viewGUID, field: 'Created' })
 
-		await AddListViewField({ listGUID, viewGUID, field: 'Withdrawn' })
-
 		const VICOManagerView = await CreateView({
 			listGUID,
 			viewName: 'VICO_Manager',
 		})
-		console.log('VICOManagerView :>> ', VICOManagerView)
-		const managerViewId = VICOManagerView.Id
 
-		await RemoveListViewField({
-			listGUID,
-			viewGUID: managerViewId,
-			field: 'Withdrawn',
-		})
+		const managerViewId = VICOManagerView.Id
 
 		await AddListViewField({
 			listGUID,
@@ -317,7 +309,6 @@ export const useProponents = () => {
 			for (let i = 0; i < questions.length; i++) {
 				const question = questions[i];
 
-				console.log('question :>> ', question);
 				if(question.Withdrawn) numWithdrawn++
 				if(question.Answer) numAnswered++
 
