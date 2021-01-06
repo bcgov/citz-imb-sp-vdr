@@ -1,8 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { FormikDialog, useList } from 'Components'
+import { FormikDialog, useList, AnswerCell } from 'Components'
 import { LinearProgress } from '@material-ui/core'
 import { Assignee } from './Assignee/Assignee'
-import { Answer } from './Answer/Answer'
 import * as Yup from 'yup'
 
 /*
@@ -150,11 +149,14 @@ export const Questions = (props) => {
 		customColumns: [
 			{
 				accessor: 'Answer',
+				Header: 'Status / Answer',
 				Cell: ({ value, row }) => {
-					return value ? (
-						<Answer questionId={value} />
-					) : (
-						row.original.AnswerStatus
+					return (
+						<AnswerCell
+							row={row}
+							setDialogOptions={setDialogOptions}
+							value={value}
+						/>
 					)
 				},
 			},

@@ -214,12 +214,6 @@ export const useProponents = () => {
 			viewGUID: managerViewId,
 			field: 'Assignee',
 		})
-
-		await AddListViewField({
-			listGUID,
-			viewGUID: managerViewId,
-			field: 'Answer Status',
-		})
 	}
 
 	const addProponent = async (proponentName) => {
@@ -307,19 +301,21 @@ export const useProponents = () => {
 			let numWithdrawn = 0
 
 			for (let i = 0; i < questions.length; i++) {
-				const question = questions[i];
+				const question = questions[i]
 
-				if(question.Withdrawn) numWithdrawn++
-				if(question.Answer) numAnswered++
-
+				if (question.Withdrawn) numWithdrawn++
+				if (question.Answer) numAnswered++
 			}
 
-			return { asked: questions.length, answered: numAnswered, withdrawn: numWithdrawn }
+			return {
+				asked: questions.length,
+				answered: numAnswered,
+				withdrawn: numWithdrawn,
+			}
 		} catch (error) {
 			console.error(error)
 			return { asked: null, answered: null, withdrawn: null }
 		}
-
 	}
 
 	const proponents = useMemo(() => {

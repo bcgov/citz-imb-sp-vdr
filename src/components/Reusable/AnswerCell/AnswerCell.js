@@ -1,21 +1,12 @@
 import React, { useMemo } from 'react'
-import {
-	List,
-	ListItem,
-	Chip,
-	Button,
-	LinearProgress,
-} from '@material-ui/core'
+import { List, ListItem, Chip, Button, LinearProgress } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import { useList } from 'Components'
 
 export const AnswerCell = (props) => {
 	const { row, setDialogOptions, withdrawQuestion, value } = props
 
-	const {
-		getItemById,
-		isLoading: listIsLoading,
-	} = useList(`Questions`)
+	const { getItemById, isLoading: listIsLoading } = useList(`Questions`)
 
 	const memoizedRender = useMemo(() => {
 		let render = <LinearProgress />
@@ -51,12 +42,9 @@ export const AnswerCell = (props) => {
 		} else {
 			if (row.original.Withdrawn) {
 				render = (
-					<Chip
-						label={row.original.AnswerStatus}
-						size={'small'}
-					/>
+					<Chip label={row.original.AnswerStatus} size={'small'} />
 				)
-			} else {
+			} else if (withdrawQuestion) {
 				render = (
 					<List dense={true}>
 						<ListItem disableGutters={true} divider={true}>
@@ -98,6 +86,14 @@ export const AnswerCell = (props) => {
 							</Button>
 						</ListItem>
 					</List>
+				)
+			} else {
+				render = (
+					<Chip
+						label={row.original.AnswerStatus}
+						size={'small'}
+						color={'secondary'}
+					/>
 				)
 			}
 		}
