@@ -1,17 +1,6 @@
 import React, { useState, useEffect, useMemo, Fragment } from 'react'
-import { useList, FormikDialog } from 'Components'
-import {
-	IconButton,
-	LinearProgress,
-	TableContainer,
-	Table,
-	TableHead,
-	TableBody,
-	TableRow,
-	TableCell,
-	TableSortLabel,
-	TablePagination,
-} from '@material-ui/core'
+import { FormikDialog } from 'Components'
+import { IconButton, TableContainer } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
 import { SPTable } from '../SPTable/SPTable'
