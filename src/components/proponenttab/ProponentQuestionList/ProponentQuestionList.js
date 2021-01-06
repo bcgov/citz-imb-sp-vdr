@@ -9,7 +9,7 @@ import {
 	ListItem,
 } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
-import AddIcon from '@material-ui/icons/Add'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
 import { GetGroupMembers, GetUserByEmail } from 'citz-imb-sp-utilities'
 import {
 	AnswerCell,
@@ -155,7 +155,7 @@ export const ProponentQuestionList = () => {
 								title: 'Ask a Question',
 							})
 						}}>
-						<AddIcon />
+						<AddCircleIcon color={'primary'} fontSize={'large'} />
 					</IconButton>
 				),
 				tooltip: 'Submit Question',
