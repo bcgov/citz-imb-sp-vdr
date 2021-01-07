@@ -27,6 +27,7 @@ export const Questions = (props) => {
 		items: AnswerItems,
 		addItem: questionsAddItem,
 		updateItem: questionsUpdateItem,
+		SelectColumnFilter,
 	} = useList('Questions')
 
 	const onNewSubmit = async (values, { setSubmitting }) => {
@@ -144,11 +145,12 @@ export const Questions = (props) => {
 	}
 
 	const listOptions = {
-		columnFiltering: false,
+		columnFiltering: true,
 		showTitle: false,
 		customColumns: [
 			{
-				accessor: 'Answer',
+				Filter: SelectColumnFilter,
+				accessor: 'AnswerStatus',
 				Header: 'Status / Answer',
 				Cell: ({ value, row }) => {
 					return (
@@ -161,9 +163,10 @@ export const Questions = (props) => {
 				},
 			},
 			{
+				Filter: SelectColumnFilter,
 				accessor: 'Assignee',
 				Cell: ({ value, row }) => {
-					return (
+					return row.original.AnswerStatus === 'Withdrawn' ? null : (
 						<Assignee
 							assignedTo={value}
 							status={row.original.AnswerStatus}

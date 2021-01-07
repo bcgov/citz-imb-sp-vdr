@@ -38,6 +38,7 @@ export const ProponentQuestionList = () => {
 	const {
 		addItem,
 		isLoading: listIsLoading,
+		SelectColumnFilter,
 		items,
 		refresh,
 		updateItem,
@@ -165,7 +166,8 @@ export const ProponentQuestionList = () => {
 		initialState: { sortBy: [{ id: 'Created', desc: true }] },
 		customColumns: [
 			{
-				accessor: 'Answer',
+				Filter: SelectColumnFilter,
+				accessor: 'AnswerStatus',
 				Header: 'Status / Answer',
 				Cell: ({ value, row }) => {
 					return (

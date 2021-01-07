@@ -190,7 +190,7 @@ export const useProponents = () => {
 
 		await AddListViewField({ listGUID, viewGUID, field: 'Question' })
 
-		await AddListViewField({ listGUID, viewGUID, field: 'Answer' })
+		await AddListViewField({ listGUID, viewGUID, field: 'AnswerStatus' })
 
 		await AddListViewField({ listGUID, viewGUID, field: 'Submitted By' })
 
