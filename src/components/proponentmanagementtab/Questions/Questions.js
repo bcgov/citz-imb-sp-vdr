@@ -1,5 +1,6 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { FormikDialog, useList, AnswerCell } from 'Components'
+import React, { Fragment, useEffect, useState, useContext } from 'react'
+import { FormikDialog, useList, AnswerCell, useProponents,UserContext } from 'Components'
+import { GetGroupMembers, GetUserByEmail } from 'citz-imb-sp-utilities'
 import { LinearProgress } from '@material-ui/core'
 import { Assignee } from './Assignee/Assignee'
 import * as Yup from 'yup'
@@ -30,6 +31,29 @@ export const Questions = (props) => {
 		SelectColumnFilter,
 	} = useList('Questions')
 
+	const currentUser = useContext(UserContext)
+
+	const { getProponent, isLoading: proponentsIsLoading } = useProponents()
+
+	const sendEmails = async () => {
+		const proponent = getProponent(currentUser.proponent)
+
+		// const groupMembers = await GetGroupMembers({
+		// 	groupId: proponent.GroupId,
+		// })
+
+		// console.log(
+		// 	'SendConfirmationEmail',
+		// 	// await SendConfirmationEmail(
+		// 	{
+		// 		addresses: groupMembers.map(member=>member.login),
+		// 		proponent: proponent.Title,
+		// 		subject: 'newQuestionEmail.TextValue',
+		// 		body: 'newQuestionEmail.MultiTextValue',
+		// 	}
+		// )
+	}
+
 	const onNewSubmit = async (values, { setSubmitting }) => {
 		const questionsItem = await questionsAddItem({
 			Question: values.sanitizedQuestion,
@@ -41,6 +65,8 @@ export const Questions = (props) => {
 			Answer: questionsItem[0].Id.toString(),
 			AnswerStatus: 'Posted',
 		})
+
+		await sendEmails()
 
 		setSubmitting(false)
 		setDialogOptions({ open: false })

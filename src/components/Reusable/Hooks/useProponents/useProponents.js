@@ -288,8 +288,19 @@ export const useProponents = () => {
 		alert('removeUserFromProponent')
 	}
 
+	const checkIsLoaded = (callback) => {
+		if (listIsLoading) {
+			setTimeout(checkIsLoaded, 50)
+			return
+		}
+
+		callback()
+	}
+
 	const getProponent = (UUID) => {
-		return proponentsObject[UUID]
+		console.log('listIsLoading :>> ', listIsLoading)
+
+		return listIsLoading ? null : proponentsObject[UUID]
 	}
 
 	const getQuestionCount = async (questionListName) => {
