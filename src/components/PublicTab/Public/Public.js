@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Tabs, Tab, makeStyles } from '@material-ui/core'
-import { PublicLibrary, PublicQuestionList, VerticalTabPanel } from 'Components'
+import { VerticalTabPanel } from 'Components'
+import { PublicLibrary } from '../PublicLibrary/PublicLibrary'
+import { PublicQuestionList } from '../PublicQuestionList/PublicQuestionList'
 
 function a11yProps(index) {
 	return {
@@ -14,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 		backgroundColor: theme.palette.background.paper,
 		display: 'flex',
-		height: 224,
 	},
 	tabs: {
 		borderRight: `1px solid ${theme.palette.divider}`,
@@ -33,7 +34,6 @@ export const Public = () => {
 		<div className={classes.root}>
 			<Tabs
 				orientation='vertical'
-				//variant='scrollable'
 				value={value}
 				onChange={handleChange}
 				aria-label='Vertical tabs example'

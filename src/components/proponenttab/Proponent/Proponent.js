@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import { Tabs, Tab, makeStyles } from '@material-ui/core'
-import {
-	ProponentLibrary,
-	ProponentQuestionList,
-	VerticalTabPanel,
-} from 'Components'
+import { VerticalTabPanel } from 'Components'
+import { ProponentLibrary } from '../ProponentLibrary/ProponentLibrary'
+import { ProponentQuestionList } from '../ProponentQuestionList/ProponentQuestionList'
 
 function a11yProps(index) {
 	return {
@@ -18,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 		backgroundColor: theme.palette.background.paper,
 		display: 'flex',
-		height: 224,
 	},
 	tabs: {
 		borderRight: `1px solid ${theme.palette.divider}`,
@@ -37,7 +34,6 @@ export const Proponent = () => {
 		<div className={classes.root}>
 			<Tabs
 				orientation='vertical'
-				//variant='scrollable'
 				value={value}
 				onChange={handleChange}
 				aria-label='Vertical tabs example'
@@ -46,7 +42,7 @@ export const Proponent = () => {
 				<Tab label='Submitted Questions' {...a11yProps(1)} />
 			</Tabs>
 			<VerticalTabPanel value={value} index={0}>
-					<ProponentLibrary />
+				<ProponentLibrary />
 			</VerticalTabPanel>
 			<VerticalTabPanel value={value} index={1}>
 				<ProponentQuestionList />

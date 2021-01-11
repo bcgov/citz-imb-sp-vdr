@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useList } from 'Components'
+import { ConsoleView } from 'react-device-detect'
 
 export const useConfig = () => {
 	const [items, setItems] = useState()
@@ -21,12 +22,17 @@ export const useConfig = () => {
 
 	useEffect(() => {
 		if (!listIsLoading) {
-			let newObject = {}
-			listItems.map((item) => {
-				newObject[item.Key] = item
-				return item
-			})
-			setItems(newObject)
+			try {
+				let newObject = {}
+				listItems.map((item) => {
+					newObject[item.Key] = item
+					return item
+				})
+				setItems(newObject)
+			} catch (error) {
+				console.error('error in useConfig. Check authentication.')
+				console.error(error)
+			}
 		}
 		return () => {}
 	}, [listIsLoading, listItems])

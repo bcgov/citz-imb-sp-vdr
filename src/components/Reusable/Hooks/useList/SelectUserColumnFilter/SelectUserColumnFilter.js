@@ -1,31 +1,37 @@
+import React, { useState, useEffect } from 'react'
 import { GetUser } from 'citz-imb-sp-utilities'
-import React, { useState } from 'react'
 
 export const SelectUserColumnFilter = (props) => {
 	const {
 		column: { filterValue, setFilter, preFilteredRows, id },
 	} = props
-	const [options, setOptions] = useState([])
-	// Calculate the options for filtering
-	// using the preFilteredRows
-	React.useMemo(async () => {
-		const values = []
+
+	const [options, setOptions] = useState()
+
+	const getOptions = async () => {
+		const uniqueUserIds = preFilteredRows
+			.map((row) => row.values.AuthorId)
+			.filter((id, index, self) => self.indexOf(id) === index)
+
 		let userOptions = []
-		preFilteredRows.forEach((row) => {
-			console.log('row.values[id] :>> ', row.values[id]);
-			values.push(row.values[id])
-		})
 
-		values.forEach(async option => {
-			console.log('option :>> ', option);
-			const user = await GetUser({userId:option})
-			console.log('user :>> ', user);
-			userOptions.push({value: option, display: user.Title})
-		})
+		for (let i = 0; i < uniqueUserIds.length; i++) {
+			const user = await GetUser({ userId: uniqueUserIds[i] })
+			userOptions.push(
+				<option key={i} value={uniqueUserIds[i]}>
+					{user.Title}
+				</option>
+			)
+		}
 
-	}, [id, preFilteredRows])
+		setOptions(userOptions)
+	}
 
-	// Render a multi-select box
+	useEffect(() => {
+		getOptions()
+		return () => {}
+	}, [preFilteredRows])
+
 	return (
 		<select
 			value={filterValue}
@@ -33,11 +39,7 @@ export const SelectUserColumnFilter = (props) => {
 				setFilter(e.target.value || undefined)
 			}}>
 			<option value=''>All</option>
-			{options.map((option, i) => (
-				<option key={i} value={option}>
-					{option}
-				</option>
-			))}
+			{options}
 		</select>
 	)
 }

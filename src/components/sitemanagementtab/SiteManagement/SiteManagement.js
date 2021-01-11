@@ -1,9 +1,10 @@
 import React, { useState, useReducer, useEffect, Fragment } from 'react'
-import { useLogAction, FormikDialog, ActivityLogTable } from 'Components'
+import { useLogAction, FormikDialog } from 'Components'
 import { ListItem, List } from '@material-ui/core'
 import * as Yup from 'yup'
 import { GetListItems, UpdateListItem } from 'citz-imb-sp-utilities'
 import { useSnackbar } from 'notistack'
+import { ActivityLog } from '../ActivityLog/ActivityLog'
 
 export const SiteManagement = () => {
 	const listName = 'Config'
@@ -236,9 +237,9 @@ export const SiteManagement = () => {
 						dialogDispatch('reset')
 					},
 					title: 'Activity Log',
-					dialogContent: <ActivityLogTable />,
+					dialogContent: <ActivityLog />,
 					fullScreen: true,
-					cancelButtonText: 'Close'
+					cancelButtonText: 'Close',
 				}
 			default:
 				console.log(`${action} not defined`)

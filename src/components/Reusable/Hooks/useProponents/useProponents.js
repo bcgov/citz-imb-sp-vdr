@@ -150,7 +150,7 @@ export const useProponents = () => {
 				{
 					FieldTypeKind: 2,
 					Title: 'AnswerStatus',
-					DefaultValue: 'Not Started',
+					DefaultValue: 'Received',
 				},
 				{
 					FieldTypeKind: 2,
@@ -190,26 +190,18 @@ export const useProponents = () => {
 
 		await AddListViewField({ listGUID, viewGUID, field: 'Question' })
 
-		await AddListViewField({ listGUID, viewGUID, field: 'Answer' })
+		await AddListViewField({ listGUID, viewGUID, field: 'AnswerStatus' })
 
 		await AddListViewField({ listGUID, viewGUID, field: 'Submitted By' })
 
 		await AddListViewField({ listGUID, viewGUID, field: 'Created' })
 
-		await AddListViewField({ listGUID, viewGUID, field: 'Withdrawn' })
-
 		const VICOManagerView = await CreateView({
 			listGUID,
 			viewName: 'VICO_Manager',
 		})
-		console.log('VICOManagerView :>> ', VICOManagerView)
-		const managerViewId = VICOManagerView.Id
 
-		await RemoveListViewField({
-			listGUID,
-			viewGUID: managerViewId,
-			field: 'Withdrawn',
-		})
+		const managerViewId = VICOManagerView.Id
 
 		await AddListViewField({
 			listGUID,
@@ -221,12 +213,6 @@ export const useProponents = () => {
 			listGUID,
 			viewGUID: managerViewId,
 			field: 'Assignee',
-		})
-
-		await AddListViewField({
-			listGUID,
-			viewGUID: managerViewId,
-			field: 'Answer Status',
 		})
 	}
 
@@ -302,8 +288,19 @@ export const useProponents = () => {
 		alert('removeUserFromProponent')
 	}
 
+	const checkIsLoaded = (callback) => {
+		if (listIsLoading) {
+			setTimeout(checkIsLoaded, 50)
+			return
+		}
+
+		callback()
+	}
+
 	const getProponent = (UUID) => {
-		return proponentsObject[UUID]
+		console.log('listIsLoading :>> ', listIsLoading)
+
+		return listIsLoading ? null : proponentsObject[UUID]
 	}
 
 	const getQuestionCount = async (questionListName) => {
@@ -311,13 +308,25 @@ export const useProponents = () => {
 			const questions = await GetListItems({
 				listName: questionListName,
 			})
+			let numAnswered = 0
+			let numWithdrawn = 0
 
-			return { asked: questions.length, answered: null, withdrawn: null }
+			for (let i = 0; i < questions.length; i++) {
+				const question = questions[i]
+
+				if (question.Withdrawn) numWithdrawn++
+				if (question.Answer) numAnswered++
+			}
+
+			return {
+				asked: questions.length,
+				answered: numAnswered,
+				withdrawn: numWithdrawn,
+			}
 		} catch (error) {
 			console.error(error)
 			return { asked: null, answered: null, withdrawn: null }
 		}
-
 	}
 
 	const proponents = useMemo(() => {

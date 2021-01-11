@@ -14,7 +14,7 @@ Built for SharePoint 2016 on-premise.
 3. Activate the solution
 4. Create a Permission Level titled *Read with Add* that is a copy of the *Read* Permission Level that is also granted the permission to Add Items to lists
 
-**Note:** if you are re-deploying or deploying a newer version, you will need to deactivate the old version prior to uploading to the Solution Gallery.
+**Note:** if you are re-deploying or deploying a newer version, you will need to deactivate the old version prior to uploading to the Solution Gallery.  If the solution fails to activate, delete it from the gallery and re-upload it.
 
 ## Instructions for site creation
 **Site Collection Administrators** or **Site Owners**

@@ -1,9 +1,18 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react'
-import { Button, IconButton, LinearProgress } from '@material-ui/core'
+import {
+	Button,
+	IconButton,
+	LinearProgress,
+	Chip,
+	Divider,
+	List,
+	ListItem,
+} from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
-import AddIcon from '@material-ui/icons/Add'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
 import { GetGroupMembers, GetUserByEmail } from 'citz-imb-sp-utilities'
 import {
+	AnswerCell,
 	UserContext,
 	useList,
 	FormikDialog,
@@ -27,17 +36,12 @@ export const ProponentQuestionList = () => {
 	const { getProponent, isLoading: proponentsIsLoading } = useProponents()
 
 	const {
-		addColumns,
 		addItem,
-		changeView,
-		columns,
-		fields,
 		isLoading: listIsLoading,
+		SelectColumnFilter,
 		items,
 		refresh,
-		title,
 		updateItem,
-		views,
 		getRender,
 	} = useList(`${currentUser.proponent}_Questions`)
 
@@ -111,7 +115,6 @@ export const ProponentQuestionList = () => {
 	}
 
 	const withdrawQuestion = async (values) => {
-		console.log('withdrawQuestion :>> ', values)
 		try {
 			await updateItem({
 				Id: values.Id,
@@ -153,7 +156,7 @@ export const ProponentQuestionList = () => {
 								title: 'Ask a Question',
 							})
 						}}>
-						<AddIcon />
+						<AddCircleIcon color={'primary'} fontSize={'large'} />
 					</IconButton>
 				),
 				tooltip: 'Submit Question',
@@ -163,41 +166,17 @@ export const ProponentQuestionList = () => {
 		initialState: { sortBy: [{ id: 'Created', desc: true }] },
 		customColumns: [
 			{
-				accessor: 'Answer',
+				Filter: SelectColumnFilter,
+				accessor: 'AnswerStatus',
+				Header: 'Status / Answer',
 				Cell: ({ value, row }) => {
-					return value ? 'true' : row.original.AnswerStatus
-				},
-			},
-			{
-				accessor: 'Withdrawn',
-				Header: 'Withdraw',
-				Cell: ({ value, row }) => {
-					return value ? null : row.original.Answer ? null : (
-						<Button
-							size={'small'}
-							variant={'contained'}
-							onClick={() => {
-								setDialogOptions({
-									open: true,
-									close: () => {
-										setDialogOptions({ open: false })
-									},
-
-									onSubmit: async (
-										values,
-										{ setSubmitting }
-									) => {
-										await withdrawQuestion(row.original)
-										setSubmitting(false)
-										setDialogOptions({ open: false })
-									},
-									title: 'Withdraw Question?',
-									instructions:
-										'Once withdrawn, the answer process will be stopped.  To start it again, you will need to submit a new question.',
-								})
-							}}>
-							Withdraw
-						</Button>
+					return (
+						<AnswerCell
+							row={row}
+							setDialogOptions={setDialogOptions}
+							withdrawQuestion={withdrawQuestion}
+							value={value}
+						/>
 					)
 				},
 			},
