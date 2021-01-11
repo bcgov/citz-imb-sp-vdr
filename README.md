@@ -1,3 +1,4 @@
+[![img](https://img.shields.io/badge/Lifecycle-Experimental-339999)](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
 # Virtual Document Room
 
 A SharePoint site template that is configured to have the features needed for a Virtual Document Room (VDR), also known as a Virtual Information Control Office (VICO).
