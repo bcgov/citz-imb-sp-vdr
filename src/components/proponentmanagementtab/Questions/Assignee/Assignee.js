@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { Select, Button, MenuItem } from '@material-ui/core'
+import { useLogAction } from 'Components'
 
 const AssigneeOptions = [
 	'VICO Manager',
@@ -10,7 +11,18 @@ const AssigneeOptions = [
 ]
 
 export const Assignee = (props) => {
-	const { assignedTo, status, questionId, id, updateItem, postAnswer, question, updateAnswer } = props
+	const {
+		assignedTo,
+		status,
+		questionId,
+		id,
+		updateItem,
+		postAnswer,
+		question,
+		updateAnswer,
+	} = props
+
+	const logAction = useLogAction()
 
 	const handleChange = (event) => {
 		if (event.target.value === 'post') {
@@ -21,11 +33,12 @@ export const Assignee = (props) => {
 				AnswerStatus: 'Under Review',
 				Assignee: event.target.value,
 			})
+			logAction(`assigned ${questionId} to ${event.target.value}`)
 		}
 	}
 
 	const handleClick = () => {
-		updateAnswer({questionId, id, question})
+		updateAnswer({ questionId, id, question })
 	}
 
 	return status === 'Posted' ? (

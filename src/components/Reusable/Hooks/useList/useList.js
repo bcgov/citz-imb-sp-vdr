@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import {
 	GetList,
 	GetListItems,
@@ -76,6 +76,7 @@ export const useList = (listName) => {
 	}
 
 	const getList = async (listName) => {
+		console.log('getList', listName)
 		try {
 			let list = await GetList({
 				listName: listName,

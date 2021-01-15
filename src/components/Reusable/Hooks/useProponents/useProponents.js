@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useSnackbar } from 'notistack'
-import { useList } from 'Components'
+import { useList, SendConfirmationEmail } from 'Components'
 import {
 	AddPermissionsToList,
 	AddPermissionsToSite,
@@ -21,9 +21,11 @@ import {
 	RemoveListViewField,
 	UpdateField,
 	CreateView,
+	GetGroupMembers,
 } from 'citz-imb-sp-utilities'
 
 export const useProponents = () => {
+	// console.log('useProponents')
 	//const [proponents, setProponents] = useState()
 	const [proponentsObject, setProponentsObject] = useState()
 	const [isLoading, setIsLoading] = useState(true)
@@ -298,9 +300,7 @@ export const useProponents = () => {
 	}
 
 	const getProponent = (UUID) => {
-		console.log('listIsLoading :>> ', listIsLoading)
-
-		return listIsLoading ? null : proponentsObject[UUID]
+		return proponentsObject[UUID]
 	}
 
 	const getQuestionCount = async (questionListName) => {
@@ -329,11 +329,28 @@ export const useProponents = () => {
 		}
 	}
 
+	const sendEmailToProponents = async (props) => {
+		const { subject, body } = props
+
+		for (const proponent in proponentsObject) {
+			const groupMembers = await GetGroupMembers({
+				groupId: proponentsObject[proponent].GroupId,
+			})
+			await SendConfirmationEmail({
+				addresses: groupMembers.map((member) => member.LoginName),
+				proponent: proponentsObject[proponent].Title,
+				subject,
+				body,
+			})
+		}
+	}
+
 	const proponents = useMemo(() => {
 		return items
 	}, [listIsLoading])
 
 	useEffect(() => {
+		// console.log('useProponents useEffect')
 		const setUpProponents = async () => {
 			let itemObject = {}
 
@@ -359,6 +376,7 @@ export const useProponents = () => {
 	}, [listIsLoading, proponents])
 
 	useEffect(() => {
+		// console.log('useProponents useEffect', [proponents, proponentsObject])
 		if (proponents && proponentsObject) setIsLoading(false)
 
 		return () => {}
@@ -366,12 +384,13 @@ export const useProponents = () => {
 
 	return {
 		addProponent,
-		setProponentActive,
-		setProponentInactive,
 		addUserToProponent,
-		removeUserFromProponent,
 		getProponent,
 		isLoading,
 		proponents,
+		removeUserFromProponent,
+		sendEmailToProponents,
+		setProponentActive,
+		setProponentInactive,
 	}
 }
