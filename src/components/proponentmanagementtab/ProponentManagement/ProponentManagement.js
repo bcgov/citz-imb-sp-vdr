@@ -9,14 +9,10 @@ import {
 import { Alert, AlertTitle } from '@material-ui/lab'
 import AddIcon from '@material-ui/icons/Add'
 import { GetRoleDefinitions } from 'citz-imb-sp-utilities'
-import {
-	FormikDialog,
-	useLogAction,
-	VerticalTabPanel,
-} from 'Components'
+import { FormikDialog, useLogAction, VerticalTabPanel } from 'Components'
 import * as Yup from 'yup'
 import { ManagementTab } from '../ManagementTab/ManagementTab'
-import {ProponentsContext} from '../ProponentManagementTab'
+import { ProponentsContext } from '../ProponentManagementTab'
 
 function a11yProps(index) {
 	return {

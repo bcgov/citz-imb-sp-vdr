@@ -1,11 +1,8 @@
 import React from 'react'
-import { Questions } from 'components/ProponentManagementTab/Questions/Questions'
-import {FormikTest} from 'components/Reusable/Formik/FormikTest'
-import {Proponent} from 'components/ProponentTab/Proponent/Proponent'
+import { ProponentManagementTab } from 'components/ProponentManagementTab/ProponentManagementTab'
 
 export const Test = () => {
-	const options = {UUID:'V68C58C'}
+	const options = { UUID: 'V68C58C' }
 
-	return <Proponent {...options} />
-	// return <FormikTest open={true} close={()=>{}} />
+	return <ProponentManagementTab />
 }

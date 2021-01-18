@@ -1,16 +1,16 @@
-import React, { Fragment, useEffect, useState, useContext } from 'react'
+import React, { Fragment, useEffect, useState, useContext, useMemo } from 'react'
 import {
 	FormikDialog,
 	useList,
 	AnswerCell,
 	UserContext,
-	useLogAction
+	useLogAction,
 } from 'Components'
 import { LinearProgress } from '@material-ui/core'
 import { Assignee } from './Assignee/Assignee'
 import * as Yup from 'yup'
-import {ProponentsContext} from '../ProponentManagementTab'
-import {ConfigContext} from 'Components'
+import { ProponentsContext } from '../ProponentManagementTab'
+import { ConfigContext } from 'Components'
 
 /*
 
@@ -44,6 +44,11 @@ export const Questions = (props) => {
 		SelectColumnFilter,
 	} = useList('Questions')
 
+	const {
+		getItemById: publicQuestionGetItemById,
+		isLoading: publicQuestionlistIsLoading,
+	} = useList(`Questions`)
+
 	const logAction = useLogAction()
 
 	const currentUser = useContext(UserContext)
@@ -68,9 +73,12 @@ export const Questions = (props) => {
 			AnswerStatus: 'Posted',
 		})
 
-		await sendEmailToProponents({subject: config.items.newAnswerEmail.TextValue, body: config.items.newAnswerEmail.MultiTextValue })
+		await sendEmailToProponents({
+			subject: config.items.newAnswerEmail.TextValue,
+			body: config.items.newAnswerEmail.MultiTextValue,
+		})
 
-		console.log('values :>> ', values);
+		console.log('values :>> ', values)
 		logAction(`answered question ${values.questionId}`)
 
 		setSubmitting(false)
@@ -194,6 +202,8 @@ export const Questions = (props) => {
 							row={row}
 							setDialogOptions={setDialogOptions}
 							value={value}
+							getItemById={publicQuestionGetItemById}
+							listIsLoading={publicQuestionlistIsLoading}
 						/>
 					)
 				},
@@ -241,12 +251,15 @@ export const Questions = (props) => {
 		return () => {}
 	}, [proponentQuestionListIsLoading])
 
+	const memoizedRender = useMemo(() => getRender(listOptions), [UUID,proponentQuestionListIsLoading])
+
+
 	return (
 		<Fragment>
 			{proponentQuestionListIsLoading ? (
 				<LinearProgress />
 			) : (
-				getRender(listOptions)
+				memoizedRender
 			)}
 			<FormikDialog {...dialogOptions} />
 		</Fragment>
