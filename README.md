@@ -1,5 +1,5 @@
-[![img](https://img.shields.io/badge/Lifecycle-Experimental-339999)](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
-The project is in the very early stages of development. The codebase will be changing frequently.
+[![img](https://img.shields.io/badge/Lifecycle-Maturing-007EC6)](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
+The codebase is being roughed out, but finer details are likely to change.
 
 # Virtual Document Room
 
