@@ -4,16 +4,21 @@ import { Alert, AlertTitle } from '@material-ui/lab'
 import { useList } from 'Components'
 
 export const AnswerCell = (props) => {
-	const { row, value } = props
+	const { row, value, withdrawQuestion } = props
 
 	const { getItemById, isLoading: listIsLoading } = useList(`Questions`)
+
+	const handleClick = (event) => {
+		console.log('value :>> ', value)
+		console.log('row:>> ', row)
+		withdrawQuestion({ Id: row.original.Id, Title: row.original.Title })
+	}
 
 	const memoizedRender = useMemo(() => {
 		let render = <LinearProgress />
 
 		if (value === 'Posted') {
 			if (!listIsLoading) {
-
 				const item = getItemById(parseInt(row.original.Answer))
 				const isSanitized = row.values.Title !== item.Question
 				render = (
@@ -42,7 +47,33 @@ export const AnswerCell = (props) => {
 		} else if (value === 'Withdrawn') {
 			render = <Chip label={value} size={'small'} />
 		} else {
-			render = <Chip label={value} size={'small'} color={'secondary'} />
+			if (withdrawQuestion) {
+				render = (
+					<List dense={true}>
+						<ListItem disableGutters={true} divider={true}>
+							<Chip
+								label={value}
+								size={'small'}
+								color={'secondary'}
+							/>
+						</ListItem>
+						<ListItem disableGutters={true}>
+							<Button
+								onClick={handleClick}
+								label={value}
+								size={'small'}
+								variant={'contained'}
+								color={'primary'}>
+								Withdraw
+							</Button>
+						</ListItem>
+					</List>
+				)
+			} else {
+				render = (
+					<Chip label={value} size={'small'} color={'secondary'} />
+				)
+			}
 		}
 
 		return render

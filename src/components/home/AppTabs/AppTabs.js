@@ -10,7 +10,7 @@ import {
 	HorizontalTabPanel,
 	Proponent,
 	Public,
-	ProponentManagement,
+	ProponentManagementTab,
 	SiteManagement,
 	UserContext,
 } from 'Components'
@@ -94,7 +94,7 @@ export const AppTabs = () => {
 			{/* )} */}
 			{currentUser.isOwner ? (
 				<HorizontalTabPanel value={value} index={2}>
-					<ProponentManagement />
+					<ProponentManagementTab />
 				</HorizontalTabPanel>
 			) : null}
 			{currentUser.isOwner ? (

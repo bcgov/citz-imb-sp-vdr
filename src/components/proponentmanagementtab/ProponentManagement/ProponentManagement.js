@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState, useEffect, useContext } from 'react'
 import {
 	IconButton,
 	LinearProgress,
@@ -11,12 +11,12 @@ import AddIcon from '@material-ui/icons/Add'
 import { GetRoleDefinitions } from 'citz-imb-sp-utilities'
 import {
 	FormikDialog,
-	useProponents,
 	useLogAction,
 	VerticalTabPanel,
 } from 'Components'
 import * as Yup from 'yup'
 import { ManagementTab } from '../ManagementTab/ManagementTab'
+import {ProponentsContext} from '../ProponentManagementTab'
 
 function a11yProps(index) {
 	return {
@@ -51,7 +51,7 @@ export const ProponentManagement = () => {
 		setProponentInactive,
 		isLoading: proponentsIsLoading,
 		proponents,
-	} = useProponents()
+	} = useContext(ProponentsContext)
 
 	const logAction = useLogAction()
 

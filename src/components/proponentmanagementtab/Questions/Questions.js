@@ -1,9 +1,16 @@
 import React, { Fragment, useEffect, useState, useContext } from 'react'
-import { FormikDialog, useList, AnswerCell, useProponents,UserContext } from 'Components'
-import { GetGroupMembers, GetUserByEmail } from 'citz-imb-sp-utilities'
+import {
+	FormikDialog,
+	useList,
+	AnswerCell,
+	UserContext,
+	useLogAction
+} from 'Components'
 import { LinearProgress } from '@material-ui/core'
 import { Assignee } from './Assignee/Assignee'
 import * as Yup from 'yup'
+import {ProponentsContext} from '../ProponentManagementTab'
+import {ConfigContext} from 'Components'
 
 /*
 
@@ -19,10 +26,16 @@ export const Questions = (props) => {
 	const { UUID } = props
 
 	const [dialogOptions, setDialogOptions] = useState({ open: false })
+	const [proponent, setProponent] = useState()
+	const [proponentGroupId, setProponentGroupId] = useState()
+	const [proponentTitle, setProponentTitle] = useState()
 
-	const { changeView, isLoading, getRender, updateItem } = useList(
-		`${UUID}_Questions`
-	)
+	const {
+		changeView,
+		isLoading: proponentQuestionListIsLoading,
+		getRender,
+		updateItem,
+	} = useList(`${UUID}_Questions`)
 
 	const {
 		items: AnswerItems,
@@ -31,28 +44,17 @@ export const Questions = (props) => {
 		SelectColumnFilter,
 	} = useList('Questions')
 
+	const logAction = useLogAction()
+
 	const currentUser = useContext(UserContext)
 
-	const { getProponent, isLoading: proponentsIsLoading } = useProponents()
+	const {
+		getProponent,
+		isLoading: proponentsIsLoading,
+		sendEmailToProponents,
+	} = useContext(ProponentsContext)
 
-	const sendEmails = async () => {
-		const proponent = getProponent(currentUser.proponent)
-
-		// const groupMembers = await GetGroupMembers({
-		// 	groupId: proponent.GroupId,
-		// })
-
-		// console.log(
-		// 	'SendConfirmationEmail',
-		// 	// await SendConfirmationEmail(
-		// 	{
-		// 		addresses: groupMembers.map(member=>member.login),
-		// 		proponent: proponent.Title,
-		// 		subject: 'newQuestionEmail.TextValue',
-		// 		body: 'newQuestionEmail.MultiTextValue',
-		// 	}
-		// )
-	}
+	const config = useContext(ConfigContext)
 
 	const onNewSubmit = async (values, { setSubmitting }) => {
 		const questionsItem = await questionsAddItem({
@@ -66,7 +68,10 @@ export const Questions = (props) => {
 			AnswerStatus: 'Posted',
 		})
 
-		await sendEmails()
+		await sendEmailToProponents({subject: config.items.newAnswerEmail.TextValue, body: config.items.newAnswerEmail.MultiTextValue })
+
+		console.log('values :>> ', values);
+		logAction(`answered question ${values.questionId}`)
 
 		setSubmitting(false)
 		setDialogOptions({ open: false })
@@ -95,6 +100,11 @@ export const Questions = (props) => {
 				{
 					name: 'id',
 					initialValue: id,
+					control: 'hidden',
+				},
+				{
+					name: 'questionId',
+					initialValue: questionId,
 					control: 'hidden',
 				},
 				{
@@ -210,13 +220,34 @@ export const Questions = (props) => {
 	}
 
 	useEffect(() => {
-		if (!isLoading) changeView('VICO_Manager')
+		// console.log('proponentsIsLoading useEffect', proponentsIsLoading)
+		if (!proponentsIsLoading) {
+			const _proponent = getProponent(currentUser.proponent)
+			// console.log('_proponent', _proponent.GroupId, _proponent)
+			setProponentGroupId(_proponent.GroupId)
+			setProponentTitle(_proponent.Title)
+		}
 		return () => {}
-	}, [isLoading])
+	}, [proponentsIsLoading])
+
+	useEffect(() => {
+		// console.log('proponent useEffect :>> ', proponent)
+		return () => {}
+	}, [proponent])
+
+	useEffect(() => {
+		if (!proponentQuestionListIsLoading) changeView('VICO_Manager')
+
+		return () => {}
+	}, [proponentQuestionListIsLoading])
 
 	return (
 		<Fragment>
-			{isLoading ? <LinearProgress /> : getRender(listOptions)}
+			{proponentQuestionListIsLoading ? (
+				<LinearProgress />
+			) : (
+				getRender(listOptions)
+			)}
 			<FormikDialog {...dialogOptions} />
 		</Fragment>
 	)
