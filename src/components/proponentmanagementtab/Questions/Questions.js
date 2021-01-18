@@ -1,4 +1,10 @@
-import React, { Fragment, useEffect, useState, useContext, useMemo } from 'react'
+import React, {
+	Fragment,
+	useEffect,
+	useState,
+	useContext,
+	useMemo,
+} from 'react'
 import {
 	FormikDialog,
 	useList,
@@ -42,9 +48,6 @@ export const Questions = (props) => {
 		addItem: questionsAddItem,
 		updateItem: questionsUpdateItem,
 		SelectColumnFilter,
-	} = useList('Questions')
-
-	const {
 		getItemById: publicQuestionGetItemById,
 		isLoading: publicQuestionlistIsLoading,
 	} = useList(`Questions`)
@@ -241,18 +244,15 @@ export const Questions = (props) => {
 	}, [proponentsIsLoading])
 
 	useEffect(() => {
-		// console.log('proponent useEffect :>> ', proponent)
-		return () => {}
-	}, [proponent])
-
-	useEffect(() => {
 		if (!proponentQuestionListIsLoading) changeView('VICO_Manager')
 
 		return () => {}
 	}, [proponentQuestionListIsLoading])
 
-	const memoizedRender = useMemo(() => getRender(listOptions), [UUID,proponentQuestionListIsLoading])
-
+	const memoizedRender = useMemo(() => getRender(listOptions), [
+		UUID,
+		proponentQuestionListIsLoading,
+	])
 
 	return (
 		<Fragment>

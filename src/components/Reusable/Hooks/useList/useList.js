@@ -185,7 +185,6 @@ export const useList = (listName) => {
 	}
 
 	const getRender = (props) => {
-		console.log('==useList getRender')
 		return (
 			<SPList
 				listName={listName}

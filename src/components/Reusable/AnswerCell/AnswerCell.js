@@ -3,7 +3,6 @@ import { List, ListItem, Chip, Button, LinearProgress } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 
 export const AnswerCell = (props) => {
-	console.log('AnswerCell props', props.row.id)
 	const { row, value, withdrawQuestion, getItemById, listIsLoading } = props
 
 	const handleClick = (event) => {

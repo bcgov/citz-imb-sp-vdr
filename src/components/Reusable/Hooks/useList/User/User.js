@@ -3,7 +3,6 @@ import { GetUser } from 'citz-imb-sp-utilities'
 import { LinearProgress } from '@material-ui/core'
 
 export const User = ({ userId }) => {
-	console.log('User props', userId)
 	const [user, setUser] = useState()
 
 	const getUser = async () => {
