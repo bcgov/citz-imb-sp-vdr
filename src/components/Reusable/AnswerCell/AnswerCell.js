@@ -47,27 +47,33 @@ export const AnswerCell = (props) => {
 		} else if (value === 'Withdrawn') {
 			render = <Chip label={value} size={'small'} />
 		} else {
-			render = (
-				<List dense={true}>
-					<ListItem disableGutters={true} divider={true}>
-						<Chip
-							label={value}
-							size={'small'}
-							color={'secondary'}
-						/>
-					</ListItem>
-					<ListItem disableGutters={true}>
-						<Button
-							onClick={handleClick}
-							label={value}
-							size={'small'}
-							variant={'contained'}
-							color={'primary'}>
-							Withdraw
-						</Button>
-					</ListItem>
-				</List>
-			)
+			if (withdrawQuestion) {
+				render = (
+					<List dense={true}>
+						<ListItem disableGutters={true} divider={true}>
+							<Chip
+								label={value}
+								size={'small'}
+								color={'secondary'}
+							/>
+						</ListItem>
+						<ListItem disableGutters={true}>
+							<Button
+								onClick={handleClick}
+								label={value}
+								size={'small'}
+								variant={'contained'}
+								color={'primary'}>
+								Withdraw
+							</Button>
+						</ListItem>
+					</List>
+				)
+			} else {
+				render = (
+					<Chip label={value} size={'small'} color={'secondary'} />
+				)
+			}
 		}
 
 		return render
