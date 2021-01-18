@@ -173,6 +173,7 @@ export const useList = (listName) => {
 	}
 
 	const changeView = (view) => {
+		console.log('view pending change')
 		if (typeof view === 'string') {
 			for (let i = 0; i < views.length; i++) {
 				if (views[i].Title === view) {
@@ -185,6 +186,7 @@ export const useList = (listName) => {
 	}
 
 	const getRender = (props) => {
+		console.log('rendering')
 		return (
 			<SPList
 				listName={listName}
@@ -230,6 +232,7 @@ export const useList = (listName) => {
 
 	useEffect(() => {
 		if (currentView) setColumns(getColumns())
+		console.log('view changed')
 		return () => {}
 	}, [currentView])
 
