@@ -13,7 +13,9 @@ import { SelectUserColumnFilter } from './SelectUserColumnFilter/SelectUserColum
 import * as Yup from 'yup'
 import { User } from './User/User'
 
-export const useList = (listName) => {
+export const useList = (listName, options = {}) => {
+	const { listView } = options
+
 	const [title, setTitle] = useState('')
 	const [fields, setFields] = useState([])
 	const [views, setViews] = useState([])
@@ -76,7 +78,6 @@ export const useList = (listName) => {
 	}
 
 	const getList = async (listName) => {
-		console.log('getList', listName)
 		try {
 			let list = await GetList({
 				listName: listName,
@@ -159,7 +160,7 @@ export const useList = (listName) => {
 			setFields(fieldObject)
 			setAddColumns(_addColumns)
 			setViews(list.Views.results)
-			changeView(list.DefaultView)
+			if (!listView) changeView(list.DefaultView)
 			setItems(_items)
 		} catch (error) {
 			console.error('error in getting list', error)
@@ -173,11 +174,11 @@ export const useList = (listName) => {
 	}
 
 	const changeView = (view) => {
-		console.log('view pending change')
 		if (typeof view === 'string') {
 			for (let i = 0; i < views.length; i++) {
 				if (views[i].Title === view) {
 					setCurrentView(views[i])
+					break
 				}
 			}
 			return
@@ -186,7 +187,6 @@ export const useList = (listName) => {
 	}
 
 	const getRender = (props) => {
-		console.log('rendering')
 		return (
 			<SPList
 				listName={listName}
@@ -231,8 +231,14 @@ export const useList = (listName) => {
 	}, [])
 
 	useEffect(() => {
+		if (listView) {
+			changeView(listView)
+		}
+		return () => {}
+	}, [views])
+
+	useEffect(() => {
 		if (currentView) setColumns(getColumns())
-		console.log('view changed')
 		return () => {}
 	}, [currentView])
 

@@ -17,7 +17,9 @@ export const Questions = (props) => {
 	const proponents = useContext(ProponentsContext)
 	const publicQuestions = useContext(PublicQuestionsContext)
 
-	const proponentQuestions = useList(`${UUID}_Questions`)
+	const proponentQuestions = useList(`${UUID}_Questions`, {
+		listView: 'VICO_Manager',
+	})
 
 	const listOptions = {
 		columnFiltering: true,
@@ -62,29 +64,28 @@ export const Questions = (props) => {
 
 	const memoizedRender = useMemo(() => {
 		if (!proponentQuestions.isLoading) {
-			proponentQuestions.changeView('VICO_Manager')
+			// proponentQuestions.changeView('VICO_Manager')
 			return proponentQuestions.getRender(listOptions)
 		} else {
 			return <LinearProgress />
 		}
 	}, [proponentQuestions.isLoading])
 
-	useEffect(() => {
-		console.log('proponents :>> ', proponents)
-		console.log('publicQuestions :>> ', publicQuestions)
-		console.log('proponentQuestions :>> ', proponentQuestions)
-		return () => {}
-	}, [])
+	// useEffect(() => {
+	// 	console.log('proponents :>> ', proponents)
+	// 	console.log('publicQuestions :>> ', publicQuestions)
+	// 	console.log('proponentQuestions :>> ', proponentQuestions)
+	// 	return () => {}
+	// }, [])
 
-	return (
-		<SPList
-			listName={proponentQuestions.listName}
-			columns={proponentQuestions.columns}
-			items={proponentQuestions.items}
-			addColumns={proponentQuestions.addColumns}
-			isLoading={proponentQuestions.isLoading}
-			title={proponentQuestions.title}
-			{...listOptions}
-		/>
-	)
+	return memoizedRender
+	// <SPList
+	// 	listName={proponentQuestions.listName}
+	// 	columns={proponentQuestions.columns}
+	// 	items={proponentQuestions.items}
+	// 	addColumns={proponentQuestions.addColumns}
+	// 	isLoading={proponentQuestions.isLoading}
+	// 	title={proponentQuestions.title}
+	// 	{...listOptions}
+	// />
 }
