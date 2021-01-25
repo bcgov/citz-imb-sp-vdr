@@ -1,5 +1,4 @@
 import { GetListItems, GetSite, SendEmail } from 'citz-imb-sp-utilities'
-// import { useLogAction } from 'Components'
 
 const replaceText = (props) => {
 	const { text, values } = props
@@ -21,7 +20,6 @@ export const SendConfirmationEmail = async (props) => {
 		additionalReplacementPairs = [],
 	} = props
 
-	// const LogAction = useLogAction()
 	const contactEmailConfig = await GetListItems({
 		listName: 'Config',
 		filter: `Key eq 'contactemail'`,
@@ -64,9 +62,9 @@ export const SendConfirmationEmail = async (props) => {
 			body: newBody,
 			bcc: ['scott.toews@gov.bc.ca'],
 		})
-		//LogAction(`SendEmail succeeded: ${addresses}`)
+		// console.log(`SendEmail succeeded: ${addresses}`)
 	} catch (err) {
 		console.error('err :>> ', err)
-		//LogAction(`SendEmail failed: ${err.message}; addresses: ${addresses}`)
+		// console.log(`SendEmail failed: ${err.message}; addresses: ${addresses}`)
 	}
 }

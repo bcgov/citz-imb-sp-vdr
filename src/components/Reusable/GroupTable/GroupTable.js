@@ -38,7 +38,7 @@ export const GroupTable = (props) => {
 
 	const logAction = useLogAction()
 	const { items } = useContext(ConfigContext)
-	const { addUserEmail } = items
+	const { addUserEmail, removeUserEmail, contactEmail } = items
 
 	const {
 		addGroupMember,
@@ -159,6 +159,21 @@ export const GroupTable = (props) => {
 					await removeGroupMember(original.Id)
 					logAction(
 						`removed ${original.Title} from ${proponent} group`
+					)
+					await SendConfirmationEmail({
+						addresses: contactEmail.TextValue,
+						proponent,
+						subject: removeUserEmail.TextValue,
+						body: removeUserEmail.MultiTextValue,
+						additionalReplacementPairs: [
+							{
+								searchvalue: /\[UserName\]/g,
+								newvalue: original.Title,
+							},
+						],
+					})
+					logAction(
+						`sent ${removeUserEmail.Title} to ${contactEmail}`
 					)
 					setSubmitting(false)
 					setDialog({ open: false })
