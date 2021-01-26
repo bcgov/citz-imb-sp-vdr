@@ -1,5 +1,5 @@
-import React from 'react'
-import { useList } from 'Components'
+import React, { useContext } from 'react'
+import { PublicQuestionsContext } from 'Components'
 import { LinearProgress } from '@material-ui/core'
 
 export const PublicQuestionList = () => {
@@ -8,7 +8,7 @@ export const PublicQuestionList = () => {
 		showTitle: false,
 	}
 
-	const { isLoading, getRender } = useList('Questions')
+	const { isLoading, getRender } = useContext(PublicQuestionsContext)
 
 	return isLoading ? <LinearProgress /> : getRender(listOptions)
 }
