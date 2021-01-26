@@ -15,7 +15,6 @@ export const Questions = (props) => {
 	const [dialogOptions, setDialogOptions] = useState({ open: false })
 
 	const proponents = useContext(ProponentsContext)
-	const publicQuestions = useContext(PublicQuestionsContext)
 
 	const proponentQuestions = useList(`${UUID}_Questions`, {
 		listView: 'VICO_Manager',
@@ -35,8 +34,6 @@ export const Questions = (props) => {
 							row={row}
 							setDialogOptions={setDialogOptions}
 							value={value}
-							getItemById={publicQuestions.getItemById}
-							listIsLoading={publicQuestions.isLoading}
 						/>
 					)
 				},

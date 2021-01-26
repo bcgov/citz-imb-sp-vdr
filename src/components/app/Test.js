@@ -1,8 +1,8 @@
 import React from 'react'
-import { ProponentManagementTab } from 'components/ProponentManagementTab/ProponentManagementTab'
+import { Questions } from 'components/ProponentManagementTab/Questions/Questions'
 
 export const Test = () => {
 	const options = { UUID: 'V68C58C' }
 
-	return <ProponentManagementTab />
+	return <Questions {...options} />
 }

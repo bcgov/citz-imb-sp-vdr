@@ -1,9 +1,13 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useContext } from 'react'
 import { List, ListItem, Chip, Button, LinearProgress } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
+import { PublicQuestionsContext } from 'Components'
 
 export const AnswerCell = (props) => {
-	const { row, value, withdrawQuestion, getItemById, listIsLoading } = props
+	// console.log('AnswerCell props :>> ', props);
+	const { row, value, withdrawQuestion } = props
+
+	const { getItemById, listIsLoading } = useContext(PublicQuestionsContext)
 
 	const handleClick = (event) => {
 		console.log('value :>> ', value)
@@ -20,15 +24,17 @@ export const AnswerCell = (props) => {
 				const isSanitized = row.values.Title !== item.Question
 				render = (
 					<List dense={true}>
-						<ListItem disableGutters={true} divider={true}>
-							<Alert
-								severity={isSanitized ? 'warning' : 'info'}
-								variant={'outlined'}
-								icon={false}>
-								<AlertTitle>Published Question</AlertTitle>
-								{item.Question}
-							</Alert>
-						</ListItem>
+						{isSanitized ? (
+							<ListItem disableGutters={true} divider={true}>
+								<Alert
+									severity={'warning'}
+									variant={'outlined'}
+									icon={false}>
+									<AlertTitle>Published Question</AlertTitle>
+									{item.Question}
+								</Alert>
+							</ListItem>
+						) : null}
 						<ListItem disableGutters={true}>
 							<Alert
 								severity={'success'}
