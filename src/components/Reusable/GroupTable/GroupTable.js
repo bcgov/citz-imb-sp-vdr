@@ -173,7 +173,7 @@ export const GroupTable = (props) => {
 						],
 					})
 					logAction(
-						`sent ${removeUserEmail.Title} to ${contactEmail}`
+						`sent ${removeUserEmail.Title} to ${contactEmail.TextValue}`
 					)
 					setSubmitting(false)
 					setDialog({ open: false })

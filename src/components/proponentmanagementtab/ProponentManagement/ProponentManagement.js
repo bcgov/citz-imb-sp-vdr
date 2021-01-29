@@ -39,7 +39,7 @@ export const ProponentManagement = () => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [dialogOptions, setDialogOptions] = useState({ open: false })
 	const [proponentNames, setProponentNames] = useState([])
-	const [showRoleAlert, setShowRoleAlert] = useState(false)
+	const [showMissingRoleAlert, setShowMissingRoleAlert] = useState(false)
 	const {
 		addProponent,
 		getProponent,
@@ -59,7 +59,7 @@ export const ProponentManagement = () => {
 		const roleDefs = await GetRoleDefinitions({})
 
 		if (!roleDefs['Read with Add']) {
-			setShowRoleAlert(true)
+			setShowMissingRoleAlert(true)
 		}
 	}
 
@@ -114,7 +114,7 @@ export const ProponentManagement = () => {
 		<Fragment>
 			{isLoading ? (
 				<LinearProgress />
-			) : showRoleAlert ? (
+			) : showMissingRoleAlert ? (
 				<Alert severity='error'>
 					<AlertTitle>Missing Permission Level</AlertTitle>
 					Site Collection is missing the 'Read with Add' Permission
