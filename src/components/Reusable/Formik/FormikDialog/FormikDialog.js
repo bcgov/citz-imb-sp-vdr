@@ -25,21 +25,38 @@ export const FormikDialog = (props) => {
 		dialogContent,
 		submitButtonText = 'Submit',
 		cancelButtonText = 'Cancel',
+		validationSchema: validationSchemaProps,
 		...remainingDialogProps
 	} = props
 	const [initialValues, setInitialValues] = useState({})
-	const [validationSchema, setValidationSchema] = useState({})
+	const [validationSchema, setValidationSchema] = useState(
+		validationSchemaProps
+	)
 	const [controls, setControls] = useState([])
+
+	const getValidationSchema = () => {
+		console.log('getValidationSchema', fields)
+		const _validationSchema = {}
+		for (let i = 0; i < fields.length; i++) {
+			_validationSchema[fields[i].name] = fields[i].validationSchema
+			console.log(
+				'fields[i].validationSchema :>> ',
+				fields[i].validationSchema
+			)
+		}
+
+		return Yup.object(_validationSchema)
+	}
 
 	useEffect(() => {
 		if (open) {
 			const _initialValues = {}
-			const _validationSchema = {}
+
 			const _controls = []
 
 			for (let i = 0; i < fields.length; i++) {
 				_initialValues[fields[i].name] = fields[i].initialValue
-				_validationSchema[fields[i].name] = fields[i].validationSchema
+
 				let options = {
 					control: fields[i].control,
 					name: fields[i].name,
@@ -53,15 +70,23 @@ export const FormikDialog = (props) => {
 			}
 
 			setInitialValues(_initialValues)
-			setValidationSchema(Yup.object(_validationSchema))
 			setControls(_controls)
 		} else {
 			setInitialValues({})
-			setValidationSchema({})
 			setControls([])
 		}
 		return () => {}
 	}, [open])
+
+	useEffect(() => {
+		if (validationSchemaProps) {
+			setValidationSchema(validationSchemaProps)
+		} else if (fields.length) {
+			setValidationSchema(getValidationSchema())
+		}
+
+		return () => {}
+	}, [validationSchemaProps, fields])
 
 	return (
 		<Dialog open={open} onClose={close} {...remainingDialogProps}>

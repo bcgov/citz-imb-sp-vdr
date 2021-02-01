@@ -9,14 +9,10 @@ import {
 import { Alert, AlertTitle } from '@material-ui/lab'
 import AddIcon from '@material-ui/icons/Add'
 import { GetRoleDefinitions } from 'citz-imb-sp-utilities'
-import {
-	FormikDialog,
-	useLogAction,
-	VerticalTabPanel,
-} from 'Components'
+import { FormikDialog, useLogAction, VerticalTabPanel } from 'Components'
 import * as Yup from 'yup'
 import { ManagementTab } from '../ManagementTab/ManagementTab'
-import {ProponentsContext} from '../ProponentManagementTab'
+import { ProponentsContext } from '../ProponentManagementTab'
 
 function a11yProps(index) {
 	return {
@@ -43,7 +39,7 @@ export const ProponentManagement = () => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [dialogOptions, setDialogOptions] = useState({ open: false })
 	const [proponentNames, setProponentNames] = useState([])
-	const [showRoleAlert, setShowRoleAlert] = useState(false)
+	const [showMissingRoleAlert, setShowMissingRoleAlert] = useState(false)
 	const {
 		addProponent,
 		getProponent,
@@ -63,7 +59,7 @@ export const ProponentManagement = () => {
 		const roleDefs = await GetRoleDefinitions({})
 
 		if (!roleDefs['Read with Add']) {
-			setShowRoleAlert(true)
+			setShowMissingRoleAlert(true)
 		}
 	}
 
@@ -118,7 +114,7 @@ export const ProponentManagement = () => {
 		<Fragment>
 			{isLoading ? (
 				<LinearProgress />
-			) : showRoleAlert ? (
+			) : showMissingRoleAlert ? (
 				<Alert severity='error'>
 					<AlertTitle>Missing Permission Level</AlertTitle>
 					Site Collection is missing the 'Read with Add' Permission

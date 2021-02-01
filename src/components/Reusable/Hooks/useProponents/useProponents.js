@@ -336,12 +336,14 @@ export const useProponents = () => {
 			const groupMembers = await GetGroupMembers({
 				groupId: proponentsObject[proponent].GroupId,
 			})
-			await SendConfirmationEmail({
-				addresses: groupMembers.map((member) => member.LoginName),
-				proponent: proponentsObject[proponent].Title,
-				subject,
-				body,
-			})
+			if (groupMembers.length) {
+				await SendConfirmationEmail({
+					addresses: groupMembers.map((member) => member.LoginName),
+					proponent: proponentsObject[proponent].Title,
+					subject,
+					body,
+				})
+			}
 		}
 	}
 
