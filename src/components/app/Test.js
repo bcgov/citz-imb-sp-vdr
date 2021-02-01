@@ -1,8 +1,15 @@
 import React from 'react'
-import { Questions } from 'components/ProponentManagementTab/Questions/Questions'
+import { AnswerDialog } from '../ProponentManagementTab/Questions/AnswerDialog/AnswerDialog'
 
 export const Test = () => {
-	const options = { UUID: 'V68C58C' }
+	const options = {
+		openAnswerDialog: true,
+		UUID: 'V68C58C',
+		questionId: 'V68C58C-002',
+		id: 10,
+		question: 'Question Number 2',
+		setAnswerDialogOptions: () => {},
+	}
 
-	return <Questions {...options} />
+	return <AnswerDialog {...options} />
 }

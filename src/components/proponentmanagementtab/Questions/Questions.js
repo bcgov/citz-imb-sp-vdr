@@ -1,20 +1,29 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, {
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
+	Fragment,
+} from 'react'
 import { QuestionTable } from './QuestionTable/QuestionTable'
-
+import { AnswerDialog } from './AnswerDialog/AnswerDialog'
+import { ProponentsContext } from '../ProponentManagementTab'
 import {
-	ProponentsContext,
+	ConfigContext,
+	useList,
+	AnswerCell,
+	SPList,
 	PublicQuestionsContext,
-} from '../ProponentManagementTab'
-import { ConfigContext, useList, AnswerCell, SPList } from 'Components'
+	useLogAction,
+	FormikDialog,
+} from 'Components'
 import { Assignee } from './Assignee/Assignee'
 import { LinearProgress } from '@material-ui/core'
 
 export const Questions = (props) => {
 	const { UUID } = props
 
-	const [dialogOptions, setDialogOptions] = useState({ open: false })
-
-	const proponents = useContext(ProponentsContext)
+	const [dialogOptions, setDialogOptions] = useState({ open: false, UUID })
 
 	const proponentQuestions = useList(`${UUID}_Questions`, {
 		listView: 'VICO_Manager',
@@ -32,7 +41,7 @@ export const Questions = (props) => {
 					return (
 						<AnswerCell
 							row={row}
-							setDialogOptions={setDialogOptions}
+							// setDialogOptions={setDialogOptions}
 							value={value}
 						/>
 					)
@@ -49,14 +58,32 @@ export const Questions = (props) => {
 							questionId={row.original.QuestionID}
 							question={row.original.Title}
 							id={row.original.Id}
-							// updateItem={updateItem}
+							updateItem={proponentQuestions.updateItem}
 							// updateAnswer={updateAnswer}
-							// postAnswer={postAnswer}
+							postAnswer={postAnswer}
 						/>
 					)
 				},
 			},
 		],
+	}
+
+	const closeAnswerDialog = () =>{
+		setDialogOptions({ open: false, UUID })
+		proponentQuestions.refresh()
+	}
+
+	const postAnswer = (props) => {
+		console.log('postAnswer props :>> ', props);
+		const { questionId, id, question } = props
+		setDialogOptions({
+			open: true,
+			questionId,
+			id,
+			question,
+			UUID,
+			closeAnswerDialog,
+		})
 	}
 
 	const memoizedRender = useMemo(() => {
@@ -75,7 +102,13 @@ export const Questions = (props) => {
 	// 	return () => {}
 	// }, [])
 
-	return memoizedRender
+	return (
+		<Fragment>
+			{memoizedRender}
+			<AnswerDialog {...dialogOptions} />
+		</Fragment>
+	)
+
 	// <SPList
 	// 	listName={proponentQuestions.listName}
 	// 	columns={proponentQuestions.columns}
