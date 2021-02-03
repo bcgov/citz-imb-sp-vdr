@@ -42,7 +42,7 @@ export const Assignee = (props) => {
 
 	return AnswerStatus === 'Posted' ? (
 		<Button variant={'outlined'} onClick={handleClick}>
-			Edit Answer
+			Edit
 		</Button>
 	) : (
 		<Fragment>

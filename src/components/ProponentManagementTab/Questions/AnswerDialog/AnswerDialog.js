@@ -58,9 +58,14 @@ export const AnswerDialog = (props) => {
 	useEffect(() => {
 		if (!publicQuestions.isLoading) {
 			let _answer = ''
+			let isEdit = false
+			let sanitizedQuestion = Title
 
 			if (Answer) {
-				_answer = publicQuestions.getItemById(parseInt(Answer)).Answer
+				const publicQuestion = publicQuestions.getItemById(parseInt(Answer))
+				_answer = publicQuestion.Answer
+				sanitizedQuestion = publicQuestion.Question
+				isEdit = true
 			}
 
 			setDialogOptions({
@@ -72,6 +77,11 @@ export const AnswerDialog = (props) => {
 				validationSchema: schema,
 				fields: [
 					{
+						name: 'isEdit',
+						initialValue: isEdit,
+						control: 'hidden',
+					},
+					{
 						name: 'Id',
 						initialValue: Id,
 						control: 'hidden',
@@ -79,6 +89,11 @@ export const AnswerDialog = (props) => {
 					{
 						name: 'QuestionID',
 						initialValue: QuestionID,
+						control: 'hidden',
+					},
+					{
+						name: 'AnswerID',
+						initialValue: parseInt(Answer),
 						control: 'hidden',
 					},
 					{
@@ -92,7 +107,7 @@ export const AnswerDialog = (props) => {
 					{
 						name: 'sanitizedQuestion',
 						label: 'Sanitized Question',
-						initialValue: Title,
+						initialValue: sanitizedQuestion,
 						control: 'input',
 						// required: true,
 						// validationSchema: yup.string().required('Required'),
@@ -121,27 +136,40 @@ export const AnswerDialog = (props) => {
 	}, [publicQuestions.isLoading, openAnswerDialog])
 
 	const onSubmit = async (values, { setSubmitting }) => {
-		console.log('values :>> ', values)
-		let questionsItem
+		let questionsItem, subject, body
 
-		if (values.previousAnswer) {
-			questionsItem = [{ Id: values.previousAnswer }]
-		} else {
-			questionsItem = await publicQuestions.addItem({
+		if (values.isEdit) {
+			questionsItem = await publicQuestions.updateItem({
+				Id: values.AnswerID,
 				Question: values.sanitizedQuestion,
 				Answer: values.answer,
 			})
+
+			subject = config.items.updatedAnswerEmail.TextValue
+			body = config.items.updatedAnswerEmail.MultiTextValue
+		} else {
+			if (values.previousAnswer) {
+				questionsItem = [{ Id: values.previousAnswer }]
+			} else {
+				questionsItem = await publicQuestions.addItem({
+					Question: values.sanitizedQuestion,
+					Answer: values.answer,
+				})
+			}
+
+			await proponentQuestions.updateItem({
+				Id: values.Id,
+				Answer: questionsItem[0].Id.toString(),
+				AnswerStatus: 'Posted',
+			})
+
+			subject = config.items.newAnswerEmail.TextValue
+			body = config.items.newAnswerEmail.MultiTextValue
 		}
 
-		await proponentQuestions.updateItem({
-			Id: values.id,
-			Answer: questionsItem[0].Id.toString(),
-			AnswerStatus: 'Posted',
-		})
-
 		await proponents.sendEmailToProponents({
-			subject: config.items.newAnswerEmail.TextValue,
-			body: config.items.newAnswerEmail.MultiTextValue,
+			subject,
+			body,
 		})
 
 		logAction(`answered question ${values.QuestionID}`)

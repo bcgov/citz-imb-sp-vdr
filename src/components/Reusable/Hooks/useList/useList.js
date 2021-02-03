@@ -212,6 +212,7 @@ export const useList = (listName, options = {}) => {
 	}
 
 	const updateItem = async (updateItems) => {
+		console.log('updateItems :>> ', updateItems);
 		try {
 			await UpdateListItem({ listName, items: updateItems })
 			refresh()
