@@ -61,16 +61,7 @@ export const AnswerDialog = (props) => {
 			let _answer = ''
 
 			if (Answer) {
-<<<<<<< HEAD
-				const publicQuestion = publicQuestions.getItemById(
-					parseInt(Answer)
-				)
-				_answer = publicQuestion.Answer
-				sanitizedQuestion = publicQuestion.Question
-				isEdit = true
-=======
 				_answer = publicQuestions.getItemById(parseInt(Answer)).Answer
->>>>>>> parent of d9377dc... VICO-134
 			}
 
 			setDialogOptions({
@@ -130,17 +121,6 @@ export const AnswerDialog = (props) => {
 		return () => {}
 	}, [publicQuestions.isLoading, openAnswerDialog])
 
-<<<<<<< HEAD
-	const questionHasBeenWithdrawn = async (id) => {
-		console.log('questionHasBeenWithdrawn id :>> ', id)
-
-		await proponentQuestions.refresh()
-
-		const question = proponentQuestions.getItemById(id)
-
-		return question.Withdrawn
-	}
-=======
 	const onSubmit = async (values, { setSubmitting }) => {
 		console.log('values :>> ', values)
 		let questionsItem
@@ -153,9 +133,9 @@ export const AnswerDialog = (props) => {
 				Answer: values.answer,
 			})
 		}
-
+		console.log('values :>> ', values)
 		await proponentQuestions.updateItem({
-			Id: values.id,
+			Id: values.Id,
 			Answer: questionsItem[0].Id.toString(),
 			AnswerStatus: 'Posted',
 		})
@@ -164,58 +144,6 @@ export const AnswerDialog = (props) => {
 			subject: config.items.newAnswerEmail.TextValue,
 			body: config.items.newAnswerEmail.MultiTextValue,
 		})
->>>>>>> parent of d9377dc... VICO-134
-
-	const onSubmit = async (values, { setSubmitting }) => {
-		let questionsItem, subject, body
-		console.log('onSubmit')
-		// if (values.isEdit) {
-		// 	questionsItem = await publicQuestions.updateItem({
-		// 		Id: values.AnswerID,
-		// 		Question: values.sanitizedQuestion,
-		// 		Answer: values.answer,
-		// 	})
-
-		// 	subject = config.items.updatedAnswerEmail.TextValue
-		// 	body = config.items.updatedAnswerEmail.MultiTextValue
-		// } else {
-		const withdrawn = await questionHasBeenWithdrawn(values.Id)
-		console.log('withdrawn :>> ', withdrawn)
-		// 	if (withdrawn) {
-		// 		logAction(
-		// 			`Cannot post answer to ${values.QuestionID} because it has been withdrawn`,
-		// 			true,
-		// 			'warning'
-		// 		)
-		// 		setSubmitting(false)
-		// 		closeAnswerDialog()
-		// 	} else {
-		// 		if (values.previousAnswer) {
-		// 			questionsItem = [{ Id: values.previousAnswer }]
-		// 		} else {
-		// 			questionsItem = await publicQuestions.addItem({
-		// 				Question: values.sanitizedQuestion,
-		// 				Answer: values.answer,
-		// 			})
-		// 		}
-
-		// 		await proponentQuestions.updateItem({
-		// 			Id: values.Id,
-		// 			Answer: questionsItem[0].Id.toString(),
-		// 			AnswerStatus: 'Posted',
-		// 		})
-
-		// 		subject = config.items.newAnswerEmail.TextValue
-		// 		body = config.items.newAnswerEmail.MultiTextValue
-		// 	}
-		// }
-
-		// await proponents.sendEmailToProponents({
-		// 	subject,
-		// 	body,
-		// })
-
-		// logAction(`answered question ${values.QuestionID}`)
 
 		setSubmitting(false)
 		closeAnswerDialog()

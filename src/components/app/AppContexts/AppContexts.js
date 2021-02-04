@@ -33,8 +33,8 @@ export const AppContexts = () => {
 			<UserContext.Provider value={currentUser}>
 				<ConfigContext.Provider value={configList}>
 					<PublicQuestionsContext.Provider value={publicQuestions}>
-						{/* <Logon /> */}
-						<Test />
+						<Logon />
+						{/* <Test /> */}
 					</PublicQuestionsContext.Provider>
 				</ConfigContext.Provider>
 			</UserContext.Provider>
