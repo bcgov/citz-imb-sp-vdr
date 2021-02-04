@@ -214,7 +214,10 @@ export const useList = (listName, options = {}) => {
 	}
 
 	const updateItem = async (updateItems) => {
+<<<<<<< HEAD
 		console.log('updateItems :>> ', updateItems)
+=======
+>>>>>>> parent of d9377dc... VICO-134
 		try {
 			await UpdateListItem({ listName, items: updateItems })
 			refresh()

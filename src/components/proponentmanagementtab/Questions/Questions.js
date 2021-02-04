@@ -65,6 +65,7 @@ export const Questions = (props) => {
 	}
 
 	const postAnswer = (props) => {
+		console.log('postAnswer props :>> ', props)
 		const { QuestionID, Id, Title } = props
 		setDialogOptions({
 			open: true,
@@ -77,6 +78,7 @@ export const Questions = (props) => {
 	}
 
 	const updateAnswer = (props) => {
+		console.log('updateAnswer props :>> ', props)
 		const { QuestionID, Id, Title, Answer } = props
 
 		setDialogOptions({

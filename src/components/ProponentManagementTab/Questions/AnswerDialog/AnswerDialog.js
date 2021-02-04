@@ -59,16 +59,18 @@ export const AnswerDialog = (props) => {
 	useEffect(() => {
 		if (!publicQuestions.isLoading) {
 			let _answer = ''
-			let isEdit = false
-			let sanitizedQuestion = Title
 
 			if (Answer) {
+<<<<<<< HEAD
 				const publicQuestion = publicQuestions.getItemById(
 					parseInt(Answer)
 				)
 				_answer = publicQuestion.Answer
 				sanitizedQuestion = publicQuestion.Question
 				isEdit = true
+=======
+				_answer = publicQuestions.getItemById(parseInt(Answer)).Answer
+>>>>>>> parent of d9377dc... VICO-134
 			}
 
 			setDialogOptions({
@@ -80,11 +82,6 @@ export const AnswerDialog = (props) => {
 				validationSchema: schema,
 				fields: [
 					{
-						name: 'isEdit',
-						initialValue: isEdit,
-						control: 'hidden',
-					},
-					{
 						name: 'Id',
 						initialValue: Id,
 						control: 'hidden',
@@ -92,11 +89,6 @@ export const AnswerDialog = (props) => {
 					{
 						name: 'QuestionID',
 						initialValue: QuestionID,
-						control: 'hidden',
-					},
-					{
-						name: 'AnswerID',
-						initialValue: parseInt(Answer),
 						control: 'hidden',
 					},
 					{
@@ -110,7 +102,7 @@ export const AnswerDialog = (props) => {
 					{
 						name: 'sanitizedQuestion',
 						label: 'Sanitized Question',
-						initialValue: sanitizedQuestion,
+						initialValue: Title,
 						control: 'input',
 						// required: true,
 						// validationSchema: yup.string().required('Required'),
@@ -138,6 +130,7 @@ export const AnswerDialog = (props) => {
 		return () => {}
 	}, [publicQuestions.isLoading, openAnswerDialog])
 
+<<<<<<< HEAD
 	const questionHasBeenWithdrawn = async (id) => {
 		console.log('questionHasBeenWithdrawn id :>> ', id)
 
@@ -147,6 +140,31 @@ export const AnswerDialog = (props) => {
 
 		return question.Withdrawn
 	}
+=======
+	const onSubmit = async (values, { setSubmitting }) => {
+		console.log('values :>> ', values)
+		let questionsItem
+
+		if (values.previousAnswer) {
+			questionsItem = [{ Id: values.previousAnswer }]
+		} else {
+			questionsItem = await publicQuestions.addItem({
+				Question: values.sanitizedQuestion,
+				Answer: values.answer,
+			})
+		}
+
+		await proponentQuestions.updateItem({
+			Id: values.id,
+			Answer: questionsItem[0].Id.toString(),
+			AnswerStatus: 'Posted',
+		})
+
+		await proponents.sendEmailToProponents({
+			subject: config.items.newAnswerEmail.TextValue,
+			body: config.items.newAnswerEmail.MultiTextValue,
+		})
+>>>>>>> parent of d9377dc... VICO-134
 
 	const onSubmit = async (values, { setSubmitting }) => {
 		let questionsItem, subject, body
