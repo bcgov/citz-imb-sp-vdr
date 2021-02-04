@@ -62,7 +62,9 @@ export const AnswerDialog = (props) => {
 			let sanitizedQuestion = Title
 
 			if (Answer) {
-				const publicQuestion = publicQuestions.getItemById(parseInt(Answer))
+				const publicQuestion = publicQuestions.getItemById(
+					parseInt(Answer)
+				)
 				_answer = publicQuestion.Answer
 				sanitizedQuestion = publicQuestion.Question
 				isEdit = true
@@ -135,6 +137,18 @@ export const AnswerDialog = (props) => {
 		return () => {}
 	}, [publicQuestions.isLoading, openAnswerDialog])
 
+	const questionHasBeenWithdrawn = async (id) => {
+		console.log('id :>> ', id)
+
+		await proponentQuestions.refresh()
+		const question = proponentQuestions.getItemById(id)
+
+		console.log('question :>> ', question)
+		console.log('question.Withdrawn :>> ', question.Withdrawn)
+
+		return question.Withdrawn
+	}
+
 	const onSubmit = async (values, { setSubmitting }) => {
 		let questionsItem, subject, body
 
@@ -148,31 +162,43 @@ export const AnswerDialog = (props) => {
 			subject = config.items.updatedAnswerEmail.TextValue
 			body = config.items.updatedAnswerEmail.MultiTextValue
 		} else {
-			if (values.previousAnswer) {
-				questionsItem = [{ Id: values.previousAnswer }]
-			} else {
-				questionsItem = await publicQuestions.addItem({
-					Question: values.sanitizedQuestion,
-					Answer: values.answer,
-				})
-			}
+			const withdrawn = await questionHasBeenWithdrawn(values.Id)
+			console.log('withdrawn :>> ', withdrawn);
+		// 	if (withdrawn) {
+		// 		logAction(
+		// 			`Cannot post answer to ${values.QuestionID} because it has been withdrawn`,
+		// 			true,
+		// 			'warning'
+		// 		)
+		// 		setSubmitting(false)
+		// 		closeAnswerDialog()
+		// 	} else {
+		// 		if (values.previousAnswer) {
+		// 			questionsItem = [{ Id: values.previousAnswer }]
+		// 		} else {
+		// 			questionsItem = await publicQuestions.addItem({
+		// 				Question: values.sanitizedQuestion,
+		// 				Answer: values.answer,
+		// 			})
+		// 		}
 
-			await proponentQuestions.updateItem({
-				Id: values.Id,
-				Answer: questionsItem[0].Id.toString(),
-				AnswerStatus: 'Posted',
-			})
+		// 		await proponentQuestions.updateItem({
+		// 			Id: values.Id,
+		// 			Answer: questionsItem[0].Id.toString(),
+		// 			AnswerStatus: 'Posted',
+		// 		})
 
-			subject = config.items.newAnswerEmail.TextValue
-			body = config.items.newAnswerEmail.MultiTextValue
+		// 		subject = config.items.newAnswerEmail.TextValue
+		// 		body = config.items.newAnswerEmail.MultiTextValue
+		// 	}
 		}
 
-		await proponents.sendEmailToProponents({
-			subject,
-			body,
-		})
+		// await proponents.sendEmailToProponents({
+		// 	subject,
+		// 	body,
+		// })
 
-		logAction(`answered question ${values.QuestionID}`)
+		// logAction(`answered question ${values.QuestionID}`)
 
 		setSubmitting(false)
 		closeAnswerDialog()

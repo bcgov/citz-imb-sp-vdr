@@ -170,7 +170,6 @@ export const useList = (listName, options = {}) => {
 	const refresh = async () => {
 		setIsLoading(true)
 		await getList(listName)
-		setIsLoading(false)
 	}
 
 	const changeView = (view) => {
@@ -212,7 +211,7 @@ export const useList = (listName, options = {}) => {
 	}
 
 	const updateItem = async (updateItems) => {
-		console.log('updateItems :>> ', updateItems);
+		console.log('updateItems :>> ', updateItems)
 		try {
 			await UpdateListItem({ listName, items: updateItems })
 			refresh()
@@ -222,14 +221,47 @@ export const useList = (listName, options = {}) => {
 		}
 	}
 
+	const waitUntilLoaded = (callback) => {
+		console.log('waitUntilLoaded isLoading :>> ', isLoading)
+		const x = callback()
+		console.log('x :>> ', x)
+		return x
+		if (isLoading) {
+			setTimeout(() => {
+				console.log('isLoading :>> ', isLoading)
+			}, 500)
+		} else {
+			return callback()
+		}
+	}
+
 	const getItemById = (id) => {
-		return items.find((item) => item.Id === id)
+		const myCallback = () => {
+			console.log('mycallback', items)
+			return items.find((item) => item.Id === 20)
+		}
+		const result = waitUntilLoaded(myCallback)
+		console.log('result :>> ', result)
+		return result
 	}
 
 	useEffect(() => {
 		refresh()
 		return () => {}
 	}, [])
+
+	useEffect(() => {
+		console.log('useEffect items :>> ', items)
+		if (items) {
+			setIsLoading(false)
+		}
+		return () => {}
+	}, [items])
+
+	useEffect(() => {
+		console.log('useEffect isLoading :>> ', isLoading)
+		return () => {}
+	}, [isLoading])
 
 	useEffect(() => {
 		if (listView) {
