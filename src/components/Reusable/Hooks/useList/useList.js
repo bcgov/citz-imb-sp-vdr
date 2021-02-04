@@ -24,6 +24,7 @@ export const useList = (listName, options = {}) => {
 	const [addColumns, setAddColumns] = useState([])
 	const [items, setItems] = useState()
 	const [isLoading, setIsLoading] = useState(true)
+	const [isRefreshing, setIsRefreshing] = useState(true)
 
 	const getColumns = () => {
 		const viewColumns = currentView.ViewFields.Items.results
@@ -168,8 +169,10 @@ export const useList = (listName, options = {}) => {
 	}
 
 	const refresh = async () => {
+		setIsRefreshing(true)
 		setIsLoading(true)
 		await getList(listName)
+		setIsRefreshing(false)
 	}
 
 	const changeView = (view) => {
@@ -221,28 +224,8 @@ export const useList = (listName, options = {}) => {
 		}
 	}
 
-	const waitUntilLoaded = (callback) => {
-		console.log('waitUntilLoaded isLoading :>> ', isLoading)
-		const x = callback()
-		console.log('x :>> ', x)
-		return x
-		if (isLoading) {
-			setTimeout(() => {
-				console.log('isLoading :>> ', isLoading)
-			}, 500)
-		} else {
-			return callback()
-		}
-	}
-
 	const getItemById = (id) => {
-		const myCallback = () => {
-			console.log('mycallback', items)
-			return items.find((item) => item.Id === 20)
-		}
-		const result = waitUntilLoaded(myCallback)
-		console.log('result :>> ', result)
-		return result
+		return items.find((item) => item.Id === id)
 	}
 
 	useEffect(() => {
@@ -251,12 +234,12 @@ export const useList = (listName, options = {}) => {
 	}, [])
 
 	useEffect(() => {
-		console.log('useEffect items :>> ', items)
-		if (items) {
+		console.log('useEffect isRefreshing :>> ', isRefreshing)
+		if (!isRefreshing) {
 			setIsLoading(false)
 		}
 		return () => {}
-	}, [items])
+	}, [isRefreshing])
 
 	useEffect(() => {
 		console.log('useEffect isLoading :>> ', isLoading)

@@ -10,6 +10,7 @@ import {
 	FormikDialog,
 } from 'Components'
 import { ProponentsContext } from '../../ProponentManagementTab'
+import { TimerOutlined } from '@material-ui/icons'
 
 export const AnswerDialog = (props) => {
 	const {
@@ -138,32 +139,30 @@ export const AnswerDialog = (props) => {
 	}, [publicQuestions.isLoading, openAnswerDialog])
 
 	const questionHasBeenWithdrawn = async (id) => {
-		console.log('id :>> ', id)
+		console.log('questionHasBeenWithdrawn id :>> ', id)
 
 		await proponentQuestions.refresh()
-		const question = proponentQuestions.getItemById(id)
 
-		console.log('question :>> ', question)
-		console.log('question.Withdrawn :>> ', question.Withdrawn)
+		const question = proponentQuestions.getItemById(id)
 
 		return question.Withdrawn
 	}
 
 	const onSubmit = async (values, { setSubmitting }) => {
 		let questionsItem, subject, body
+		console.log('onSubmit')
+		// if (values.isEdit) {
+		// 	questionsItem = await publicQuestions.updateItem({
+		// 		Id: values.AnswerID,
+		// 		Question: values.sanitizedQuestion,
+		// 		Answer: values.answer,
+		// 	})
 
-		if (values.isEdit) {
-			questionsItem = await publicQuestions.updateItem({
-				Id: values.AnswerID,
-				Question: values.sanitizedQuestion,
-				Answer: values.answer,
-			})
-
-			subject = config.items.updatedAnswerEmail.TextValue
-			body = config.items.updatedAnswerEmail.MultiTextValue
-		} else {
-			const withdrawn = await questionHasBeenWithdrawn(values.Id)
-			console.log('withdrawn :>> ', withdrawn);
+		// 	subject = config.items.updatedAnswerEmail.TextValue
+		// 	body = config.items.updatedAnswerEmail.MultiTextValue
+		// } else {
+		const withdrawn = await questionHasBeenWithdrawn(values.Id)
+		console.log('withdrawn :>> ', withdrawn)
 		// 	if (withdrawn) {
 		// 		logAction(
 		// 			`Cannot post answer to ${values.QuestionID} because it has been withdrawn`,
@@ -191,7 +190,7 @@ export const AnswerDialog = (props) => {
 		// 		subject = config.items.newAnswerEmail.TextValue
 		// 		body = config.items.newAnswerEmail.MultiTextValue
 		// 	}
-		}
+		// }
 
 		// await proponents.sendEmailToProponents({
 		// 	subject,
