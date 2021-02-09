@@ -38,13 +38,7 @@ export const Questions = (props) => {
 				accessor: 'AnswerStatus',
 				Header: 'Status / Answer',
 				Cell: ({ value, row }) => {
-					return (
-						<AnswerCell
-							row={row}
-							// setDialogOptions={setDialogOptions}
-							value={value}
-						/>
-					)
+					return <AnswerCell row={row} value={value} />
 				},
 			},
 			{
@@ -54,12 +48,9 @@ export const Questions = (props) => {
 					return row.original.AnswerStatus === 'Withdrawn' ? null : (
 						<Assignee
 							assignedTo={value}
-							status={row.original.AnswerStatus}
-							questionId={row.original.QuestionID}
-							question={row.original.Title}
-							id={row.original.Id}
+							originalValues={row.original}
 							updateItem={proponentQuestions.updateItem}
-							// updateAnswer={updateAnswer}
+							updateAnswer={updateAnswer}
 							postAnswer={postAnswer}
 						/>
 					)
@@ -68,19 +59,34 @@ export const Questions = (props) => {
 		],
 	}
 
-	const closeAnswerDialog = () =>{
+	const closeAnswerDialog = () => {
 		setDialogOptions({ open: false, UUID })
 		proponentQuestions.refresh()
 	}
 
 	const postAnswer = (props) => {
-		console.log('postAnswer props :>> ', props);
-		const { questionId, id, question } = props
+		console.log('postAnswer props :>> ', props)
+		const { QuestionID, Id, Title } = props
 		setDialogOptions({
 			open: true,
-			questionId,
-			id,
-			question,
+			QuestionID,
+			Id,
+			Title,
+			UUID,
+			closeAnswerDialog,
+		})
+	}
+
+	const updateAnswer = (props) => {
+		console.log('updateAnswer props :>> ', props)
+		const { QuestionID, Id, Title, Answer } = props
+
+		setDialogOptions({
+			open: true,
+			QuestionID,
+			Id,
+			Title,
+			Answer,
 			UUID,
 			closeAnswerDialog,
 		})
@@ -88,19 +94,11 @@ export const Questions = (props) => {
 
 	const memoizedRender = useMemo(() => {
 		if (!proponentQuestions.isLoading) {
-			// proponentQuestions.changeView('VICO_Manager')
 			return proponentQuestions.getRender(listOptions)
 		} else {
 			return <LinearProgress />
 		}
 	}, [proponentQuestions.isLoading])
-
-	// useEffect(() => {
-	// 	console.log('proponents :>> ', proponents)
-	// 	console.log('publicQuestions :>> ', publicQuestions)
-	// 	console.log('proponentQuestions :>> ', proponentQuestions)
-	// 	return () => {}
-	// }, [])
 
 	return (
 		<Fragment>
@@ -108,14 +106,4 @@ export const Questions = (props) => {
 			<AnswerDialog {...dialogOptions} />
 		</Fragment>
 	)
-
-	// <SPList
-	// 	listName={proponentQuestions.listName}
-	// 	columns={proponentQuestions.columns}
-	// 	items={proponentQuestions.items}
-	// 	addColumns={proponentQuestions.addColumns}
-	// 	isLoading={proponentQuestions.isLoading}
-	// 	title={proponentQuestions.title}
-	// 	{...listOptions}
-	// />
 }

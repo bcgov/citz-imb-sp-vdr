@@ -12,36 +12,35 @@ const AssigneeOptions = [
 
 export const Assignee = (props) => {
 	const {
+		originalValues,
 		assignedTo,
-		status,
-		questionId,
-		id,
 		updateItem,
 		postAnswer,
-		question,
 		updateAnswer,
 	} = props
+
+	const { AnswerStatus, QuestionID, Title, Id, Answer } = originalValues
 
 	const logAction = useLogAction()
 
 	const handleChange = (event) => {
 		if (event.target.value === 'post') {
-			postAnswer({ questionId, id, question })
+			postAnswer({ QuestionID, Id, Title })
 		} else {
 			updateItem({
-				Id: id,
+				Id: Id,
 				AnswerStatus: 'Under Review',
 				Assignee: event.target.value,
 			})
-			logAction(`assigned ${questionId} to ${event.target.value}`)
+			logAction(`assigned ${QuestionID} to ${event.target.value}`)
 		}
 	}
 
 	const handleClick = () => {
-		updateAnswer({ questionId, id, question })
+		updateAnswer({ QuestionID, Id, Title, Answer })
 	}
 
-	return status === 'Posted' ? (
+	return AnswerStatus === 'Posted' ? (
 		<Button variant={'outlined'} onClick={handleClick}>
 			Edit Answer
 		</Button>
@@ -62,7 +61,7 @@ export const Assignee = (props) => {
 					)
 				})}
 				<MenuItem
-					disabled={status !== 'Under Review'}
+					disabled={AnswerStatus !== 'Under Review'}
 					key={`AssigneeSelect_option_post`}
 					value={'post'}>
 					Post Answer

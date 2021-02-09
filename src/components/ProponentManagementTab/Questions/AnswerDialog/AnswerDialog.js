@@ -10,13 +10,15 @@ import {
 	FormikDialog,
 } from 'Components'
 import { ProponentsContext } from '../../ProponentManagementTab'
+import { TimerOutlined } from '@material-ui/icons'
 
 export const AnswerDialog = (props) => {
 	const {
 		open: openAnswerDialog,
-		questionId,
-		id,
-		question,
+		QuestionID,
+		Id,
+		Title,
+		Answer,
 		UUID,
 		closeAnswerDialog,
 	} = props
@@ -38,7 +40,7 @@ export const AnswerDialog = (props) => {
 	}
 
 	const schema = yup.object().shape({
-		question: yup.string().required('Required'),
+		Question: yup.string().required('Required'),
 		sanitizedQuestion: yup.string().required('Required'),
 		previousAnswer: yup.string(),
 		answer: yup.string().when('previousAnswer', {
@@ -56,28 +58,34 @@ export const AnswerDialog = (props) => {
 
 	useEffect(() => {
 		if (!publicQuestions.isLoading) {
+			let _answer = ''
+
+			if (Answer) {
+				_answer = publicQuestions.getItemById(parseInt(Answer)).Answer
+			}
+
 			setDialogOptions({
 				open: openAnswerDialog,
 				close: closeAnswerDialog,
-				title: `Question ${questionId}`,
+				title: `Question ${QuestionID}`,
 				instructions: `Update the Sanitized Question if necessary and enter an Answer
                 or select a previously answered question`,
 				validationSchema: schema,
 				fields: [
 					{
-						name: 'id',
-						initialValue: id,
+						name: 'Id',
+						initialValue: Id,
 						control: 'hidden',
 					},
 					{
-						name: 'questionId',
-						initialValue: questionId,
+						name: 'QuestionID',
+						initialValue: QuestionID,
 						control: 'hidden',
 					},
 					{
-						name: 'question',
+						name: 'Question',
 						label: 'Original Question',
-						initialValue: question,
+						initialValue: Title,
 						control: 'input',
 						readOnly: true,
 						// validationSchema: yup.string().required('Required'),
@@ -85,7 +93,7 @@ export const AnswerDialog = (props) => {
 					{
 						name: 'sanitizedQuestion',
 						label: 'Sanitized Question',
-						initialValue: question,
+						initialValue: Title,
 						control: 'input',
 						// required: true,
 						// validationSchema: yup.string().required('Required'),
@@ -93,7 +101,7 @@ export const AnswerDialog = (props) => {
 					{
 						name: 'answer',
 						label: 'Answer',
-						initialValue: '',
+						initialValue: _answer,
 						control: 'input',
 						// required: true,
 						// validationSchema: yup.string().required('Required'),
@@ -104,7 +112,7 @@ export const AnswerDialog = (props) => {
 						initialValue: '',
 						control: 'select',
 						options: getOptions(),
-						validationSchema: yup.string(),
+						// validationSchema: yup.string(),
 					},
 				],
 				onSubmit: onSubmit,
@@ -114,6 +122,7 @@ export const AnswerDialog = (props) => {
 	}, [publicQuestions.isLoading, openAnswerDialog])
 
 	const onSubmit = async (values, { setSubmitting }) => {
+		console.log('values :>> ', values)
 		let questionsItem
 
 		if (values.previousAnswer) {
@@ -124,9 +133,9 @@ export const AnswerDialog = (props) => {
 				Answer: values.answer,
 			})
 		}
-
+		console.log('values :>> ', values)
 		await proponentQuestions.updateItem({
-			Id: values.id,
+			Id: values.Id,
 			Answer: questionsItem[0].Id.toString(),
 			AnswerStatus: 'Posted',
 		})
@@ -135,8 +144,6 @@ export const AnswerDialog = (props) => {
 			subject: config.items.newAnswerEmail.TextValue,
 			body: config.items.newAnswerEmail.MultiTextValue,
 		})
-
-		logAction(`answered question ${values.questionId}`)
 
 		setSubmitting(false)
 		closeAnswerDialog()
