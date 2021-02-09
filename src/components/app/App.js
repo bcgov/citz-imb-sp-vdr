@@ -1,6 +1,7 @@
 import React from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import { AppContexts } from './AppContexts/AppContexts'
+import { Test } from './Test'
 import './App.css'
 
 export const App = () => {
@@ -18,6 +19,7 @@ export const App = () => {
 	return (
 		<MuiThemeProvider theme={theme}>
 			<AppContexts />
+			{/* <Test /> */}
 		</MuiThemeProvider>
 	)
 }

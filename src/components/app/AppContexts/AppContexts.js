@@ -5,9 +5,13 @@ import { useCurrentUser, useConfig, useList } from 'Components'
 import { Logon } from './Logon/Logon'
 import { Test } from '../Test'
 
+import { QueryClientProvider, QueryClient } from 'react-query'
+
 export const UserContext = React.createContext()
 export const ConfigContext = React.createContext()
 export const PublicQuestionsContext = React.createContext()
+
+const queryClient = new QueryClient()
 
 export const AppContexts = () => {
 	const [isLoading, setIsLoading] = useState(true)
@@ -30,14 +34,17 @@ export const AppContexts = () => {
 				vertical: 'bottom',
 				horizontal: 'right',
 			}}>
-			<UserContext.Provider value={currentUser}>
-				<ConfigContext.Provider value={configList}>
-					<PublicQuestionsContext.Provider value={publicQuestions}>
-						<Logon />
-						{/* <Test /> */}
-					</PublicQuestionsContext.Provider>
-				</ConfigContext.Provider>
-			</UserContext.Provider>
+			<QueryClientProvider client={queryClient}>
+				<UserContext.Provider value={currentUser}>
+					<ConfigContext.Provider value={configList}>
+						<PublicQuestionsContext.Provider
+							value={publicQuestions}>
+							<Logon />
+							{/* <Test /> */}
+						</PublicQuestionsContext.Provider>
+					</ConfigContext.Provider>
+				</UserContext.Provider>
+			</QueryClientProvider>
 		</SnackbarProvider>
 	)
 }
