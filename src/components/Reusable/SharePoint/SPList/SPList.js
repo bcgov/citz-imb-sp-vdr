@@ -32,7 +32,7 @@ export const SPList = (props) => {
 		isLoading,
 	} = props
 
-	console.log('SPList props :>> ', props);
+	// console.log('SPList props :>> ', props);
 
 	const [dialog, setDialog] = useState({ open: false })
 	const [freeActions, setFreeActions] = useState([])

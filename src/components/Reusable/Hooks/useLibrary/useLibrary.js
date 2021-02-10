@@ -6,7 +6,6 @@ import {
 	AddItemsToList,
 	UpdateListItem,
 } from 'citz-imb-sp-utilities'
-import { SPTable } from 'components/Reusable/SharePoint/SharePoint'
 // import { ColumnFilter } from './ColumnFilter/ColumnFilter'
 // import { SelectColumnFilter } from './SelectColumnFilter/SelectColumnFilter.js'
 // import { SelectUserColumnFilter } from './SelectUserColumnFilter/SelectUserColumnFilter'
@@ -20,13 +19,13 @@ export const useLibrary = (listName, options = {}) => {
 		GetLibrary({ listName, options })
 	)
 
-	console.log('list :>> ', list)
+	// console.log('list :>> ', list)
 
-	const items = useQuery(['Documents', 'items'], () =>
-		GetDocuments('Documents')
+	const items = useQuery([listName, 'items'], () =>
+		GetDocuments(listName)
 	)
 
-	console.log('items :>> ', items)
+	// console.log('items :>> ', items)
 
 	// =============================
 	const { listView } = options
@@ -143,13 +142,7 @@ export const useLibrary = (listName, options = {}) => {
 		setCurrentView(view)
 	}
 
-	const render = (
-		<SPTable
-			listName={list.data?.Title ?? ''}
-			items={items.data ?? []}
-			columns={list.data?.Columns ?? []}
-		/>
-	)
+
 
 	const addItem = async (addItems) => {
 		try {
@@ -184,13 +177,14 @@ export const useLibrary = (listName, options = {}) => {
 		items,
 		list,
 		isLoading: items.isLoading ? true : list.isLoading ? true : false,
+		isError: items.isError ? true : list.isError ? true : false,
 		//========================
 		// addColumns,
 		// addItem,
 		// changeView,
 		// columns,
 		// fields,
-		render,
+		// render,
 		// getItemById,
 		// items,
 		// refresh,

@@ -19,7 +19,9 @@ export const AnswerDialog = (props) => {
 		Id,
 		Title,
 		Answer,
+		AnswerId,
 		UUID,
+		isUpdate = false,
 		closeAnswerDialog,
 	} = props
 
@@ -122,28 +124,41 @@ export const AnswerDialog = (props) => {
 	}, [publicQuestions.isLoading, openAnswerDialog])
 
 	const onSubmit = async (values, { setSubmitting }) => {
-		console.log('values :>> ', values)
-		let questionsItem
+		let questionsItem, subject, body
 
 		if (values.previousAnswer) {
 			questionsItem = [{ Id: values.previousAnswer }]
 		} else {
-			questionsItem = await publicQuestions.addItem({
-				Question: values.sanitizedQuestion,
-				Answer: values.answer,
+			if (isUpdate) {
+				//! may break if changed to selected previous answer
+				questionsItem = await publicQuestions.updateItem({
+					Id: AnswerId,
+					Question: values.sanitizedQuestion,
+					Answer: values.answer,
+				})
+
+				subject = config.items.updatedAnswerEmail.TextValue
+				body = config.items.updatedAnswerEmail.MultiTextValue
+			} else {
+				questionsItem = await publicQuestions.addItem({
+					Question: values.sanitizedQuestion,
+					Answer: values.answer,
+				})
+
+				await proponentQuestions.updateItem({
+					Id: values.Id,
+					Answer: questionsItem[0].Id.toString(),
+					AnswerStatus: 'Posted',
+				})
+
+				subject = config.items.newAnswerEmail.TextValue
+				body = config.items.newAnswerEmail.MultiTextValue
+			}
+			await proponents.sendEmailToProponents({
+				subject,
+				body,
 			})
 		}
-		console.log('values :>> ', values)
-		await proponentQuestions.updateItem({
-			Id: values.Id,
-			Answer: questionsItem[0].Id.toString(),
-			AnswerStatus: 'Posted',
-		})
-
-		await proponents.sendEmailToProponents({
-			subject: config.items.newAnswerEmail.TextValue,
-			body: config.items.newAnswerEmail.MultiTextValue,
-		})
 
 		setSubmitting(false)
 		closeAnswerDialog()
