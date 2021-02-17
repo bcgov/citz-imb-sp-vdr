@@ -3,29 +3,59 @@ import { GetLibrary, GetDocuments } from './Api'
 import {
 	GetList,
 	GetListItems,
-	AddItemsToList,
+	AddDocument,
 	UpdateListItem,
 } from 'citz-imb-sp-utilities'
+import { ProcessFile } from './ProcessFile/ProcessFile'
 // import { ColumnFilter } from './ColumnFilter/ColumnFilter'
 // import { SelectColumnFilter } from './SelectColumnFilter/SelectColumnFilter.js'
 // import { SelectUserColumnFilter } from './SelectUserColumnFilter/SelectUserColumnFilter'
 import * as Yup from 'yup'
 // import { User } from './User/User'
 
-import { useQuery } from 'react-query'
+import { useQuery, useMutation, useQueryClient } from 'react-query'
 
 export const useLibrary = (listName, options = {}) => {
-	const list = useQuery([listName, 'list'], () =>
+	const library = useQuery([listName, 'list'], () =>
 		GetLibrary({ listName, options })
 	)
 
-	// console.log('list :>> ', list)
-
-	const items = useQuery([listName, 'items'], () =>
+	const documents = useQuery([listName, 'items'], () =>
 		GetDocuments(listName)
 	)
 
-	// console.log('items :>> ', items)
+	const queryClient = useQueryClient()
+
+	const {
+		mutateAsync: addMutation,
+		isLoading: isAddMutating,
+	} = useMutation((payload) => AddDocument({ listName, payload }))
+
+	const getFileBuffer = () => {}
+
+	const addDocuments = async (files) => {
+		let fileData = files[0]
+		console.log('fileData :>> ', fileData)
+
+		// const fileContents = await ProcessFile(fileData)
+
+		const fileReader = new FileReader()
+
+		const addDocs = async ({ fileData, fileContents }) => {
+			await addMutation({ fileData, fileContents })
+			queryClient.invalidateQueries([listName, 'items'])
+		}
+
+		fileReader.onload = () => {
+			console.log('fileReader.result', fileReader.result)
+			const fileContents = fileReader.result
+
+			console.log('fileContents :>> ', fileContents)
+			addDocs({ fileData, fileContents })
+		}
+
+		fileReader.readAsArrayBuffer(fileData)
+	}
 
 	// =============================
 	const { listView } = options
@@ -142,18 +172,6 @@ export const useLibrary = (listName, options = {}) => {
 		setCurrentView(view)
 	}
 
-
-
-	const addItem = async (addItems) => {
-		try {
-			const newItem = await AddItemsToList({ listName, items: addItems })
-			return newItem
-		} catch (error) {
-			console.error('useList addItem error:', error)
-			return error
-		}
-	}
-
 	const updateItem = async (updateItems) => {
 		console.log('updateItems :>> ', updateItems)
 		try {
@@ -165,22 +183,23 @@ export const useLibrary = (listName, options = {}) => {
 	}
 
 	const getItemById = (id) => {
-		return items.find((item) => item.Id === id)
+		return documents.find((item) => item.Id === id)
 	}
 
-	// useEffect(() => {
-	// 	refresh()
-	// 	return () => {}
-	// }, [])
-
 	return {
-		items,
-		list,
-		isLoading: items.isLoading ? true : list.isLoading ? true : false,
-		isError: items.isError ? true : list.isError ? true : false,
+		items: documents,
+		list: library,
+		isLoading: documents.isLoading
+			? true
+			: library.isLoading
+			? true
+			: isAddMutating
+			? true
+			: false,
+		isError: documents.isError ? true : library.isError ? true : false,
+		addDocuments,
 		//========================
 		// addColumns,
-		// addItem,
 		// changeView,
 		// columns,
 		// fields,

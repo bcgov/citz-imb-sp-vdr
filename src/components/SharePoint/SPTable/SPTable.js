@@ -20,7 +20,7 @@ import {
 import PublishIcon from '@material-ui/icons/Publish'
 
 export const SPTable = (props) => {
-	const { table, listName, columnFiltering = false, columns } = props
+	const { table, listName, columnFiltering = false, columns, handleUpload } = props
 
 	const {
 		getTableProps,
@@ -37,8 +37,12 @@ export const SPTable = (props) => {
 
 	const { pageIndex, pageSize } = state
 
-	const handleViewChange = () => {}
-
+	const handleViewChange = () => {
+		//TODO Views and changing the view
+	}
+	const handleUploadClick = () => {
+		handleUpload()
+	}
 	return (
 		<Fragment>
 			<AppBar position={'static'}>
@@ -55,12 +59,13 @@ export const SPTable = (props) => {
 						>
 						<MenuItem value={'default'}>default</MenuItem>
 					</Select> */}
-					{/* <Fab
+					<IconButton
+						onClick={handleUploadClick}
 						size={'small'}
-						// color={'secondary'}
+						color={'secondary'}
 						arial-label={'upload'}>
 						<PublishIcon />
-					</Fab> */}
+					</IconButton>
 				</Toolbar>
 			</AppBar>
 			<Table {...getTableProps()}>
