@@ -21,6 +21,7 @@ export const FormikDialog = (props) => {
 		open,
 		close,
 		title,
+		children,
 		instructions,
 		dialogContent,
 		submitButtonText = 'Submit',
@@ -103,9 +104,7 @@ export const FormikDialog = (props) => {
 									container
 									direction={'column'}
 									spacing={1}>
-									{dialogContent ? (
-										dialogContent
-									) : instructions ? (
+									{instructions ? (
 										<Grid item>
 											<Alert severity={'info'}>
 												<AlertTitle>
@@ -117,6 +116,8 @@ export const FormikDialog = (props) => {
 											</Alert>
 										</Grid>
 									) : null}
+									{dialogContent ? dialogContent : null}
+									{children}
 									{controls.map((control, index) => {
 										return (
 											<Grid

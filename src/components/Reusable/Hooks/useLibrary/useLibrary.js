@@ -3,30 +3,54 @@ import { GetLibrary, GetDocuments } from './Api'
 import {
 	GetList,
 	GetListItems,
-	AddItemsToList,
+	AddDocument,
 	UpdateListItem,
 } from 'citz-imb-sp-utilities'
-import { SPTable } from 'components/Reusable/SharePoint/SharePoint'
+import { ProcessFile } from './ProcessFile/ProcessFile'
 // import { ColumnFilter } from './ColumnFilter/ColumnFilter'
 // import { SelectColumnFilter } from './SelectColumnFilter/SelectColumnFilter.js'
 // import { SelectUserColumnFilter } from './SelectUserColumnFilter/SelectUserColumnFilter'
 import * as Yup from 'yup'
 // import { User } from './User/User'
 
-import { useQuery } from 'react-query'
+import { addFileToFolder } from './ProcessFile/addFileToFolder'
+import { getListItem } from './ProcessFile/getListItem'
+import { updateListItem } from './ProcessFile/updateListItem'
+import { getFileBuffer } from './ProcessFile/getFileBuffer'
+import $ from 'jquery'
+
+import { useQuery, useMutation, useQueryClient } from 'react-query'
 
 export const useLibrary = (listName, options = {}) => {
-	const list = useQuery([listName, 'list'], () =>
+	const library = useQuery([listName, 'list'], () =>
 		GetLibrary({ listName, options })
 	)
 
-	console.log('list :>> ', list)
-
-	const items = useQuery(['Documents', 'items'], () =>
-		GetDocuments('Documents')
+	const documents = useQuery([listName, 'items'], () =>
+		GetDocuments(listName)
 	)
 
-	console.log('items :>> ', items)
+	const queryClient = useQueryClient()
+
+	const {
+		mutateAsync: addDocumentMutation,
+		isLoading: isAddMutating,
+	} = useMutation((payload) => addFileToFolder({ listName, payload }))
+
+	const addDocuments = async (fileInput) => {
+		console.log('fileInput :>> ', fileInput)
+
+		for (let i = 0; i < fileInput.length; i++) {
+			var arrayBuffer = await getFileBuffer(fileInput[i])
+
+			await addDocumentMutation({
+				fileData: fileInput[i],
+				fileContents: arrayBuffer,
+			})
+		}
+
+		queryClient.invalidateQueries()
+	}
 
 	// =============================
 	const { listView } = options
@@ -143,24 +167,6 @@ export const useLibrary = (listName, options = {}) => {
 		setCurrentView(view)
 	}
 
-	const render = (
-		<SPTable
-			listName={list.data?.Title ?? ''}
-			items={items.data ?? []}
-			columns={list.data?.Columns ?? []}
-		/>
-	)
-
-	const addItem = async (addItems) => {
-		try {
-			const newItem = await AddItemsToList({ listName, items: addItems })
-			return newItem
-		} catch (error) {
-			console.error('useList addItem error:', error)
-			return error
-		}
-	}
-
 	const updateItem = async (updateItems) => {
 		console.log('updateItems :>> ', updateItems)
 		try {
@@ -172,25 +178,25 @@ export const useLibrary = (listName, options = {}) => {
 	}
 
 	const getItemById = (id) => {
-		return items.find((item) => item.Id === id)
+		return documents.find((item) => item.Id === id)
 	}
 
-	// useEffect(() => {
-	// 	refresh()
-	// 	return () => {}
-	// }, [])
-
 	return {
-		items,
-		list,
-		isLoading: items.isLoading ? true : list.isLoading ? true : false,
+		items: documents,
+		list: library,
+		isLoading: documents.isLoading
+			? true
+			: library.isLoading
+			? true
+			: false,
+		isError: documents.isError ? true : library.isError ? true : false,
+		addDocuments,
 		//========================
 		// addColumns,
-		// addItem,
 		// changeView,
 		// columns,
 		// fields,
-		render,
+		// render,
 		// getItemById,
 		// items,
 		// refresh,

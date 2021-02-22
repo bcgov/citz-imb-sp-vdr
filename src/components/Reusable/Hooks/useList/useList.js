@@ -214,7 +214,7 @@ export const useList = (listName, options = {}) => {
 	}
 
 	const updateItem = async (updateItems) => {
-		console.log('updateItems :>> ', updateItems)
+		// console.log('updateItems :>> ', updateItems)
 		try {
 			await UpdateListItem({ listName, items: updateItems })
 			refresh()
@@ -234,7 +234,7 @@ export const useList = (listName, options = {}) => {
 	}, [])
 
 	useEffect(() => {
-		console.log('useEffect isRefreshing :>> ', isRefreshing)
+		// console.log('useEffect isRefreshing :>> ', isRefreshing)
 		if (!isRefreshing) {
 			setIsLoading(false)
 		}
@@ -242,7 +242,7 @@ export const useList = (listName, options = {}) => {
 	}, [isRefreshing])
 
 	useEffect(() => {
-		console.log('useEffect isLoading :>> ', isLoading)
+		// console.log('useEffect isLoading :>> ', isLoading)
 		return () => {}
 	}, [isLoading])
 

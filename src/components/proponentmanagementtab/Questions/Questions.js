@@ -83,7 +83,9 @@ export const Questions = (props) => {
 
 		setDialogOptions({
 			open: true,
+			isUpdate: true,
 			QuestionID,
+			AnswerId: parseInt(Answer),
 			Id,
 			Title,
 			Answer,

@@ -19,10 +19,10 @@ export const GetColumns = (list) => {
 					disableFilters: true,
 					disableSortBy: true,
 				}
-				console.log(
-					'listFields[i].FieldTypeKind :>> ',
-					listFields[i].FieldTypeKind
-				)
+				// console.log(
+				// 	'listFields[i].FieldTypeKind :>> ',
+				// 	listFields[i].FieldTypeKind
+				// )
 				switch (listFields[i].FieldTypeKind) {
 					case 2: //Text
 						newColumn.disableFilters = false
@@ -42,11 +42,10 @@ export const GetColumns = (list) => {
 							newColumn.accessor = listFields[i].InternalName
 							newColumn.disableFilters = false
 							newColumn.Cell = ({row}) => {
-								console.log('row.original.FieldValuesAsHtml.OData__x005f_dlc_x005f_DocIdUrl :>> ', row.original.FieldValuesAsHtml.OData__x005f_dlc_x005f_DocIdUrl);
 								return (
 									<Link
 										href={
-											row.original.FieldValuesAsHtml.OData__x005f_dlc_x005f_DocIdUrl
+											row.original.OData__dlc_DocIdUrl.Url
 										}>
 										{
 											row.original.FieldValuesAsHtml
