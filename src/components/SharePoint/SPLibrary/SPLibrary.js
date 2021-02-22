@@ -47,10 +47,8 @@ export const SPLibrary = (props) => {
 	)
 
 	const uploadDocuments = async (filesToUpload) => {
-		console.log('filesToUpload :>> ', filesToUpload)
 		addDocuments(filesToUpload)
 		for (let i = 0; i < filesToUpload.length; i++) {
-			console.log(`filesToUpload[${i}] :>> `, filesToUpload[i]);
 
 			// await fetch(
 			//   APIurl +

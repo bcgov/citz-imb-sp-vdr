@@ -13,6 +13,12 @@ import { ProcessFile } from './ProcessFile/ProcessFile'
 import * as Yup from 'yup'
 // import { User } from './User/User'
 
+import { addFileToFolder } from './ProcessFile/addFileToFolder'
+import { getListItem } from './ProcessFile/getListItem'
+import { updateListItem } from './ProcessFile/updateListItem'
+import { getFileBuffer } from './ProcessFile/getFileBuffer'
+import $ from 'jquery'
+
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 
 export const useLibrary = (listName, options = {}) => {
@@ -27,34 +33,23 @@ export const useLibrary = (listName, options = {}) => {
 	const queryClient = useQueryClient()
 
 	const {
-		mutateAsync: addMutation,
+		mutateAsync: addDocumentMutation,
 		isLoading: isAddMutating,
-	} = useMutation((payload) => AddDocument({ listName, payload }))
+	} = useMutation((payload) => addFileToFolder({ listName, payload }))
 
-	const getFileBuffer = () => {}
+	const addDocuments = async (fileInput) => {
+		console.log('fileInput :>> ', fileInput)
 
-	const addDocuments = async (files) => {
-		let fileData = files[0]
-		console.log('fileData :>> ', fileData)
+		for (let i = 0; i < fileInput.length; i++) {
+			var arrayBuffer = await getFileBuffer(fileInput[i])
 
-		// const fileContents = await ProcessFile(fileData)
-
-		const fileReader = new FileReader()
-
-		const addDocs = async ({ fileData, fileContents }) => {
-			await addMutation({ fileData, fileContents })
-			queryClient.invalidateQueries([listName, 'items'])
+			await addDocumentMutation({
+				fileData: fileInput[i],
+				fileContents: arrayBuffer,
+			})
 		}
 
-		fileReader.onload = () => {
-			console.log('fileReader.result', fileReader.result)
-			const fileContents = fileReader.result
-
-			console.log('fileContents :>> ', fileContents)
-			addDocs({ fileData, fileContents })
-		}
-
-		fileReader.readAsArrayBuffer(fileData)
+		queryClient.invalidateQueries()
 	}
 
 	// =============================
@@ -192,8 +187,6 @@ export const useLibrary = (listName, options = {}) => {
 		isLoading: documents.isLoading
 			? true
 			: library.isLoading
-			? true
-			: isAddMutating
 			? true
 			: false,
 		isError: documents.isError ? true : library.isError ? true : false,
