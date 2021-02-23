@@ -1,70 +1,66 @@
-// import React, { useState, useEffect, useMemo } from 'react'
-// import { GetLibrary, GetDocuments } from './Api'
-import { GetList, GetListItems, UpdateListItem } from 'citz-imb-sp-utilities'
-// import { ProcessFile } from './ProcessFile/ProcessFile'
+import React, { useState, useEffect, useMemo } from 'react'
+import { GetLibrary, GetDocuments } from './Api'
+import {
+	GetList,
+	GetListItems,
+	AddDocument,
+	UpdateListItem,
+} from 'citz-imb-sp-utilities'
+import { ProcessFile } from './ProcessFile/ProcessFile'
 // import { ColumnFilter } from './ColumnFilter/ColumnFilter'
 // import { SelectColumnFilter } from './SelectColumnFilter/SelectColumnFilter.js'
 // import { SelectUserColumnFilter } from './SelectUserColumnFilter/SelectUserColumnFilter'
-// import * as Yup from 'yup'
+import * as Yup from 'yup'
 // import { User } from './User/User'
 
-// import { addFileToFolder } from './ProcessFile/addFileToFolder'
-// import { getListItem } from './ProcessFile/getListItem'
-// import { updateListItem } from './ProcessFile/updateListItem'
-// import { getFileBuffer } from './ProcessFile/getFileBuffer'
-// import $ from 'jquery'
+import { addFileToFolder } from './ProcessFile/addFileToFolder'
+import { getListItem } from './ProcessFile/getListItem'
+import { updateListItem } from './ProcessFile/updateListItem'
+import { getFileBuffer } from './ProcessFile/getFileBuffer'
+import $ from 'jquery'
 
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 
-export const useList = (props) => {
-	console.log('useList props :>> ', props)
+export const useLibrary = (listName, options = {}) => {
+	const library = useQuery([listName, 'list'], () =>
+		GetLibrary({ listName, options })
+	)
 
-	const { listName } = props
-	const list = useQuery([listName, 'list'], () => {
-		return GetList({
-			listName,
-			options: {
-				expand:
-					'DefaultView,DefaultView/ViewFields,Views,Views/ViewFields,Fields',
-			},
-		})
-	})
-
-	const items = useQuery([listName, 'items'], () =>
-		GetListItems(listName)
+	const documents = useQuery([listName, 'items'], () =>
+		GetDocuments(listName)
 	)
 
 	const queryClient = useQueryClient()
 
-	// const {
-	// 	mutateAsync: addItemMutation,
-	// 	isLoading: isAddMutating,
-	// } = useMutation((payload) => addFileToFolder({ listName, payload }))
+	const {
+		mutateAsync: addDocumentMutation,
+		isLoading: isAddMutating,
+	} = useMutation((payload) => addFileToFolder({ listName, payload }))
 
-	// const addDocuments = async (fileInput) => {
-	// 	console.log('fileInput :>> ', fileInput)
+	const addDocuments = async (fileInput) => {
+		console.log('fileInput :>> ', fileInput)
 
-	// 	for (let i = 0; i < fileInput.length; i++) {
-	// 		var arrayBuffer = await getFileBuffer(fileInput[i])
+		for (let i = 0; i < fileInput.length; i++) {
+			var arrayBuffer = await getFileBuffer(fileInput[i])
 
-	// 		await addDocumentMutation({
-	// 			fileData: fileInput[i],
-	// 			fileContents: arrayBuffer,
-	// 		})
-	// 	}
+			await addDocumentMutation({
+				fileData: fileInput[i],
+				fileContents: arrayBuffer,
+			})
+		}
 
-	// 	queryClient.invalidateQueries()
-	// }
+		queryClient.invalidateQueries()
+	}
 
 	// =============================
-	// const { listView } = options
+	const { listView } = options
 
-	// const [title, setTitle] = useState('')
-	// const [fields, setFields] = useState([])
-	// const [views, setViews] = useState([])
-	// const [currentView, setCurrentView] = useState()
-	// const [columns, setColumns] = useState([])
-	// const [addColumns, setAddColumns] = useState([])
+	const [title, setTitle] = useState('')
+	const [fields, setFields] = useState([])
+	const [views, setViews] = useState([])
+	const [currentView, setCurrentView] = useState()
+	const [columns, setColumns] = useState([])
+	const [addColumns, setAddColumns] = useState([])
 	// const [items, setItems] = useState()
 	// const [isLoading, setIsLoading] = useState(true)
 
@@ -182,15 +178,19 @@ export const useList = (props) => {
 	}
 
 	const getItemById = (id) => {
-		return items.find((item) => item.Id === id)
+		return documents.find((item) => item.Id === id)
 	}
 
 	return {
-		items,
-		list,
-		isLoading: items.isLoading ? true : list.isLoading ? true : false,
-		isError: items.isError ? true : list.isError ? true : false,
-
+		items: documents,
+		list: library,
+		isLoading: documents.isLoading
+			? true
+			: library.isLoading
+			? true
+			: false,
+		isError: documents.isError ? true : library.isError ? true : false,
+		addDocuments,
 		//========================
 		// addColumns,
 		// changeView,

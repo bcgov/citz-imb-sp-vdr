@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import * as yup from 'yup'
 import {
 	ConfigContext,
-	useList,
+	useList_OLD,
 	AnswerCell,
 	SPList,
 	PublicQuestionsContext,
@@ -31,7 +31,7 @@ export const AnswerDialog = (props) => {
 	const publicQuestions = useContext(PublicQuestionsContext)
 	const config = useContext(ConfigContext)
 	const logAction = useLogAction()
-	const proponentQuestions = useList(`${UUID}_Questions`)
+	const proponentQuestions = useList_OLD(`${UUID}_Questions`)
 
 	const getOptions = () => {
 		const options = publicQuestions.items.map((item) => {
