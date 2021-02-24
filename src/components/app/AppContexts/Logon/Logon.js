@@ -3,16 +3,22 @@ import { deviceDetect } from 'react-device-detect'
 import { useLogAction, TermsOfService } from 'Components'
 
 export const Logon = () => {
-	const logAction = useLogAction()
+	const { isLoading, logAction } = useLogAction()
+	const device = deviceDetect()
 
 	useEffect(() => {
-		const device = deviceDetect()
-		logAction(
-			`logged in using ${device.browserName} ${device.browserMajorVersion} and ${device.osName} ${device.osVersion}`,
-			false
-		)
+		if (!isLoading)
+			logAction(
+				`logged in using ${device.browserName} ${device.browserMajorVersion} and ${device.osName} ${device.osVersion}`,
+				false
+			)
+
 		return () => {}
-	})
+	}, [isLoading])
+
+	if (isLoading) {
+		return null
+	}
 
 	return <TermsOfService />
 }

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Cookies from 'universal-cookie'
 import {
-	ConfigContext,
-	UserContext,
+	useConfig,
+	useCurrentUser,
 	useLogAction,
 	FormikDialog,
 	FormatText,
@@ -13,21 +13,24 @@ export const TermsOfService = () => {
 	const [dialog, setDialog] = useState({ open: false })
 	const [hasCookie, setHasCookie] = useState(false)
 
-	const { items: configItems, isLoading: configIsLoading } = useContext(
-		ConfigContext
-	)
-	const currentUser = useContext(UserContext)
+	const config = useConfig()
+
+	// const currentUser = useContext(UserContext)
+	const currentUser = useCurrentUser()
 
 	const cookies = new Cookies()
 
-	const logAction = useLogAction()
+	const { logAction } = useLogAction()
 
 	useEffect(() => {
-		console.log('configIsLoading :>> ', configIsLoading)
-		if (!configIsLoading) {
+		if (!config.isLoading) {
+			const TOSConfig = config.items.data.find(
+				(item) => item.Key === 'TOS'
+			)
+
 			if (
 				cookies.get(
-					`${configItems.TOS.Key}-${currentUser.id}-${configItems.TOS.Modified}`
+					`${TOSConfig.Key}-${currentUser.id}-${TOSConfig.Modified}`
 				)
 			) {
 				setHasCookie(true)
@@ -38,11 +41,11 @@ export const TermsOfService = () => {
 			setDialog({
 				onSubmit: (values, { setSubmitting }) => {
 					cookies.set(
-						`${configItems.TOS.Key}-${currentUser.id}-${configItems.TOS.Modified}`,
+						`${TOSConfig.Key}-${currentUser.id}-${TOSConfig.Modified}`,
 						true,
 						{
 							path: '/',
-							maxAge: configItems.TOS.NumberValue * 24 * 60 * 60,
+							maxAge: TOSConfig.NumberValue * 24 * 60 * 60,
 						}
 					)
 					logAction('agreed to TOS', false)
@@ -53,11 +56,11 @@ export const TermsOfService = () => {
 					await logAction('disagreed to TOS', false)
 					window.location = '/_layouts/signout.aspx'
 				},
-				title: configItems.TOS.TextValue,
+				title: TOSConfig.TextValue,
 				dialogContent: (
 					<div
 						dangerouslySetInnerHTML={{
-							__html: FormatText(configItems.TOS.MultiTextValue),
+							__html: FormatText(TOSConfig.MultiTextValue),
 						}}
 					/>
 				),
@@ -66,7 +69,9 @@ export const TermsOfService = () => {
 			})
 		}
 		return () => {}
-	}, [configItems, configIsLoading])
+	}, [config.isLoading])
 
-	return hasCookie ? <Home /> : <FormikDialog {...dialog} />
+	if (!hasCookie) return <FormikDialog {...dialog} />
+
+	return <Home />
 }
