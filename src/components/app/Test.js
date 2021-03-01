@@ -1,10 +1,10 @@
 import React from 'react'
-import { PublicLibrary } from '../PublicTab/PublicLibrary/PublicLibrary'
+import { PublicQuestionList } from '../PublicTab/PublicQuestionList/PublicQuestionList'
 // import {DropZone} from 'components/SharePoint/DropZone'
 
 export const Test = () => {
 	return (
-			<PublicLibrary />
+			<PublicQuestionList />
 			// <DropZone />
 	)
 }

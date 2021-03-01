@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { useList, SendConfirmationEmail } from 'Components'
+import { useList_OLD, SendConfirmationEmail } from 'Components'
 import {
 	AddPermissionsToList,
 	AddPermissionsToSite,
@@ -22,7 +22,7 @@ import {
 	CreateView,
 	GetGroupMembers,
 } from 'citz-imb-sp-utilities'
-import {useSnackbar} from 'notistack'
+import { useSnackbar } from 'notistack'
 
 export const useProponents = () => {
 	// console.log('useProponents')
@@ -36,7 +36,7 @@ export const useProponents = () => {
 		items,
 		refresh,
 		updateItem,
-	} = useList('Proponents')
+	} = useList_OLD('Proponents')
 
 	// const { enqueueSnackbar } = useSnackbar()
 

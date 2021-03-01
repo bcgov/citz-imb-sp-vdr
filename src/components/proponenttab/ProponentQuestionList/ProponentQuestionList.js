@@ -14,7 +14,7 @@ import { GetGroupMembers, GetUserByEmail } from 'citz-imb-sp-utilities'
 import {
 	AnswerCell,
 	useCurrentUser,
-	useList,
+	useList_OLD,
 	FormikDialog,
 	useLogAction,
 	ConfigContext,
@@ -43,7 +43,7 @@ export const ProponentQuestionList = () => {
 		refresh,
 		updateItem,
 		getRender,
-	} = useList(`${currentUser.proponent}_Questions`)
+	} = useList_OLD(`${currentUser.proponent}_Questions`)
 
 	const sendEmails = async () => {
 		const proponent = getProponent(currentUser.proponent)

@@ -1,77 +1,19 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { GetLibrary, GetDocuments } from './Api'
 import {
 	GetList,
 	GetListItems,
-	AddDocument,
+	AddItemsToList,
 	UpdateListItem,
 } from 'citz-imb-sp-utilities'
-import { ProcessFile } from './ProcessFile/ProcessFile'
-// import { ColumnFilter } from './ColumnFilter/ColumnFilter'
-// import { SelectColumnFilter } from './SelectColumnFilter/SelectColumnFilter.js'
-// import { SelectUserColumnFilter } from './SelectUserColumnFilter/SelectUserColumnFilter'
+import moment from 'moment'
+import { SPList } from 'Components'
+import { ColumnFilter } from './ColumnFilter/ColumnFilter'
+import { SelectColumnFilter } from './SelectColumnFilter/SelectColumnFilter.js'
+import { SelectUserColumnFilter } from './SelectUserColumnFilter/SelectUserColumnFilter'
 import * as Yup from 'yup'
-// import { User } from './User/User'
+import { User } from './User/User'
 
-import { addFileToFolder } from './ProcessFile/addFileToFolder'
-import { getListItem } from './ProcessFile/getListItem'
-import { updateListItem } from './ProcessFile/updateListItem'
-import { getFileBuffer } from './ProcessFile/getFileBuffer'
-import $ from 'jquery'
-
-import { useQuery, useMutation, useQueryClient } from 'react-query'
-
-export const useLibrary = (listName, options = {}) => {
-	const listQueryName = [listName, 'list']
-	const itemsQueryName = [listName, 'items']
-
-	const library = useQuery(listQueryName, () =>
-		GetLibrary({ listName, options })
-	)
-
-	const documents = useQuery(itemsQueryName, () => GetDocuments(listName))
-
-	const queryClient = useQueryClient()
-
-	const addDocumentMutation = useMutation(
-		(payload) => addFileToFolder({ listName, payload }),
-		{
-			onMutate: (values) => {
-				const previousValues = queryClient.getQueryData(itemsQueryName)
-
-				queryClient.setQueryData(itemsQueryName, (oldValues) => [
-					...oldValues,
-					{
-						id: 'temp',
-						...values,
-					},
-				])
-
-				return () =>
-					queryClient.setQueryData(itemsQueryName, previousValues)
-			},
-			onError: (error, values, previousValues) =>
-				queryClient.setQueryData(itemsQueryName, previousValues),
-			onSuccess: () => queryClient.refetchQueries(itemsQueryName),
-		}
-	)
-
-	const addDocuments = async (fileInput) => {
-		console.log('fileInput :>> ', fileInput)
-
-		for (let i = 0; i < fileInput.length; i++) {
-			var arrayBuffer = await getFileBuffer(fileInput[i])
-
-			await addDocumentMutation.mutateAsync({
-				fileData: fileInput[i],
-				fileContents: arrayBuffer,
-			})
-		}
-
-		queryClient.invalidateQueries()
-	}
-
-	// =============================
+export const useList_OLD = (listName, options = {}) => {
 	const { listView } = options
 
 	const [title, setTitle] = useState('')
@@ -80,8 +22,61 @@ export const useLibrary = (listName, options = {}) => {
 	const [currentView, setCurrentView] = useState()
 	const [columns, setColumns] = useState([])
 	const [addColumns, setAddColumns] = useState([])
-	// const [items, setItems] = useState()
-	// const [isLoading, setIsLoading] = useState(true)
+	const [items, setItems] = useState()
+	const [isLoading, setIsLoading] = useState(true)
+	const [isRefreshing, setIsRefreshing] = useState(true)
+
+	const getColumns = () => {
+		const viewColumns = currentView.ViewFields.Items.results
+
+		return viewColumns.map((column) => {
+			let newColumn = {
+				Header: fields[column].Title,
+				Footer: fields[column].Title,
+				accessor: fields[column].InternalName,
+				Filter: ColumnFilter,
+				disableFilters: true,
+				disableSortBy: true,
+			}
+
+			switch (fields[column].FieldTypeKind) {
+				case 2: //Text
+					newColumn.disableFilters = false
+					break
+				case 3: //Multiple lines of text
+					newColumn.disableFilters = false
+					break
+				case 4: //DateTime
+					newColumn.Cell = ({ value }) =>
+						moment(value).format('MMMM Do, YYYY h:mm a')
+					newColumn.disableSortBy = false
+					break
+				case 12: //LinkTitle
+					if (fields[column].EntityPropertyName !== 'DocIcon') {
+						newColumn.Header = fields.Title.Title
+						newColumn.Footer = fields.Title.Title
+						newColumn.accessor = fields.Title.InternalName
+						newColumn.disableFilters = false
+					}
+					break
+				case 20: //User
+					newColumn.Header = fields[column].Title
+					newColumn.Footer = fields[column].Title
+					newColumn.accessor = `${fields[column].InternalName}Id`
+					newColumn.Cell = ({ value }) => <User userId={value} />
+					newColumn.disableFilters = false
+					newColumn.Filter = SelectUserColumnFilter
+					break
+
+				default:
+				// console.log(
+				// 	`fields[${column}].FieldTypeKind=${fields[column].FieldTypeKind}`,
+				// 	fields[column]
+				// )
+			}
+			return newColumn
+		})
+	}
 
 	const getList = async (listName) => {
 		try {
@@ -167,10 +162,17 @@ export const useLibrary = (listName, options = {}) => {
 			setAddColumns(_addColumns)
 			setViews(list.Views.results)
 			if (!listView) changeView(list.DefaultView)
-			// setItems(_items)
+			setItems(_items)
 		} catch (error) {
 			console.error('error in getting list', error)
 		}
+	}
+
+	const refresh = async () => {
+		setIsRefreshing(true)
+		setIsLoading(true)
+		await getList(listName)
+		setIsRefreshing(false)
 	}
 
 	const changeView = (view) => {
@@ -186,10 +188,36 @@ export const useLibrary = (listName, options = {}) => {
 		setCurrentView(view)
 	}
 
+	const getRender = (props) => {
+		return (
+			<SPList
+				listName={listName}
+				columns={columns}
+				items={items}
+				addColumns={addColumns}
+				isLoading={isLoading}
+				title={title}
+				{...props}
+			/>
+		)
+	}
+
+	const addItem = async (addItems) => {
+		try {
+			const newItem = await AddItemsToList({ listName, items: addItems })
+			refresh()
+			return newItem
+		} catch (error) {
+			console.error('useList_OLD addItem error:', error)
+			return error
+		}
+	}
+
 	const updateItem = async (updateItems) => {
-		console.log('updateItems :>> ', updateItems)
+		// console.log('updateItems :>> ', updateItems)
 		try {
 			await UpdateListItem({ listName, items: updateItems })
+			refresh()
 		} catch (error) {
 			console.error('useList_OLD updateItem error:', error)
 			return error
@@ -197,32 +225,53 @@ export const useLibrary = (listName, options = {}) => {
 	}
 
 	const getItemById = (id) => {
-		return documents.find((item) => item.Id === id)
+		return items.find((item) => item.Id === id)
 	}
 
+	useEffect(() => {
+		refresh()
+		return () => {}
+	}, [])
+
+	useEffect(() => {
+		// console.log('useEffect isRefreshing :>> ', isRefreshing)
+		if (!isRefreshing) {
+			setIsLoading(false)
+		}
+		return () => {}
+	}, [isRefreshing])
+
+	useEffect(() => {
+		// console.log('useEffect isLoading :>> ', isLoading)
+		return () => {}
+	}, [isLoading])
+
+	useEffect(() => {
+		if (listView) {
+			changeView(listView)
+		}
+		return () => {}
+	}, [views])
+
+	useEffect(() => {
+		if (currentView) setColumns(getColumns())
+		return () => {}
+	}, [currentView])
+
 	return {
-		items: documents.data,
-		list: library.data,
-		isLoading: documents.isLoading
-			? true
-			: library.isLoading
-			? true
-			: false,
-		isError: documents.isError ? true : library.isError ? true : false,
-		isMutating: addDocumentMutation.isLoading ? true : false,
-		addDocuments,
-		//========================
-		// addColumns,
-		// changeView,
-		// columns,
-		// fields,
-		// render,
-		// getItemById,
-		// items,
-		// refresh,
-		// SelectColumnFilter,
-		// title,
-		// updateItem,
-		// views,
+		addColumns,
+		addItem,
+		changeView,
+		columns,
+		fields,
+		getRender,
+		getItemById,
+		isLoading,
+		items,
+		refresh,
+		SelectColumnFilter,
+		title,
+		updateItem,
+		views,
 	}
 }

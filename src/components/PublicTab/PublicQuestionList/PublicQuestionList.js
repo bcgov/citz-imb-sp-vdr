@@ -1,14 +1,22 @@
-import React, { useContext } from 'react'
-import { PublicQuestionsContext } from 'Components'
+import React from 'react'
+import { usePublicQuestions, SPList } from 'Components'
 import { LinearProgress } from '@material-ui/core'
 
 export const PublicQuestionList = () => {
-	const listOptions = {
-		columnFiltering: false,
-		showTitle: false,
-	}
+	const publicQuestionsList = usePublicQuestions()
 
-	const { isLoading, getRender } = useContext(PublicQuestionsContext)
+	console.log('publicQuestionsList :>> ', publicQuestionsList)
 
-	return isLoading ? <LinearProgress /> : getRender(listOptions)
+	if (publicQuestionsList.isLoading) return <LinearProgress />
+
+	return (
+		<SPList
+			listName={publicQuestionsList.list.Title}
+			columns={publicQuestionsList.columns}
+			items={publicQuestionsList.items}
+			columnFiltering={false}
+			isLoading={publicQuestionsList.isLoading}
+			title={publicQuestionsList.list.Title}
+		/>
+	)
 }
