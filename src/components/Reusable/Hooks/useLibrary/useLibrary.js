@@ -19,23 +19,40 @@ import { updateListItem } from './ProcessFile/updateListItem'
 import { getFileBuffer } from './ProcessFile/getFileBuffer'
 import $ from 'jquery'
 
-import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { useQuery, useMutation, useQueryClient, QueryClient } from 'react-query'
 
 export const useLibrary = (listName, options = {}) => {
-	const library = useQuery([listName, 'list'], () =>
+
+	const listQueryName =[listName, 'list']
+	const itemsQueryName =[listName, 'items']
+
+	const library = useQuery(listQueryName, () =>
 		GetLibrary({ listName, options })
 	)
 
-	const documents = useQuery([listName, 'items'], () =>
+	const documents = useQuery(itemsQueryName, () =>
 		GetDocuments(listName)
 	)
 
 	const queryClient = useQueryClient()
 
-	const {
-		mutateAsync: addDocumentMutation,
-		isLoading: isAddMutating,
-	} = useMutation((payload) => addFileToFolder({ listName, payload }))
+	const addDocumentMutation = useMutation((payload) => addFileToFolder({ listName, payload }), {
+		onMutate: (values) => {
+			const previousValues = queryClient.getQueryData(itemsQueryName)
+
+			queryClient.setQueryData(itemsQueryName, (oldValues) => [
+				...oldValues,
+				{
+					id: 'temp',
+					...values,
+				},
+			])
+
+			return () => queryClient.setQueryData(itemsQueryName, previousValues)
+		},
+		onError: (error, values, previousValues) => queryClient.setQueryData(itemsQueryName, previousValues),
+		onSuccess: () => queryClient.refetchQueries(itemsQueryName),
+	})
 
 	const addDocuments = async (fileInput) => {
 		console.log('fileInput :>> ', fileInput)
@@ -43,7 +60,7 @@ export const useLibrary = (listName, options = {}) => {
 		for (let i = 0; i < fileInput.length; i++) {
 			var arrayBuffer = await getFileBuffer(fileInput[i])
 
-			await addDocumentMutation({
+			await addDocumentMutation.mutateAsync({
 				fileData: fileInput[i],
 				fileContents: arrayBuffer,
 			})
@@ -182,14 +199,15 @@ export const useLibrary = (listName, options = {}) => {
 	}
 
 	return {
-		items: documents,
-		list: library,
+		items: documents.data,
+		list: library.data,
 		isLoading: documents.isLoading
 			? true
 			: library.isLoading
 			? true
 			: false,
 		isError: documents.isError ? true : library.isError ? true : false,
+		isMutating: addDocumentMutation.isLoading ? true :  false,
 		addDocuments,
 		//========================
 		// addColumns,

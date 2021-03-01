@@ -8,8 +8,8 @@ import {
 	PublicQuestionsContext,
 	useLogAction,
 	FormikDialog,
+	ProponentsContext,
 } from 'Components'
-import { ProponentsContext } from '../../ProponentManagementTab'
 import { TimerOutlined } from '@material-ui/icons'
 
 export const AnswerDialog = (props) => {
