@@ -18,7 +18,6 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 export const GroupTable = (props) => {
 	const {
 		groupId,
-		groupName,
 		proponent,
 		addRecord = false,
 		showTitle = true,
@@ -40,18 +39,10 @@ export const GroupTable = (props) => {
 	const { items } = useContext(ConfigContext)
 	const { addUserEmail, removeUserEmail, contactEmail } = items
 
-	const {
-		addGroupMember,
-		// createGroup,
-		// deleteGroup,
-		group,
-		isLoading,
-		members,
-		removeGroupMember,
-		// updateGroup,
-	} = useGroup(groupId, groupName)
-
+	const proponentGroup = useGroup({ groupId })
+console.log('proponentGroup :>> ', proponentGroup);
 	const columns = useMemo(() => {
+		if (proponentGroup.isLoading || proponentGroup.isError) return []
 		return [
 			{
 				Header: 'Title',
@@ -81,9 +72,20 @@ export const GroupTable = (props) => {
 				},
 			},
 		]
-	}, [group])
+	}, [
+		proponentGroup.isLoading,
+		proponentGroup.isError,
+		proponentGroup.isMutating,
+	])
 
-	const data = useMemo(() => members, [members])
+	const data = useMemo(() => {
+		if (proponentGroup.isLoading || proponentGroup.isError) return []
+		return proponentGroup.members
+	}, [
+		proponentGroup.isLoading,
+		proponentGroup.isError,
+		proponentGroup.isMutating,
+	])
 
 	const tableDataOptions = useTable(
 		{ columns, data, initialState: {} },
@@ -108,7 +110,7 @@ export const GroupTable = (props) => {
 					(member) => member.DisplayText
 				)
 				try {
-					await addGroupMember(values)
+					await proponentGroup.addMember(values)
 					logAction(
 						`added ${members.join('; ')} to ${proponent} group`
 					)
@@ -156,7 +158,7 @@ export const GroupTable = (props) => {
 			),
 			onSubmit: async (values, { setSubmitting }) => {
 				try {
-					await removeGroupMember(original.Id)
+					await proponentGroup.removeMember(original.Id)
 					logAction(
 						`removed ${original.Title} from ${proponent} group`
 					)
@@ -197,9 +199,11 @@ export const GroupTable = (props) => {
 		columns,
 	}
 
+	if (proponentGroup.isLoading) return <LinearProgress />
+
 	return (
 		<Fragment>
-			{isLoading ? <LinearProgress /> : <CustomTable {...tableOptions} />}
+			<CustomTable {...tableOptions} />
 			<FormikDialog {...dialog} />
 		</Fragment>
 	)

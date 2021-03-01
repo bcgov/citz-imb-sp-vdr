@@ -15,8 +15,6 @@ export const getCurrentUser = async () => {
 	try {
 		const user = await GetCurrentUser({ expand: 'Groups' })
 
-		console.log('user :>> ', user)
-
 		name = user.Title
 		id = user.Id
 		email = user.Email

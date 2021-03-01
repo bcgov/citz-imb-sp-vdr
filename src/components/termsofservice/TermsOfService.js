@@ -23,7 +23,6 @@ export const TermsOfService = () => {
 	const logAction = useLogAction()
 
 	useEffect(() => {
-		console.log('configIsLoading :>> ', configIsLoading)
 		if (!configIsLoading) {
 			if (
 				cookies.get(

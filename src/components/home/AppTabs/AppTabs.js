@@ -47,7 +47,7 @@ export const AppTabs = () => {
 	}
 
 	const currentUser = useCurrentUser()
-console.log('AppTabs currentUser :>> ', currentUser);
+
 	return (
 		<Paper className={classes.root}>
 			<AppBar position='static'>
