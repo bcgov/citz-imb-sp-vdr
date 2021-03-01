@@ -1,21 +1,25 @@
-import React, { Fragment, useMemo, useState, useEffect } from 'react'
+import React, { Fragment, useMemo, useState, useContext } from 'react'
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table'
 import { useLibrary } from 'Components'
 import { LinearProgress } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import { SPTable } from '../SPTable'
-import { FormikDialog } from 'Components'
+import { FormikDialog, ConfigContext, ProponentsContext } from 'Components'
 import { DropZone } from '../DropZone'
 
 export const SPLibrary = (props) => {
 	const { listName } = props
+	const initialState = []
+	const columnFiltering = false
 
-	const { items, list, isLoading, isError, addDocuments } = useLibrary(listName)
+	const library = useLibrary(listName)
 	const [formOpen, setFormOpen] = useState(false)
 	const [filesToUpload, setFilesToUpload] = useState([])
 	const [dialogContent, setDialogContent] = useState(null)
+	const config = useContext(ConfigContext)
+	const proponents = useContext(ProponentsContext)
 
-	// console.log('{items, list} :>> ', { items, list })
+	// console.log('library :>> ', library)
 
 	const handleFilesToUpload = (files) => {
 		setFilesToUpload(files)
@@ -23,53 +27,33 @@ export const SPLibrary = (props) => {
 	}
 
 	const data = useMemo(() => {
-		if (items.isLoading || items.isError) {
+		if (library.isLoading || library.isError) {
 			return []
 		}
-		return items.data
-	}, [items])
+		return [...library.items]
+	}, [library.isLoading, library.isError, library.isMutating])
 
 	const columns = useMemo(() => {
-		if (list.isLoading || list.isError) {
+		if (library.isLoading || library.isError) {
 			return []
 		}
-		return list.data.Columns
-	}, [list])
-
-	const initialState = []
-	const columnFiltering = false
+		return library.list.Columns
+	}, [library.isLoading, library.isError])
 
 	const table = useTable(
-		{ columns, data, initialState },
+		{ columns, data },
 		useFilters,
 		useSortBy,
 		usePagination
 	)
 
 	const uploadDocuments = async (filesToUpload) => {
-		addDocuments(filesToUpload)
-		for (let i = 0; i < filesToUpload.length; i++) {
-
-			// await fetch(
-			//   APIurl +
-			// 	"/_api/web/lists/getbytitle('Submitted Projects')/items(" +
-			// 	listItem.Id +
-			// 	")/AttachmentFiles/add(FileName='" +
-			// 	filesToUpload[i].name +
-			// 	"')",
-			//   {
-			// method: "POST",
-			// headers: {
-			//   accept: "application/json;odata=verbose",
-			//   "content-type": "application/json;odata=verbose",
-			//   "X-RequestDigest": (document.getElementById(
-			// 	"__REQUESTDIGEST"
-			//   )! as HTMLTextAreaElement).value,
-			// },
-			// body: filesToUpload[i],
-			//   }
-			// );
-		}
+		await library.addDocuments(filesToUpload)
+		//! send email is in the wrong place, this component is more generic than that
+		await proponents.sendEmailToProponents({
+			subject: config.items.publicDocumentEmail.TextValue,
+			body: config.items.publicDocumentEmail.MultiTextValue,
+		})
 	}
 
 	const handleUploadDocument = () => {
@@ -99,22 +83,17 @@ export const SPLibrary = (props) => {
 		setFormOpen(false)
 	}
 
-	useEffect(() => {
-		// console.log('filesToUpload :>> ', filesToUpload)
-		return () => {}
-	}, [filesToUpload])
-
-	if (isLoading) {
+	if (library.isLoading) {
 		return <LinearProgress />
 	}
 
-	if (isError) {
+	if (library.isError) {
 		return (
 			<Alert severity='error'>
 				<AlertTitle>Error</AlertTitle>
-				{list.error}
+				{library.list.error}
 				<br />
-				{items.error}
+				{library.items.error}
 			</Alert>
 		)
 	}

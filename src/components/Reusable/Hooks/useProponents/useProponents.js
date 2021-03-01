@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from 'react'
-import { useSnackbar } from 'notistack'
 import { useList, SendConfirmationEmail } from 'Components'
 import {
 	AddPermissionsToList,
@@ -23,6 +22,7 @@ import {
 	CreateView,
 	GetGroupMembers,
 } from 'citz-imb-sp-utilities'
+import {useSnackbar} from 'notistack'
 
 export const useProponents = () => {
 	// console.log('useProponents')
@@ -38,7 +38,7 @@ export const useProponents = () => {
 		updateItem,
 	} = useList('Proponents')
 
-	const { enqueueSnackbar } = useSnackbar()
+	// const { enqueueSnackbar } = useSnackbar()
 
 	const MakeUniqueID = () => {
 		return (
@@ -224,20 +224,20 @@ export const useProponents = () => {
 		await BreakListPermissionsInheritance({ listName: 'ActivityLog' })
 
 		const group = await createProponentGroup(UUID)
-		enqueueSnackbar('created proponent group', { variant: 'warning' })
+		// enqueueSnackbar('created proponent group', { variant: 'warning' })
 
 		await createList({ listName: UUID, baseTemplate: 101 })
-		enqueueSnackbar('created proponent library', { variant: 'warning' })
+		// enqueueSnackbar('created proponent library', { variant: 'warning' })
 
 		await createQuestionList(`${UUID}_Questions`)
-		enqueueSnackbar('created proponent Question List', {
-			variant: 'warning',
-		})
+		// enqueueSnackbar('created proponent Question List', {
+		// 	variant: 'warning',
+		// })
 
 		await setProponentPermissions(UUID, group)
-		enqueueSnackbar('granted proponent site permissions', {
-			variant: 'warning',
-		})
+		// enqueueSnackbar('granted proponent site permissions', {
+		// 	variant: 'warning',
+		// })
 
 		await addItem([
 			{
@@ -247,26 +247,26 @@ export const useProponents = () => {
 				GroupId: group,
 			},
 		])
-		enqueueSnackbar('added proponent to proponent list', {
-			variant: 'warning',
-		})
+		// enqueueSnackbar('added proponent to proponent list', {
+		// 	variant: 'warning',
+		// })
 		await refresh()
 		setIsLoading(false)
 	}
 
 	const setProponentActive = async (UUID) => {
 		const group = await createProponentGroup(UUID)
-		enqueueSnackbar('created proponent group', { variant: 'warning' })
+		// enqueueSnackbar('created proponent group', { variant: 'warning' })
 
 		await setProponentPermissions(UUID, group)
-		enqueueSnackbar('granted proponent site permissions', {
-			variant: 'warning',
-		})
+		// enqueueSnackbar('granted proponent site permissions', {
+		// 	variant: 'warning',
+		// })
 
 		await updateItem([
 			{ Id: proponentsObject[UUID].Id, Active: true, GroupId: group },
 		])
-		enqueueSnackbar('updated proponent list', { variant: 'warning' })
+		// enqueueSnackbar('updated proponent list', { variant: 'warning' })
 		await refresh()
 	}
 
@@ -274,11 +274,11 @@ export const useProponents = () => {
 		await DeleteGroup({
 			groupId: proponentsObject[UUID].GroupId,
 		})
-		enqueueSnackbar('deleted proponent group', { variant: 'warning' })
+		// enqueueSnackbar('deleted proponent group', { variant: 'warning' })
 		await updateItem([
 			{ Id: proponentsObject[UUID].Id, Active: false, GroupId: 0 },
 		])
-		enqueueSnackbar('updated proponent list', { variant: 'warning' })
+		// enqueueSnackbar('updated proponent list', { variant: 'warning' })
 		await refresh()
 	}
 

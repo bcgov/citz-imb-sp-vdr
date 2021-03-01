@@ -6,7 +6,7 @@ import { UserContext } from 'Components'
 
 export const useLogAction = () => {
 	const currentUser = useContext(UserContext)
-	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+	const { enqueueSnackbar } = useSnackbar()
 
 	const logAction = async (message, snackbar = true, variant = 'success') => {
 		const timeStamp = moment().format('dddd, MMMM Do, YYYY @ h:mm:ss a')
