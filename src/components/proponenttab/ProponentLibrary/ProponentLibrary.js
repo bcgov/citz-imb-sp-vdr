@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useList_OLD, UserContext } from 'Components'
+import { useList, UserContext } from 'Components'
 import { LinearProgress } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 
@@ -13,7 +13,7 @@ export const ProponentLibrary = () => {
 		//showTitle: false,
 	}
 
-	const { isLoading, getRender } = useList_OLD(currentUser.proponent)
+	const { isLoading, getRender } = useList(currentUser.proponent)
 
 	return currentUser.proponent === 'not a proponent' ? (
 		<Alert severity={'info'}>User is not a proponent</Alert>

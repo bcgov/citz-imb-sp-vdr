@@ -10,7 +10,7 @@ import { AnswerDialog } from './AnswerDialog/AnswerDialog'
 import { ProponentsContext } from '../ProponentManagementTab'
 import {
 	ConfigContext,
-	useList_OLD,
+	useList,
 	AnswerCell,
 	SPList,
 	PublicQuestionsContext,
@@ -25,7 +25,7 @@ export const Questions = (props) => {
 
 	const [dialogOptions, setDialogOptions] = useState({ open: false, UUID })
 
-	const proponentQuestions = useList_OLD(`${UUID}_Questions`, {
+	const proponentQuestions = useList(`${UUID}_Questions`, {
 		listView: 'VICO_Manager',
 	})
 

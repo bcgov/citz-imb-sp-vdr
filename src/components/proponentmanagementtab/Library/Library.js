@@ -1,5 +1,5 @@
 import React from 'react'
-import { useList_OLD } from 'Components'
+import { useList } from 'Components'
 import { LinearProgress } from '@material-ui/core'
 
 export const Library = (props) => {
@@ -10,7 +10,7 @@ export const Library = (props) => {
 		showTitle: false,
 	}
 
-	const { isLoading, getRender } = useList_OLD(UUID)
+	const { isLoading, getRender } = useList(UUID)
 
 	return isLoading ? <LinearProgress /> : getRender(libraryOptions)
 }

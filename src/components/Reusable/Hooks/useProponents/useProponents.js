@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useSnackbar } from 'notistack'
-import { useList_OLD, SendConfirmationEmail } from 'Components'
+import { useList, SendConfirmationEmail } from 'Components'
 import {
 	AddPermissionsToList,
 	AddPermissionsToSite,
@@ -36,7 +36,7 @@ export const useProponents = () => {
 		items,
 		refresh,
 		updateItem,
-	} = useList_OLD('Proponents')
+	} = useList('Proponents')
 
 	const { enqueueSnackbar } = useSnackbar()
 

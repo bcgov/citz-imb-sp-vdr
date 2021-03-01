@@ -1,6 +1,6 @@
 import React from 'react'
 import { ProponentManagement } from './ProponentManagement/ProponentManagement'
-import { useProponents } from 'Components'
+import { useList, useProponents } from 'Components'
 
 export const ProponentsContext = React.createContext()
 

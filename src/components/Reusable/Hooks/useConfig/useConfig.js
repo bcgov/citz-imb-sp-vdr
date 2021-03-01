@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useList_OLD } from 'Components'
+import { useList } from 'Components'
 import { ConsoleView } from 'react-device-detect'
 
 export const useConfig = () => {
@@ -18,7 +18,7 @@ export const useConfig = () => {
 		// title,
 		// updateItem,
 		// views,
-	} = useList_OLD('Config')
+	} = useList('Config')
 
 	useEffect(() => {
 		if (!listIsLoading) {
