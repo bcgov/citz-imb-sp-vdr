@@ -2,11 +2,10 @@ import { useContext } from 'react'
 import { AddItemsToList } from 'citz-imb-sp-utilities'
 import * as moment from 'moment'
 import { useSnackbar } from 'notistack'
-import { useCurrentUser } from 'Components'
+import { UserContext } from 'Components'
 
 export const useLogAction = () => {
-	const currentUser = useCurrentUser()
-
+	const currentUser = useContext(UserContext)
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
 	const logAction = async (message, snackbar = true, variant = 'success') => {
@@ -36,7 +35,5 @@ export const useLogAction = () => {
 		}
 	}
 
-	if (currentUser.isLoading) return { isLoading: currentUser.isLoading }
-
-	return { isLoading: false, logAction }
+	return logAction
 }

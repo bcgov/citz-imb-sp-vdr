@@ -20,13 +20,7 @@ import {
 import PublishIcon from '@material-ui/icons/Publish'
 
 export const SPTable = (props) => {
-	const {
-		table,
-		listName,
-		columnFiltering = false,
-		columns,
-		handleUpload,
-	} = props
+	const { table, listName, columnFiltering = false, columns, handleUpload } = props
 
 	const {
 		getTableProps,
@@ -65,15 +59,13 @@ export const SPTable = (props) => {
 						>
 						<MenuItem value={'default'}>default</MenuItem>
 					</Select> */}
-					{handleUpload ? (
-						<IconButton
-							onClick={handleUploadClick}
-							size={'small'}
-							color={'secondary'}
-							arial-label={'upload'}>
-							<PublishIcon />
-						</IconButton>
-					) : null}
+					<IconButton
+						onClick={handleUploadClick}
+						size={'small'}
+						color={'secondary'}
+						arial-label={'upload'}>
+						<PublishIcon />
+					</IconButton>
 				</Toolbar>
 			</AppBar>
 			<Table {...getTableProps()}>

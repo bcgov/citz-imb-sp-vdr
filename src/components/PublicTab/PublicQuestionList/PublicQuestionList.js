@@ -1,5 +1,6 @@
-import React from 'react'
-import { SPList } from 'components/SharePoint'
+import React, { useContext } from 'react'
+import { PublicQuestionsContext } from 'Components'
+import { LinearProgress } from '@material-ui/core'
 
 export const PublicQuestionList = () => {
 	const listOptions = {
@@ -7,7 +8,7 @@ export const PublicQuestionList = () => {
 		showTitle: false,
 	}
 
-	const publicQuestionsList = 'Questions'
+	const { isLoading, getRender } = useContext(PublicQuestionsContext)
 
-	return <SPList listName={publicQuestionsList} />
+	return isLoading ? <LinearProgress /> : getRender(listOptions)
 }

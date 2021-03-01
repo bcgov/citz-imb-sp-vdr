@@ -19,7 +19,7 @@ import { updateListItem } from './ProcessFile/updateListItem'
 import { getFileBuffer } from './ProcessFile/getFileBuffer'
 import $ from 'jquery'
 
-import { useQuery, useMutation, useQueryClient, QueryCache } from 'react-query'
+import { useQuery, useMutation, useQueryClient } from 'react-query'
 
 export const useLibrary = (listName, options = {}) => {
 	const library = useQuery([listName, 'list'], () =>
@@ -35,23 +35,7 @@ export const useLibrary = (listName, options = {}) => {
 	const {
 		mutateAsync: addDocumentMutation,
 		isLoading: isAddMutating,
-	} = useMutation((payload) => addFileToFolder({ listName, payload }), {
-		onMutate: (values) => {
-			const previousDocuments = QueryCache.getQueryData(listName)
-
-			QueryCache.setQueryData(listName, (old) => [
-				...old,
-				{
-					id: 'temp',
-					...values,
-				},
-			])
-
-			return () => QueryCache.setQueryData(listName, previousDocuments)
-		},
-		onError: (error, values, rollback) => rollback(),
-		onSuccess: () => QueryCache.refetchQueries(listName),
-	})
+	} = useMutation((payload) => addFileToFolder({ listName, payload }))
 
 	const addDocuments = async (fileInput) => {
 		console.log('fileInput :>> ', fileInput)

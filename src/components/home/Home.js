@@ -16,7 +16,5 @@ export const Home = () => {
 		return () => {}
 	}, [])
 
-	if(!isHome) return null
-
-	return <AppTabs />
+	return isHome ? <AppTabs /> : null
 }

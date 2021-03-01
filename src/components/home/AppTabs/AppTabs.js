@@ -12,7 +12,7 @@ import {
 	Public,
 	ProponentManagementTab,
 	SiteManagement,
-	useCurrentUser,
+	UserContext,
 } from 'Components'
 
 function a11yProps(index) {
@@ -46,7 +46,7 @@ export const AppTabs = () => {
 		setValue(newValue)
 	}
 
-	const currentUser = useCurrentUser()
+	const currentUser = useContext(UserContext)
 
 	return (
 		<Paper className={classes.root}>
