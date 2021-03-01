@@ -1,7 +1,7 @@
 import React, { useMemo, useContext } from 'react'
 import { List, ListItem, Chip, Button, LinearProgress } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
-import { PublicQuestionsContext } from 'Components'
+import { PublicQuestionsContext } from 'components'
 
 export const AnswerCell = (props) => {
 	// console.log('AnswerCell props :>> ', props);

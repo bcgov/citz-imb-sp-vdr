@@ -12,11 +12,11 @@ import {
 	ConfigContext,
 	useList_OLD,
 	AnswerCell,
-	SPList,
+	SPList_OLD,
 	PublicQuestionsContext,
 	useLogAction,
 	FormikDialog,
-} from 'Components'
+} from 'components'
 import { Assignee } from './Assignee/Assignee'
 import { LinearProgress } from '@material-ui/core'
 

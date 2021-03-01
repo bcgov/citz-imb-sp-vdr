@@ -7,7 +7,7 @@ import {
 	Switch,
 } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
-import { FormikDialog, useLogAction } from 'Components'
+import { FormikDialog, useLogAction } from 'components'
 
 export const OverView = (props) => {
 	const {

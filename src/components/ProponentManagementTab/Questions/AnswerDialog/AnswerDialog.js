@@ -4,12 +4,12 @@ import {
 	ConfigContext,
 	useList_OLD,
 	AnswerCell,
-	SPList,
+	SPList_OLD,
 	PublicQuestionsContext,
 	useLogAction,
 	FormikDialog,
 	ProponentsContext,
-} from 'Components'
+} from 'components'
 import { TimerOutlined } from '@material-ui/icons'
 
 export const AnswerDialog = (props) => {

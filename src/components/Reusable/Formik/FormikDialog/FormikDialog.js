@@ -10,7 +10,7 @@ import {
 	LinearProgress,
 } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
-import { FormikControls } from 'Components'
+import { FormikControls } from 'components'
 import { Markup } from 'interweave'
 import * as Yup from 'yup'
 

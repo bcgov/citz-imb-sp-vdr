@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { useList_OLD, SendConfirmationEmail } from 'Components'
+import { useList_OLD, SendConfirmationEmail } from 'components'
 import {
 	AddPermissionsToList,
 	AddPermissionsToSite,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, Fragment } from 'react'
-import { FormikDialog } from 'Components'
+import { FormikDialog } from 'components'
 import { IconButton, TableContainer } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
@@ -10,7 +10,7 @@ import { SPTable } from '../SPTable/SPTable'
 //TODO: addRecord is incomplete!
 //TODO: global filter
 
-export const SPList = (props) => {
+export const SPList_OLD = (props) => {
 	const {
 		listName,
 		columnFiltering = true,
@@ -32,7 +32,7 @@ export const SPList = (props) => {
 		isLoading,
 	} = props
 
-	// console.log('SPList props :>> ', props);
+	// console.log('SPList_OLD props :>> ', props);
 
 	const [dialog, setDialog] = useState({ open: false })
 	const [freeActions, setFreeActions] = useState([])

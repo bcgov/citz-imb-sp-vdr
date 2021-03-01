@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useList_OLD, useCurrentUser } from 'Components'
+import { useList_OLD, useCurrentUser } from 'components'
 import { LinearProgress } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 

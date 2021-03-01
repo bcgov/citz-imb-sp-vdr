@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { SnackbarProvider } from 'notistack'
 import { LinearProgress } from '@material-ui/core'
-import { useConfig, useList_OLD, useProponents } from 'Components'
+import { useConfig, useList_OLD, useProponents } from 'components'
 
 import { Logon } from './Logon/Logon'
 import { Test } from '../Test'
@@ -18,8 +18,8 @@ export const AppContexts = () => {
 	const [isLoading, setIsLoading] = useState(true)
 
 	const configList = useConfig()
-	const publicQuestions = useList_OLD('Questions')
-	
+	// const publicQuestions = useList_OLD('Questions')
+
 	const proponents = useProponents()
 
 	useEffect(() => {
@@ -38,12 +38,12 @@ export const AppContexts = () => {
 			}}>
 			<QueryClientProvider client={queryClient}>
 				<ConfigContext.Provider value={configList}>
-					<PublicQuestionsContext.Provider value={publicQuestions}>
+					{/* <PublicQuestionsContext.Provider value={publicQuestions}> */}
 						<ProponentsContext.Provider value={proponents}>
-							{/* <Logon /> */}
-							<Test />
+							<Logon />
+							{/* <Test /> */}
 						</ProponentsContext.Provider>
-					</PublicQuestionsContext.Provider>
+					{/* </PublicQuestionsContext.Provider> */}
 				</ConfigContext.Provider>
 			</QueryClientProvider>
 		</SnackbarProvider>

@@ -4,7 +4,7 @@ import {
 	AddItemsToList,
 	UpdateListItem,
 } from 'citz-imb-sp-utilities'
-import { SPList } from 'Components'
+import { SPList_OLD } from 'components'
 import * as Yup from 'yup'
 
 import { useQuery, useMutation, useQueryClient } from 'react-query'
@@ -21,7 +21,7 @@ export const useList = (props) => {
 	const list = useQuery(listQueryName, () => getList(listName))
 	const items = useQuery(itemsQueryName, () => GetListItems(listName))
 
-	console.log('items :>> ', items);
+	console.log('items :>> ', items)
 
 	const getCurrentViewColumns = () => {
 		if (list.isLoading || list.isError) return []

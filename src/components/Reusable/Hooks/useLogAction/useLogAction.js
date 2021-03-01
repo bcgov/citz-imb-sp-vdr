@@ -1,7 +1,7 @@
 import { AddItemsToList } from 'citz-imb-sp-utilities'
 import * as moment from 'moment'
 import { useSnackbar } from 'notistack'
-import { useCurrentUser } from 'Components'
+import { useCurrentUser } from 'components'
 
 export const useLogAction = () => {
 	const currentUser = useCurrentUser()

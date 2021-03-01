@@ -8,5 +8,5 @@ export { Public } from 'components/PublicTab/Public/Public'
 export { SiteManagement } from 'components/SiteManagementTab/SiteManagement/SiteManagement'
 
 //Hooks and Contexts and Constants
-export * from 'components/Reusable/Reusable'
+export * from 'components/Reusable'
 export * from 'components/App/AppContexts/AppContexts'

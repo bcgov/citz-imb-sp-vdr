@@ -17,10 +17,15 @@ import {
 	TableSortLabel,
 	TablePagination,
 } from '@material-ui/core'
-import PublishIcon from '@material-ui/icons/Publish'
 
 export const SPTable = (props) => {
-	const { table, listName, columnFiltering = false, columns, handleUpload } = props
+	const {
+		table,
+		listName,
+		columnFiltering = false,
+		columns,
+		tableActions = [],
+	} = props
 
 	const {
 		getTableProps,
@@ -37,12 +42,6 @@ export const SPTable = (props) => {
 
 	const { pageIndex, pageSize } = state
 
-	const handleViewChange = () => {
-		//TODO Views and changing the view
-	}
-	const handleUploadClick = () => {
-		handleUpload()
-	}
 	return (
 		<Fragment>
 			<AppBar position={'static'}>
@@ -50,22 +49,9 @@ export const SPTable = (props) => {
 					<Typography variant={'h6'} style={{ flexGrow: 1 }}>
 						{listName}
 					</Typography>
-					{/* <Select
-						id={`${listName}_view_select`}
-						value={'default'}
-						autoWidth={true}
-						onChange={handleViewChange}
-						variant={'outlined'}
-						>
-						<MenuItem value={'default'}>default</MenuItem>
-					</Select> */}
-					<IconButton
-						onClick={handleUploadClick}
-						size={'small'}
-						color={'secondary'}
-						arial-label={'upload'}>
-						<PublishIcon />
-					</IconButton>
+					{tableActions.map((action, index) => (
+						<div key={index}>{action}</div>
+					))}
 				</Toolbar>
 			</AppBar>
 			<Table {...getTableProps()}>

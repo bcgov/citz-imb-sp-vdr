@@ -7,7 +7,7 @@ import {
 	CustomTable,
 	SendConfirmationEmail,
 	ConfigContext,
-} from 'Components'
+} from 'components'
 import { IconButton, LinearProgress } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
@@ -40,7 +40,7 @@ export const GroupTable = (props) => {
 	const { addUserEmail, removeUserEmail, contactEmail } = items
 
 	const proponentGroup = useGroup({ groupId })
-console.log('proponentGroup :>> ', proponentGroup);
+	console.log('proponentGroup :>> ', proponentGroup)
 	const columns = useMemo(() => {
 		if (proponentGroup.isLoading || proponentGroup.isError) return []
 		return [

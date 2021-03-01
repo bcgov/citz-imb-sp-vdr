@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { deviceDetect } from 'react-device-detect'
-import { useLogAction, TermsOfService } from 'Components'
+import { useLogAction, TermsOfService } from 'components'
 
 export const Logon = () => {
 	const logAction = useLogAction()

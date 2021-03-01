@@ -1,10 +1,11 @@
-import React, { Fragment, useMemo, useState, useContext } from 'react'
+import React, { useMemo, useState, useContext } from 'react'
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table'
-import { useLibrary } from 'Components'
-import { LinearProgress } from '@material-ui/core'
+import { useLibrary } from 'components'
+import { LinearProgress, IconButton } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
+import PublishIcon from '@material-ui/icons/Publish'
 import { SPTable } from '../SPTable'
-import { FormikDialog, ConfigContext, ProponentsContext } from 'Components'
+import { FormikDialog, ConfigContext, ProponentsContext } from 'components'
 import { DropZone } from '../DropZone'
 
 export const SPLibrary = (props) => {
@@ -46,6 +47,16 @@ export const SPLibrary = (props) => {
 		useSortBy,
 		usePagination
 	)
+
+	const tableActions = [
+		<IconButton
+			onClick={handleUploadDocument}
+			size={'small'}
+			color={'secondary'}
+			arial-label={'upload'}>
+			<PublishIcon />
+		</IconButton>,
+	]
 
 	const uploadDocuments = async (filesToUpload) => {
 		await library.addDocuments(filesToUpload)
@@ -98,13 +109,13 @@ export const SPLibrary = (props) => {
 		)
 	}
 	return (
-		<Fragment>
+		<>
 			<SPTable
 				table={table}
 				listName={listName}
 				columns={columns}
 				columnFiltering={columnFiltering}
-				handleUpload={handleUploadDocument}
+				tableActions={tableActions}
 			/>
 			<FormikDialog
 				open={formOpen}
@@ -114,6 +125,6 @@ export const SPLibrary = (props) => {
 				dialogContent={dialogContent}>
 				<DropZone setAcceptedFiles={handleFilesToUpload} />
 			</FormikDialog>
-		</Fragment>
+		</>
 	)
 }

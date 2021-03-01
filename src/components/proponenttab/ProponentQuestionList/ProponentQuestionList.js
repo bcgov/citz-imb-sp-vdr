@@ -20,7 +20,7 @@ import {
 	ConfigContext,
 	SendConfirmationEmail,
 	useProponents,
-} from 'Components'
+} from 'components'
 import * as Yup from 'yup'
 
 export const ProponentQuestionList = () => {

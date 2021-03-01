@@ -7,7 +7,7 @@ import {
 	FormikDialog,
 	FormatText,
 	Home,
-} from 'Components'
+} from 'components'
 
 export const TermsOfService = () => {
 	const [dialog, setDialog] = useState({ open: false })

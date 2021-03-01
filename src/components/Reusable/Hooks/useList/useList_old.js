@@ -6,7 +6,7 @@ import {
 	UpdateListItem,
 } from 'citz-imb-sp-utilities'
 import moment from 'moment'
-import { SPList } from 'Components'
+import { SPList_OLD } from 'components'
 import { ColumnFilter } from './ColumnFilter/ColumnFilter'
 import { SelectColumnFilter } from './SelectColumnFilter/SelectColumnFilter.js'
 import { SelectUserColumnFilter } from './SelectUserColumnFilter/SelectUserColumnFilter'
@@ -190,7 +190,7 @@ export const useList_OLD = (listName, options = {}) => {
 
 	const getRender = (props) => {
 		return (
-			<SPList
+			<SPList_OLD
 				listName={listName}
 				columns={columns}
 				items={items}

@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect, Fragment } from 'react'
-import { useLogAction, FormikDialog } from 'Components'
+import { useLogAction, FormikDialog } from 'components'
 import { ListItem, List } from '@material-ui/core'
 import * as Yup from 'yup'
 import { GetListItems, UpdateListItem } from 'citz-imb-sp-utilities'

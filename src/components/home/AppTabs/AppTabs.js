@@ -13,7 +13,7 @@ import {
 	ProponentManagementTab,
 	SiteManagement,
 	useCurrentUser,
-} from 'Components'
+} from 'components'
 
 function a11yProps(index) {
 	return {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useList_OLD } from 'Components'
+import { useList_OLD } from 'components'
 import { ConsoleView } from 'react-device-detect'
 
 export const useConfig = () => {

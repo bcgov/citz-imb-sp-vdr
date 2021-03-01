@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { Select, Button, MenuItem } from '@material-ui/core'
-import { useLogAction } from 'Components'
+import { useLogAction } from 'components'
 
 const AssigneeOptions = [
 	'VICO Manager',
