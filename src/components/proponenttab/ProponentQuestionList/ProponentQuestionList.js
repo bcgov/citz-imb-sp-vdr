@@ -13,7 +13,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle'
 import { GetGroupMembers, GetUserByEmail } from 'citz-imb-sp-utilities'
 import {
 	AnswerCell,
-	UserContext,
+	useCurrentUser,
 	useList,
 	FormikDialog,
 	useLogAction,
@@ -27,7 +27,7 @@ export const ProponentQuestionList = () => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [dialogOptions, setDialogOptions] = useState({ open: false })
 
-	const currentUser = useContext(UserContext)
+	const currentUser = useCurrentUser()
 	const config = useContext(ConfigContext)
 	const { contactEmail, addQuestionEmail, newQuestionEmail } = config.items
 
@@ -192,11 +192,14 @@ export const ProponentQuestionList = () => {
 		return () => {}
 	}, [listIsLoading, proponentsIsLoading])
 
-	return currentUser.proponent === 'not a proponent' ? (
-		<Alert severity={'info'}>User is not a proponent</Alert>
-	) : (
+	if (currentUser.isLoading || isLoading) return <LinearProgress />
+
+	if (!currentUser.isProponent)
+		return <Alert severity={'info'}>User is not a proponent</Alert>
+
+	return (
 		<Fragment>
-			{isLoading ? <LinearProgress /> : getRender(listOptions)}
+			{getRender(listOptions)}
 			<FormikDialog {...dialogOptions} />
 		</Fragment>
 	)

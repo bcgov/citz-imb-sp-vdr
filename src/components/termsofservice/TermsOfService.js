@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Cookies from 'universal-cookie'
 import {
 	ConfigContext,
-	UserContext,
+	useCurrentUser,
 	useLogAction,
 	FormikDialog,
 	FormatText,
@@ -16,7 +16,7 @@ export const TermsOfService = () => {
 	const { items: configItems, isLoading: configIsLoading } = useContext(
 		ConfigContext
 	)
-	const currentUser = useContext(UserContext)
+	const currentUser = useCurrentUser()
 
 	const cookies = new Cookies()
 
