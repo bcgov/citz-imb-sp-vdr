@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { AppBar, Tabs, Tab, Paper, makeStyles } from '@material-ui/core'
 
 import HomeIcon from '@material-ui/icons/Home'

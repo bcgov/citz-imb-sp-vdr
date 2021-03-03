@@ -21,18 +21,10 @@ export const GroupTable = (props) => {
 		proponent,
 		addRecord = false,
 		showTitle = true,
-		// deleteItem = false,
-		// editItem = false,
-		refresh = true,
 	} = props
 
 	const [dialog, setDialog] = useState({
-		// fields: [],
-		// onSubmit: () => {},
 		open: false,
-		// close: () => {},
-		// title: '',
-		// instructions: '',
 	})
 
 	const logAction = useLogAction()
@@ -40,7 +32,7 @@ export const GroupTable = (props) => {
 	const { addUserEmail, removeUserEmail, contactEmail } = items
 
 	const proponentGroup = useGroup({ groupId })
-	console.log('proponentGroup :>> ', proponentGroup)
+
 	const columns = useMemo(() => {
 		if (proponentGroup.isLoading || proponentGroup.isError) return []
 		return [
@@ -101,7 +93,6 @@ export const GroupTable = (props) => {
 					name: 'members',
 					label: 'Members',
 					initialValue: '',
-					//validationSchema: Yup.string().required('Required'),
 					control: 'peoplepicker',
 				},
 			],

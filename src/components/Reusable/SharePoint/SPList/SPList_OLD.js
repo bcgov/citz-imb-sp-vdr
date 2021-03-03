@@ -3,7 +3,7 @@ import { FormikDialog } from 'components'
 import { IconButton, TableContainer } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
-import { SPTable } from '../SPTable/SPTable'
+import { SPTable_OLD } from '../SPTable/SPTable_OLD'
 
 //TODO: allow changes to a different view
 //TODO: CRUD operations
@@ -113,7 +113,7 @@ export const SPList_OLD = (props) => {
 						)
 					})}
 				</div>
-				<SPTable columns={tableColumns} {...tableOptions} />
+				<SPTable_OLD columns={tableColumns} {...tableOptions} />
 			</TableContainer>
 			<FormikDialog {...dialog} />
 		</Fragment>

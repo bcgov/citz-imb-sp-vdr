@@ -1,206 +1,57 @@
-import React, { useState, useContext, useEffect, Fragment } from 'react'
+import React from 'react'
 import {
-	Button,
-	IconButton,
 	LinearProgress,
-	Chip,
-	Divider,
-	List,
-	ListItem,
 } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
-import AddCircleIcon from '@material-ui/icons/AddCircle'
-import { GetGroupMembers, GetUserByEmail } from 'citz-imb-sp-utilities'
 import {
 	AnswerCell,
 	useCurrentUser,
-	useList_OLD,
-	FormikDialog,
-	useLogAction,
-	ConfigContext,
-	SendConfirmationEmail,
-	useProponents,
+	SelectColumnFilter,
 } from 'components'
-import * as Yup from 'yup'
+import { SPList } from 'components/SharePoint'
+
+import { AskQuestion } from './AskQuestion/AskQuestion'
 
 export const ProponentQuestionList = () => {
-	const [isLoading, setIsLoading] = useState(true)
-	const [dialogOptions, setDialogOptions] = useState({ open: false })
-
 	const currentUser = useCurrentUser()
-	const config = useContext(ConfigContext)
-	const { contactEmail, addQuestionEmail, newQuestionEmail } = config.items
+	const proponentQuestionListName = `${currentUser.proponent}_Questions`
 
-	const logAction = useLogAction()
+	if (currentUser.isLoading) return <LinearProgress />
 
-	const { getProponent, isLoading: proponentsIsLoading } = useProponents()
-
-	const {
-		addItem,
-		isLoading: listIsLoading,
-		SelectColumnFilter,
-		items,
-		refresh,
-		updateItem,
-		getRender,
-	} = useList_OLD(`${currentUser.proponent}_Questions`)
-
-	const sendEmails = async () => {
-		const proponent = getProponent(currentUser.proponent)
-
-		const groupMembers = await GetGroupMembers({
-			groupId: proponent.GroupId,
-		})
-
-		for (let i = 0; i < groupMembers.length; i++) {
-			await SendConfirmationEmail({
-				addresses: groupMembers[i].LoginName,
-				proponent: proponent.Title,
-				subject: addQuestionEmail.TextValue,
-				body: addQuestionEmail.MultiTextValue,
-				additionalReplacementPairs: [
-					{
-						searchvalue: /\[UserName\]/g,
-						newvalue: currentUser.name,
-					},
-					{
-						searchvalue: /\[AddresseeName\]/g,
-						newvalue: groupMembers[i].Title,
-					},
-				],
-			})
-		}
-		const contactEmailUser = await GetUserByEmail({
-			email: contactEmail.TextValue,
-		})
-
-		await SendConfirmationEmail({
-			addresses: contactEmailUser[0].LoginName,
-			proponent: proponent.Title,
-			subject: newQuestionEmail.TextValue,
-			body: newQuestionEmail.MultiTextValue,
-		})
-	}
-
-	const onQuestionSubmit = async (values, { setSubmitting }) => {
-		let latestItem = { Id: 0 }
-		let nextQuestionNumber
-
-		if (items.length > 0) {
-			for (let i = 0; i < items.length; i++) {
-				if (items[i].Id > latestItem.Id) latestItem = items[i]
-			}
-
-			nextQuestionNumber = parseInt(latestItem.QuestionID.slice(-3)) + 1
-		} else {
-			nextQuestionNumber = 1
-		}
-
-		const nextQuestionNumberString = nextQuestionNumber.toString()
-
-		values.QuestionID = `${
-			currentUser.proponent
-		}-${nextQuestionNumberString.padStart(3, '0')}`
-
-		try {
-			await addItem(values)
-			await sendEmails()
-			logAction(`successfully asked ${values.Title}`)
-			refresh()
-		} catch (error) {
-			console.error('error submitting question', error)
-		}
-		setSubmitting(false)
-		setDialogOptions({ open: false })
-	}
-
-	const withdrawQuestion = async (values) => {
-		try {
-			await updateItem({
-				Id: values.Id,
-				Withdrawn: true,
-				AnswerStatus: 'Withdrawn',
-				Assignee: '',
-			})
-			logAction(`successfully withdrew ${values.Title}`)
-		} catch (error) {
-			console.error('error withdrawing question', error)
-		}
-	}
-
-	const listOptions = {
-		tableTitle: 'Submitted Questions',
-		customActions: [
-			{
-				render: (
-					<IconButton
-						onClick={() => {
-							setDialogOptions({
-								open: true,
-								close: () => {
-									setDialogOptions({ open: false })
-								},
-								fields: [
-									{
-										name: 'Title',
-										label: 'Question',
-										initialValue: '',
-										validationSchema: Yup.string().required(
-											'Required'
-										),
-										required: true,
-										control: 'input',
-									},
-								],
-								onSubmit: onQuestionSubmit,
-								title: 'Ask a Question',
-							})
-						}}>
-						<AddCircleIcon color={'primary'} fontSize={'large'} />
-					</IconButton>
-				),
-				tooltip: 'Submit Question',
-				isFreeAction: true,
+	const initialState = { sortBy: [{ id: 'Created', desc: true }] }
+	const customColumns = [
+		{
+			Filter: SelectColumnFilter,
+			accessor: 'AnswerStatus',
+			Header: 'Status / Answer',
+			Cell: ({ value, row }) => {
+				return (
+					<AnswerCell
+						row={row}
+						showWithdrawButton={true}
+						value={value}
+						proponentQuestionsListName={proponentQuestionListName}
+					/>
+				)
 			},
-		],
-		initialState: { sortBy: [{ id: 'Created', desc: true }] },
-		customColumns: [
-			{
-				Filter: SelectColumnFilter,
-				accessor: 'AnswerStatus',
-				Header: 'Status / Answer',
-				Cell: ({ value, row }) => {
-					return (
-						<AnswerCell
-							row={row}
-							setDialogOptions={setDialogOptions}
-							withdrawQuestion={withdrawQuestion}
-							value={value}
-						/>
-					)
-				},
-			},
-		],
+		},
+	]
+
+	const tableProps = {
+		title: 'Submitted Questions',
+		columnFiltering: true,
+		tableActions: [<AskQuestion listName={proponentQuestionListName} />],
 	}
-
-	useEffect(() => {
-		if (!listIsLoading && !proponentsIsLoading) {
-			setIsLoading(false)
-		} else {
-			setIsLoading(true)
-		}
-		return () => {}
-	}, [listIsLoading, proponentsIsLoading])
-
-	if (currentUser.isLoading || isLoading) return <LinearProgress />
 
 	if (!currentUser.isProponent)
 		return <Alert severity={'info'}>User is not a proponent</Alert>
 
 	return (
-		<Fragment>
-			{getRender(listOptions)}
-			<FormikDialog {...dialogOptions} />
-		</Fragment>
+		<SPList
+			listName={proponentQuestionListName}
+			customColumns={customColumns}
+			initialState={initialState}
+			tableProps={tableProps}
+		/>
 	)
 }

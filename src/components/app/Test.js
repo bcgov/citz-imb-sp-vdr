@@ -1,10 +1,6 @@
 import React from 'react'
-import { PublicQuestionList } from '../PublicTab/PublicQuestionList/PublicQuestionList'
-import { PublicLibrary } from '../PublicTab/PublicLibrary/PublicLibrary'
+import { ProponentQuestionList } from '../ProponentTab/ProponentQuestionList/ProponentQuestionList'
 
 export const Test = () => {
-	return (
-			<PublicQuestionList />
-
-	)
+	return <ProponentQuestionList />
 }

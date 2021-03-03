@@ -10,7 +10,7 @@ import { DropZone } from '../DropZone'
 
 export const SPLibrary = (props) => {
 	const { listName } = props
-	const initialState = []
+
 	const columnFiltering = false
 
 	const library = useLibrary(listName)
@@ -19,8 +19,6 @@ export const SPLibrary = (props) => {
 	const [dialogContent, setDialogContent] = useState(null)
 	const config = useContext(ConfigContext)
 	const proponents = useContext(ProponentsContext)
-
-	// console.log('library :>> ', library)
 
 	const handleFilesToUpload = (files) => {
 		setFilesToUpload(files)

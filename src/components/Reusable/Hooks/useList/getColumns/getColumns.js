@@ -1,8 +1,8 @@
 import React from 'react'
 import moment from 'moment'
 
-import { ColumnFilter } from '../ColumnFilter/ColumnFilter'
-import { SelectUserColumnFilter } from '../SelectUserColumnFilter/SelectUserColumnFilter'
+import { ColumnFilter } from '../../../Filters/ColumnFilter/ColumnFilter'
+import { SelectUserColumnFilter } from '../../../Filters/SelectUserColumnFilter/SelectUserColumnFilter'
 import { User } from '../User/User'
 
 export const getColumns = (props) => {
@@ -11,7 +11,7 @@ export const getColumns = (props) => {
 	const viewColumns = CurrentView.ViewFields.Items.results
 
 	return viewColumns.map((column) => {
-		const viewField = fields.filter((field) => field.Title === column)[0]
+		const viewField = fields.filter((field) => field.InternalName === column)[0]
 		let newColumn = {
 			Header: viewField.Title,
 			Footer: viewField.Title,

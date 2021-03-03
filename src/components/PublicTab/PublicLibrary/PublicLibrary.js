@@ -4,5 +4,7 @@ import { SPLibrary } from 'components/SharePoint'
 export const PublicLibrary = () => {
 	const publicLibrary = 'Documents'
 
-	return <SPLibrary listName={publicLibrary} />
+	const dialogProps = { title: `Upload to ${publicLibrary}` }
+
+	return <SPLibrary listName={publicLibrary} dialogProps={dialogProps} />
 }

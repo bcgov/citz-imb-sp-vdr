@@ -1,86 +1,61 @@
-import React, { useMemo, useContext } from 'react'
-import { List, ListItem, Chip, Button, LinearProgress } from '@material-ui/core'
+import React from 'react'
+import { List, ListItem, Chip, LinearProgress } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
-import { PublicQuestionsContext } from 'components'
+import { useList } from 'components'
+import { WithdrawQuestion } from './WithdrawQuestion/WithdrawQuestion'
 
 export const AnswerCell = (props) => {
-	// console.log('AnswerCell props :>> ', props);
-	const { row, value, withdrawQuestion } = props
+	const { row, value, proponentQuestionsListName, showWithdrawButton = false } = props
 
-	const { getItemById, listIsLoading } = useContext(PublicQuestionsContext)
+	const publicQuestions = useList({ listName: 'Questions' })
 
-	const handleClick = (event) => {
-		console.log('value :>> ', value)
-		console.log('row:>> ', row)
-		withdrawQuestion({ Id: row.original.Id, Title: row.original.Title })
+	if (value === 'Withdrawn') return <Chip label={value} size={'small'} />
+
+	if (value === 'Posted') {
+		if (publicQuestions.isLoading) return <LinearProgress />
+
+		const item = publicQuestions.items.filter(
+			(item) => item.Id === parseInt(row.original.Answer)
+		)[0]
+		const isSanitized = row.values.Title !== item.Question
+
+		return (
+			<List dense={true}>
+				{isSanitized ? (
+					<ListItem disableGutters={true} divider={true}>
+						<Alert
+							severity={'warning'}
+							variant={'outlined'}
+							icon={false}>
+							<AlertTitle>Published Question</AlertTitle>
+							{item.Question}
+						</Alert>
+					</ListItem>
+				) : null}
+				<ListItem disableGutters={true}>
+					<Alert
+						severity={'success'}
+						variant={'outlined'}
+						icon={false}>
+						<AlertTitle>Answer</AlertTitle>
+						{item.Answer}
+					</Alert>
+				</ListItem>
+			</List>
+		)
 	}
 
-	const memoizedRender = useMemo(() => {
-		let render = <LinearProgress />
-
-		if (value === 'Posted') {
-			if (!listIsLoading) {
-				const item = getItemById(parseInt(row.original.Answer))
-				const isSanitized = row.values.Title !== item.Question
-				render = (
-					<List dense={true}>
-						{isSanitized ? (
-							<ListItem disableGutters={true} divider={true}>
-								<Alert
-									severity={'warning'}
-									variant={'outlined'}
-									icon={false}>
-									<AlertTitle>Published Question</AlertTitle>
-									{item.Question}
-								</Alert>
-							</ListItem>
-						) : null}
-						<ListItem disableGutters={true}>
-							<Alert
-								severity={'success'}
-								variant={'outlined'}
-								icon={false}>
-								<AlertTitle>Answer</AlertTitle>
-								{item.Answer}
-							</Alert>
-						</ListItem>
-					</List>
-				)
-			}
-		} else if (value === 'Withdrawn') {
-			render = <Chip label={value} size={'small'} />
-		} else {
-			if (withdrawQuestion) {
-				render = (
-					<List dense={true}>
-						<ListItem disableGutters={true} divider={true}>
-							<Chip
-								label={value}
-								size={'small'}
-								color={'secondary'}
-							/>
-						</ListItem>
-						<ListItem disableGutters={true}>
-							<Button
-								onClick={handleClick}
-								label={value}
-								size={'small'}
-								variant={'contained'}
-								color={'primary'}>
-								Withdraw
-							</Button>
-						</ListItem>
-					</List>
-				)
-			} else {
-				render = (
+	if (showWithdrawButton)
+		return (
+			<List dense={true}>
+				<ListItem disableGutters={true} divider={true}>
 					<Chip label={value} size={'small'} color={'secondary'} />
-				)
-			}
-		}
+				</ListItem>
+				<ListItem disableGutters={true}>
+					<WithdrawQuestion value={value} row={row} listName={proponentQuestionsListName} />
+				</ListItem>
+			</List>
+		)
 
-		return render
-	}, [listIsLoading])
-
-	return memoizedRender
+	return <Chip label={value} size={'small'} color={'secondary'} />
 }

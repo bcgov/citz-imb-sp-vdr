@@ -1,22 +1,6 @@
-import React, {
-	useContext,
-	useEffect,
-	useMemo,
-	useState,
-	Fragment,
-} from 'react'
-import { QuestionTable } from './QuestionTable/QuestionTable'
+import React, { useMemo, useState, Fragment } from 'react'
 import { AnswerDialog } from './AnswerDialog/AnswerDialog'
-import { ProponentsContext } from '../ProponentManagementTab'
-import {
-	ConfigContext,
-	useList_OLD,
-	AnswerCell,
-	SPList_OLD,
-	PublicQuestionsContext,
-	useLogAction,
-	FormikDialog,
-} from 'components'
+import { useList_OLD, AnswerCell } from 'components'
 import { Assignee } from './Assignee/Assignee'
 import { LinearProgress } from '@material-ui/core'
 

@@ -7,9 +7,9 @@ import {
 } from 'citz-imb-sp-utilities'
 import moment from 'moment'
 import { SPList_OLD } from 'components'
-import { ColumnFilter } from './ColumnFilter/ColumnFilter'
-import { SelectColumnFilter } from './SelectColumnFilter/SelectColumnFilter.js'
-import { SelectUserColumnFilter } from './SelectUserColumnFilter/SelectUserColumnFilter'
+import { ColumnFilter } from '../../Filters/ColumnFilter/ColumnFilter'
+import { SelectColumnFilter } from '../../Filters/SelectColumnFilter/SelectColumnFilter.js'
+import { SelectUserColumnFilter } from '../../Filters/SelectUserColumnFilter/SelectUserColumnFilter'
 import * as Yup from 'yup'
 import { User } from './User/User'
 

@@ -36,14 +36,9 @@ export const FormikDialog = (props) => {
 	const [controls, setControls] = useState([])
 
 	const getValidationSchema = () => {
-		console.log('getValidationSchema', fields)
 		const _validationSchema = {}
 		for (let i = 0; i < fields.length; i++) {
 			_validationSchema[fields[i].name] = fields[i].validationSchema
-			console.log(
-				'fields[i].validationSchema :>> ',
-				fields[i].validationSchema
-			)
 		}
 
 		return Yup.object(_validationSchema)

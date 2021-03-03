@@ -1,13 +1,8 @@
 import React, { Fragment } from 'react'
 import {
 	AppBar,
-	ButtonGroup,
-	Button,
-	Fab,
+	CircularProgress,
 	Toolbar,
-	IconButton,
-	Select,
-	MenuItem,
 	Typography,
 	Table,
 	TableHead,
@@ -17,6 +12,7 @@ import {
 	TableSortLabel,
 	TablePagination,
 } from '@material-ui/core'
+import {useList} from 'components'
 
 export const SPTable = (props) => {
 	const {
@@ -25,6 +21,7 @@ export const SPTable = (props) => {
 		columnFiltering = false,
 		columns,
 		tableActions = [],
+		title,
 	} = props
 
 	const {
@@ -42,13 +39,16 @@ export const SPTable = (props) => {
 
 	const { pageIndex, pageSize } = state
 
+	const {isLoading, isMutating} = useList({listName})
+
 	return (
 		<Fragment>
 			<AppBar position={'static'}>
 				<Toolbar>
 					<Typography variant={'h6'} style={{ flexGrow: 1 }}>
-						{listName}
+						{title ?? listName}
 					</Typography>
+					{isLoading || isMutating ? <CircularProgress color={'secondary'} /> : null}
 					{tableActions.map((action, index) => (
 						<div key={index}>{action}</div>
 					))}

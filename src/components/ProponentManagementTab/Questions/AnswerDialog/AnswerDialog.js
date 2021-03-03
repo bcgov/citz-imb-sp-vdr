@@ -3,14 +3,10 @@ import * as yup from 'yup'
 import {
 	ConfigContext,
 	useList_OLD,
-	AnswerCell,
-	SPList_OLD,
 	PublicQuestionsContext,
-	useLogAction,
 	FormikDialog,
 	ProponentsContext,
 } from 'components'
-import { TimerOutlined } from '@material-ui/icons'
 
 export const AnswerDialog = (props) => {
 	const {
@@ -30,7 +26,6 @@ export const AnswerDialog = (props) => {
 	const proponents = useContext(ProponentsContext)
 	const publicQuestions = useContext(PublicQuestionsContext)
 	const config = useContext(ConfigContext)
-	const logAction = useLogAction()
 	const proponentQuestions = useList_OLD(`${UUID}_Questions`)
 
 	const getOptions = () => {

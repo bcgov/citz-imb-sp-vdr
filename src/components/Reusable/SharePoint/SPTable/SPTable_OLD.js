@@ -10,7 +10,7 @@ import {
 	TablePagination,
 } from '@material-ui/core'
 
-export const SPTable = (props) => {
+export const SPTable_OLD = (props) => {
 	const {
 		listName,
 		items = [],

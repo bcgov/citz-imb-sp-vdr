@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { SnackbarProvider } from 'notistack'
 import { LinearProgress } from '@material-ui/core'
-import { useConfig, useList_OLD, useProponents } from 'components'
+import { useConfig, useProponents } from 'components'
 
 import { Logon } from './Logon/Logon'
 import { Test } from '../Test'
 
 import { QueryClientProvider, QueryClient } from 'react-query'
+import { ReactQueryDevtoolsPanel } from 'react-query/devtools'
 
 export const ConfigContext = React.createContext()
 export const PublicQuestionsContext = React.createContext()
@@ -14,11 +15,12 @@ export const ProponentsContext = React.createContext()
 
 const queryClient = new QueryClient()
 
+const isTest = true
+
 export const AppContexts = () => {
 	const [isLoading, setIsLoading] = useState(true)
 
 	const configList = useConfig()
-	// const publicQuestions = useList_OLD('Questions')
 
 	const proponents = useProponents()
 
@@ -38,12 +40,16 @@ export const AppContexts = () => {
 			}}>
 			<QueryClientProvider client={queryClient}>
 				<ConfigContext.Provider value={configList}>
-					{/* <PublicQuestionsContext.Provider value={publicQuestions}> */}
-						<ProponentsContext.Provider value={proponents}>
+					<ProponentsContext.Provider value={proponents}>
+						{isTest ? (
+							<>
+								<Test />
+								<ReactQueryDevtoolsPanel />
+							</>
+						) : (
 							<Logon />
-							{/* <Test /> */}
-						</ProponentsContext.Provider>
-					{/* </PublicQuestionsContext.Provider> */}
+						)}
+					</ProponentsContext.Provider>
 				</ConfigContext.Provider>
 			</QueryClientProvider>
 		</SnackbarProvider>

@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react'
 import {
 	GetListItems,
 	AddItemsToList,
 	UpdateListItem,
 } from 'citz-imb-sp-utilities'
-import { SPList_OLD } from 'components'
-import * as Yup from 'yup'
 
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 
@@ -13,7 +10,7 @@ import { getList } from './getList/getList'
 import { getColumns } from './getColumns/getColumns'
 
 export const useList = (props) => {
-	const { listName, listView } = props
+	const { listName } = props
 
 	const listQueryName = [listName, 'list']
 	const itemsQueryName = [listName, 'items']
@@ -21,125 +18,86 @@ export const useList = (props) => {
 	const list = useQuery(listQueryName, () => getList(listName))
 	const items = useQuery(itemsQueryName, () => GetListItems(listName))
 
-	console.log('items :>> ', items)
+	const queryClient = useQueryClient()
 
 	const getCurrentViewColumns = () => {
 		if (list.isLoading || list.isError) return []
 		return getColumns(list.data)
 	}
 
-	//=================================
+	const addItemMutation = useMutation(
+		(newItem) =>
+			AddItemsToList({
+				listName,
+				items: newItem,
+			}),
+		{
+			onMutate: async (newItem) => {
+				await queryClient.cancelQueries(itemsQueryName)
 
-	// const items = useQuery(itemsQueryName, () => GetListItems({ listGUID: list.Id }))
-	const [currentView, setCurrentView] = useState()
-	const [title, setTitle] = useState('')
-	const [fields, setFields] = useState([])
-	const [views, setViews] = useState([])
-	const [columns, setColumns] = useState([])
-	const [addColumns, setAddColumns] = useState([])
-	// const [items, setItems] = useState()
-	const [isLoading, setIsLoading] = useState(true)
-	const [isRefreshing, setIsRefreshing] = useState(true)
+				const previousValues = queryClient.getQueryData(itemsQueryName)
 
-	const refresh = async () => {
-		setIsRefreshing(true)
-		setIsLoading(true)
-		await getList(listName)
-		setIsRefreshing(false)
-	}
+				queryClient.setQueryData(itemsQueryName, (oldValues) => {
+					let newValues = [...oldValues]
 
-	const changeView = (view) => {
-		if (typeof view === 'string') {
-			for (let i = 0; i < views.length; i++) {
-				if (views[i].Title === view) {
-					setCurrentView(views[i])
-					break
-				}
-			}
-			return
+					newValues.push(newItem)
+					return newValues
+				})
+
+				return { previousValues }
+			},
+			onError: (error, newItem, context) =>
+				queryClient.setQueryData(
+					itemsQueryName,
+					context.previousValues
+				),
+			onSettled: () => queryClient.invalidateQueries(itemsQueryName),
 		}
-		setCurrentView(view)
-	}
+	)
 
-	const addItem = async (addItems) => {
-		try {
-			const newItem = await AddItemsToList({ listName, items: addItems })
-			refresh()
-			return newItem
-		} catch (error) {
-			console.error('useList_OLD addItem error:', error)
-			return error
+	const updateItemMutation = useMutation(
+		(updateItem) => UpdateListItem({ listName, items: updateItem }),
+		{
+			onMutate: async (updateItem) => {
+				const previousValues = queryClient.getQueryData(itemsQueryName)
+
+				queryClient.setQueryData(itemsQueryName, (oldValues) => {
+					let newValues = [...oldValues]
+
+					const itemIndex = newValues.findIndex(
+						(item) => item.Id === updateItem.Id
+					)
+
+					newValues[itemIndex] = {
+						...newValues[itemIndex],
+						...updateItem,
+					}
+
+					return newValues
+				})
+
+				return () =>
+					queryClient.setQueryData(itemsQueryName, previousValues)
+			},
+			onError: (error, values, previousValues) =>
+				queryClient.setQueryData(itemsQueryName, previousValues),
+			onSuccess: () => queryClient.invalidateQueries(itemsQueryName),
 		}
-	}
-
-	const updateItem = async (updateItems) => {
-		// console.log('updateItems :>> ', updateItems)
-		try {
-			await UpdateListItem({ listName, items: updateItems })
-			refresh()
-		} catch (error) {
-			console.error('useList_OLD updateItem error:', error)
-			return error
-		}
-	}
-
-	const getItemById = (id) => {
-		return items.find((item) => item.Id === id)
-	}
-
-	useEffect(() => {
-		refresh()
-		return () => {}
-	}, [])
-
-	useEffect(() => {
-		// console.log('useEffect isRefreshing :>> ', isRefreshing)
-		if (!isRefreshing) {
-			setIsLoading(false)
-		}
-		return () => {}
-	}, [isRefreshing])
-
-	useEffect(() => {
-		// console.log('useEffect isLoading :>> ', isLoading)
-		return () => {}
-	}, [isLoading])
-
-	useEffect(() => {
-		if (listView) {
-			changeView(listView)
-		}
-		return () => {}
-	}, [views])
-
-	useEffect(() => {
-		// if (currentView) setColumns(getColumns())
-		return () => {}
-	}, [currentView])
+	)
 
 	return {
 		list: list.data,
 		columns: getCurrentViewColumns(),
 		items: items.data,
-		isLoading: list.isLoading ? true : false,
-		isError: list.isError ? true : false,
-		isMutating: false,
+		isLoading: list.isLoading ? true : items.isLoading ? true : false,
+		isError: list.isError ? true : items.isError ? true : false,
+		isMutating: addItemMutation.isLoading
+			? true
+			: updateItemMutation.isLoading
+			? true
+			: false,
+		addItem: addItemMutation.mutateAsync,
+		updateItem: updateItemMutation.mutateAsync,
+		test: updateItemMutation,
 	}
-
-	// return {
-	// 	addColumns,
-	// 	addItem,
-	// 	changeView,
-	// 	columns,
-	// 	fields,
-	// 	getRender,
-	// 	getItemById,
-	// 	isLoading,
-	// 	items,
-	// 	refresh,
-	// 	SelectColumnFilter,
-	// 	title,
-	// 	updateItem,
-	// 	views,
-	// }
 }
