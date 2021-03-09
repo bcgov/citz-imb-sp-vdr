@@ -1,51 +1,51 @@
-import React, { useMemo, useState, Fragment } from 'react'
+import React, { useState } from 'react'
 import { AnswerDialog } from './AnswerDialog/AnswerDialog'
-import { useList_OLD, AnswerCell } from 'components'
+import { SelectColumnFilter, AnswerCell } from 'components'
+import { SPList } from 'components/SharePoint'
 import { Assignee } from './Assignee/Assignee'
-import { LinearProgress } from '@material-ui/core'
 
 export const Questions = (props) => {
 	const { UUID } = props
 
-	const [dialogOptions, setDialogOptions] = useState({ open: false, UUID })
+	const questionListName = `${UUID}_Questions`
 
-	const proponentQuestions = useList_OLD(`${UUID}_Questions`, {
-		listView: 'VICO_Manager',
-	})
+	const customColumns = [
+		{
+			Filter: SelectColumnFilter,
+			accessor: 'AnswerStatus',
+			Header: 'Status / Answer',
+			Cell: ({ value, row }) => {
+				return <AnswerCell row={row} value={value} />
+			},
+		},
+		{
+			Filter: SelectColumnFilter,
+			accessor: 'Assignee',
+			Cell: ({ value, row }) => {
+				return row.original.AnswerStatus === 'Withdrawn' ? null : (
+					// <Assignee
+					// 	assignedTo={value}
+					// 	originalValues={row.original}
+					// 	listName={questionListName}
+					// 	updateAnswer={updateAnswer}
+					// 	postAnswer={postAnswer}
+					// />
+					null
+				)
+			},
+		},
+	]
 
-	const listOptions = {
+	const tableProps = {
 		columnFiltering: true,
 		showTitle: false,
-		customColumns: [
-			{
-				Filter: proponentQuestions.SelectColumnFilter,
-				accessor: 'AnswerStatus',
-				Header: 'Status / Answer',
-				Cell: ({ value, row }) => {
-					return <AnswerCell row={row} value={value} />
-				},
-			},
-			{
-				Filter: proponentQuestions.SelectColumnFilter,
-				accessor: 'Assignee',
-				Cell: ({ value, row }) => {
-					return row.original.AnswerStatus === 'Withdrawn' ? null : (
-						<Assignee
-							assignedTo={value}
-							originalValues={row.original}
-							updateItem={proponentQuestions.updateItem}
-							updateAnswer={updateAnswer}
-							postAnswer={postAnswer}
-						/>
-					)
-				},
-			},
-		],
 	}
+
+	//========================================
+	const [dialogOptions, setDialogOptions] = useState({ open: false, UUID })
 
 	const closeAnswerDialog = () => {
 		setDialogOptions({ open: false, UUID })
-		proponentQuestions.refresh()
 	}
 
 	const postAnswer = (props) => {
@@ -78,18 +78,14 @@ export const Questions = (props) => {
 		})
 	}
 
-	const memoizedRender = useMemo(() => {
-		if (!proponentQuestions.isLoading) {
-			return proponentQuestions.getRender(listOptions)
-		} else {
-			return <LinearProgress />
-		}
-	}, [proponentQuestions.isLoading])
-
 	return (
-		<Fragment>
-			{memoizedRender}
+		<>
+			<SPList
+				listName={questionListName}
+				customColumns={customColumns}
+				tableProps={tableProps}
+			/>
 			<AnswerDialog {...dialogOptions} />
-		</Fragment>
+		</>
 	)
 }

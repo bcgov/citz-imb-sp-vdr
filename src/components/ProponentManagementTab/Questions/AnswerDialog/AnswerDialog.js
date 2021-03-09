@@ -1,12 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
-import {
-	ConfigContext,
-	useList_OLD,
-	PublicQuestionsContext,
-	FormikDialog,
-	ProponentsContext,
-} from 'components'
+import { useConfig, useList, FormikDialog, useProponents } from 'components'
 
 export const AnswerDialog = (props) => {
 	const {
@@ -23,10 +17,10 @@ export const AnswerDialog = (props) => {
 
 	const [dialogOptions, setDialogOptions] = useState({ open: false })
 
-	const proponents = useContext(ProponentsContext)
-	const publicQuestions = useContext(PublicQuestionsContext)
-	const config = useContext(ConfigContext)
-	const proponentQuestions = useList_OLD(`${UUID}_Questions`)
+	const proponents = useProponents()
+	const publicQuestions = useList({ listName: 'Questions' })
+	const config = useConfig()
+	const proponentQuestions = useList({ listName: `${UUID}_Questions` })
 
 	const getOptions = () => {
 		const options = publicQuestions.items.map((item) => {
@@ -159,5 +153,6 @@ export const AnswerDialog = (props) => {
 		closeAnswerDialog()
 	}
 
+	// return <div>Hello there</div>
 	return <FormikDialog {...dialogOptions} />
 }

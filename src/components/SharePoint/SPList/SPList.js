@@ -14,34 +14,41 @@ export const SPList = (props) => {
 		tableProps,
 	} = props
 
-	const thisList = useList({ listName })
+	const { items, columns, isLoading, isError, isFetching, error } = useList({
+		listName
+	})
 
 	const data = useMemo(() => {
-		if (thisList.isLoading || thisList.isError) {
+		if (isLoading || isError) {
 			return []
 		}
 
-		return [...thisList.items]
-	}, [thisList.items])
+		return items
+	}, [isFetching])
 
-	const columns = useMemo(() => {
-		if (thisList.isLoading || thisList.isError) return []
+	const tableColumns = useMemo(() => {
+		if (isLoading || isError) return []
 
-		let columns = [...thisList.columns]
+		let updatedColumns = columns
 
 		for (let i = 0; i < customColumns.length; i++) {
+			let isNewColumn = true
 			for (let j = 0; j < columns.length; j++) {
-				if (customColumns[i].accessor === columns[j].accessor) {
-					columns[j] = {
-						...columns[j],
+				if (customColumns[i].accessor === updatedColumns[j].accessor) {
+					updatedColumns[j] = {
+						...updatedColumns[j],
 						...customColumns[i],
 					}
+					isNewColumn = false
+					break
 				}
 			}
+			if (isNewColumn) {
+				updatedColumns.push(customColumns[i])
+			}
 		}
-
-		return columns
-	}, [thisList.isLoading, thisList.isError])
+		return updatedColumns
+	}, [isFetching])
 
 	const table = useTable(
 		{ columns, data, initialState },
@@ -50,13 +57,11 @@ export const SPList = (props) => {
 		usePagination
 	)
 
-	if (thisList.isError) {
+	if (isError) {
 		return (
 			<Alert severity='error'>
 				<AlertTitle>Error</AlertTitle>
-				{thisList.list.error}
-				<br />
-				{thisList.items.error}
+				{error}
 			</Alert>
 		)
 	}
@@ -65,7 +70,7 @@ export const SPList = (props) => {
 		<SPTable
 			table={table}
 			listName={listName}
-			columns={columns}
+			columns={tableColumns}
 			{...tableProps}
 		/>
 	)

@@ -6,7 +6,7 @@ import {
 	FormikDialog,
 	CustomTable,
 	SendConfirmationEmail,
-	ConfigContext,
+	useConfig,
 } from 'components'
 import { IconButton, LinearProgress } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
@@ -28,8 +28,12 @@ export const GroupTable = (props) => {
 	})
 
 	const logAction = useLogAction()
-	const { items } = useContext(ConfigContext)
-	const { addUserEmail, removeUserEmail, contactEmail } = items
+	const config = useConfig()
+	console.log('config :>> ', config);
+
+	const addUserEmail = config.items.filter(item=>item.Key==='addUserEmail')[0]
+	const removeUserEmail = config.items.filter(item=>item.Key==='removeUserEmail')[0]
+	const contactEmail = config.items.filter(item=>item.Key==='contactEmail')[0]
 
 	const proponentGroup = useGroup({ groupId })
 

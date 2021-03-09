@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { GetUser } from 'citz-imb-sp-utilities'
+import React from 'react'
 import { LinearProgress } from '@material-ui/core'
+import { useUser } from 'components'
 
 export const User = ({ userId }) => {
-	const [user, setUser] = useState()
+	const user = useUser(userId)
 
-	const getUser = async () => {
-		const _user = await GetUser({ userId })
-		setUser(_user)
-	}
+	if (user.isLoading) return <LinearProgress />
 
-	useEffect(() => {
-		getUser()
-		return () => {}
-	}, [])
-
-	return (user ? user.Title : <LinearProgress />)
+	return <>{user.Title}</>
 }

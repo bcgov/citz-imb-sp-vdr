@@ -13,7 +13,7 @@ import {
 	FormikDialog,
 	useLogAction,
 	VerticalTabPanel,
-	ProponentsContext,
+	useProponents,
 } from 'components'
 import * as Yup from 'yup'
 import { ManagementTab } from '../ManagementTab/ManagementTab'
@@ -40,18 +40,9 @@ const useStyles = makeStyles((theme) => ({
 export const ProponentManagement = () => {
 	const classes = useStyles()
 	const [value, setValue] = useState(0)
-	const [isLoading, setIsLoading] = useState(true)
 	const [dialogOptions, setDialogOptions] = useState({ open: false })
-	const [proponentNames, setProponentNames] = useState([])
 	const [showMissingRoleAlert, setShowMissingRoleAlert] = useState(false)
-	const {
-		addProponent,
-		getProponent,
-		setProponentActive,
-		setProponentInactive,
-		isLoading: proponentsIsLoading,
-		proponents,
-	} = useContext(ProponentsContext)
+	const proponents = useProponents()
 
 	const logAction = useLogAction()
 
@@ -68,6 +59,7 @@ export const ProponentManagement = () => {
 	}
 
 	const handleAddProponentClick = () => {
+		const proponentNames = proponents.items.map((item) => item.Title)
 		setDialogOptions({
 			open: true,
 			fields: [
@@ -90,7 +82,7 @@ export const ProponentManagement = () => {
 			},
 			title: 'Add Proponent',
 			onSubmit: async (values, { setSubmitting }) => {
-				await addProponent(values.proponentName)
+				await proponents.add(values.proponentName)
 				logAction(`created proponent '${values.proponentName}'`)
 				setSubmitting(false)
 				setDialogOptions({ open: false })
@@ -99,78 +91,64 @@ export const ProponentManagement = () => {
 	}
 
 	useEffect(() => {
-		if (!proponentsIsLoading) {
-			setProponentNames(
-				proponents.map((proponent) => proponent.Title.toLowerCase())
-			)
-			setIsLoading(false)
-		}
-
-		return () => {}
-	}, [proponentsIsLoading, proponents])
-
-	useEffect(() => {
 		getRoleDefinitions()
 		return () => {}
 	}, [])
 
+	if (proponents.isLoading) return <LinearProgress />
+
+	if (showMissingRoleAlert)
+		return (
+			<Alert severity='error'>
+				<AlertTitle>Missing Permission Level</AlertTitle>
+				Site Collection is missing the 'Read with Add' Permission Level,
+				please contact your Site Collection Administrator
+			</Alert>
+		)
+
 	return (
-		<Fragment>
-			{isLoading ? (
-				<LinearProgress />
-			) : showMissingRoleAlert ? (
-				<Alert severity='error'>
-					<AlertTitle>Missing Permission Level</AlertTitle>
-					Site Collection is missing the 'Read with Add' Permission
-					Level, please contact your Site Collection Administrator
-				</Alert>
-			) : (
-				<Fragment>
-					<IconButton
-						aria-label={'Add Proponent'}
-						onClick={handleAddProponentClick}>
-						<AddIcon />
-					</IconButton>
-					<div className={classes.root}>
-						<Tabs
-							orientation='vertical'
-							variant='scrollable'
+		<>
+			<IconButton
+				aria-label={'Add Proponent'}
+				onClick={handleAddProponentClick}>
+				<AddIcon />
+			</IconButton>
+			<div className={classes.root}>
+				<Tabs
+					orientation='vertical'
+					variant='scrollable'
+					value={value}
+					onChange={handleChange}
+					aria-label='Vertical tabs example'
+					className={classes.tabs}>
+					{proponents.items.map((proponent, index) => {
+						return (
+							<Tab
+								key={index}
+								label={proponent.Title}
+								{...a11yProps(index)}
+							/>
+						)
+					})}
+				</Tabs>
+				{proponents.items.map((proponent, index) => {
+					return (
+						<VerticalTabPanel
+							key={index}
 							value={value}
-							onChange={handleChange}
-							aria-label='Vertical tabs example'
-							className={classes.tabs}>
-							{proponents.map((proponent, index) => {
-								return (
-									<Tab
-										key={index}
-										label={proponent.Title}
-										{...a11yProps(index)}
-									/>
-								)
-							})}
-						</Tabs>
-						{proponents.map((proponent, index) => {
-							return (
-								<VerticalTabPanel
-									key={index}
-									value={value}
-									index={index}>
-									<ManagementTab
-										{...proponent}
-										isLoading={isLoading}
-										getProponent={getProponent}
-										setProponentActive={setProponentActive}
-										setProponentInactive={
-											setProponentInactive
-										}
-									/>
-								</VerticalTabPanel>
-							)
-						})}
-					</div>
-					<FormikDialog {...dialogOptions} />
-				</Fragment>
-			)}
-		</Fragment>
+							index={index}>
+							<ManagementTab
+								{...proponent}
+								isLoading={proponents.isLoading}
+								getProponent={proponents.get}
+								setProponentActive={proponents.setActive}
+								setProponentInactive={proponents.setInactive}
+							/>
+						</VerticalTabPanel>
+					)
+				})}
+			</div>
+			<FormikDialog {...dialogOptions} />
+		</>
 	)
 }

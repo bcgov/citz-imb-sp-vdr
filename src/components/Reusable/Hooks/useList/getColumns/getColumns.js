@@ -35,9 +35,9 @@ export const getColumns = (props) => {
 				break
 			case 12: //LinkTitle
 				if (viewField.EntityPropertyName !== 'DocIcon') {
-					newColumn.Header = Fields.Title.Title
-					newColumn.Footer = Fields.Title.Title
-					newColumn.accessor = Fields.Title.InternalName
+					newColumn.Header = viewField.Title
+					newColumn.Footer = viewField.Title
+					newColumn.accessor = viewField.InternalName
 					newColumn.disableFilters = false
 				}
 				break

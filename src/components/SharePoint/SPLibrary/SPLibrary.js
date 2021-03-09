@@ -5,7 +5,7 @@ import { LinearProgress, IconButton } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import PublishIcon from '@material-ui/icons/Publish'
 import { SPTable } from '../SPTable'
-import { FormikDialog, ConfigContext, ProponentsContext } from 'components'
+import { FormikDialog, useConfig, useProponents } from 'components'
 import { DropZone } from '../DropZone'
 
 export const SPLibrary = (props) => {
@@ -17,8 +17,8 @@ export const SPLibrary = (props) => {
 	const [formOpen, setFormOpen] = useState(false)
 	const [filesToUpload, setFilesToUpload] = useState([])
 	const [dialogContent, setDialogContent] = useState(null)
-	const config = useContext(ConfigContext)
-	const proponents = useContext(ProponentsContext)
+	const config = useConfig()
+	const proponents = useProponents()
 
 	const handleFilesToUpload = (files) => {
 		setFilesToUpload(files)
@@ -45,6 +45,10 @@ export const SPLibrary = (props) => {
 		useSortBy,
 		usePagination
 	)
+	const handleUploadDocument = () => {
+		console.log('handleUploadDocument')
+		setFormOpen(true)
+	}
 
 	const tableActions = [
 		<IconButton
@@ -63,10 +67,6 @@ export const SPLibrary = (props) => {
 			subject: config.items.publicDocumentEmail.TextValue,
 			body: config.items.publicDocumentEmail.MultiTextValue,
 		})
-	}
-
-	const handleUploadDocument = () => {
-		setFormOpen(true)
 	}
 
 	const handleFormSubmit = async (values, { setSubmitting }) => {

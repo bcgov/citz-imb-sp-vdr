@@ -8,5 +8,6 @@ export { useLogAction } from './useLogAction/useLogAction'
 export { usePeoplePicker } from './usePeoplePicker/usePeoplePicker'
 export { useProponents } from './useProponents/useProponents'
 export { usePublicQuestions } from './usePublicQuestions/usePublicQuestions'
+export { useUser } from './useUser/useUser'
 
 export { PeoplePicker } from './usePeoplePicker/PeoplePicker'

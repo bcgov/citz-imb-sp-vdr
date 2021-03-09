@@ -3,24 +3,15 @@ import { Button } from '@material-ui/core'
 import { useList, useLogAction } from 'components'
 
 export const WithdrawQuestion = (props) => {
-	const { row, listName } = props
+	const { row, handleWithdraw } = props
 
-	const { updateItem } = useList({ listName })
-	const logAction = useLogAction()
-
-	const withdrawQuestion = async () => {
-		await updateItem({
-			Id: row.original.Id,
-			Withdrawn: true,
-			AnswerStatus: 'Withdrawn',
-			Assignee: '',
-		})
-		logAction(`successfully withdrew ${row.values.Title}`)
+	const handleClick = () => {
+		handleWithdraw(row)
 	}
 
 	return (
 		<Button
-			onClick={withdrawQuestion}
+			onClick={handleClick}
 			size={'small'}
 			variant={'contained'}
 			color={'primary'}>

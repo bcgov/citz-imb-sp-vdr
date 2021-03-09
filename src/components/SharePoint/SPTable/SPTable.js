@@ -12,7 +12,7 @@ import {
 	TableSortLabel,
 	TablePagination,
 } from '@material-ui/core'
-import {useList} from 'components'
+import { useList } from 'components'
 
 export const SPTable = (props) => {
 	const {
@@ -39,7 +39,7 @@ export const SPTable = (props) => {
 
 	const { pageIndex, pageSize } = state
 
-	const {isLoading, isMutating} = useList({listName})
+	const { isFetching } = useList({ listName })
 
 	return (
 		<Fragment>
@@ -48,7 +48,9 @@ export const SPTable = (props) => {
 					<Typography variant={'h6'} style={{ flexGrow: 1 }}>
 						{title ?? listName}
 					</Typography>
-					{isLoading || isMutating ? <CircularProgress color={'secondary'} /> : null}
+					{isFetching ? (
+						<CircularProgress color={'secondary'} />
+					) : null}
 					{tableActions.map((action, index) => (
 						<div key={index}>{action}</div>
 					))}
