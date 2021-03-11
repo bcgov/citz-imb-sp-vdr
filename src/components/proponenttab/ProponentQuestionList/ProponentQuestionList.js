@@ -7,7 +7,6 @@ import { SPList } from 'components/SharePoint'
 import { AskQuestion } from './AskQuestion/AskQuestion'
 
 export const ProponentQuestionList = () => {
-	console.log('ProponentQuestionList')
 	const currentUser = useCurrentUser()
 	const logAction = useLogAction()
 	const proponentQuestionListName = `${currentUser.proponent}_Questions`

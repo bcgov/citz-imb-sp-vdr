@@ -1,15 +1,20 @@
-import React, { useMemo, useState, useContext } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table'
 import { useLibrary } from 'components'
 import { LinearProgress, IconButton } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import PublishIcon from '@material-ui/icons/Publish'
 import { SPTable } from '../SPTable'
-import { FormikDialog, useConfig, useProponents } from 'components'
+import { FormikDialog } from 'components'
 import { DropZone } from '../DropZone'
 
 export const SPLibrary = (props) => {
-	const { listName } = props
+	const {
+		listName,
+		uploadCallback = () => {},
+		allowUpload = false,
+		...tableProps
+	} = props
 
 	const columnFiltering = false
 
@@ -17,8 +22,8 @@ export const SPLibrary = (props) => {
 	const [formOpen, setFormOpen] = useState(false)
 	const [filesToUpload, setFilesToUpload] = useState([])
 	const [dialogContent, setDialogContent] = useState(null)
-	const config = useConfig()
-	const proponents = useProponents()
+
+	console.log('library :>> ', library);
 
 	const handleFilesToUpload = (files) => {
 		setFilesToUpload(files)
@@ -50,23 +55,22 @@ export const SPLibrary = (props) => {
 		setFormOpen(true)
 	}
 
-	const tableActions = [
-		<IconButton
-			onClick={handleUploadDocument}
-			size={'small'}
-			color={'secondary'}
-			arial-label={'upload'}>
-			<PublishIcon />
-		</IconButton>,
-	]
+	let tableActions = []
+
+	if (allowUpload)
+		tableActions.push(
+			<IconButton
+				onClick={handleUploadDocument}
+				size={'small'}
+				color={'secondary'}
+				arial-label={'upload'}>
+				<PublishIcon />
+			</IconButton>
+		)
 
 	const uploadDocuments = async (filesToUpload) => {
 		await library.addDocuments(filesToUpload)
-		//! send email is in the wrong place, this component is more generic than that
-		await proponents.sendEmailToProponents({
-			subject: config.items.publicDocumentEmail.TextValue,
-			body: config.items.publicDocumentEmail.MultiTextValue,
-		})
+		uploadCallback()
 	}
 
 	const handleFormSubmit = async (values, { setSubmitting }) => {
@@ -100,9 +104,7 @@ export const SPLibrary = (props) => {
 		return (
 			<Alert severity='error'>
 				<AlertTitle>Error</AlertTitle>
-				{library.list.error}
-				<br />
-				{library.items.error}
+				{library.error}
 			</Alert>
 		)
 	}
@@ -114,6 +116,7 @@ export const SPLibrary = (props) => {
 				columns={columns}
 				columnFiltering={columnFiltering}
 				tableActions={tableActions}
+				{...tableProps}
 			/>
 			<FormikDialog
 				open={formOpen}

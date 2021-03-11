@@ -62,6 +62,7 @@ export const useLibrary = (listName, options = {}) => {
 			: false,
 		isError: documents.isError ? true : library.isError ? true : false,
 		isMutating: addDocumentMutation.isLoading ? true : false,
+		error: `documents: ${documents.error} | library: ${library.error}` ,
 		addDocuments,
 	}
 }

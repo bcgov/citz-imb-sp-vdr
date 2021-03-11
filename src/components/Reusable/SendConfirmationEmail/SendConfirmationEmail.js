@@ -18,12 +18,10 @@ export const SendConfirmationEmail = async (props) => {
 		subject,
 		body,
 		additionalReplacementPairs = [],
+		contactEmail
 	} = props
 
-	const contactEmailConfig = await GetListItems({
-		listName: 'Config',
-		filter: `Key eq 'contactemail'`,
-	})
+	console.log('SendConfirmationEmail props :>> ', props);
 
 	const site = await GetSite({})
 
@@ -36,7 +34,7 @@ export const SendConfirmationEmail = async (props) => {
 		},
 		{
 			searchvalue: /\[ContactEmail\]/g,
-			newvalue: contactEmailConfig[0].TextValue,
+			newvalue: contactEmail.TextValue,
 		},
 		{ searchvalue: /\[Proponent\]/g, newvalue: proponent },
 	]

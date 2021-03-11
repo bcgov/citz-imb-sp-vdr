@@ -20,6 +20,10 @@ export const AnswerDialog = (props) => {
 	const proponents = useProponents()
 	const publicQuestions = useList({ listName: 'Questions' })
 	const config = useConfig()
+
+	const updatedAnswerEmail=config.items.filter(item=>item.Key==='updatedAnswerEmail')
+	const newAnswerEmail=config.items.filter(item=>item.Key==='newAnswerEmail')[0]
+
 	const proponentQuestions = useList({ listName: `${UUID}_Questions` })
 
 	const getOptions = () => {
@@ -114,7 +118,7 @@ export const AnswerDialog = (props) => {
 
 	const onSubmit = async (values, { setSubmitting }) => {
 		let questionsItem, subject, body
-
+console.log('values :>> ', values);
 		if (values.previousAnswer) {
 			questionsItem = [{ Id: values.previousAnswer }]
 		} else {
@@ -126,8 +130,8 @@ export const AnswerDialog = (props) => {
 					Answer: values.answer,
 				})
 
-				subject = config.items.updatedAnswerEmail.TextValue
-				body = config.items.updatedAnswerEmail.MultiTextValue
+				subject = updatedAnswerEmail.TextValue
+				body = updatedAnswerEmail.MultiTextValue
 			} else {
 				questionsItem = await publicQuestions.addItem({
 					Question: values.sanitizedQuestion,
@@ -140,8 +144,8 @@ export const AnswerDialog = (props) => {
 					AnswerStatus: 'Posted',
 				})
 
-				subject = config.items.newAnswerEmail.TextValue
-				body = config.items.newAnswerEmail.MultiTextValue
+				subject = newAnswerEmail.TextValue
+				body = newAnswerEmail.MultiTextValue
 			}
 			await proponents.sendEmailToProponents({
 				subject,

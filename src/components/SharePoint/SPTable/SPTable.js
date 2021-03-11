@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import {
 	AppBar,
 	CircularProgress,
@@ -42,7 +42,7 @@ export const SPTable = (props) => {
 	const { isFetching } = useList({ listName })
 
 	return (
-		<Fragment>
+		<>
 			<AppBar position={'static'}>
 				<Toolbar>
 					<Typography variant={'h6'} style={{ flexGrow: 1 }}>
@@ -154,6 +154,6 @@ export const SPTable = (props) => {
 					}}
 				/>
 			) : null}
-		</Fragment>
+		</>
 	)
 }

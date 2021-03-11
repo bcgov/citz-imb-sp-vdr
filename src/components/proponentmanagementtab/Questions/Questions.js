@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { AnswerDialog } from './AnswerDialog/AnswerDialog'
-import { SelectColumnFilter, AnswerCell } from 'components'
+import { SelectColumnFilter, AnswerCell, useList, useLogAction } from 'components'
 import { SPList } from 'components/SharePoint'
 import { Assignee } from './Assignee/Assignee'
 
@@ -8,6 +8,12 @@ export const Questions = (props) => {
 	const { UUID } = props
 
 	const questionListName = `${UUID}_Questions`
+
+	const { updateItem } = useList({
+		listName:questionListName
+	})
+
+	const logAction = useLogAction()
 
 	const customColumns = [
 		{
@@ -23,14 +29,12 @@ export const Questions = (props) => {
 			accessor: 'Assignee',
 			Cell: ({ value, row }) => {
 				return row.original.AnswerStatus === 'Withdrawn' ? null : (
-					// <Assignee
-					// 	assignedTo={value}
-					// 	originalValues={row.original}
-					// 	listName={questionListName}
-					// 	updateAnswer={updateAnswer}
-					// 	postAnswer={postAnswer}
-					// />
-					null
+					<Assignee
+						assignedTo={value}
+						originalValues={row.original}
+						changeAssignee={changeAssignee}
+						updateAnswer={updateAnswer}
+					/>
 				)
 			},
 		},
@@ -46,6 +50,19 @@ export const Questions = (props) => {
 
 	const closeAnswerDialog = () => {
 		setDialogOptions({ open: false, UUID })
+	}
+
+	const changeAssignee = (value, QuestionID, Id, Title) => {
+		if (value === 'post') {
+			postAnswer({ QuestionID, Id, Title })
+		} else {
+			updateItem({
+				Id: Id,
+				AnswerStatus: 'Under Review',
+				Assignee: value,
+			})
+			logAction(`assigned ${QuestionID} to ${value}`)
+		}
 	}
 
 	const postAnswer = (props) => {

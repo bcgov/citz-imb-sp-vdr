@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button } from '@material-ui/core'
-import { useList, useLogAction } from 'components'
 
 export const WithdrawQuestion = (props) => {
 	const { row, handleWithdraw } = props

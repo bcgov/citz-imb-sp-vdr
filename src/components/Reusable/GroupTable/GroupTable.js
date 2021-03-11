@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useContext, Fragment } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table'
 import {
 	useGroup,
@@ -16,12 +16,7 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 //TODO: global filter
 
 export const GroupTable = (props) => {
-	const {
-		groupId,
-		proponent,
-		addRecord = false,
-		showTitle = true,
-	} = props
+	const { groupId, proponent, addRecord = false, showTitle = true } = props
 
 	const [dialog, setDialog] = useState({
 		open: false,
@@ -29,11 +24,17 @@ export const GroupTable = (props) => {
 
 	const logAction = useLogAction()
 	const config = useConfig()
-	console.log('config :>> ', config);
+	console.log('config :>> ', config)
 
-	const addUserEmail = config.items.filter(item=>item.Key==='addUserEmail')[0]
-	const removeUserEmail = config.items.filter(item=>item.Key==='removeUserEmail')[0]
-	const contactEmail = config.items.filter(item=>item.Key==='contactEmail')[0]
+	const addUserEmail = config.items.filter(
+		(item) => item.Key === 'addUserEmail'
+	)[0]
+	const removeUserEmail = config.items.filter(
+		(item) => item.Key === 'removeUserEmail'
+	)[0]
+	const contactEmail = config.items.filter(
+		(item) => item.Key === 'contactEmail'
+	)[0]
 
 	const proponentGroup = useGroup({ groupId })
 
@@ -121,6 +122,7 @@ export const GroupTable = (props) => {
 									newvalue: member.DisplayText,
 								},
 							],
+							contactEmail,
 						})
 						logAction(
 							`sent ${addUserEmail.Title} to ${members.join(
@@ -168,6 +170,7 @@ export const GroupTable = (props) => {
 								newvalue: original.Title,
 							},
 						],
+						contactEmail
 					})
 					logAction(
 						`sent ${removeUserEmail.Title} to ${contactEmail.TextValue}`
@@ -197,9 +200,9 @@ export const GroupTable = (props) => {
 	if (proponentGroup.isLoading) return <LinearProgress />
 
 	return (
-		<Fragment>
+		<>
 			<CustomTable {...tableOptions} />
 			<FormikDialog {...dialog} />
-		</Fragment>
+		</>
 	)
 }

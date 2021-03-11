@@ -1,14 +1,21 @@
 import { useList, SendConfirmationEmail } from 'components'
 import { DeleteGroup, GetGroupMembers } from 'citz-imb-sp-utilities'
 import { createProponent } from './createProponent/createProponent'
-import { useCurrentUser } from 'components'
+import { useCurrentUser, useConfig } from 'components'
 import { createProponentGroup } from './createProponentGroup/createProponentGroup'
 import { setProponentPermissions } from './setProponentPermissions/setProponentPermissions'
 
 export const useProponents = () => {
 	const currentUser = useCurrentUser()
-	const proponents = useList({ listName: 'Proponents', preRequisite:currentUser.Id })
+	const proponents = useList({
+		listName: 'Proponents',
+		preRequisite: currentUser.Id,
+	})
+	const config = useConfig()
 
+	const contactEmail = config.items.filter(
+		(item) => item.Key === 'contactEmail'
+	)[0]
 
 	const add = async (proponentName) => {
 		const { UUID, group } = await createProponent({ currentUser })
@@ -72,6 +79,7 @@ export const useProponents = () => {
 					proponent: proponents.items[i].Title,
 					subject,
 					body,
+					contactEmail,
 				})
 			}
 		}

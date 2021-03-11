@@ -7,7 +7,6 @@ import { getList } from './getList/getList'
 import { getColumns } from './getColumns/getColumns'
 
 export const useList = (props) => {
-	if (typeof props !== 'object') console.log('useList', props)
 	const { listName, preRequisite } = props
 
 	// const listQueryName = [listName, 'list']

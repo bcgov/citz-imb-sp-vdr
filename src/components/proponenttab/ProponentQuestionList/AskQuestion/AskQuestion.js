@@ -1,13 +1,37 @@
 import React, { useState } from 'react'
-import { IconButton, useList } from 'components'
-import { FormikDialog, useCurrentUser } from 'components/Reusable'
+import {
+	IconButton,
+	useList,
+	SendConfirmationEmail,
+	useConfig,
+	useLogAction,
+} from 'components'
+import {
+	FormikDialog,
+	useCurrentUser,
+	useProponents,
+} from 'components/Reusable'
+import { GetGroupMembers, GetUserByEmail } from 'citz-imb-sp-utilities'
 import * as Yup from 'yup'
 
 export const AskQuestion = (props) => {
 	const { listName } = props
 
 	const questionList = useList({ listName })
-    const currentUser = useCurrentUser()
+	const currentUser = useCurrentUser()
+	const proponents = useProponents()
+	const config = useConfig()
+	const logAction = useLogAction()
+
+	const addQuestionEmail = config.items.filter(
+		(item) => item.Key === 'addQuestionEmail'
+	)[0]
+	const newQuestionEmail = config.items.filter(
+		(item) => item.Key === 'newQuestionEmail'
+	)[0]
+	const contactEmail = config.items.filter(
+		(item) => item.Key === 'contactEmail'
+	)[0]
 
 	const [formOpen, setFormOpen] = useState(false)
 
@@ -30,13 +54,54 @@ export const AskQuestion = (props) => {
 		setFormOpen(false)
 	}
 
+	const sendEmails = async () => {
+		const proponent = proponents.get(currentUser.proponent)
+
+		const groupMembers = await GetGroupMembers({
+			groupId: proponent.GroupId,
+		})
+
+		for (let i = 0; i < groupMembers.length; i++) {
+			console.log('addQuestionEmail :>> ', addQuestionEmail)
+			await SendConfirmationEmail({
+				addresses: groupMembers[i].LoginName,
+				proponent: proponent.Title,
+				subject: addQuestionEmail.TextValue,
+				body: addQuestionEmail.MultiTextValue,
+				additionalReplacementPairs: [
+					{
+						searchvalue: /\[UserName\]/g,
+						newvalue: currentUser.name,
+					},
+					{
+						searchvalue: /\[AddresseeName\]/g,
+						newvalue: groupMembers[i].Title,
+					},
+				],
+				contactEmail,
+			})
+		}
+		const contactEmailUser = await GetUserByEmail({
+			email: contactEmail.TextValue,
+		})
+
+		await SendConfirmationEmail({
+			addresses: contactEmailUser[0].LoginName,
+			proponent: proponent.Title,
+			subject: newQuestionEmail.TextValue,
+			body: newQuestionEmail.MultiTextValue,
+			contactEmail
+		})
+	}
+
 	const onSubmit = async (values, { setSubmitting }) => {
 		let latestItem = { Id: 0 }
 		let nextQuestionNumber
 
 		if (questionList.items.length > 0) {
 			for (let i = 0; i < questionList.items.length; i++) {
-				if (questionList.items[i].Id > latestItem.Id) latestItem = questionList.items[i]
+				if (questionList.items[i].Id > latestItem.Id)
+					latestItem = questionList.items[i]
 			}
 
 			nextQuestionNumber = parseInt(latestItem.QuestionID.slice(-3)) + 1
@@ -52,9 +117,8 @@ export const AskQuestion = (props) => {
 
 		try {
 			await questionList.addItem(values)
-			// await sendEmails()
-			// logAction(`successfully asked ${values.Title}`)
-			// refresh()
+			await sendEmails()
+			logAction(`successfully asked ${values.Title}`)
 		} catch (error) {
 			console.error('error submitting question', error)
 		}

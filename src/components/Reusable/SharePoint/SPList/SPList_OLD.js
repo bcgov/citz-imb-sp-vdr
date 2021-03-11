@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, Fragment } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { FormikDialog } from 'components'
 import { IconButton, TableContainer } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
@@ -91,7 +91,7 @@ export const SPList_OLD = (props) => {
 	}, [isLoading])
 
 	return (
-		<Fragment>
+		<>
 			<TableContainer>
 				<div>
 					{showTitle ? (
@@ -116,6 +116,6 @@ export const SPList_OLD = (props) => {
 				<SPTable_OLD columns={tableColumns} {...tableOptions} />
 			</TableContainer>
 			<FormikDialog {...dialog} />
-		</Fragment>
+		</>
 	)
 }

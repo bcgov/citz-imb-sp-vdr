@@ -3,7 +3,6 @@ import { List, ListItem, Chip, LinearProgress } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import { useList } from 'components'
 import { WithdrawQuestion } from './WithdrawQuestion/WithdrawQuestion'
-import { useQueryClient } from 'react-query'
 
 export const AnswerCell = (props) => {
 	const {
@@ -11,18 +10,13 @@ export const AnswerCell = (props) => {
 		value,
 		proponentQuestionsListName,
 		showWithdrawButton = false,
-		handleWithdraw
+		handleWithdraw,
 	} = props
-
-	const queryClient = useQueryClient()
 
 	const publicQuestions = useList({ listName: 'Questions' })
 
-	console.log('publicQuestions :>> ', publicQuestions.status)
-
 	if (value === 'Withdrawn') return <Chip label={value} size={'small'} />
 
-	// console.log('publicQuestions :>> ', publicQuestions)
 	const item = publicQuestions.items.filter(
 		(item) => item.Id === parseInt(row.original.Answer)
 	)[0]

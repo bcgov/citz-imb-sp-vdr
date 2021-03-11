@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link } from '@material-ui/core'
 import moment from 'moment'
+import { SelectUserColumnFilter } from '../../../Filters/SelectUserColumnFilter/SelectUserColumnFilter'
+import { User } from '../../useList/User/User'
+
 
 export const GetColumns = (list) => {
 	const viewFields = list.CurrentView.ViewFields.Items.results
@@ -60,9 +63,9 @@ export const GetColumns = (list) => {
 						newColumn.Header = listFields[i].Title
 						newColumn.Footer = listFields[i].Title
 						newColumn.accessor = `${listFields[i].InternalName}Id`
-						// newColumn.Cell = ({ value }) => <User userId={value} />
+						newColumn.Cell = ({ value }) => <User userId={value} />
 						newColumn.disableFilters = false
-						// newColumn.Filter = SelectUserColumnFilter
+						newColumn.Filter = SelectUserColumnFilter
 						break
 
 					default:
