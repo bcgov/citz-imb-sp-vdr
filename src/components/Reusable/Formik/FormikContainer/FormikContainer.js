@@ -1,7 +1,7 @@
 import React from 'react'
-import { Formik, Form} from 'formik'
+import { Formik, Form } from 'formik'
 import { Button, LinearProgress, Grid } from '@material-ui/core'
-import { FormikControls } from 'Components'
+import { FormikControls } from 'components'
 import * as Yup from 'yup'
 
 export const FormikContainer = (props) => {

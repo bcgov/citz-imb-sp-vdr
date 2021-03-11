@@ -10,7 +10,7 @@ import {
 	LinearProgress,
 } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
-import { FormikControls } from 'Components'
+import { FormikControls } from 'components'
 import { Markup } from 'interweave'
 import * as Yup from 'yup'
 
@@ -36,14 +36,9 @@ export const FormikDialog = (props) => {
 	const [controls, setControls] = useState([])
 
 	const getValidationSchema = () => {
-		console.log('getValidationSchema', fields)
 		const _validationSchema = {}
 		for (let i = 0; i < fields.length; i++) {
 			_validationSchema[fields[i].name] = fields[i].validationSchema
-			console.log(
-				'fields[i].validationSchema :>> ',
-				fields[i].validationSchema
-			)
 		}
 
 		return Yup.object(_validationSchema)

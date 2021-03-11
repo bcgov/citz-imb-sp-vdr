@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
 	List,
 	ListItem,
@@ -7,25 +7,31 @@ import {
 	Switch,
 } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
-import { FormikDialog, useLogAction } from 'Components'
+import { FormikDialog, useLogAction, useList } from 'components'
 
 export const OverView = (props) => {
 	const {
 		Active,
 		Title,
 		UUID,
-		getProponent,
 		setProponentActive,
 		setProponentInactive,
 	} = props
 
 	const [dialogOptions, setDialogOptions] = useState({ open: false })
-	const [questionsAnswered, setQuestionsAnswered] = useState()
-	const [questionsAsked, setQuestionsAsked] = useState()
-	const [questionsWithdrawn, setQuestionWithdrawn] = useState()
-	const [documentCount, setDocumentCount] = useState()
 
 	const logAction = useLogAction()
+	const proponentQuestions = useList({ listName: `${UUID}_Questions` })
+	const proponentLibrary = useList({ listName: UUID })
+
+	const questionsAsked = proponentQuestions.items.length
+	const questionsAnswered = proponentQuestions.items.filter(
+		(item) => item.Answer !== null
+	).length
+	const questionsWithdrawn = proponentQuestions.items.filter(
+		(item) => item.Withdrawn
+	).length
+	const documentCount = proponentLibrary.items.length
 
 	const handleToggle = (event) => {
 		setDialogOptions({
@@ -65,23 +71,8 @@ export const OverView = (props) => {
 		})
 	}
 
-	useEffect(() => {
-		if (UUID) {
-			const _proponent = getProponent(UUID)
-			setQuestionsAsked(_proponent?.questionCount?.asked ?? 'unavailable')
-			setQuestionsAnswered(
-				_proponent?.questionCount?.answered ?? 'unavailable'
-			)
-			setQuestionWithdrawn(
-				_proponent?.questionCount?.withdrawn ?? 'unavailable'
-			)
-			setDocumentCount(_proponent?.documentCount ?? 'unavailable')
-		}
-		return () => {}
-	}, [UUID])
-
 	return (
-		<Fragment>
+		<>
 			<List>
 				<ListItem>
 					<ListItemText id='overview-list-label-uuid'>
@@ -138,6 +129,6 @@ export const OverView = (props) => {
 				</ListItem>
 			</List>
 			<FormikDialog {...dialogOptions} />
-		</Fragment>
+		</>
 	)
 }

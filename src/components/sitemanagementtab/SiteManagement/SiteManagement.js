@@ -1,5 +1,5 @@
-import React, { useState, useReducer, useEffect, Fragment } from 'react'
-import { useLogAction, FormikDialog } from 'Components'
+import React, { useState, useReducer, useEffect } from 'react'
+import { useLogAction, FormikDialog } from 'components'
 import { ListItem, List } from '@material-ui/core'
 import * as Yup from 'yup'
 import { GetListItems, UpdateListItem } from 'citz-imb-sp-utilities'
@@ -306,9 +306,9 @@ export const SiteManagement = () => {
 	}, [])
 
 	return (
-		<Fragment>
+		<>
 			<List>{listItems.map((item) => item)}</List>
 			<FormikDialog {...dialogProps} />
-		</Fragment>
+		</>
 	)
 }

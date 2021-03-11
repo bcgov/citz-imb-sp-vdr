@@ -1,72 +1,73 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Cookies from 'universal-cookie'
 import {
-	ConfigContext,
-	UserContext,
+	useCurrentUser,
 	useLogAction,
 	FormikDialog,
 	FormatText,
 	Home,
-} from 'Components'
+	useConfig,
+} from 'components'
+import { LinearProgress } from '@material-ui/core'
 
 export const TermsOfService = () => {
-	const [dialog, setDialog] = useState({ open: false })
 	const [hasCookie, setHasCookie] = useState(false)
+	const [dialogOptions, setDialogOptions] = useState()
+	const config = useConfig()
 
-	const { items: configItems, isLoading: configIsLoading } = useContext(
-		ConfigContext
-	)
-	const currentUser = useContext(UserContext)
-
+	const currentUser = useCurrentUser()
+	const logAction = useLogAction()
 	const cookies = new Cookies()
 
-	const logAction = useLogAction()
-
 	useEffect(() => {
-		console.log('configIsLoading :>> ', configIsLoading)
-		if (!configIsLoading) {
-			if (
-				cookies.get(
-					`${configItems.TOS.Key}-${currentUser.id}-${configItems.TOS.Modified}`
-				)
-			) {
-				setHasCookie(true)
-			} else {
-				setHasCookie(false)
-			}
-
-			setDialog({
-				onSubmit: (values, { setSubmitting }) => {
+		if (!config.isLoading && !currentUser.isLoading) {
+			const TOS = config.items.filter((item) => item.Key === 'TOS')[0]
+			setDialogOptions({
+				onSubmit: () => {
 					cookies.set(
-						`${configItems.TOS.Key}-${currentUser.id}-${configItems.TOS.Modified}`,
+						`${TOS.Key}-${currentUser.id}-${TOS.Modified}`,
 						true,
 						{
 							path: '/',
-							maxAge: configItems.TOS.NumberValue * 24 * 60 * 60,
+							maxAge: TOS.NumberValue * 24 * 60 * 60,
 						}
 					)
+
 					logAction('agreed to TOS', false)
 					setHasCookie(true)
 				},
-				open: true,
 				close: async () => {
 					await logAction('disagreed to TOS', false)
 					window.location = '/_layouts/signout.aspx'
 				},
-				title: configItems.TOS.TextValue,
+				title: TOS.TextValue,
 				dialogContent: (
 					<div
 						dangerouslySetInnerHTML={{
-							__html: FormatText(configItems.TOS.MultiTextValue),
+							__html: FormatText(TOS.MultiTextValue),
 						}}
 					/>
 				),
-				submitButtonText: 'Accept',
-				cancelButtonText: 'Reject',
 			})
+			if (cookies.get(`${TOS.Key}-${currentUser.id}-${TOS.Modified}`)) {
+				setHasCookie(true)
+			}
 		}
-		return () => {}
-	}, [configItems, configIsLoading])
 
-	return hasCookie ? <Home /> : <FormikDialog {...dialog} />
+		return () => {}
+	}, [config.isLoading, currentUser.isLoading])
+
+	if (config.isLoading || currentUser.isLoading) return <LinearProgress />
+
+	if (!hasCookie)
+		return (
+			<FormikDialog
+				open={true}
+				submitButtonText={'Accept'}
+				cancelButtonText={'Reject'}
+				{...dialogOptions}
+			/>
+		)
+
+	return <Home />
 }

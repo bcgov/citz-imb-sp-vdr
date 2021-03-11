@@ -1,13 +1,8 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import {
 	AppBar,
-	ButtonGroup,
-	Button,
-	Fab,
+	CircularProgress,
 	Toolbar,
-	IconButton,
-	Select,
-	MenuItem,
 	Typography,
 	Table,
 	TableHead,
@@ -17,10 +12,17 @@ import {
 	TableSortLabel,
 	TablePagination,
 } from '@material-ui/core'
-import PublishIcon from '@material-ui/icons/Publish'
+import { useList } from 'components'
 
 export const SPTable = (props) => {
-	const { table, listName, columnFiltering = false, columns, handleUpload } = props
+	const {
+		table,
+		listName,
+		columnFiltering = false,
+		columns,
+		tableActions = [],
+		title,
+	} = props
 
 	const {
 		getTableProps,
@@ -37,35 +39,21 @@ export const SPTable = (props) => {
 
 	const { pageIndex, pageSize } = state
 
-	const handleViewChange = () => {
-		//TODO Views and changing the view
-	}
-	const handleUploadClick = () => {
-		handleUpload()
-	}
+	const { isFetching } = useList({ listName })
+
 	return (
-		<Fragment>
+		<>
 			<AppBar position={'static'}>
 				<Toolbar>
 					<Typography variant={'h6'} style={{ flexGrow: 1 }}>
-						{listName}
+						{title ?? listName}
 					</Typography>
-					{/* <Select
-						id={`${listName}_view_select`}
-						value={'default'}
-						autoWidth={true}
-						onChange={handleViewChange}
-						variant={'outlined'}
-						>
-						<MenuItem value={'default'}>default</MenuItem>
-					</Select> */}
-					<IconButton
-						onClick={handleUploadClick}
-						size={'small'}
-						color={'secondary'}
-						arial-label={'upload'}>
-						<PublishIcon />
-					</IconButton>
+					{isFetching ? (
+						<CircularProgress color={'secondary'} />
+					) : null}
+					{tableActions.map((action, index) => (
+						<div key={index}>{action}</div>
+					))}
 				</Toolbar>
 			</AppBar>
 			<Table {...getTableProps()}>
@@ -166,6 +154,6 @@ export const SPTable = (props) => {
 					}}
 				/>
 			) : null}
-		</Fragment>
+		</>
 	)
 }

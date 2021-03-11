@@ -3,7 +3,7 @@ import { GetUser } from 'citz-imb-sp-utilities'
 
 export const SelectUserColumnFilter = (props) => {
 	const {
-		column: { filterValue, setFilter, preFilteredRows, id },
+		column: { filterValue, setFilter, preFilteredRows},
 	} = props
 
 	const [options, setOptions] = useState()

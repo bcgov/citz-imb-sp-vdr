@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { AppBar, Tabs, Tab, Paper, makeStyles } from '@material-ui/core'
 
 import HomeIcon from '@material-ui/icons/Home'
@@ -12,8 +12,8 @@ import {
 	Public,
 	ProponentManagementTab,
 	SiteManagement,
-	UserContext,
-} from 'Components'
+	useCurrentUser,
+} from 'components'
 
 function a11yProps(index) {
 	return {
@@ -46,7 +46,7 @@ export const AppTabs = () => {
 		setValue(newValue)
 	}
 
-	const currentUser = useContext(UserContext)
+	const currentUser = useCurrentUser()
 
 	return (
 		<Paper className={classes.root}>

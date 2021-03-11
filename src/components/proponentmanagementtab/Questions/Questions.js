@@ -1,67 +1,68 @@
-import React, {
-	useContext,
-	useEffect,
-	useMemo,
-	useState,
-	Fragment,
-} from 'react'
-import { QuestionTable } from './QuestionTable/QuestionTable'
+import React, { useState } from 'react'
 import { AnswerDialog } from './AnswerDialog/AnswerDialog'
-import { ProponentsContext } from '../ProponentManagementTab'
-import {
-	ConfigContext,
-	useList,
-	AnswerCell,
-	SPList,
-	PublicQuestionsContext,
-	useLogAction,
-	FormikDialog,
-} from 'Components'
+import { SelectColumnFilter, AnswerCell, useList, useLogAction } from 'components'
+import { SPList } from 'components/SharePoint'
 import { Assignee } from './Assignee/Assignee'
-import { LinearProgress } from '@material-ui/core'
 
 export const Questions = (props) => {
 	const { UUID } = props
 
-	const [dialogOptions, setDialogOptions] = useState({ open: false, UUID })
+	const questionListName = `${UUID}_Questions`
 
-	const proponentQuestions = useList(`${UUID}_Questions`, {
-		listView: 'VICO_Manager',
+	const { updateItem } = useList({
+		listName:questionListName
 	})
 
-	const listOptions = {
+	const logAction = useLogAction()
+
+	const customColumns = [
+		{
+			Filter: SelectColumnFilter,
+			accessor: 'AnswerStatus',
+			Header: 'Status / Answer',
+			Cell: ({ value, row }) => {
+				return <AnswerCell row={row} value={value} />
+			},
+		},
+		{
+			Filter: SelectColumnFilter,
+			accessor: 'Assignee',
+			Cell: ({ value, row }) => {
+				return row.original.AnswerStatus === 'Withdrawn' ? null : (
+					<Assignee
+						assignedTo={value}
+						originalValues={row.original}
+						changeAssignee={changeAssignee}
+						updateAnswer={updateAnswer}
+					/>
+				)
+			},
+		},
+	]
+
+	const tableProps = {
 		columnFiltering: true,
 		showTitle: false,
-		customColumns: [
-			{
-				Filter: proponentQuestions.SelectColumnFilter,
-				accessor: 'AnswerStatus',
-				Header: 'Status / Answer',
-				Cell: ({ value, row }) => {
-					return <AnswerCell row={row} value={value} />
-				},
-			},
-			{
-				Filter: proponentQuestions.SelectColumnFilter,
-				accessor: 'Assignee',
-				Cell: ({ value, row }) => {
-					return row.original.AnswerStatus === 'Withdrawn' ? null : (
-						<Assignee
-							assignedTo={value}
-							originalValues={row.original}
-							updateItem={proponentQuestions.updateItem}
-							updateAnswer={updateAnswer}
-							postAnswer={postAnswer}
-						/>
-					)
-				},
-			},
-		],
 	}
+
+	//========================================
+	const [dialogOptions, setDialogOptions] = useState({ open: false, UUID })
 
 	const closeAnswerDialog = () => {
 		setDialogOptions({ open: false, UUID })
-		proponentQuestions.refresh()
+	}
+
+	const changeAssignee = (value, QuestionID, Id, Title) => {
+		if (value === 'post') {
+			postAnswer({ QuestionID, Id, Title })
+		} else {
+			updateItem({
+				Id: Id,
+				AnswerStatus: 'Under Review',
+				Assignee: value,
+			})
+			logAction(`assigned ${QuestionID} to ${value}`)
+		}
 	}
 
 	const postAnswer = (props) => {
@@ -94,18 +95,14 @@ export const Questions = (props) => {
 		})
 	}
 
-	const memoizedRender = useMemo(() => {
-		if (!proponentQuestions.isLoading) {
-			return proponentQuestions.getRender(listOptions)
-		} else {
-			return <LinearProgress />
-		}
-	}, [proponentQuestions.isLoading])
-
 	return (
-		<Fragment>
-			{memoizedRender}
+		<>
+			<SPList
+				listName={questionListName}
+				customColumns={customColumns}
+				tableProps={tableProps}
+			/>
 			<AnswerDialog {...dialogOptions} />
-		</Fragment>
+		</>
 	)
 }

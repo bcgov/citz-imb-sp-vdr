@@ -1,6 +1,5 @@
 import React from 'react'
-import { useList } from 'Components'
-import { LinearProgress } from '@material-ui/core'
+import { SPLibrary } from 'components/SharePoint'
 
 export const Library = (props) => {
 	const { UUID } = props
@@ -10,7 +9,7 @@ export const Library = (props) => {
 		showTitle: false,
 	}
 
-	const { isLoading, getRender } = useList(UUID)
+	// const { isLoading, getRender } = useList_OLD(UUID)
 
-	return isLoading ? <LinearProgress /> : getRender(libraryOptions)
+	return <SPLibrary  listName={UUID}/>
 }

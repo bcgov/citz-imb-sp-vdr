@@ -2,13 +2,9 @@ import React, { useMemo, useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
 import {
 	Container,
-	Paper,
 	Typography,
 	Card,
-	CardActionArea,
-	CardActions,
 	CardContent,
-	CardHeader,
 	List,
 	ListItem,
 } from '@material-ui/core'
@@ -20,13 +16,8 @@ const baseStyle = {
 	alignItems: 'center',
 	padding: '20px',
 	borderWidth: 2,
-	// borderRadius: 2,
 	borderColor: 'transparent',
 	borderStyle: 'solid',
-	// backgroundColor: '#fafafa',
-	// color: '#bdbdbd',
-	// outline: 'none',
-	// transition: 'border .24s ease-in-out',
 }
 
 const activeStyle = {
@@ -42,12 +33,9 @@ const rejectStyle = {
 }
 
 export const DropZone = (props) => {
-	// console.log('DropZone props :>> ', props)
-
 	const { setAcceptedFiles } = props
 
 	const dzone = useDropzone()
-	// console.log('dzone :>> ', dzone)
 
 	const {
 		acceptedFiles,
@@ -57,8 +45,6 @@ export const DropZone = (props) => {
 		isDragAccept,
 		isDragReject,
 	} = dzone
-
-	// console.log('getInputProps() :>> ', getInputProps())
 
 	const style = useMemo(
 		() => ({
@@ -71,10 +57,9 @@ export const DropZone = (props) => {
 	)
 
 	useEffect(() => {
-		// console.log('acceptedFiles :>> ', acceptedFiles)
 		setAcceptedFiles(acceptedFiles)
 		return () => {}
-	}, [acceptedFiles])
+	}, [acceptedFiles, setAcceptedFiles])
 
 	return (
 		<Container>
@@ -91,7 +76,6 @@ export const DropZone = (props) => {
 					</Typography>
 					<List>
 						{acceptedFiles.map((file) => {
-							// console.log('file :>> ', file)
 							return (
 								<ListItem key={file.path}>
 									{file.path} - {file.size} bytes

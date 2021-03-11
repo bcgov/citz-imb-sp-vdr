@@ -1,16 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
-import {
-	ConfigContext,
-	useList,
-	AnswerCell,
-	SPList,
-	PublicQuestionsContext,
-	useLogAction,
-	FormikDialog,
-	ProponentsContext,
-} from 'Components'
-import { TimerOutlined } from '@material-ui/icons'
+import { useConfig, useList, FormikDialog, useProponents } from 'components'
 
 export const AnswerDialog = (props) => {
 	const {
@@ -27,11 +17,14 @@ export const AnswerDialog = (props) => {
 
 	const [dialogOptions, setDialogOptions] = useState({ open: false })
 
-	const proponents = useContext(ProponentsContext)
-	const publicQuestions = useContext(PublicQuestionsContext)
-	const config = useContext(ConfigContext)
-	const logAction = useLogAction()
-	const proponentQuestions = useList(`${UUID}_Questions`)
+	const proponents = useProponents()
+	const publicQuestions = useList({ listName: 'Questions' })
+	const config = useConfig()
+
+	const updatedAnswerEmail=config.items.filter(item=>item.Key==='updatedAnswerEmail')
+	const newAnswerEmail=config.items.filter(item=>item.Key==='newAnswerEmail')[0]
+
+	const proponentQuestions = useList({ listName: `${UUID}_Questions` })
 
 	const getOptions = () => {
 		const options = publicQuestions.items.map((item) => {
@@ -125,7 +118,7 @@ export const AnswerDialog = (props) => {
 
 	const onSubmit = async (values, { setSubmitting }) => {
 		let questionsItem, subject, body
-
+console.log('values :>> ', values);
 		if (values.previousAnswer) {
 			questionsItem = [{ Id: values.previousAnswer }]
 		} else {
@@ -137,8 +130,8 @@ export const AnswerDialog = (props) => {
 					Answer: values.answer,
 				})
 
-				subject = config.items.updatedAnswerEmail.TextValue
-				body = config.items.updatedAnswerEmail.MultiTextValue
+				subject = updatedAnswerEmail.TextValue
+				body = updatedAnswerEmail.MultiTextValue
 			} else {
 				questionsItem = await publicQuestions.addItem({
 					Question: values.sanitizedQuestion,
@@ -151,8 +144,8 @@ export const AnswerDialog = (props) => {
 					AnswerStatus: 'Posted',
 				})
 
-				subject = config.items.newAnswerEmail.TextValue
-				body = config.items.newAnswerEmail.MultiTextValue
+				subject = newAnswerEmail.TextValue
+				body = newAnswerEmail.MultiTextValue
 			}
 			await proponents.sendEmailToProponents({
 				subject,
@@ -164,5 +157,6 @@ export const AnswerDialog = (props) => {
 		closeAnswerDialog()
 	}
 
+	// return <div>Hello there</div>
 	return <FormikDialog {...dialogOptions} />
 }

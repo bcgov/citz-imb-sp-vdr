@@ -1,25 +1,29 @@
-import React, { Fragment, useMemo, useState, useContext } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table'
-import { useLibrary } from 'Components'
-import { LinearProgress } from '@material-ui/core'
+import { useLibrary } from 'components'
+import { LinearProgress, IconButton } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
+import PublishIcon from '@material-ui/icons/Publish'
 import { SPTable } from '../SPTable'
-import { FormikDialog, ConfigContext, ProponentsContext } from 'Components'
+import { FormikDialog } from 'components'
 import { DropZone } from '../DropZone'
 
 export const SPLibrary = (props) => {
-	const { listName } = props
-	const initialState = []
+	const {
+		listName,
+		uploadCallback = () => {},
+		allowUpload = false,
+		...tableProps
+	} = props
+
 	const columnFiltering = false
 
 	const library = useLibrary(listName)
 	const [formOpen, setFormOpen] = useState(false)
 	const [filesToUpload, setFilesToUpload] = useState([])
 	const [dialogContent, setDialogContent] = useState(null)
-	const config = useContext(ConfigContext)
-	const proponents = useContext(ProponentsContext)
 
-	// console.log('library :>> ', library)
+	console.log('library :>> ', library);
 
 	const handleFilesToUpload = (files) => {
 		setFilesToUpload(files)
@@ -46,18 +50,27 @@ export const SPLibrary = (props) => {
 		useSortBy,
 		usePagination
 	)
+	const handleUploadDocument = () => {
+		console.log('handleUploadDocument')
+		setFormOpen(true)
+	}
+
+	let tableActions = []
+
+	if (allowUpload)
+		tableActions.push(
+			<IconButton
+				onClick={handleUploadDocument}
+				size={'small'}
+				color={'secondary'}
+				arial-label={'upload'}>
+				<PublishIcon />
+			</IconButton>
+		)
 
 	const uploadDocuments = async (filesToUpload) => {
 		await library.addDocuments(filesToUpload)
-		//! send email is in the wrong place, this component is more generic than that
-		await proponents.sendEmailToProponents({
-			subject: config.items.publicDocumentEmail.TextValue,
-			body: config.items.publicDocumentEmail.MultiTextValue,
-		})
-	}
-
-	const handleUploadDocument = () => {
-		setFormOpen(true)
+		uploadCallback()
 	}
 
 	const handleFormSubmit = async (values, { setSubmitting }) => {
@@ -91,20 +104,19 @@ export const SPLibrary = (props) => {
 		return (
 			<Alert severity='error'>
 				<AlertTitle>Error</AlertTitle>
-				{library.list.error}
-				<br />
-				{library.items.error}
+				{library.error}
 			</Alert>
 		)
 	}
 	return (
-		<Fragment>
+		<>
 			<SPTable
 				table={table}
 				listName={listName}
 				columns={columns}
 				columnFiltering={columnFiltering}
-				handleUpload={handleUploadDocument}
+				tableActions={tableActions}
+				{...tableProps}
 			/>
 			<FormikDialog
 				open={formOpen}
@@ -114,6 +126,6 @@ export const SPLibrary = (props) => {
 				dialogContent={dialogContent}>
 				<DropZone setAcceptedFiles={handleFilesToUpload} />
 			</FormikDialog>
-		</Fragment>
+		</>
 	)
 }

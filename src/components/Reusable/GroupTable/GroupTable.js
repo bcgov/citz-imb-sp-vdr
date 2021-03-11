@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useContext, Fragment } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table'
 import {
 	useGroup,
@@ -6,8 +6,8 @@ import {
 	FormikDialog,
 	CustomTable,
 	SendConfirmationEmail,
-	ConfigContext,
-} from 'Components'
+	useConfig,
+} from 'components'
 import { IconButton, LinearProgress } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
@@ -16,42 +16,30 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 //TODO: global filter
 
 export const GroupTable = (props) => {
-	const {
-		groupId,
-		groupName,
-		proponent,
-		addRecord = false,
-		showTitle = true,
-		// deleteItem = false,
-		// editItem = false,
-		refresh = true,
-	} = props
+	const { groupId, proponent, addRecord = false, showTitle = true } = props
 
 	const [dialog, setDialog] = useState({
-		// fields: [],
-		// onSubmit: () => {},
 		open: false,
-		// close: () => {},
-		// title: '',
-		// instructions: '',
 	})
 
 	const logAction = useLogAction()
-	const { items } = useContext(ConfigContext)
-	const { addUserEmail, removeUserEmail, contactEmail } = items
+	const config = useConfig()
+	console.log('config :>> ', config)
 
-	const {
-		addGroupMember,
-		// createGroup,
-		// deleteGroup,
-		group,
-		isLoading,
-		members,
-		removeGroupMember,
-		// updateGroup,
-	} = useGroup(groupId, groupName)
+	const addUserEmail = config.items.filter(
+		(item) => item.Key === 'addUserEmail'
+	)[0]
+	const removeUserEmail = config.items.filter(
+		(item) => item.Key === 'removeUserEmail'
+	)[0]
+	const contactEmail = config.items.filter(
+		(item) => item.Key === 'contactEmail'
+	)[0]
+
+	const proponentGroup = useGroup({ groupId })
 
 	const columns = useMemo(() => {
+		if (proponentGroup.isLoading || proponentGroup.isError) return []
 		return [
 			{
 				Header: 'Title',
@@ -81,9 +69,20 @@ export const GroupTable = (props) => {
 				},
 			},
 		]
-	}, [group])
+	}, [
+		proponentGroup.isLoading,
+		proponentGroup.isError,
+		proponentGroup.isMutating,
+	])
 
-	const data = useMemo(() => members, [members])
+	const data = useMemo(() => {
+		if (proponentGroup.isLoading || proponentGroup.isError) return []
+		return proponentGroup.members
+	}, [
+		proponentGroup.isLoading,
+		proponentGroup.isError,
+		proponentGroup.isMutating,
+	])
 
 	const tableDataOptions = useTable(
 		{ columns, data, initialState: {} },
@@ -99,7 +98,6 @@ export const GroupTable = (props) => {
 					name: 'members',
 					label: 'Members',
 					initialValue: '',
-					//validationSchema: Yup.string().required('Required'),
 					control: 'peoplepicker',
 				},
 			],
@@ -108,7 +106,7 @@ export const GroupTable = (props) => {
 					(member) => member.DisplayText
 				)
 				try {
-					await addGroupMember(values)
+					await proponentGroup.addMember(values)
 					logAction(
 						`added ${members.join('; ')} to ${proponent} group`
 					)
@@ -124,6 +122,7 @@ export const GroupTable = (props) => {
 									newvalue: member.DisplayText,
 								},
 							],
+							contactEmail,
 						})
 						logAction(
 							`sent ${addUserEmail.Title} to ${members.join(
@@ -156,7 +155,7 @@ export const GroupTable = (props) => {
 			),
 			onSubmit: async (values, { setSubmitting }) => {
 				try {
-					await removeGroupMember(original.Id)
+					await proponentGroup.removeMember(original.Id)
 					logAction(
 						`removed ${original.Title} from ${proponent} group`
 					)
@@ -171,6 +170,7 @@ export const GroupTable = (props) => {
 								newvalue: original.Title,
 							},
 						],
+						contactEmail
 					})
 					logAction(
 						`sent ${removeUserEmail.Title} to ${contactEmail.TextValue}`
@@ -197,10 +197,12 @@ export const GroupTable = (props) => {
 		columns,
 	}
 
+	if (proponentGroup.isLoading) return <LinearProgress />
+
 	return (
-		<Fragment>
-			{isLoading ? <LinearProgress /> : <CustomTable {...tableOptions} />}
+		<>
+			<CustomTable {...tableOptions} />
 			<FormikDialog {...dialog} />
-		</Fragment>
+		</>
 	)
 }

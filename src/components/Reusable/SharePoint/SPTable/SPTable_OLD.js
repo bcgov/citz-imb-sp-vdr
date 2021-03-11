@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table'
 import {
 	Table,
@@ -10,7 +10,7 @@ import {
 	TablePagination,
 } from '@material-ui/core'
 
-export const SPTable = (props) => {
+export const SPTable_OLD = (props) => {
 	const {
 		listName,
 		items = [],
@@ -41,7 +41,7 @@ export const SPTable = (props) => {
 	const { pageIndex, pageSize } = state
 
 	return (
-		<Fragment>
+		<>
 			<Table {...getTableProps()}>
 				<TableHead>
 					{headerGroups.map((headerGroup, index) => {
@@ -140,6 +140,6 @@ export const SPTable = (props) => {
 					}}
 				/>
 			) : null}
-		</Fragment>
+		</>
 	)
 }

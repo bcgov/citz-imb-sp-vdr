@@ -10,25 +10,36 @@ import { HiddenFormikControl } from './Hidden/HiddenFormikControl'
 export const FormikControls = (props) => {
 	const { control, ...rest } = props
 
+	let returnedControl
+
 	switch (control) {
 		case 'input':
-			return <InputFormikControl {...rest} />
+			returnedControl = <InputFormikControl {...rest} />
+			break
 		case 'textarea':
-			return <TextAreaFormikControl {...rest} />
+			returnedControl = <TextAreaFormikControl {...rest} />
+			break
 		case 'select':
-			return <SelectFormikControl {...rest} />
+			returnedControl = <SelectFormikControl {...rest} />
+			break
 		case 'radio':
-			return <RadioFormikControl {...rest} />
+			returnedControl = <RadioFormikControl {...rest} />
+			break
 		case 'checkbox':
-			return <CheckboxGroupFormikControl {...rest} />
+			returnedControl = <CheckboxGroupFormikControl {...rest} />
+			break
 		case 'peoplepicker':
-			return <PeoplePickerFormikControl {...rest} />
+			returnedControl = <PeoplePickerFormikControl {...rest} />
+			break
 		case 'hidden':
-			return <HiddenFormikControl {...rest} />
+			returnedControl = <HiddenFormikControl {...rest} />
+			break
 		case 'autocomplete':
-		// return <AutoCompleteFormikControl {...rest} />
+			// return <AutoCompleteFormikControl {...rest} />
+			break
 		case 'date':
 		default:
-			return null
+			returnedControl = null
 	}
+	return returnedControl
 }

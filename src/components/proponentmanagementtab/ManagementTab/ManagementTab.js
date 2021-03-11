@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { AppBar, Tabs, Tab, Paper } from '@material-ui/core'
 
-import { HorizontalTabPanel } from 'Components'
+import { HorizontalTabPanel } from 'components'
 import { Questions } from '../Questions/Questions'
 import { Library } from '../Library/Library'
 import { Membership } from '../Membership/Membership'

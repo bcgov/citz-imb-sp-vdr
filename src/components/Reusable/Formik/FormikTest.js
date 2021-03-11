@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { FormikDialog } from 'Components'
+import { FormikDialog } from 'components'
 import * as Yup from 'yup'
 
-export const FormikTest = ({open, close}) => {
-
+export const FormikTest = ({ open, close }) => {
 	const [peoplePicker, setPeoplePicker] = useState()
 
 	const fields = [
@@ -21,7 +20,9 @@ export const FormikTest = ({open, close}) => {
 			initialValue: '',
 			// validationSchema: Yup.string().required('Required'),
 			control: 'peoplepicker',
-			getUserInfo: (userInfo)=>{setPeoplePicker(userInfo)}
+			getUserInfo: (userInfo) => {
+				setPeoplePicker(userInfo)
+			},
 		},
 		{
 			name: 'description',
