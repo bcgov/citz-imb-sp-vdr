@@ -6,9 +6,9 @@ import { ReactQueryDevtoolsPanel } from 'react-query/devtools'
 import { Logon } from './Logon/Logon'
 import { Test } from '../Test'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({defaultOptions:{queries:{retry:5}}})
 
-const isTest = false
+const isTest = true
 
 export const AppContexts = () => {
 	return (
