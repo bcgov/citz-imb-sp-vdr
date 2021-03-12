@@ -12,7 +12,7 @@ export const GetLibrary = async ({ listName, options }) => {
 
 	response = GetColumns(response)
 
-	// console.log('GetLibrary response :>> ', response)
+	console.log('GetLibrary response :>> ', response)
 
 	return response
 }

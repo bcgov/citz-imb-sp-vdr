@@ -23,7 +23,7 @@ export const SPLibrary = (props) => {
 	const [filesToUpload, setFilesToUpload] = useState([])
 	const [dialogContent, setDialogContent] = useState(null)
 
-	console.log('library :>> ', library);
+	// console.log('library :>> ', library);
 
 	const handleFilesToUpload = (files) => {
 		setFilesToUpload(files)
@@ -34,6 +34,7 @@ export const SPLibrary = (props) => {
 		if (library.isLoading || library.isError) {
 			return []
 		}
+		console.log('library.items :>> ', library.items);
 		return [...library.items]
 	}, [library.isLoading, library.isError, library.isMutating])
 
@@ -41,6 +42,7 @@ export const SPLibrary = (props) => {
 		if (library.isLoading || library.isError) {
 			return []
 		}
+		console.log('library.list.Columns :>> ', library.list.Columns);
 		return library.list.Columns
 	}, [library.isLoading, library.isError])
 
