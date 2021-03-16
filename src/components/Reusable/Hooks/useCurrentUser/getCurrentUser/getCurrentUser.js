@@ -33,15 +33,9 @@ export const getCurrentUser = async () => {
 
 		const associatedGroups = await GetAssociatedGroups();
 
-		for (let i = 0; i < user.Groups.results.length; i++) {
-			if (
-				user.Groups.results[i].Id ===
-				associatedGroups.AssociatedOwnerGroup.Id
-			) {
-				isOwner = true;
-				break;
-			}
-		}
+		isOwner = !!user.Groups.results.filter(
+			(group) => group.Id === associatedGroups.AssociatedOwnerGroup.Id
+		)[0];
 	} catch (err) {
 		console.error('error getting current user :>> ', err);
 	}

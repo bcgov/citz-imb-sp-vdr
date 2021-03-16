@@ -43,7 +43,6 @@ export const SPLibrary = (props) => {
 		if (library.isLoading || library.isError) {
 			return [];
 		}
-		console.log('library.list.Columns :>> ', library.list.Columns);
 
 		let tempColumns = [...library.list.Columns];
 
@@ -70,7 +69,6 @@ export const SPLibrary = (props) => {
 				...tempColumns,
 			];
 		}
-		console.log('tempColumns :>> ', tempColumns);
 
 		return tempColumns;
 	}, [library.isLoading, library.isError]);
@@ -100,7 +98,7 @@ export const SPLibrary = (props) => {
 		);
 
 	const removeItem = (row) => {
-		library.deleteDocument(row.original.Id)
+		library.deleteDocument(row.original.Id);
 	};
 
 	const uploadDocuments = async (filesToUpload) => {

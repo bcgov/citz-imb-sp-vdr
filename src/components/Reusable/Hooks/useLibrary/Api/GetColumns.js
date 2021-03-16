@@ -42,10 +42,11 @@ export const GetColumns = (list) => {
 							newColumn.accessor = listFields[i].InternalName
 							newColumn.disableFilters = false
 							newColumn.Cell = ({row}) => {
+								console.log('row :>> ', row);
 								return (
 									<Link
 										href={
-											row.original.File.LinkingUrl
+											row.original.File.ServerRelativeUrl
 										}>
 										{
 											row.original.File.Name

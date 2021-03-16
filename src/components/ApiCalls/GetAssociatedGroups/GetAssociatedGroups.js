@@ -12,8 +12,8 @@ export const GetAssociatedGroups = async (baseurl) => {
 	});
 
 	return {
-		AssociatedOwnerGroup,
-		AssociatedMemberGroup,
-		AssociatedVisitorGroup,
+		AssociatedOwnerGroup: AssociatedOwnerGroup.d,
+		AssociatedMemberGroup: AssociatedMemberGroup.d,
+		AssociatedVisitorGroup: AssociatedVisitorGroup.d,
 	};
 };

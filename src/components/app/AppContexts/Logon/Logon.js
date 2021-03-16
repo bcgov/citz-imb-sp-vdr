@@ -9,6 +9,7 @@ export const Logon = () => {
 
 	useEffect(() => {
 		if (!currentUser.isLoading) {
+			console.log('currentUser :>> ', currentUser);
 			const device = deviceDetect()
 			logAction(
 				`logged in using ${device.browserName} ${device.browserMajorVersion} and ${device.osName} ${device.osVersion}`,
