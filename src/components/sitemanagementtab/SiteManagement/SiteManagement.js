@@ -1,18 +1,18 @@
-import React, { useState, useReducer, useEffect } from 'react'
-import { useLogAction, FormikDialog } from 'components'
-import { ListItem, List } from '@material-ui/core'
-import * as Yup from 'yup'
-import { GetListItems, UpdateListItem } from 'citz-imb-sp-utilities'
-import { useSnackbar } from 'notistack'
-import { ActivityLog } from '../ActivityLog/ActivityLog'
+import React, { useState, useReducer, useEffect } from 'react';
+import { useLogAction, FormikDialog } from 'components';
+import { ListItem, List } from '@material-ui/core';
+import * as Yup from 'yup';
+import { GetListItems, UpdateListItem } from 'components/ApiCalls';
+import { useSnackbar } from 'notistack';
+import { ActivityLog } from '../ActivityLog/ActivityLog';
 
 export const SiteManagement = () => {
-	const listName = 'Config'
+	const listName = 'Config';
 
-	const [listItems, setListItems] = useState([])
-	const [items, setItems] = useState({})
-	const { enqueueSnackbar } = useSnackbar()
-	const LogAction = useLogAction()
+	const [listItems, setListItems] = useState([]);
+	const [items, setItems] = useState({});
+	const { enqueueSnackbar } = useSnackbar();
+	const LogAction = useLogAction();
 
 	const initialDialogProps = {
 		fields: [],
@@ -21,21 +21,21 @@ export const SiteManagement = () => {
 		close: () => {},
 		title: '',
 		instructions: '',
-	}
+	};
 
 	const handleSave = async (key, newValues, setSubmitting) => {
 		try {
-			await UpdateListItem({ listName, items: newValues })
-			dialogDispatch('reset')
-			LogAction(`updated '${key}'`)
+			await UpdateListItem({ listName, items: newValues });
+			dialogDispatch('reset');
+			LogAction(`updated '${key}'`);
 		} catch (error) {
-			console.error('Error in handleSave', error)
+			console.error('Error in handleSave', error);
 			enqueueSnackbar(`${key} did not update: ${error}`, {
 				variant: 'error',
-			})
-			setSubmitting(false)
+			});
+			setSubmitting(false);
 		}
-	}
+	};
 
 	const dialogReducer = (state, action) => {
 		switch (action) {
@@ -68,16 +68,16 @@ export const SiteManagement = () => {
 						},
 					],
 					onSubmit: (values, { setSubmitting }) => {
-						values.Id = items[action].Id
-						handleSave(action, values, setSubmitting)
+						values.Id = items[action].Id;
+						handleSave(action, values, setSubmitting);
 					},
 					open: true,
 					close: () => {
-						dialogDispatch('reset')
+						dialogDispatch('reset');
 					},
 					title: items[action].Title,
 					instructions: items[action].Instructions,
-				}
+				};
 			case 'addUserEmail':
 				return {
 					fields: [
@@ -99,16 +99,16 @@ export const SiteManagement = () => {
 						},
 					],
 					onSubmit: (values, { setSubmitting }) => {
-						values.Id = items[action].Id
-						handleSave(action, values, setSubmitting)
+						values.Id = items[action].Id;
+						handleSave(action, values, setSubmitting);
 					},
 					open: true,
 					close: () => {
-						dialogDispatch('reset')
+						dialogDispatch('reset');
 					},
 					title: items[action].Title,
 					instructions: items[action].Instructions,
-				}
+				};
 			case 'contactEmail':
 				return {
 					fields: [
@@ -125,16 +125,16 @@ export const SiteManagement = () => {
 					],
 					onSubmit: (values, { setSubmitting }) => {
 						//console.log('onSubmit :>> ', { values, thing })
-						values.Id = items[action].Id
-						handleSave(action, values, setSubmitting)
+						values.Id = items[action].Id;
+						handleSave(action, values, setSubmitting);
 					},
 					open: true,
 					close: () => {
-						dialogDispatch('reset')
+						dialogDispatch('reset');
 					},
 					title: items[action].Title,
 					instructions: items[action].Instructions,
-				}
+				};
 			case 'addQuestionEmail':
 				return {
 					fields: [
@@ -156,16 +156,16 @@ export const SiteManagement = () => {
 						},
 					],
 					onSubmit: (values, { setSubmitting }) => {
-						values.Id = items[action].Id
-						handleSave(action, values, setSubmitting)
+						values.Id = items[action].Id;
+						handleSave(action, values, setSubmitting);
 					},
 					open: true,
 					close: () => {
-						dialogDispatch('reset')
+						dialogDispatch('reset');
 					},
 					title: items[action].Title,
 					instructions: items[action].Instructions,
-				}
+				};
 			case 'newQuestionEmail':
 				return {
 					fields: [
@@ -187,16 +187,16 @@ export const SiteManagement = () => {
 						},
 					],
 					onSubmit: (values, { setSubmitting }) => {
-						values.Id = items[action].Id
-						handleSave(action, values, setSubmitting)
+						values.Id = items[action].Id;
+						handleSave(action, values, setSubmitting);
 					},
 					open: true,
 					close: () => {
-						dialogDispatch('reset')
+						dialogDispatch('reset');
 					},
 					title: items[action].Title,
 					instructions: items[action].Instructions,
-				}
+				};
 			case 'newAnswerEmail':
 				return {
 					fields: [
@@ -218,71 +218,71 @@ export const SiteManagement = () => {
 						},
 					],
 					onSubmit: (values, { setSubmitting }) => {
-						values.Id = items[action].Id
-						handleSave(action, values, setSubmitting)
+						values.Id = items[action].Id;
+						handleSave(action, values, setSubmitting);
 					},
 					open: true,
 					close: () => {
-						dialogDispatch('reset')
+						dialogDispatch('reset');
 					},
 					title: items[action].Title,
 					instructions: items[action].Instructions,
-				}
+				};
 			case 'reset':
-				return initialDialogProps
+				return initialDialogProps;
 			case 'viewActivityLog':
 				return {
 					open: true,
 					close: () => {
-						dialogDispatch('reset')
+						dialogDispatch('reset');
 					},
 					title: 'Activity Log',
 					dialogContent: <ActivityLog />,
 					fullScreen: true,
 					cancelButtonText: 'Close',
-				}
+				};
 			default:
-				console.log(`${action} not defined`)
-				return state
+				console.log(`${action} not defined`);
+				return state;
 		}
-	}
+	};
 
 	const [dialogProps, dialogDispatch] = useReducer(
 		dialogReducer,
 		initialDialogProps
-	)
+	);
 
 	const getItems = async () => {
-		const configItems = await GetListItems({ listName })
+		const configItems = await GetListItems({ listName });
 		let itemRenders = configItems.map((item) => {
 			return (
 				<ListItem
 					key={item.Key}
 					onClick={() => {
-						dialogDispatch(item.Key)
+						dialogDispatch(item.Key);
 					}}
 					id={item.Key}
 					button
 					divider>
 					Edit {item.Title}
 				</ListItem>
-			)
-		})
+			);
+		});
 
 		itemRenders.push(
 			<ListItem
 				key={'viewActivityLog'}
 				onClick={() => {
-					dialogDispatch('viewActivityLog')
+					dialogDispatch('viewActivityLog');
 				}}
 				id={'viewActivityLog'}
 				button
 				divider>
 				View Activity Log
 			</ListItem>
-		)
+		);
 
-		let itemObject = {}
+		let itemObject = {};
 
 		for (let i = 0; i < configItems.length; i++) {
 			itemObject[configItems[i].Key] = {
@@ -294,21 +294,21 @@ export const SiteManagement = () => {
 				Title: configItems[i].Title,
 				Instructions: configItems[i].Instructions,
 				Id: configItems[i].Id,
-			}
+			};
 		}
-		setItems(itemObject)
-		setListItems(itemRenders)
-	}
+		setItems(itemObject);
+		setListItems(itemRenders);
+	};
 
 	useEffect(() => {
-		getItems()
-		return () => {}
-	}, [])
+		getItems();
+		return () => {};
+	}, []);
 
 	return (
 		<>
 			<List>{listItems.map((item) => item)}</List>
 			<FormikDialog {...dialogProps} />
 		</>
-	)
-}
+	);
+};

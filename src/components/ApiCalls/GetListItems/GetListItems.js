@@ -1,4 +1,4 @@
-import { RestCall, isGuid } from '../RestCall/RestCall';
+import { RestCall } from '../RestCall/RestCall';
 
 export const GetListItems = async ({
 	listName,
@@ -20,7 +20,18 @@ export const GetListItems = async ({
 	if (endPointParameters.length)
 		endPoint += `?${endPointParameters.join('&')}`;
 
-	const response = await RestCall({ url: baseurl, endPoint: endPoint });
+	try {
+		const response = await RestCall({ endPoint: endPoint });
 
-	return response.d.results;
+		return response.d.results;
+	} catch (error) {
+		console.error('GetListItems error :>> ', {
+			listName,
+			expand,
+			filter,
+			select,
+			sort,
+			sortDir,
+		});
+	}
 };

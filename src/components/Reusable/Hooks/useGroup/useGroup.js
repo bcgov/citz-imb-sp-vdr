@@ -5,24 +5,24 @@ import {
 	RemoveUsersFromGroup,
 	ChangeGroupOwner,
 	DeleteGroup,
-} from 'citz-imb-sp-utilities'
+} from 'components/ApiCalls';
 
-import { useQuery, useQueryClient, useMutation } from 'react-query'
+import { useQuery, useQueryClient, useMutation } from 'react-query';
 
 export const useGroup = (props) => {
-	const { groupName, groupId } = props
+	const { groupName, groupId } = props;
 
-	const groupQueryName = [`group-${groupName ?? groupId}`, 'group']
-	const membersQueryName = [`group-${groupName ?? groupId}`, 'members']
+	const groupQueryName = [`group-${groupName ?? groupId}`, 'group'];
+	const membersQueryName = [`group-${groupName ?? groupId}`, 'members'];
 
 	const group = useQuery(groupQueryName, () =>
 		GetGroup({ groupName, groupId })
-	)
+	);
 	const members = useQuery(membersQueryName, () =>
 		GetGroupMembers({ groupName, groupId })
-	)
+	);
 
-	const queryClient = useQueryClient()
+	const queryClient = useQueryClient();
 
 	const addMemberMutation = useMutation(
 		(values) =>
@@ -34,11 +34,11 @@ export const useGroup = (props) => {
 			onMutate: (values) => {
 				const previousValues = queryClient.getQueryData(
 					membersQueryName
-				)
+				);
 
 				queryClient.setQueryData(membersQueryName, (oldValues) => {
-					console.log('oldValues :>> ', oldValues)
-					console.log('values :>> ', values)
+					console.log('oldValues :>> ', oldValues);
+					console.log('values :>> ', values);
 
 					return [
 						...oldValues,
@@ -48,19 +48,19 @@ export const useGroup = (props) => {
 								Email: member.EntityData.Email,
 								Title: member.EntityData.Title,
 								LoginName: member.Key,
-							}
+							};
 						}),
-					]
-				})
+					];
+				});
 
 				return () =>
-					queryClient.setQueryData(membersQueryName, previousValues)
+					queryClient.setQueryData(membersQueryName, previousValues);
 			},
 			onError: (error, values, previousValues) =>
 				queryClient.setQueryData(membersQueryName, previousValues),
 			onSuccess: () => queryClient.refetchQueries(membersQueryName),
 		}
-	)
+	);
 
 	const removeMemberMutation = useMutation(
 		(userId) =>
@@ -72,20 +72,20 @@ export const useGroup = (props) => {
 			onMutate: (userId) => {
 				const previousValues = queryClient.getQueryData(
 					membersQueryName
-				)
+				);
 
 				queryClient.setQueryData(membersQueryName, (oldValues) =>
 					oldValues.filter((member) => member.Id !== userId)
-				)
+				);
 
 				return () =>
-					queryClient.setQueryData(membersQueryName, previousValues)
+					queryClient.setQueryData(membersQueryName, previousValues);
 			},
 			onError: (error, values, previousValues) =>
 				queryClient.setQueryData(membersQueryName, previousValues),
 			onSuccess: () => queryClient.refetchQueries(membersQueryName),
 		}
-	)
+	);
 
 	const changeGroupOwnerMutation = useMutation(
 		(newOwnerId) =>
@@ -96,7 +96,7 @@ export const useGroup = (props) => {
 		{
 			onSuccess: () => queryClient.refetchQueries(groupQueryName),
 		}
-	)
+	);
 	const deleteGroupMutation = useMutation(
 		() =>
 			DeleteGroup({
@@ -105,7 +105,7 @@ export const useGroup = (props) => {
 		{
 			onSuccess: () => queryClient.invalidateQueries(),
 		}
-	)
+	);
 
 	return {
 		members: members.data,
@@ -125,5 +125,5 @@ export const useGroup = (props) => {
 		deleteGroup: deleteGroupMutation.mutateAsync,
 		addMember: addMemberMutation.mutateAsync,
 		removeMember: removeMemberMutation.mutateAsync,
-	}
-}
+	};
+};

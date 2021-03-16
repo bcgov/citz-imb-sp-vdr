@@ -1,4 +1,4 @@
-import { DoFetch } from '../../DoFetch/DoFetch';
+import { DoFetch } from '../RestCall/DoFetch/DoFetch';
 
 export const GetContextWebInformation = async () => {
 	// eslint-disable-next-line

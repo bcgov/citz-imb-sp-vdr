@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { GetLibrary, GetDocuments } from './Api';
 import { addFileToFolder } from './ProcessFile/addFileToFolder';
 import { getFileBuffer } from './ProcessFile/getFileBuffer';
-import { RemoveItemsFromList } from 'citz-imb-sp-utilities';
+import { RemoveItemsFromList } from 'components/ApiCalls';
 
 export const useLibrary = (listName, options = {}) => {
 	const listQueryName = [listName, 'list'];
@@ -57,12 +57,11 @@ export const useLibrary = (listName, options = {}) => {
 			onMutate: (id) => {
 				const previousValues = queryClient.getQueryData(itemsQueryName);
 
-				queryClient.setQueryData(itemsQueryName, (oldValues) =>
-					{
-						console.log('oldValues :>> ', oldValues);
-						console.log('id :>> ', id);
-						return oldValues.filter((value) => value.Id !== id)}
-				);
+				queryClient.setQueryData(itemsQueryName, (oldValues) => {
+					console.log('oldValues :>> ', oldValues);
+					console.log('id :>> ', id);
+					return oldValues.filter((value) => value.Id !== id);
+				});
 
 				return () =>
 					queryClient.setQueryData(itemsQueryName, previousValues);

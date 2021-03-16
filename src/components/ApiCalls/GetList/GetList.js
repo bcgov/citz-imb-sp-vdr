@@ -11,7 +11,16 @@ export const GetList = async ({ listName, expand, filter, select }) => {
 	if (endPointParameters.length)
 		endPoint = `${endPoint}?${endPointParameters.join('&')}`;
 
-	const response = await RestCall({ endPoint: endPoint });
+	try {
+		const response = await RestCall({ endPoint: endPoint });
 
-	return response.d;
+		return response.d;
+	} catch (error) {
+		console.error('GetList error :>> ', {
+			listName,
+			expand,
+			filter,
+			select,
+		});
+	}
 };

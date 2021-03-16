@@ -1,5 +1,8 @@
-import { GetAssociatedGroups } from 'citz-imb-sp-utilities';
-import { GetCurrentUser, GetListItems } from 'components/ApiCalls';
+import {
+	GetCurrentUser,
+	GetListItems,
+	GetAssociatedGroups,
+} from 'components/ApiCalls';
 
 export const getCurrentUser = async () => {
 	let name,

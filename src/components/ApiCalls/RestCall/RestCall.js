@@ -1,4 +1,4 @@
-import { GetFormDigestValue } from './GetFormDigestValue/GetFormDigestValue';
+import { GetFormDigestValue } from '../GetFormDigestValue/GetFormDigestValue';
 import { DoFetch } from './DoFetch/DoFetch';
 
 export const RestCall = async ({
@@ -63,7 +63,17 @@ export const RestCall = async ({
 		default:
 	}
 
-	fetchResponse = await DoFetch(webAbsoluteUrl, endPoint, options);
-	// console.log('fetchResponse :>> ', fetchResponse);
-	return fetchResponse;
+	// try {
+		fetchResponse = await DoFetch(webAbsoluteUrl, endPoint, options);
+		// console.log('fetchResponse :>> ', fetchResponse);
+		return fetchResponse;
+	// } catch (error) {
+	// 	console.error('RestCall error :>> ', {
+	// 		endPoint,
+	// 		method,
+	// 		body,
+	// 		headers,
+	// 		cache,
+	// 	});
+	// }
 };

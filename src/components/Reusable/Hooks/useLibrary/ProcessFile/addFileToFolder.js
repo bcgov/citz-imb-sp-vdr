@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import { GetFormDigestValue } from 'citz-imb-sp-utilities'
+import { GetFormDigestValue } from 'components/ApiCalls'
 // Add the file to the file collection in the Shared Documents folder.
 export async function addFileToFolder(props) {
 	console.log('props :>> ', props)

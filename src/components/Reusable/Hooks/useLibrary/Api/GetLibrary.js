@@ -1,4 +1,4 @@
-import { GetList } from 'citz-imb-sp-utilities'
+import { GetList } from 'components/ApiCalls'
 import { GetColumns } from './GetColumns'
 
 export const GetLibrary = async ({ listName, options }) => {
