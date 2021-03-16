@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react'
-import { useTable, useSortBy, useFilters, usePagination } from 'react-table'
+import React, { useState, useMemo } from 'react';
+import { useTable, useSortBy, useFilters, usePagination } from 'react-table';
 import {
 	useGroup,
 	useLogAction,
@@ -7,39 +7,39 @@ import {
 	CustomTable,
 	SendConfirmationEmail,
 	useConfig,
-} from 'components'
-import { IconButton, LinearProgress } from '@material-ui/core'
-import { Alert, AlertTitle } from '@material-ui/lab'
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
+} from 'components';
+import { IconButton, LinearProgress } from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 //TODO: CRUD operations
 //TODO: global filter
 
 export const GroupTable = (props) => {
-	const { groupId, proponent, addRecord = false, showTitle = true } = props
+	const { groupId, proponent, addRecord = false, showTitle = true } = props;
 
 	const [dialog, setDialog] = useState({
 		open: false,
-	})
+	});
 
-	const logAction = useLogAction()
-	const config = useConfig()
-	console.log('config :>> ', config)
+	const logAction = useLogAction();
+	const config = useConfig();
+	console.log('config :>> ', config);
 
 	const addUserEmail = config.items.filter(
 		(item) => item.Key === 'addUserEmail'
-	)[0]
+	)[0];
 	const removeUserEmail = config.items.filter(
 		(item) => item.Key === 'removeUserEmail'
-	)[0]
+	)[0];
 	const contactEmail = config.items.filter(
 		(item) => item.Key === 'contactEmail'
-	)[0]
+	)[0];
 
-	const proponentGroup = useGroup({ groupId })
+	const proponentGroup = useGroup({ groupId });
 
 	const columns = useMemo(() => {
-		if (proponentGroup.isLoading || proponentGroup.isError) return []
+		if (proponentGroup.isLoading || proponentGroup.isError) return [];
 		return [
 			{
 				Header: 'Title',
@@ -58,38 +58,38 @@ export const GroupTable = (props) => {
 				id: 'removeMember',
 				Cell: ({ row }) => {
 					const clickHandler = () => {
-						removeItemDialog(row)
-					}
+						removeItemDialog(row);
+					};
 
 					return (
 						<IconButton color={'primary'} onClick={clickHandler}>
 							<DeleteOutlineIcon />
 						</IconButton>
-					)
+					);
 				},
 			},
-		]
+		];
 	}, [
 		proponentGroup.isLoading,
 		proponentGroup.isError,
 		proponentGroup.isMutating,
-	])
+	]);
 
 	const data = useMemo(() => {
-		if (proponentGroup.isLoading || proponentGroup.isError) return []
-		return proponentGroup.members
+		if (proponentGroup.isLoading || proponentGroup.isError) return [];
+		return proponentGroup.members;
 	}, [
 		proponentGroup.isLoading,
 		proponentGroup.isError,
 		proponentGroup.isMutating,
-	])
+	]);
 
 	const tableDataOptions = useTable(
 		{ columns, data, initialState: {} },
 		useFilters,
 		useSortBy,
 		usePagination
-	)
+	);
 
 	const addItemDialog = () => {
 		setDialog({
@@ -104,12 +104,12 @@ export const GroupTable = (props) => {
 			onSubmit: async (values, { setSubmitting }) => {
 				const members = values.members.map(
 					(member) => member.DisplayText
-				)
+				);
 				try {
-					await proponentGroup.addMember(values)
+					await proponentGroup.addMember(values);
 					logAction(
 						`added ${members.join('; ')} to ${proponent} group`
-					)
+					);
 					values.members.map(async (member) => {
 						await SendConfirmationEmail({
 							addresses: member.Key,
@@ -123,27 +123,27 @@ export const GroupTable = (props) => {
 								},
 							],
 							contactEmail,
-						})
+						});
 						logAction(
 							`sent ${addUserEmail.Title} to ${members.join(
 								'; '
 							)}`
-						)
-					})
+						);
+					});
 
-					setSubmitting(false)
-					setDialog({ open: false })
+					setSubmitting(false);
+					setDialog({ open: false });
 				} catch (error) {
-					throw error
+					throw error;
 				}
 			},
 			open: true,
 			close: () => {
-				setDialog({ open: false })
+				setDialog({ open: false });
 			},
 			title: 'Add Member',
-		})
-	}
+		});
+	};
 
 	const removeItemDialog = ({ original }) => {
 		setDialog({
@@ -155,10 +155,10 @@ export const GroupTable = (props) => {
 			),
 			onSubmit: async (values, { setSubmitting }) => {
 				try {
-					await proponentGroup.removeMember(original.Id)
+					await proponentGroup.removeMember(original.Id);
 					logAction(
 						`removed ${original.Title} from ${proponent} group`
-					)
+					);
 					await SendConfirmationEmail({
 						addresses: contactEmail.TextValue,
 						proponent,
@@ -170,24 +170,24 @@ export const GroupTable = (props) => {
 								newvalue: original.Title,
 							},
 						],
-						contactEmail
-					})
+						contactEmail,
+					});
 					logAction(
 						`sent ${removeUserEmail.Title} to ${contactEmail.TextValue}`
-					)
-					setSubmitting(false)
-					setDialog({ open: false })
+					);
+					setSubmitting(false);
+					setDialog({ open: false });
 				} catch (error) {
-					throw error
+					throw error;
 				}
 			},
 			open: true,
 			close: () => {
-				setDialog({ open: false })
+				setDialog({ open: false });
 			},
 			title: 'Remove Member',
-		})
-	}
+		});
+	};
 
 	const tableOptions = {
 		showTitle,
@@ -195,14 +195,14 @@ export const GroupTable = (props) => {
 		addItemCallback: addItemDialog,
 		tableDataOptions,
 		columns,
-	}
+	};
 
-	if (proponentGroup.isLoading) return <LinearProgress />
+	if (proponentGroup.isLoading) return <LinearProgress />;
 
 	return (
 		<>
 			<CustomTable {...tableOptions} />
 			<FormikDialog {...dialog} />
 		</>
-	)
-}
+	);
+};

@@ -22,10 +22,7 @@ export const GetColumns = (list) => {
 					disableFilters: true,
 					disableSortBy: true,
 				}
-				console.log(
-					`${listFields[i].Title}:listFields[i].FieldTypeKind :>> `,
-					listFields[i].FieldTypeKind
-				)
+
 				switch (listFields[i].FieldTypeKind) {
 					case 2: //Text
 						newColumn.disableFilters = false
@@ -45,7 +42,6 @@ export const GetColumns = (list) => {
 							newColumn.accessor = listFields[i].InternalName
 							newColumn.disableFilters = false
 							newColumn.Cell = ({row}) => {
-								console.log('row :>> ', row);
 								return (
 									<Link
 										href={

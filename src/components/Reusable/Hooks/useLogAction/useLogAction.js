@@ -1,15 +1,15 @@
-import { AddItemsToList } from 'citz-imb-sp-utilities'
-import * as moment from 'moment'
-import { useSnackbar } from 'notistack'
-import { useCurrentUser } from 'components'
+import { AddItemsToList } from 'components/ApiCalls';
+import * as moment from 'moment';
+import { useSnackbar } from 'notistack';
+import { useCurrentUser } from 'components';
 
 export const useLogAction = () => {
-	const currentUser = useCurrentUser()
-	const { enqueueSnackbar } = useSnackbar()
+	const currentUser = useCurrentUser();
+	const { enqueueSnackbar } = useSnackbar();
 
 	const logAction = async (message, snackbar = true, variant = 'success') => {
-		const timeStamp = moment().format('dddd, MMMM Do, YYYY @ h:mm:ss a')
-		const activity = `${currentUser.name} ${message} on ${timeStamp}`
+		const timeStamp = moment().format('dddd, MMMM Do, YYYY @ h:mm:ss a');
+		const activity = `${currentUser.name} ${message} on ${timeStamp}`;
 		try {
 			await AddItemsToList({
 				listName: 'ActivityLog',
@@ -18,21 +18,21 @@ export const useLogAction = () => {
 					User: currentUser.name,
 					Proponent: currentUser.proponent,
 				},
-			})
+			});
 
-			console.warn('LogAction :>> ', activity)
+			console.warn('LogAction :>> ', activity);
 
 			if (snackbar)
 				enqueueSnackbar(message, {
 					variant,
-				})
+				});
 		} catch (error) {
-			console.error('error :>> ', error)
+			console.error('error :>> ', error);
 			enqueueSnackbar(`Error: ${message} - ${error}`, {
 				variant: 'error',
-			})
+			});
 		}
-	}
+	};
 
-	return logAction
-}
+	return logAction;
+};
