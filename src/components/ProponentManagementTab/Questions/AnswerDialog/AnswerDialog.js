@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import * as yup from 'yup'
-import { useConfig, useList, FormikDialog, useProponents } from 'components'
+import React, { useState, useEffect } from 'react';
+import * as yup from 'yup';
+import { useConfig, useList, FormikDialog, useProponents } from 'components';
 
 export const AnswerDialog = (props) => {
 	const {
@@ -13,26 +13,33 @@ export const AnswerDialog = (props) => {
 		UUID,
 		isUpdate = false,
 		closeAnswerDialog,
-	} = props
+	} = props;
 
-	const [dialogOptions, setDialogOptions] = useState({ open: false })
+	const [dialogOptions, setDialogOptions] = useState({ open: false });
 
-	const proponents = useProponents()
-	const publicQuestions = useList({ listName: 'Questions' })
-	const config = useConfig()
+	const proponents = useProponents();
+	const publicQuestions = useList({ listName: 'Questions' });
+	const config = useConfig();
 
-	const updatedAnswerEmail=config.items.filter(item=>item.Key==='updatedAnswerEmail')
-	const newAnswerEmail=config.items.filter(item=>item.Key==='newAnswerEmail')[0]
+	const updatedAnswerEmail = config.filter(
+		(item) => item.Key === 'updatedAnswerEmail'
+	);
+	const newAnswerEmail = config.filter(
+		(item) => item.Key === 'newAnswerEmail'
+	)[0];
 
-	const proponentQuestions = useList({ listName: `${UUID}_Questions` })
+	const proponentQuestions = useList({ listName: `${UUID}_Questions` });
 
 	const getOptions = () => {
 		const options = publicQuestions.items.map((item) => {
-			return { key: `${item.Question} >> ${item.Answer}`, value: item.Id }
-		})
+			return {
+				key: `${item.Question} >> ${item.Answer}`,
+				value: item.Id,
+			};
+		});
 
-		return options
-	}
+		return options;
+	};
 
 	const schema = yup.object().shape({
 		Question: yup.string().required('Required'),
@@ -41,22 +48,22 @@ export const AnswerDialog = (props) => {
 		answer: yup.string().when('previousAnswer', {
 			is: (previousAnswer) => {
 				if (previousAnswer) {
-					return false
+					return false;
 				} else {
-					return true
+					return true;
 				}
 			},
 			then: yup.string().required('Required'),
 			otherwise: yup.string(),
 		}),
-	})
+	});
 
 	useEffect(() => {
 		if (!publicQuestions.isLoading) {
-			let _answer = ''
+			let _answer = '';
 
 			if (Answer) {
-				_answer = publicQuestions.getItemById(parseInt(Answer)).Answer
+				_answer = publicQuestions.getItemById(parseInt(Answer)).Answer;
 			}
 
 			setDialogOptions({
@@ -111,16 +118,16 @@ export const AnswerDialog = (props) => {
 					},
 				],
 				onSubmit: onSubmit,
-			})
+			});
 		}
-		return () => {}
-	}, [publicQuestions.isLoading, openAnswerDialog])
+		return () => {};
+	}, [publicQuestions.isLoading, openAnswerDialog]);
 
 	const onSubmit = async (values, { setSubmitting }) => {
-		let questionsItem, subject, body
-console.log('values :>> ', values);
+		let questionsItem, subject, body;
+		console.log('values :>> ', values);
 		if (values.previousAnswer) {
-			questionsItem = [{ Id: values.previousAnswer }]
+			questionsItem = [{ Id: values.previousAnswer }];
 		} else {
 			if (isUpdate) {
 				//! may break if changed to selected previous answer
@@ -128,35 +135,35 @@ console.log('values :>> ', values);
 					Id: AnswerId,
 					Question: values.sanitizedQuestion,
 					Answer: values.answer,
-				})
+				});
 
-				subject = updatedAnswerEmail.TextValue
-				body = updatedAnswerEmail.MultiTextValue
+				subject = updatedAnswerEmail.TextValue;
+				body = updatedAnswerEmail.MultiTextValue;
 			} else {
 				questionsItem = await publicQuestions.addItem({
 					Question: values.sanitizedQuestion,
 					Answer: values.answer,
-				})
-
+				});
+console.log('questionsItem :>> ', questionsItem);
 				await proponentQuestions.updateItem({
 					Id: values.Id,
 					Answer: questionsItem[0].Id.toString(),
 					AnswerStatus: 'Posted',
-				})
+				});
 
-				subject = newAnswerEmail.TextValue
-				body = newAnswerEmail.MultiTextValue
+				subject = newAnswerEmail.TextValue;
+				body = newAnswerEmail.MultiTextValue;
 			}
 			await proponents.sendEmailToProponents({
 				subject,
 				body,
-			})
+			});
 		}
 
-		setSubmitting(false)
-		closeAnswerDialog()
-	}
+		setSubmitting(false);
+		closeAnswerDialog();
+	};
 
 	// return <div>Hello there</div>
-	return <FormikDialog {...dialogOptions} />
-}
+	return <FormikDialog {...dialogOptions} />;
+};

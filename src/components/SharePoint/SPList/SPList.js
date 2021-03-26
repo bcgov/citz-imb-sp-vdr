@@ -24,7 +24,7 @@ export const SPList = (props) => {
 		}
 
 		return items
-	}, [isFetching])
+	}, [isLoading, isError, items])
 
 	const tableColumns = useMemo(() => {
 		if (isLoading || isError) return []
@@ -69,7 +69,7 @@ export const SPList = (props) => {
 	return (
 		<SPTable
 			table={table}
-			listName={listName}
+			title={listName}
 			columns={tableColumns}
 			{...tableProps}
 		/>

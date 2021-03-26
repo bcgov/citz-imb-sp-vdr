@@ -7,7 +7,9 @@ export const RestCall = async ({
 	body = '',
 	headers,
 	cache,
+	noReturn = false,
 }) => {
+	// console.log('endPoint :>> ', endPoint);
 	// eslint-disable-next-line
 	const webAbsoluteUrl = _spPageContextInfo.webAbsoluteUrl;
 
@@ -42,6 +44,9 @@ export const RestCall = async ({
 	let formDigestValue;
 
 	switch (options.method.toLowerCase()) {
+		case 'get':
+			//no additional processing
+			break;
 		case 'post':
 			formDigestValue = await GetFormDigestValue(webAbsoluteUrl);
 			options.headers['X-RequestDigest'] = formDigestValue;
@@ -60,13 +65,23 @@ export const RestCall = async ({
 			options.headers['If-Match'] = '*';
 			options.method = 'post';
 			break;
+		case 'delete':
+			formDigestValue = await GetFormDigestValue(webAbsoluteUrl);
+			options.headers['X-RequestDigest'] = formDigestValue;
+			options.headers['X-HTTP-Method'] = 'DELETE';
+			options.headers['If-Match'] = '*';
+			options.method = 'post';
+			break;
 		default:
+			console.warn(
+				`method '${options.method}' does not have a case handler in RestCall`
+			);
 	}
 
 	// try {
-		fetchResponse = await DoFetch(webAbsoluteUrl, endPoint, options);
-		// console.log('fetchResponse :>> ', fetchResponse);
-		return fetchResponse;
+	fetchResponse = await DoFetch(webAbsoluteUrl, endPoint, options, noReturn);
+	// console.log('fetchResponse :>> ', fetchResponse);
+	return fetchResponse;
 	// } catch (error) {
 	// 	console.error('RestCall error :>> ', {
 	// 		endPoint,
@@ -75,5 +90,8 @@ export const RestCall = async ({
 	// 		headers,
 	// 		cache,
 	// 	});
+
+	// 	console.log(error.name)
+
 	// }
 };

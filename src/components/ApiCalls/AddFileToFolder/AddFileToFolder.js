@@ -1,16 +1,16 @@
-import $ from 'jquery'
-import { GetFormDigestValue } from 'components/ApiCalls'
+import $ from 'jquery';
+import { GetFormDigestValue } from 'components/ApiCalls';
 // Add the file to the file collection in the Shared Documents folder.
-export async function addFileToFolder(props) {
-	const { listName, payload } = props
-	const { fileData, fileContents } = payload
+export async function AddFileToFolder(props) {
+	const { listName, payload } = props;
+	const { fileData, fileContents } = payload;
 	//eslint-disable-next-line
-	const appWebUrl = _spPageContextInfo.webAbsoluteUrl
+	const appWebUrl = _spPageContextInfo.webAbsoluteUrl;
 	//eslint-disable-next-line
-	const hostWebUrl = _spPageContextInfo.webAbsoluteUrl
-	const digestValue = await GetFormDigestValue(hostWebUrl)
+	const hostWebUrl = _spPageContextInfo.webAbsoluteUrl;
+	const digestValue = await GetFormDigestValue(hostWebUrl);
 
-	var fileName = fileData.name
+	var fileName = fileData.name;
 	// Construct the endpoint.
 	var fileCollectionEndpoint = String.format(
 		"{0}/_api/web/getfolderbyserverrelativeurl('{1}')/files" +
@@ -18,7 +18,7 @@ export async function addFileToFolder(props) {
 		appWebUrl,
 		listName,
 		fileName
-	)
+	);
 
 	// Send the request and return the response.
 	// This call returns the SharePoint file.
@@ -32,5 +32,5 @@ export async function addFileToFolder(props) {
 			'X-RequestDigest': digestValue,
 			// 'content-length': arrayBuffer.byteLength,
 		},
-	})
+	});
 }

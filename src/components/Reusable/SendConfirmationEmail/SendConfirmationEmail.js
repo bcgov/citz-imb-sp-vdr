@@ -12,6 +12,7 @@ const replaceText = (props) => {
 };
 
 export const SendConfirmationEmail = async (props) => {
+	console.log('SendConfirmationEmail props :>> ', props);
 	const {
 		addresses,
 		proponent,
@@ -20,8 +21,6 @@ export const SendConfirmationEmail = async (props) => {
 		additionalReplacementPairs = [],
 		contactEmail,
 	} = props;
-
-	console.log('SendConfirmationEmail props :>> ', props);
 
 	const site = await GetSite({});
 

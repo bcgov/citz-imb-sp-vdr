@@ -1,7 +1,12 @@
-import { useList, SendConfirmationEmail } from 'components';
+import {
+	useList,
+	SendConfirmationEmail,
+	useCurrentUser,
+	useConfig,
+	useLogAction,
+} from 'components';
 import { DeleteGroup, GetGroupMembers } from 'components/ApiCalls';
 import { createProponent } from './createProponent/createProponent';
-import { useCurrentUser, useConfig } from 'components';
 import { createProponentGroup } from './createProponentGroup/createProponentGroup';
 import { setProponentPermissions } from './setProponentPermissions/setProponentPermissions';
 
@@ -12,13 +17,14 @@ export const useProponents = () => {
 		preRequisite: currentUser.Id,
 	});
 	const config = useConfig();
+	const logAction = useLogAction();
 
-	const contactEmail = config.items.filter(
+	const contactEmail = config.filter(
 		(item) => item.Key === 'contactEmail'
 	)[0];
 
 	const add = async (proponentName) => {
-		const { UUID, group } = await createProponent({ currentUser });
+		const { UUID, group } = await createProponent({ currentUser, logAction });
 		await proponents.addItem([
 			{
 				Title: proponentName,

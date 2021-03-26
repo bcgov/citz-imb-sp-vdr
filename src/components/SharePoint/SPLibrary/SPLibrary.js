@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table';
-import { useLibrary } from 'components';
+import { useList } from 'components';
 import { LinearProgress, IconButton } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import PublishIcon from '@material-ui/icons/Publish';
@@ -20,12 +20,20 @@ export const SPLibrary = (props) => {
 
 	const columnFiltering = false;
 
-	const library = useLibrary(listName);
+	const {
+		items,
+		columns: viewColumns,
+		isLoading,
+		isError,
+		isFetching,
+		error,
+		deleteDocument,
+		addDocuments,
+	} = useList({ listName, isLibrary: true });
+
 	const [formOpen, setFormOpen] = useState(false);
 	const [filesToUpload, setFilesToUpload] = useState([]);
 	const [dialogContent, setDialogContent] = useState(null);
-
-	// console.log('library :>> ', library);
 
 	const handleFilesToUpload = (files) => {
 		setFilesToUpload(files);
@@ -33,18 +41,18 @@ export const SPLibrary = (props) => {
 	};
 
 	const data = useMemo(() => {
-		if (library.isLoading || library.isError) {
+		if (isLoading || isError) {
 			return [];
 		}
-		return [...library.items];
-	}, [library.isLoading, library.isError, library.isMutating]);
+		return [...items];
+	}, [isLoading, isError, items]);
 
 	const columns = useMemo(() => {
-		if (library.isLoading || library.isError) {
+		if (isLoading || isError) {
 			return [];
 		}
 
-		let tempColumns = [...library.list.Columns];
+		let tempColumns = [...viewColumns];
 
 		if (allowDelete) {
 			tempColumns = [
@@ -69,9 +77,8 @@ export const SPLibrary = (props) => {
 				...tempColumns,
 			];
 		}
-
 		return tempColumns;
-	}, [library.isLoading, library.isError]);
+	}, [isLoading, isError, columns, allowDelete]);
 
 	const table = useTable(
 		{ columns, data },
@@ -80,7 +87,6 @@ export const SPLibrary = (props) => {
 		usePagination
 	);
 	const handleUploadDocument = () => {
-		console.log('handleUploadDocument');
 		setFormOpen(true);
 	};
 
@@ -97,16 +103,14 @@ export const SPLibrary = (props) => {
 			</IconButton>
 		);
 
-	const removeItem = (row) => {
-		library.deleteDocument(row.original.Id);
-	};
+	const removeItem = (row) => deleteDocument(row.original.Id);
 
 	const uploadDocuments = async (filesToUpload) => {
-		await library.addDocuments(filesToUpload);
+		await addDocuments(filesToUpload);
 		uploadCallback();
 	};
 
-	const handleFormSubmit = async (values, { setSubmitting }) => {
+	const handleFormSubmit = (values, { setSubmitting }) => {
 		if (!filesToUpload.length) {
 			setDialogContent(() => {
 				return (
@@ -119,7 +123,7 @@ export const SPLibrary = (props) => {
 			return;
 		}
 
-		await uploadDocuments(filesToUpload);
+		uploadDocuments(filesToUpload);
 		setSubmitting(false);
 		handleFormClose();
 	};
@@ -129,15 +133,15 @@ export const SPLibrary = (props) => {
 		setFormOpen(false);
 	};
 
-	if (library.isLoading) {
+	if (isLoading) {
 		return <LinearProgress />;
 	}
 
-	if (library.isError) {
+	if (isError) {
 		return (
 			<Alert severity='error'>
 				<AlertTitle>Error</AlertTitle>
-				{library.error}
+				{error}
 			</Alert>
 		);
 	}
@@ -145,7 +149,7 @@ export const SPLibrary = (props) => {
 		<>
 			<SPTable
 				table={table}
-				listName={listName}
+				title={listName}
 				columns={columns}
 				columnFiltering={columnFiltering}
 				tableActions={tableActions}

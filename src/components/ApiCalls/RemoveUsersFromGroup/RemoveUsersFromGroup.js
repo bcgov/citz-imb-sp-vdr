@@ -5,6 +5,11 @@ export const RemoveUsersFromGroup = async ({
 	loginNames,
 	userIds,
 }) => {
+	// console.log('{groupId,loginNames,userIds,} :>> ', {
+	// 	groupId,
+	// 	loginNames,
+	// 	userIds,
+	// });
 	let endPoint = `/_api/web/SiteGroups(${groupId})/Users`;
 
 	let responses = [];

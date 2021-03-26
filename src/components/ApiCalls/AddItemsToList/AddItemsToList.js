@@ -21,7 +21,7 @@ export const AddItemsToList = async ({ listName, items }) => {
 			method: 'post',
 			body: items[i],
 		});
-		responses.push(response);
+		responses.push(response.d);
 	}
 
 	return responses;

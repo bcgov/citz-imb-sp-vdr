@@ -7,18 +7,19 @@ export const AddFieldToList = async ({ listName, fields }) => {
 
 	let responses = [];
 
-	fields.forEach(async (field) => {
-		field.__metadata = {
+	for (let i = 0; i < fields.length; i++) {
+		fields[i].__metadata = {
 			type: 'SP.FieldText',
 		};
 		const response = await RestCall({
 			endPoint,
 			method: 'post',
-			body: field,
+			body: fields[i],
 		});
 
 		responses.push(response.d);
-	});
+	}
+
 
 	return responses;
 };

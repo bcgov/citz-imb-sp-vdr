@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { GetLibrary, GetDocuments } from './Api';
 import { addFileToFolder } from './ProcessFile/addFileToFolder';
 import { getFileBuffer } from './ProcessFile/getFileBuffer';
-import { RemoveItemsFromList } from 'components/ApiCalls';
+import { RemoveDocumentFromLibrary } from 'components/ApiCalls';
 
 export const useLibrary = (listName, options = {}) => {
 	const listQueryName = [listName, 'list'];
@@ -15,32 +15,43 @@ export const useLibrary = (listName, options = {}) => {
 
 	const queryClient = useQueryClient();
 
+	const refresh = async () => {
+		console.log('refetching...');
+		const x = await queryClient.invalidateQueries(itemsQueryName);
+		console.log('x :>> ', x);
+	};
+
 	const addDocumentMutation = useMutation(
 		(payload) => addFileToFolder({ listName, payload }),
 		{
-			onMutate: (values) => {
+			onMutate: async (newValue) => {
+				await queryClient.cancelQueries(itemsQueryName);
+
 				const previousValues = queryClient.getQueryData(itemsQueryName);
 
 				queryClient.setQueryData(itemsQueryName, (oldValues) => [
 					...oldValues,
 					{
 						id: 'temp',
-						...values,
+						File: {
+							Name: newValue.fileData.name,
+						},
+						...newValue,
 					},
 				]);
 
-				return () =>
-					queryClient.setQueryData(itemsQueryName, previousValues);
+				return { previousValues, newValue };
 			},
-			onError: (error, values, previousValues) =>
-				queryClient.setQueryData(itemsQueryName, previousValues),
-			onSuccess: () => queryClient.refetchQueries(itemsQueryName),
+			onError: (error, newValue, context) =>
+				queryClient.setQueryData(
+					itemsQueryName,
+					context.previousValues
+				),
+			onSettled: refresh,
 		}
 	);
 
 	const addDocuments = async (fileInput) => {
-		console.log('fileInput :>> ', fileInput);
-
 		for (let i = 0; i < fileInput.length; i++) {
 			var arrayBuffer = await getFileBuffer(fileInput[i]);
 
@@ -52,30 +63,31 @@ export const useLibrary = (listName, options = {}) => {
 	};
 
 	const deleteDocumentMutation = useMutation(
-		(itemId) => RemoveItemsFromList({ listName, itemIds: itemId }),
+		(itemId) => RemoveDocumentFromLibrary({ listName, itemIds: itemId }),
 		{
-			onMutate: (id) => {
+			onMutate: async (id) => {
+				await queryClient.cancelQueries(itemsQueryName);
+
 				const previousValues = queryClient.getQueryData(itemsQueryName);
 
-				queryClient.setQueryData(itemsQueryName, (oldValues) => {
-					console.log('oldValues :>> ', oldValues);
-					console.log('id :>> ', id);
-					return oldValues.filter((value) => value.Id !== id);
-				});
+				queryClient.setQueryData(itemsQueryName, (oldValues) =>
+					oldValues.filter((value) => value.Id !== id)
+				);
 
-				return () =>
-					queryClient.setQueryData(itemsQueryName, previousValues);
+				return { previousValues };
 			},
-			onError: (error, id, previousValues) =>
-				queryClient.setQueryData(itemsQueryName, previousValues),
-			onSuccess: () => queryClient.refetchQueries(itemsQueryName),
+			onError: (error, id, context) => {
+				queryClient.setQueryData(
+					itemsQueryName,
+					context.previousValues
+				);
+			},
+			onSettled: refresh,
 		}
 	);
 
-	const deleteDocument = async (id) => {
-		console.log('deleting...', id);
+	const deleteDocument = async (id) =>
 		await deleteDocumentMutation.mutateAsync(id);
-	};
 
 	return {
 		items: documents.data,
@@ -86,7 +98,11 @@ export const useLibrary = (listName, options = {}) => {
 			? true
 			: false,
 		isError: documents.isError ? true : library.isError ? true : false,
-		isMutating: addDocumentMutation.isLoading ? true : false,
+		isMutating: addDocumentMutation.isLoading
+			? true
+			: deleteDocumentMutation
+			? true
+			: false,
 		error: `documents: ${documents.error} | library: ${library.error}`,
 		addDocuments,
 		deleteDocument,
