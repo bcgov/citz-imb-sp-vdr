@@ -9,7 +9,5 @@ export const Library = (props) => {
 		showTitle: false,
 	}
 
-	// const { isLoading, getRender } = useList_OLD(UUID)
-
 	return <SPLibrary  listName={UUID}/>
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { RestCall } from '../../../../../node_modules/citz-imb-sp-utilities/dist/js/components/Reusable/RestCall/RestCall'
+import { RestCall } from 'components/ApiCalls/RestCall/RestCall'
 
 export const usePeoplePicker = (props = {}) => {
 	const [searchResults, setSearchResults] = useState([])

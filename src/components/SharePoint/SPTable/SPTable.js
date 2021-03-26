@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
 	AppBar,
 	CircularProgress,
@@ -11,18 +11,20 @@ import {
 	TableCell,
 	TableSortLabel,
 	TablePagination,
-} from '@material-ui/core'
-import { useList } from 'components'
+} from '@material-ui/core';
+import { useList } from 'components';
 
 export const SPTable = (props) => {
 	const {
 		table,
-		listName,
+		// listName,
+		// libraryName,
+		isFetching = false,
 		columnFiltering = false,
 		columns,
 		tableActions = [],
-		title,
-	} = props
+		title = '',
+	} = props;
 
 	const {
 		getTableProps,
@@ -35,25 +37,26 @@ export const SPTable = (props) => {
 		gotoPage,
 		setPageSize,
 		prepareRow,
-	} = table
+	} = table;
 
-	const { pageIndex, pageSize } = state
+	const { pageIndex, pageSize } = state;
 
-	const { isFetching } = useList({ listName })
+	// const { isFetching } = useList({ listName })
 
 	return (
 		<>
 			<AppBar position={'static'}>
 				<Toolbar>
 					<Typography variant={'h6'} style={{ flexGrow: 1 }}>
-						{title ?? listName}
+						{title}
 					</Typography>
 					{isFetching ? (
 						<CircularProgress color={'secondary'} />
 					) : null}
-					{tableActions.map((action, index) => (
-						<div key={index}>{action}</div>
-					))}
+					{tableActions.map((action, index) => {
+						
+						return <div key={index}>{action}</div>;
+					})}
 				</Toolbar>
 			</AppBar>
 			<Table {...getTableProps()}>
@@ -61,7 +64,7 @@ export const SPTable = (props) => {
 					{headerGroups.map((headerGroup, index) => {
 						return (
 							<TableRow
-								key={`${listName}_tableHeadRow_${index}`}
+								key={`${title}_tableHeadRow_${index}`}
 								{...headerGroup.getHeaderGroupProps()}>
 								{headerGroup.headers.map((column) => {
 									return (
@@ -103,32 +106,32 @@ export const SPTable = (props) => {
 												</div>
 											) : null}
 										</TableCell>
-									)
+									);
 								})}
 							</TableRow>
-						)
+						);
 					})}
 				</TableHead>
 				<TableBody {...getTableBodyProps()}>
 					{page.length ? (
 						page.map((row, index) => {
-							prepareRow(row)
+							prepareRow(row);
 							return (
 								<TableRow
-									key={`${listName}_tableBodyRow_${index}`}
+									key={`${title}_tableBodyRow_${index}`}
 									{...row.getRowProps()}>
 									{row.cells.map((cell) => {
 										return (
 											<TableCell {...cell.getCellProps()}>
 												{cell.render('Cell')}
 											</TableCell>
-										)
+										);
 									})}
 								</TableRow>
-							)
+							);
 						})
 					) : (
-						<TableRow key={`${listName}_tableBodyRow_NoRecords`}>
+						<TableRow key={`${title}_tableBodyRow_NoRecords`}>
 							<TableCell colSpan={columns.length}>
 								No Records Found
 							</TableCell>
@@ -143,17 +146,17 @@ export const SPTable = (props) => {
 					count={rows.length}
 					page={pageIndex}
 					onChangePage={(event, newPage) => {
-						gotoPage(newPage)
+						gotoPage(newPage);
 					}}
 					labelDisplayedRows={(from, to, count) => {
-						return `Page ${pageIndex + 1} of ${pageOptions.length}`
+						return `Page ${pageIndex + 1} of ${pageOptions.length}`;
 					}}
 					onChangeRowsPerPage={(event) => {
-						setPageSize(parseInt(event.target.value, 10))
-						gotoPage(0)
+						setPageSize(parseInt(event.target.value, 10));
+						gotoPage(0);
 					}}
 				/>
 			) : null}
 		</>
-	)
-}
+	);
+};

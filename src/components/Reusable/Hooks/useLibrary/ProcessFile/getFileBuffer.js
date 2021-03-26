@@ -2,7 +2,6 @@ import $ from 'jquery'
 
 // Get the local file as an array buffer.
 export function getFileBuffer(fileInput) {
-	console.log('fileInput :>> ', fileInput);
 	var deferred = $.Deferred()
 	var reader = new FileReader()
 	reader.onloadend = function (e) {

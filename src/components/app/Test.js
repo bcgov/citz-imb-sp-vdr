@@ -1,15 +1,8 @@
-import React, { useRef } from 'react'
-import { Questions } from '../ProponentManagementTab/Questions/Questions'
-// import { useList } from 'components'
+import React from 'react';
+import { Membership } from 'components/ProponentManagementTab/Membership/Membership';
 
 export const Test = () => {
-	console.log('Test')
-	const UUID = useRef('VC4D143')
+	console.log('Test');
 
-	// const config = useList({ listName: 'Config' })
-
-	// console.log('config :>> ', config);
-
-	// return <div>Hello There</div>
-	return <Questions UUID={UUID.current} />
-}
+	return <Membership groupId={9} proponentName={'My Proponent'} />;
+};

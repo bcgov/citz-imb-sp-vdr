@@ -1,34 +1,20 @@
 import {
-	// 	AddPermissionsToList,
-	// 	AddPermissionsToSite,
 	BreakListPermissionsInheritance,
-	// 	ChangeGroupOwner,
-	// 	CreateGroup,
 	CreateList,
-	// 	GetRoleDefinitions,
-	// 	GetAssociatedGroups,
-	// 	GetListItems,
-	// 	DeleteGroup,
-	// 	RemovePermissionsFromList,
-	// 	GetCurrentUser,
 	AddFieldToList,
 	GetListDefaultView,
 	RemoveListViewAllFields,
 	AddListViewField,
-	// 	RemoveListViewField,
 	UpdateField,
 	CreateView,
-	// 	GetGroupMembers,
-} from 'citz-imb-sp-utilities'
+} from 'components/ApiCalls';
 
 export const createQuestionList = async (listName) => {
-	console.log('createQuestionList state :>> CreateList')
-	const questionList = await CreateList({ listName })
-	const listGUID = questionList.Id
-	console.log('createQuestionList state :>> AddFieldToList')
+	const questionList = await CreateList({ listName });
+
 	await AddFieldToList({
-		listGUID,
-		field: [
+		listName,
+		fields: [
 			{
 				FieldTypeKind: 2,
 				Title: 'Answer',
@@ -53,61 +39,59 @@ export const createQuestionList = async (listName) => {
 				DefaultValue: '0',
 			},
 		],
-	})
-	console.log('createQuestionList state :>> UpdateField')
+	});
 	await UpdateField({
-		listGUID,
+		listName,
 		fieldName: 'AnswerStatus',
 		field: { Title: 'Answer Status' },
-	})
-	console.log('createQuestionList state :>> UpdateField')
+	});
+
 	await UpdateField({
-		listGUID,
+		listName,
 		fieldName: 'Title',
 		field: { Title: 'Question' },
-	})
-	console.log('createQuestionList state :>> UpdateField')
+	});
+
 	await UpdateField({
-		listGUID,
+		listName,
 		fieldName: 'Created By',
 		field: { Title: 'Submitted By' },
-	})
-	console.log('createQuestionList state :>> GetListDefaultView')
-	const defaultView = await GetListDefaultView({ listGUID })
-	const viewGUID = defaultView.Id
-	console.log('createQuestionList state :>> RemoveListViewAllFields')
-	await RemoveListViewAllFields({ listGUID, viewGUID })
-	console.log('createQuestionList state :>> AddListViewField')
-	await AddListViewField({ listGUID, viewGUID, field: 'Question' })
-	console.log('createQuestionList state :>> AddListViewField')
-	await AddListViewField({ listGUID, viewGUID, field: 'AnswerStatus' })
-	console.log('createQuestionList state :>> AddListViewField')
-	await AddListViewField({ listGUID, viewGUID, field: 'Submitted By' })
-	console.log('createQuestionList state :>> AddListViewField')
-	await AddListViewField({ listGUID, viewGUID, field: 'Created' })
-	console.log('createQuestionList state :>> CreateView')
-	const VICOManagerView = await CreateView({
-		listGUID,
-		viewName: 'VICO_Manager',
-	})
+	});
+	const defaultView = await GetListDefaultView({ listName });
+	const viewGUID = defaultView.Id;
 
-	const managerViewId = VICOManagerView.Id
-	console.log('createQuestionList state :>> AddListViewField')
+	await RemoveListViewAllFields({ listName, viewGUID });
+
+	await AddListViewField({ listName, viewGUID, field: 'Question' });
+
+	await AddListViewField({ listName, viewGUID, field: 'AnswerStatus' });
+
+	await AddListViewField({ listName, viewGUID, field: 'Submitted By' });
+
+	await AddListViewField({ listName, viewGUID, field: 'Created' });
+
+	const VICOManagerView = await CreateView({
+		listName,
+		viewName: 'VICO_Manager',
+	});
+
+	const managerViewId = VICOManagerView.Id;
+
 	await AddListViewField({
-		listGUID,
+		listName,
 		viewGUID: managerViewId,
 		field: 'QuestionID',
-	})
-	console.log('createQuestionList state :>> AddListViewField')
+	});
+
 	await AddListViewField({
-		listGUID,
+		listName,
 		viewGUID: managerViewId,
 		field: 'Assignee',
-	})
-	console.log('createQuestionList state :>> BreakListPermissionsInheritance')
+	});
+
 	await BreakListPermissionsInheritance({
-		listGUID,
+		listName,
 		copy: false,
 		clear: true,
-	})
-}
+	});
+};

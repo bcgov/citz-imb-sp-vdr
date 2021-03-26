@@ -1,9 +1,9 @@
 import React from 'react'
-import { useList_OLD } from 'components'
+import { useList } from 'components'
 import { LinearProgress } from '@material-ui/core'
 
 export const ActivityLog = () => {
-	const { isLoading, getRender, SelectColumnFilter } = useList_OLD(
+	const { isLoading, getRender, SelectColumnFilter } = useList(
 		'ActivityLog'
 	)
 

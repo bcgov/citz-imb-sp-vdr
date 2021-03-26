@@ -1,7 +1,6 @@
 import React from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import { AppContexts } from './AppContexts/AppContexts'
-import './App.css'
 
 export const App = () => {
 	const theme = createMuiTheme({

@@ -1,9 +1,7 @@
-import { GetListItems } from 'citz-imb-sp-utilities'
+import { GetListItems } from 'components/ApiCalls';
 
 export const GetDocuments = async (listName) => {
-	const response = await GetListItems({listName, expand: 'FieldValuesAsHtml'})
+	const response = await GetListItems({ listName, expand: 'File' });
 
-	// console.log('GetDocuments response :>> ', response)
-
-	return response
-}
+	return response;
+};

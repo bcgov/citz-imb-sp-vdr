@@ -22,10 +22,7 @@ export const GetColumns = (list) => {
 					disableFilters: true,
 					disableSortBy: true,
 				}
-				// console.log(
-				// 	'listFields[i].FieldTypeKind :>> ',
-				// 	listFields[i].FieldTypeKind
-				// )
+
 				switch (listFields[i].FieldTypeKind) {
 					case 2: //Text
 						newColumn.disableFilters = false
@@ -48,11 +45,10 @@ export const GetColumns = (list) => {
 								return (
 									<Link
 										href={
-											row.original.OData__dlc_DocIdUrl.Url
+											row.original.File.ServerRelativeUrl
 										}>
 										{
-											row.original.FieldValuesAsHtml
-												.FileLeafRef
+											row.original.File.Name
 										}
 									</Link>
 								)

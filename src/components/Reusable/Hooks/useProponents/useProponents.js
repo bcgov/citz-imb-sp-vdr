@@ -1,24 +1,30 @@
-import { useList, SendConfirmationEmail } from 'components'
-import { DeleteGroup, GetGroupMembers } from 'citz-imb-sp-utilities'
-import { createProponent } from './createProponent/createProponent'
-import { useCurrentUser, useConfig } from 'components'
-import { createProponentGroup } from './createProponentGroup/createProponentGroup'
-import { setProponentPermissions } from './setProponentPermissions/setProponentPermissions'
+import {
+	useList,
+	SendConfirmationEmail,
+	useCurrentUser,
+	useConfig,
+	useLogAction,
+} from 'components';
+import { DeleteGroup, GetGroupMembers } from 'components/ApiCalls';
+import { createProponent } from './createProponent/createProponent';
+import { createProponentGroup } from './createProponentGroup/createProponentGroup';
+import { setProponentPermissions } from './setProponentPermissions/setProponentPermissions';
 
 export const useProponents = () => {
-	const currentUser = useCurrentUser()
+	const currentUser = useCurrentUser();
 	const proponents = useList({
 		listName: 'Proponents',
 		preRequisite: currentUser.Id,
-	})
-	const config = useConfig()
+	});
+	const config = useConfig();
+	const logAction = useLogAction();
 
-	const contactEmail = config.items.filter(
+	const contactEmail = config.filter(
 		(item) => item.Key === 'contactEmail'
-	)[0]
+	)[0];
 
 	const add = async (proponentName) => {
-		const { UUID, group } = await createProponent({ currentUser })
+		const { UUID, group } = await createProponent({ currentUser, logAction });
 		await proponents.addItem([
 			{
 				Title: proponentName,
@@ -26,53 +32,53 @@ export const useProponents = () => {
 				Active: true,
 				GroupId: group,
 			},
-		])
-	}
+		]);
+	};
 
 	const setActive = async (UUID) => {
-		const group = await createProponentGroup(UUID)
+		const group = await createProponentGroup(UUID);
 
-		await setProponentPermissions(UUID, group)
+		await setProponentPermissions(UUID, group);
 
 		const currentProponent = proponents.items.filter(
 			(item) => item.UUID === UUID
-		)[0]
+		)[0];
 		await proponents.updateItem([
 			{ Id: currentProponent.Id, Active: true, GroupId: group },
-		])
-	}
+		]);
+	};
 
 	const setInactive = async (UUID) => {
 		const currentProponent = proponents.items.filter(
 			(item) => item.UUID === UUID
-		)[0]
+		)[0];
 		await DeleteGroup({
 			groupId: currentProponent.GroupId,
-		})
+		});
 		await proponents.updateItem([
 			{ Id: currentProponent.Id, Active: false, GroupId: 0 },
-		])
-	}
+		]);
+	};
 
 	const addUser = async (userId, UUID) => {
-		alert('addUserToProponent')
-	}
+		alert('addUserToProponent');
+	};
 
 	const removeUser = async (userId, UUID) => {
-		alert('removeUserFromProponent')
-	}
+		alert('removeUserFromProponent');
+	};
 
 	const get = (UUID) => {
-		return proponents.items.filter((item) => item.UUID === UUID)[0]
-	}
+		return proponents.items.filter((item) => item.UUID === UUID)[0];
+	};
 
 	const sendEmailToProponents = async (props) => {
-		const { subject, body } = props
+		const { subject, body } = props;
 
 		for (let i = 0; i < proponents.items.length; i++) {
 			const groupMembers = await GetGroupMembers({
 				groupId: proponents.items[i].GroupId,
-			})
+			});
 			if (groupMembers.length) {
 				await SendConfirmationEmail({
 					addresses: groupMembers.map((member) => member.LoginName),
@@ -80,10 +86,10 @@ export const useProponents = () => {
 					subject,
 					body,
 					contactEmail,
-				})
+				});
 			}
 		}
-	}
+	};
 
 	return {
 		add,
@@ -96,5 +102,5 @@ export const useProponents = () => {
 		sendEmailToProponents,
 		setActive,
 		setInactive,
-	}
-}
+	};
+};

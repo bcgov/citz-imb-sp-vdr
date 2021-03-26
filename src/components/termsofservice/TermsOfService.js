@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import Cookies from 'universal-cookie'
+import React, { useEffect, useState } from 'react';
+import Cookies from 'universal-cookie';
 import {
 	useCurrentUser,
 	useLogAction,
@@ -7,21 +7,21 @@ import {
 	FormatText,
 	Home,
 	useConfig,
-} from 'components'
-import { LinearProgress } from '@material-ui/core'
+} from 'components';
+import { LinearProgress } from '@material-ui/core';
 
 export const TermsOfService = () => {
-	const [hasCookie, setHasCookie] = useState(false)
-	const [dialogOptions, setDialogOptions] = useState()
-	const config = useConfig()
+	const [hasCookie, setHasCookie] = useState(false);
+	const [dialogOptions, setDialogOptions] = useState();
+	const config = useConfig();
 
-	const currentUser = useCurrentUser()
-	const logAction = useLogAction()
-	const cookies = new Cookies()
+	const currentUser = useCurrentUser();
+	const logAction = useLogAction();
+	const cookies = new Cookies();
 
 	useEffect(() => {
-		if (!config.isLoading && !currentUser.isLoading) {
-			const TOS = config.items.filter((item) => item.Key === 'TOS')[0]
+		if (!currentUser.isLoading) {
+			const TOS = config.filter((item) => item.Key === 'TOS')[0];
 			setDialogOptions({
 				onSubmit: () => {
 					cookies.set(
@@ -31,14 +31,14 @@ export const TermsOfService = () => {
 							path: '/',
 							maxAge: TOS.NumberValue * 24 * 60 * 60,
 						}
-					)
+					);
 
-					logAction('agreed to TOS', false)
-					setHasCookie(true)
+					logAction('agreed to TOS', false);
+					setHasCookie(true);
 				},
 				close: async () => {
-					await logAction('disagreed to TOS', false)
-					window.location = '/_layouts/signout.aspx'
+					await logAction('disagreed to TOS', false);
+					window.location = '/_layouts/signout.aspx';
 				},
 				title: TOS.TextValue,
 				dialogContent: (
@@ -48,16 +48,16 @@ export const TermsOfService = () => {
 						}}
 					/>
 				),
-			})
+			});
 			if (cookies.get(`${TOS.Key}-${currentUser.id}-${TOS.Modified}`)) {
-				setHasCookie(true)
+				setHasCookie(true);
 			}
 		}
 
-		return () => {}
-	}, [config.isLoading, currentUser.isLoading])
+		return () => {};
+	}, [currentUser.isLoading]);
 
-	if (config.isLoading || currentUser.isLoading) return <LinearProgress />
+	if (currentUser.isLoading) return <LinearProgress />;
 
 	if (!hasCookie)
 		return (
@@ -67,7 +67,7 @@ export const TermsOfService = () => {
 				cancelButtonText={'Reject'}
 				{...dialogOptions}
 			/>
-		)
+		);
 
-	return <Home />
-}
+	return <Home />;
+};

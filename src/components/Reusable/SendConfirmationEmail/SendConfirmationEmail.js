@@ -1,29 +1,28 @@
-import { GetListItems, GetSite, SendEmail } from 'citz-imb-sp-utilities'
+import { GetSite, SendEmail } from 'components/ApiCalls';
 
 const replaceText = (props) => {
-	const { text, values } = props
-	let newText = text
+	const { text, values } = props;
+	let newText = text;
 
 	for (let i = 0; i < values.length; i++) {
-		newText = newText.replace(values[i].searchvalue, values[i].newvalue)
+		newText = newText.replace(values[i].searchvalue, values[i].newvalue);
 	}
 
-	return newText
-}
+	return newText;
+};
 
 export const SendConfirmationEmail = async (props) => {
+	console.log('SendConfirmationEmail props :>> ', props);
 	const {
 		addresses,
 		proponent,
 		subject,
 		body,
 		additionalReplacementPairs = [],
-		contactEmail
-	} = props
+		contactEmail,
+	} = props;
 
-	console.log('SendConfirmationEmail props :>> ', props);
-
-	const site = await GetSite({})
+	const site = await GetSite({});
 
 	let normalReplacementPairs = [
 		{ searchvalue: /\n/g, newvalue: '<br>' },
@@ -37,21 +36,21 @@ export const SendConfirmationEmail = async (props) => {
 			newvalue: contactEmail.TextValue,
 		},
 		{ searchvalue: /\[Proponent\]/g, newvalue: proponent },
-	]
+	];
 
 	let replacementPairs = normalReplacementPairs.concat(
 		additionalReplacementPairs
-	)
+	);
 
 	const newBody = replaceText({
 		text: body,
 		values: replacementPairs,
-	})
+	});
 
 	const newSubject = replaceText({
 		text: subject,
 		values: replacementPairs,
-	})
+	});
 
 	try {
 		await SendEmail({
@@ -59,10 +58,10 @@ export const SendConfirmationEmail = async (props) => {
 			subject: newSubject,
 			body: newBody,
 			bcc: ['scott.toews@gov.bc.ca'],
-		})
+		});
 		// console.log(`SendEmail succeeded: ${addresses}`)
 	} catch (err) {
-		console.error('err :>> ', err)
+		console.error('err :>> ', err);
 		// console.log(`SendEmail failed: ${err.message}; addresses: ${addresses}`)
 	}
-}
+};

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { GetUser } from 'citz-imb-sp-utilities'
+import { GetUser } from 'components/ApiCalls'
 
 export const SelectUserColumnFilter = (props) => {
 	const {

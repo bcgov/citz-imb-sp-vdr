@@ -1,8 +1,7 @@
 import $ from 'jquery'
-import { GetFormDigestValue } from 'citz-imb-sp-utilities'
+import { GetFormDigestValue } from 'components/ApiCalls'
 // Add the file to the file collection in the Shared Documents folder.
 export async function addFileToFolder(props) {
-	console.log('props :>> ', props)
 	const { listName, payload } = props
 	const { fileData, fileContents } = payload
 	//eslint-disable-next-line
@@ -23,7 +22,6 @@ export async function addFileToFolder(props) {
 
 	// Send the request and return the response.
 	// This call returns the SharePoint file.
-	console.log('fileContents :>> ', fileContents)
 	return $.ajax({
 		url: fileCollectionEndpoint,
 		type: 'POST',

@@ -20,5 +20,7 @@ export const Logon = () => {
 
 	if (currentUser.isLoading) return <LinearProgress />
 
+	if (currentUser.isError) return <div>currentUser.error</div>
+
 	return <TermsOfService />
 }
