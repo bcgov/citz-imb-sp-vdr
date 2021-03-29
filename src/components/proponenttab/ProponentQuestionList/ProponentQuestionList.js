@@ -13,8 +13,6 @@ export const ProponentQuestionList = () => {
 
 	const {updateItem} = useList({listName: proponentQuestionListName})
 
-	if (currentUser.isLoading) return <LinearProgress />
-
 	const handleWithdraw = async (row)=>{
 		await updateItem({
 			Id: row.original.Id,

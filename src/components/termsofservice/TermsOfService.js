@@ -20,44 +20,40 @@ export const TermsOfService = () => {
 	const cookies = new Cookies();
 
 	useEffect(() => {
-		if (!currentUser.isLoading) {
-			const TOS = config.filter((item) => item.Key === 'TOS')[0];
-			setDialogOptions({
-				onSubmit: () => {
-					cookies.set(
-						`${TOS.Key}-${currentUser.id}-${TOS.Modified}`,
-						true,
-						{
-							path: '/',
-							maxAge: TOS.NumberValue * 24 * 60 * 60,
-						}
-					);
+		const TOS = config.filter((item) => item.Key === 'TOS')[0];
+		setDialogOptions({
+			onSubmit: () => {
+				cookies.set(
+					`${TOS.Key}-${currentUser.id}-${TOS.Modified}`,
+					true,
+					{
+						path: '/',
+						maxAge: TOS.NumberValue * 24 * 60 * 60,
+					}
+				);
 
-					logAction('agreed to TOS', false);
-					setHasCookie(true);
-				},
-				close: async () => {
-					await logAction('disagreed to TOS', false);
-					window.location = '/_layouts/signout.aspx';
-				},
-				title: TOS.TextValue,
-				dialogContent: (
-					<div
-						dangerouslySetInnerHTML={{
-							__html: FormatText(TOS.MultiTextValue),
-						}}
-					/>
-				),
-			});
-			if (cookies.get(`${TOS.Key}-${currentUser.id}-${TOS.Modified}`)) {
+				logAction('agreed to TOS', false);
 				setHasCookie(true);
-			}
+			},
+			close: async () => {
+				await logAction('disagreed to TOS', false);
+				window.location = '/_layouts/signout.aspx';
+			},
+			title: TOS.TextValue,
+			dialogContent: (
+				<div
+					dangerouslySetInnerHTML={{
+						__html: FormatText(TOS.MultiTextValue),
+					}}
+				/>
+			),
+		});
+		if (cookies.get(`${TOS.Key}-${currentUser.id}-${TOS.Modified}`)) {
+			setHasCookie(true);
 		}
 
 		return () => {};
-	}, [currentUser.isLoading]);
-
-	if (currentUser.isLoading) return <LinearProgress />;
+	}, [currentUser]);
 
 	if (!hasCookie)
 		return (

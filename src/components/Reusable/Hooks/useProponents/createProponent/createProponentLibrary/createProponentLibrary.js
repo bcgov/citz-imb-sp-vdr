@@ -43,7 +43,7 @@ export const createProponentLibrary = async (props) => {
 
 	await RemovePermissionsFromList({
 		listName,
-		principalId: currentUser.id,
+		principalId: currentUser.data.id,
 		roleDefId: roles['Full Control'].Id,
 	});
 

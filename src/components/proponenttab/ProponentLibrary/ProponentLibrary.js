@@ -7,7 +7,6 @@ import { SPLibrary } from 'components/SharePoint'
 export const ProponentLibrary = () => {
 	const currentUser = useCurrentUser()
 
-	if (currentUser.isLoading) return <LinearProgress />
 	const listName = currentUser.proponent
 
 	if (!currentUser.isProponent)

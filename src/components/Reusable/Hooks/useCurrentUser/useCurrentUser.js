@@ -1,10 +1,7 @@
-import { useQuery } from 'react-query'
-import { getCurrentUser } from './getCurrentUser/getCurrentUser'
+import { useQueryClient } from 'react-query';
 
 export const useCurrentUser = () => {
-	const currentUserQueryName = 'currentUser'
+	const queryClient = useQueryClient();
 
-	const currentUser = useQuery(currentUserQueryName, () => getCurrentUser())
-
-	return {...currentUser.data, isLoading: currentUser.isLoading}
-}
+	return queryClient.getQueryData('CurrentUser');
+};

@@ -4,5 +4,5 @@ import { Membership } from 'components/ProponentManagementTab/Membership/Members
 export const Test = () => {
 	console.log('Test');
 
-	return <Membership groupId={9} proponentName={'My Proponent'} />;
+	return <Membership GroupId={9} proponentName={'My Proponent'} />;
 };

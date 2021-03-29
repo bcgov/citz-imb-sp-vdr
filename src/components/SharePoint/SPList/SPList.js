@@ -47,6 +47,7 @@ export const SPList = (props) => {
 				updatedColumns.push(customColumns[i])
 			}
 		}
+		console.log('updatedColumns :>> ', updatedColumns);
 		return updatedColumns
 	}, [isFetching])
 

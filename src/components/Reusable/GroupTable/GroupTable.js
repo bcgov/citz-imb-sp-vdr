@@ -18,7 +18,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 export const GroupTable = (props) => {
 	const { groupId, proponentName } = props;
-console.log('props :>> ', props);
+
 	const [dialog, setDialog] = useState({
 		open: false,
 	});
