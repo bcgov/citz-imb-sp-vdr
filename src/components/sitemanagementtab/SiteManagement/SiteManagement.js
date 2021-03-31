@@ -5,9 +5,11 @@ import * as Yup from 'yup';
 import { GetListItems, UpdateListItem } from 'components/ApiCalls';
 import { useSnackbar } from 'notistack';
 import { ActivityLog } from '../ActivityLog/ActivityLog';
+import { useQueryClient } from 'react-query';
 
 export const SiteManagement = () => {
 	const listName = 'Config';
+	const clientQuery = useQueryClient();
 
 	const [listItems, setListItems] = useState([]);
 	const [items, setItems] = useState({});
@@ -34,6 +36,9 @@ export const SiteManagement = () => {
 				variant: 'error',
 			});
 			setSubmitting(false);
+		} finally {
+			console.log('refetching...')
+			clientQuery.invalidateQueries('Config', {refetchInactive:true});
 		}
 	};
 

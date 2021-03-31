@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import * as yup from 'yup';
 import { useConfig, useList, FormikDialog, useProponents } from 'components';
 
 export const AnswerDialog = (props) => {
 	const {
-		open: openAnswerDialog,
+		open,
 		QuestionID,
 		Id,
 		Title,
@@ -15,7 +15,9 @@ export const AnswerDialog = (props) => {
 		closeAnswerDialog,
 	} = props;
 
-	const [dialogOptions, setDialogOptions] = useState({ open: false });
+	console.log('AnswerDialog :>> ', props);
+
+	const [dialogOptions, setDialogOptions] = useState({ open });
 
 	const proponents = useProponents();
 	const publicQuestions = useList({ listName: 'Questions' });
@@ -30,7 +32,57 @@ export const AnswerDialog = (props) => {
 
 	const proponentQuestions = useList({ listName: `${UUID}_Questions` });
 
-	const getOptions = () => {
+	const onSubmit = useCallback(
+		async (values, { setSubmitting }) => {
+			let questionsItem, subject, body;
+			console.log('values :>> ', values);
+			if (values.previousAnswer) {
+				questionsItem = [{ Id: values.previousAnswer }];
+			} else {
+				if (isUpdate) {
+					//! may break if changed to selected previous answer
+					questionsItem = await publicQuestions.updateItem({
+						Id: AnswerId,
+						Question: values.sanitizedQuestion,
+						Answer: values.answer,
+					});
+
+					subject = updatedAnswerEmail.TextValue;
+					body = updatedAnswerEmail.MultiTextValue;
+				} else {
+					questionsItem = await publicQuestions.addItem({
+						Question: values.sanitizedQuestion,
+						Answer: values.answer,
+					});
+
+					await proponentQuestions.updateItem({
+						Id: values.Id,
+						Answer: questionsItem[0].Id.toString(),
+						AnswerStatus: 'Posted',
+						Assignee: 'Posted Answer',
+					});
+
+					subject = newAnswerEmail.TextValue;
+					body = newAnswerEmail.MultiTextValue;
+				}
+				await proponents.sendEmailToProponents({
+					subject,
+					body,
+				});
+			}
+
+			setSubmitting(false);
+			closeAnswerDialog();
+		},
+		[
+			AnswerId,
+			closeAnswerDialog,
+			isUpdate,
+			newAnswerEmail,
+		]
+	);
+
+	const getOptions = useCallback(() => {
 		const options = publicQuestions.items.map((item) => {
 			return {
 				key: `${item.Question} >> ${item.Answer}`,
@@ -39,24 +91,28 @@ export const AnswerDialog = (props) => {
 		});
 
 		return options;
-	};
+	}, [publicQuestions.items]);
 
-	const schema = yup.object().shape({
-		Question: yup.string().required('Required'),
-		sanitizedQuestion: yup.string().required('Required'),
-		previousAnswer: yup.string(),
-		answer: yup.string().when('previousAnswer', {
-			is: (previousAnswer) => {
-				if (previousAnswer) {
-					return false;
-				} else {
-					return true;
-				}
-			},
-			then: yup.string().required('Required'),
-			otherwise: yup.string(),
-		}),
-	});
+	const schema = useMemo(
+		() =>
+			yup.object().shape({
+				Question: yup.string().required('Required'),
+				sanitizedQuestion: yup.string().required('Required'),
+				previousAnswer: yup.string(),
+				answer: yup.string().when('previousAnswer', {
+					is: (previousAnswer) => {
+						if (previousAnswer) {
+							return false;
+						} else {
+							return true;
+						}
+					},
+					then: yup.string().required('Required'),
+					otherwise: yup.string(),
+				}),
+			}),
+		[]
+	);
 
 	useEffect(() => {
 		if (!publicQuestions.isLoading) {
@@ -67,11 +123,11 @@ export const AnswerDialog = (props) => {
 			}
 
 			setDialogOptions({
-				open: openAnswerDialog,
+				open,
 				close: closeAnswerDialog,
 				title: `Question ${QuestionID}`,
 				instructions: `Update the Sanitized Question if necessary and enter an Answer
-                or select a previously answered question`,
+	            or select a previously answered question`,
 				validationSchema: schema,
 				fields: [
 					{
@@ -121,48 +177,19 @@ export const AnswerDialog = (props) => {
 			});
 		}
 		return () => {};
-	}, [publicQuestions.isLoading, openAnswerDialog]);
-
-	const onSubmit = async (values, { setSubmitting }) => {
-		let questionsItem, subject, body;
-		console.log('values :>> ', values);
-		if (values.previousAnswer) {
-			questionsItem = [{ Id: values.previousAnswer }];
-		} else {
-			if (isUpdate) {
-				//! may break if changed to selected previous answer
-				questionsItem = await publicQuestions.updateItem({
-					Id: AnswerId,
-					Question: values.sanitizedQuestion,
-					Answer: values.answer,
-				});
-
-				subject = updatedAnswerEmail.TextValue;
-				body = updatedAnswerEmail.MultiTextValue;
-			} else {
-				questionsItem = await publicQuestions.addItem({
-					Question: values.sanitizedQuestion,
-					Answer: values.answer,
-				});
-console.log('questionsItem :>> ', questionsItem);
-				await proponentQuestions.updateItem({
-					Id: values.Id,
-					Answer: questionsItem[0].Id.toString(),
-					AnswerStatus: 'Posted',
-				});
-
-				subject = newAnswerEmail.TextValue;
-				body = newAnswerEmail.MultiTextValue;
-			}
-			await proponents.sendEmailToProponents({
-				subject,
-				body,
-			});
-		}
-
-		setSubmitting(false);
-		closeAnswerDialog();
-	};
+	}, [
+		publicQuestions.isLoading,
+		open,
+		Answer,
+		Id,
+		QuestionID,
+		Title,
+		closeAnswerDialog,
+		getOptions,
+		onSubmit,
+		// publicQuestions,
+		schema,
+	]);
 
 	// return <div>Hello there</div>
 	return <FormikDialog {...dialogOptions} />;

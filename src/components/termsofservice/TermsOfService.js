@@ -8,66 +8,59 @@ import {
 	Home,
 	useConfig,
 } from 'components';
-import { LinearProgress } from '@material-ui/core';
 
 export const TermsOfService = () => {
 	const [hasCookie, setHasCookie] = useState(false);
-	const [dialogOptions, setDialogOptions] = useState();
-	const config = useConfig();
+	const [dialogOptions, setDialogOptions] = useState({
+		open: false,
+		title: 'Terms of Service',
+	});
 
+	const config = useConfig();
 	const currentUser = useCurrentUser();
 	const logAction = useLogAction();
-	const cookies = new Cookies();
 
 	useEffect(() => {
-		if (!currentUser.isLoading) {
-			const TOS = config.filter((item) => item.Key === 'TOS')[0];
-			setDialogOptions({
-				onSubmit: () => {
-					cookies.set(
-						`${TOS.Key}-${currentUser.id}-${TOS.Modified}`,
-						true,
-						{
-							path: '/',
-							maxAge: TOS.NumberValue * 24 * 60 * 60,
-						}
-					);
+		const cookies = new Cookies();
+		const TOS = config.filter((item) => item.Key === 'TOS')[0];
+		setDialogOptions({
+			open: true,
+			submitButtonText: 'Accept',
+			cancelButtonText: 'Reject',
+			onSubmit: () => {
+				cookies.set(
+					`${TOS.Key}-${currentUser.id}-${TOS.Modified}`,
+					true,
+					{
+						path: '/',
+						maxAge: TOS.NumberValue * 24 * 60 * 60,
+					}
+				);
 
-					logAction('agreed to TOS', false);
-					setHasCookie(true);
-				},
-				close: async () => {
-					await logAction('disagreed to TOS', false);
-					window.location = '/_layouts/signout.aspx';
-				},
-				title: TOS.TextValue,
-				dialogContent: (
-					<div
-						dangerouslySetInnerHTML={{
-							__html: FormatText(TOS.MultiTextValue),
-						}}
-					/>
-				),
-			});
-			if (cookies.get(`${TOS.Key}-${currentUser.id}-${TOS.Modified}`)) {
+				logAction('agreed to TOS', false);
 				setHasCookie(true);
-			}
+			},
+			close: async () => {
+				await logAction('disagreed to TOS', false);
+				window.location = '/_layouts/signout.aspx';
+			},
+			title: TOS.TextValue,
+			dialogContent: (
+				<div
+					dangerouslySetInnerHTML={{
+						__html: FormatText(TOS.MultiTextValue),
+					}}
+				/>
+			),
+		});
+		if (cookies.get(`${TOS.Key}-${currentUser.id}-${TOS.Modified}`)) {
+			setHasCookie(true);
 		}
 
 		return () => {};
-	}, [currentUser.isLoading]);
+	}, [config, currentUser.id, logAction]);
 
-	if (currentUser.isLoading) return <LinearProgress />;
+	if (hasCookie) return <Home />;
 
-	if (!hasCookie)
-		return (
-			<FormikDialog
-				open={true}
-				submitButtonText={'Accept'}
-				cancelButtonText={'Reject'}
-				{...dialogOptions}
-			/>
-		);
-
-	return <Home />;
+	return <FormikDialog {...dialogOptions} />;
 };

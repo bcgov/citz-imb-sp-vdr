@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { SPLibrary } from 'components/SharePoint';
 import { useProponents, useConfig, useCurrentUser } from 'components';
 
 export const PublicLibrary = () => {
+	console.log('PublicLibrary');
 	const publicLibrary = 'Documents';
 
-	const dialogProps = { title: `Upload to ${publicLibrary}` };
+	const dialogProps = useMemo(() => {
+		return { title: `Upload to ${publicLibrary}` };
+	}, []);
 
 	const proponents = useProponents();
 	const config = useConfig();

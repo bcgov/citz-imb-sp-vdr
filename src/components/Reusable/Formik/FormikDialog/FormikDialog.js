@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Formik, Form } from 'formik'
+import React, { useEffect, useState, useCallback } from 'react';
+import { Formik, Form } from 'formik';
 import {
 	Button,
 	Dialog,
@@ -8,11 +8,11 @@ import {
 	DialogActions,
 	Grid,
 	LinearProgress,
-} from '@material-ui/core'
-import { Alert, AlertTitle } from '@material-ui/lab'
-import { FormikControls } from 'components'
-import { Markup } from 'interweave'
-import * as Yup from 'yup'
+} from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import { FormikControls } from 'components';
+import { Markup } from 'interweave';
+import * as Yup from 'yup';
 
 export const FormikDialog = (props) => {
 	const {
@@ -28,30 +28,30 @@ export const FormikDialog = (props) => {
 		cancelButtonText = 'Cancel',
 		validationSchema: validationSchemaProps,
 		...remainingDialogProps
-	} = props
-	const [initialValues, setInitialValues] = useState({})
+	} = props;
+	const [initialValues, setInitialValues] = useState({});
 	const [validationSchema, setValidationSchema] = useState(
 		validationSchemaProps
-	)
-	const [controls, setControls] = useState([])
+	);
+	const [controls, setControls] = useState([]);
 
-	const getValidationSchema = () => {
-		const _validationSchema = {}
+	const getValidationSchema = useCallback(() => {
+		const _validationSchema = {};
 		for (let i = 0; i < fields.length; i++) {
-			_validationSchema[fields[i].name] = fields[i].validationSchema
+			_validationSchema[fields[i].name] = fields[i].validationSchema;
 		}
 
-		return Yup.object(_validationSchema)
-	}
+		return Yup.object(_validationSchema);
+	}, [fields]);
 
 	useEffect(() => {
 		if (open) {
-			const _initialValues = {}
+			const _initialValues = {};
 
-			const _controls = []
+			const _controls = [];
 
 			for (let i = 0; i < fields.length; i++) {
-				_initialValues[fields[i].name] = fields[i].initialValue
+				_initialValues[fields[i].name] = fields[i].initialValue;
 
 				let options = {
 					control: fields[i].control,
@@ -60,29 +60,26 @@ export const FormikDialog = (props) => {
 					required: fields[i].required,
 					options: fields[i].options,
 					// fullWidth: true,
-				}
+				};
 
-				_controls.push(<FormikControls {...options} />)
+				_controls.push(<FormikControls {...options} />);
 			}
 
-			setInitialValues(_initialValues)
-			setControls(_controls)
-		} else {
-			setInitialValues({})
-			setControls([])
+			setInitialValues(_initialValues);
+			setControls(_controls);
 		}
-		return () => {}
-	}, [open])
+		return () => {};
+	}, [open, fields]);
 
 	useEffect(() => {
 		if (validationSchemaProps) {
-			setValidationSchema(validationSchemaProps)
+			setValidationSchema(validationSchemaProps);
 		} else if (fields.length) {
-			setValidationSchema(getValidationSchema())
+			setValidationSchema(getValidationSchema());
 		}
 
-		return () => {}
-	}, [validationSchemaProps, fields])
+		return () => {};
+	}, [validationSchemaProps, fields, getValidationSchema]);
 
 	return (
 		<Dialog open={open} onClose={close} {...remainingDialogProps}>
@@ -121,7 +118,7 @@ export const FormikDialog = (props) => {
 												xs={'auto'}>
 												{control}
 											</Grid>
-										)
+										);
 									})}
 									{isSubmitting ? <LinearProgress /> : null}
 								</Grid>
@@ -146,9 +143,9 @@ export const FormikDialog = (props) => {
 								</Button>
 							</DialogActions>
 						</Form>
-					)
+					);
 				}}
 			</Formik>
 		</Dialog>
-	)
-}
+	);
+};

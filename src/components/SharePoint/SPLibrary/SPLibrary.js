@@ -10,6 +10,8 @@ import { FormikDialog } from 'components';
 import { DropZone } from '../DropZone';
 
 export const SPLibrary = (props) => {
+	console.log('SPLibrary', props);
+
 	const {
 		listName,
 		uploadCallback = () => {},
@@ -25,7 +27,6 @@ export const SPLibrary = (props) => {
 		columns: viewColumns,
 		isLoading,
 		isError,
-		isFetching,
 		error,
 		deleteDocument,
 		addDocuments,
@@ -54,6 +55,8 @@ export const SPLibrary = (props) => {
 
 		let tempColumns = [...viewColumns];
 
+		const removeItem = (row) => deleteDocument(row.original.Id);
+
 		if (allowDelete) {
 			tempColumns = [
 				{
@@ -78,7 +81,7 @@ export const SPLibrary = (props) => {
 			];
 		}
 		return tempColumns;
-	}, [isLoading, isError, columns, allowDelete]);
+	}, [isLoading, isError, viewColumns, allowDelete]);
 
 	const table = useTable(
 		{ columns, data },
@@ -102,8 +105,6 @@ export const SPLibrary = (props) => {
 				<PublishIcon />
 			</IconButton>
 		);
-
-	const removeItem = (row) => deleteDocument(row.original.Id);
 
 	const uploadDocuments = async (filesToUpload) => {
 		await addDocuments(filesToUpload);

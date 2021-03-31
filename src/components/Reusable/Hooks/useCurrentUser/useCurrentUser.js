@@ -1,10 +1,15 @@
-import { useQuery } from 'react-query'
-import { getCurrentUser } from './getCurrentUser/getCurrentUser'
+import { useMemo } from 'react';
+import { useQueryClient } from 'react-query';
 
 export const useCurrentUser = () => {
-	const currentUserQueryName = 'currentUser'
+	const queryClient = useQueryClient();
 
-	const currentUser = useQuery(currentUserQueryName, () => getCurrentUser())
+	const query = queryClient.getQueryData('CurrentUser');
 
-	return {...currentUser.data, isLoading: currentUser.isLoading}
-}
+	const currentUser = useMemo(() => {
+		if (query === undefined) return [];
+		return query;
+	}, [query]);
+
+	return currentUser;
+};

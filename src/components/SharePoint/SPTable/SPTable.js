@@ -12,13 +12,10 @@ import {
 	TableSortLabel,
 	TablePagination,
 } from '@material-ui/core';
-import { useList } from 'components';
 
 export const SPTable = (props) => {
 	const {
 		table,
-		// listName,
-		// libraryName,
 		isFetching = false,
 		columnFiltering = false,
 		columns,
@@ -41,8 +38,6 @@ export const SPTable = (props) => {
 
 	const { pageIndex, pageSize } = state;
 
-	// const { isFetching } = useList({ listName })
-
 	return (
 		<>
 			<AppBar position={'static'}>
@@ -54,7 +49,6 @@ export const SPTable = (props) => {
 						<CircularProgress color={'secondary'} />
 					) : null}
 					{tableActions.map((action, index) => {
-						
 						return <div key={index}>{action}</div>;
 					})}
 				</Toolbar>

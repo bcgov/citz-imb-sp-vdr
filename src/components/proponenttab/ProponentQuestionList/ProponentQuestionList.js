@@ -1,5 +1,4 @@
 import React from 'react'
-import { LinearProgress } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import { AnswerCell, useCurrentUser, SelectColumnFilter, useLogAction, useList } from 'components'
 import { SPList } from 'components/SharePoint'
@@ -12,8 +11,6 @@ export const ProponentQuestionList = () => {
 	const proponentQuestionListName = `${currentUser.proponent}_Questions`
 
 	const {updateItem} = useList({listName: proponentQuestionListName})
-
-	if (currentUser.isLoading) return <LinearProgress />
 
 	const handleWithdraw = async (row)=>{
 		await updateItem({

@@ -55,10 +55,10 @@ export const AskQuestion = (props) => {
 	};
 
 	const sendEmails = async () => {
-		const proponent = proponents.get(currentUser.proponent);
+		const proponent = proponents.get(currentUser.data.proponent);
 
 		const groupMembers = await GetGroupMembers({
-			groupId: proponent.GroupId,
+			groupId: proponent.data.GroupId,
 		});
 
 		for (let i = 0; i < groupMembers.length; i++) {
@@ -71,7 +71,7 @@ export const AskQuestion = (props) => {
 				additionalReplacementPairs: [
 					{
 						searchvalue: /\[UserName\]/g,
-						newvalue: currentUser.name,
+						newvalue: currentUser.data.name,
 					},
 					{
 						searchvalue: /\[AddresseeName\]/g,
@@ -112,7 +112,7 @@ export const AskQuestion = (props) => {
 		const nextQuestionNumberString = nextQuestionNumber.toString();
 
 		values.QuestionID = `${
-			currentUser.proponent
+			currentUser.data.proponent
 		}-${nextQuestionNumberString.padStart(3, '0')}`;
 
 		try {
