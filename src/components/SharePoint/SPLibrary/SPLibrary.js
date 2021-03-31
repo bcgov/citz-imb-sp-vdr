@@ -10,8 +10,6 @@ import { FormikDialog } from 'components';
 import { DropZone } from '../DropZone';
 
 export const SPLibrary = (props) => {
-	console.log('SPLibrary', props);
-
 	const {
 		listName,
 		uploadCallback = () => {},

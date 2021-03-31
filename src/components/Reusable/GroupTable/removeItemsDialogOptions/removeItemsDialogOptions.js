@@ -34,7 +34,6 @@ export const removeItemsDialogOptions = (props) => {
 					(item) => item.Key === 'contactEmail'
 				)[0];
 
-				console.log('contactEmail :>> ', contactEmail);
 				await SendConfirmationEmail({
 					addresses: contactEmail.TextValue,
 					proponent: proponentName,

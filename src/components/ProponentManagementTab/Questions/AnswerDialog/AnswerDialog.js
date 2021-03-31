@@ -15,8 +15,6 @@ export const AnswerDialog = (props) => {
 		closeAnswerDialog,
 	} = props;
 
-	console.log('AnswerDialog :>> ', props);
-
 	const [dialogOptions, setDialogOptions] = useState({ open });
 
 	const proponents = useProponents();
@@ -35,7 +33,7 @@ export const AnswerDialog = (props) => {
 	const onSubmit = useCallback(
 		async (values, { setSubmitting }) => {
 			let questionsItem, subject, body;
-			console.log('values :>> ', values);
+			
 			if (values.previousAnswer) {
 				questionsItem = [{ Id: values.previousAnswer }];
 			} else {

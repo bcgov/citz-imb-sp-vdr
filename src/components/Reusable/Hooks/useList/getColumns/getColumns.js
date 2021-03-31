@@ -11,7 +11,6 @@ export const getColumns = (props) => {
 	const viewColumns = CurrentView.ViewFields.Items.results;
 
 	return viewColumns.map((column) => {
-		// console.log('column :>> ', column);
 		const viewField = fields.filter(
 			(field) => field.InternalName === column
 		)[0];
@@ -23,7 +22,6 @@ export const getColumns = (props) => {
 			disableFilters: true,
 			disableSortBy: true,
 		};
-		// console.log('viewField :>> ', viewField);
 		switch (viewField.FieldTypeKind) {
 			case 2: //Text
 				newColumn.disableFilters = false;
@@ -62,10 +60,7 @@ export const getColumns = (props) => {
 				break;
 
 			default:
-			// console.log(
-			// 	`fields[${column}].FieldTypeKind=${fields[column].FieldTypeKind}`,
-			// 	fields[column]
-			// )
+				//! no code
 		}
 		return newColumn;
 	});

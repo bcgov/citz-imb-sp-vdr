@@ -1,8 +1,6 @@
 import {Reauthenticate} from './Reauthenticate/Reauthenticate'
 
 export const DoFetch = async (url, endPoint, options, doNotReturnResponse = false) => {
-	// console.log('endPoint :>> ', endPoint, options);
-	// try {
 	const response = await fetch(`${url}${endPoint}`, options);
 	if (response.ok) {
 		if (doNotReturnResponse) return null;
@@ -19,13 +17,10 @@ export const DoFetch = async (url, endPoint, options, doNotReturnResponse = fals
 		}
 	} else {
 		if (response.status === 403) {
-			console.log('403 response :>> ', response);
+			console.error('403 response :>> ', response);
 			Reauthenticate()
 		} else {
 			throw new Error(`${response.status} ${response.statusText} for ${url}${endPoint}`);
 		}
 	}
-	// } catch (error) {
-	// 	console.error('DoFetch error :>> ', error);
-	// }
 };

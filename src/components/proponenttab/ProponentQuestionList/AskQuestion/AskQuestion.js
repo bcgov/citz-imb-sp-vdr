@@ -62,7 +62,6 @@ export const AskQuestion = (props) => {
 		});
 
 		for (let i = 0; i < groupMembers.length; i++) {
-			console.log('addQuestionEmail :>> ', addQuestionEmail);
 			await SendConfirmationEmail({
 				addresses: groupMembers[i].LoginName,
 				proponent: proponent.Title,

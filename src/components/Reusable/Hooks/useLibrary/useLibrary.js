@@ -15,11 +15,8 @@ export const useLibrary = (listName, options = {}) => {
 
 	const queryClient = useQueryClient();
 
-	const refresh = async () => {
-		console.log('refetching...');
-		const x = await queryClient.invalidateQueries(itemsQueryName);
-		console.log('x :>> ', x);
-	};
+	const refresh = async () =>
+		await queryClient.invalidateQueries(itemsQueryName);
 
 	const addDocumentMutation = useMutation(
 		(payload) => addFileToFolder({ listName, payload }),

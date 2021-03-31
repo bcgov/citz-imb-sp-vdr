@@ -33,15 +33,12 @@ const setProgress = (event) => {
 }
 
 const changeStatus = (status) => {
-	console.log(`ProcessFile Status: ${status}`)
 }
 
 const loaded = (event) => {
 	changeStatus(`Load Ended!`)
 	const fileReader = event.target
 	var result = fileReader.result
-	console.log('result:')
-	console.log(result)
 	// Here we can send the result to a server for example
     return result
 }

@@ -3,7 +3,6 @@ import { SPLibrary } from 'components/SharePoint';
 import { useProponents, useConfig, useCurrentUser } from 'components';
 
 export const PublicLibrary = () => {
-	console.log('PublicLibrary');
 	const publicLibrary = 'Documents';
 
 	const dialogProps = useMemo(() => {

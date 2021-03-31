@@ -37,7 +37,6 @@ export const SiteManagement = () => {
 			});
 			setSubmitting(false);
 		} finally {
-			console.log('refetching...')
 			clientQuery.invalidateQueries('Config', {refetchInactive:true});
 		}
 	};
@@ -129,7 +128,6 @@ export const SiteManagement = () => {
 						},
 					],
 					onSubmit: (values, { setSubmitting }) => {
-						//console.log('onSubmit :>> ', { values, thing })
 						values.Id = items[action].Id;
 						handleSave(action, values, setSubmitting);
 					},
@@ -247,7 +245,7 @@ export const SiteManagement = () => {
 					cancelButtonText: 'Close',
 				};
 			default:
-				console.log(`${action} not defined`);
+				console.warn(`${action} not defined`);
 				return state;
 		}
 	};

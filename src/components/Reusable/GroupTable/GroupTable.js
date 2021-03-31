@@ -82,7 +82,7 @@ export const GroupTable = (props) => {
 
 	const data = useMemo(() => {
 		if (proponentGroup.isLoading || proponentGroup.isError) return [];
-		// console.log('data proponentGroup :>> ', proponentGroup);
+		
 		return [...proponentGroup.members];
 	}, [
 		proponentGroup.isLoading,
@@ -119,7 +119,6 @@ export const GroupTable = (props) => {
 					(item) => item.Key === 'contactEmail'
 				)[0];
 
-				console.log('contactEmail :>> ', contactEmail);
 				try {
 					await proponentGroup.addMember(values);
 					logAction(

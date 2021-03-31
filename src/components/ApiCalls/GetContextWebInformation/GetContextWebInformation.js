@@ -11,6 +11,5 @@ export const GetContextWebInformation = async () => {
 			'content-type': 'application/json;odata=verbose',
 		},
 	});
-	// console.log('GetContextWebInformation fetchResponse :>> ', fetchResponse);
 	return fetchResponse.d.GetContextWebInformation;
 };

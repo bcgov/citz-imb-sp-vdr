@@ -65,10 +65,7 @@ export const GetColumns = (list) => {
 						break
 
 					default:
-					// console.log(
-					// 	`fields[${column}].FieldTypeKind=${fields[column].FieldTypeKind}`,
-					// 	fields[column]
-					// )
+						//!no code
 				}
 			}
 		}

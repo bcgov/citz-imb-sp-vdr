@@ -40,7 +40,6 @@ export const useList = (props) => {
 		() => getList(listName, listOptions),
 		queryOptions
 	);
-	// console.log('mylist :>> ', mylist)
 
 	const { data, isFetching, isLoading, isError, status, error } = mylist;
 
@@ -55,9 +54,6 @@ export const useList = (props) => {
 
 	const columns = useMemo(() => {
 		if (isLoading || isError) return [];
-		// console.log('----------------------------');
-		// console.log('listName :>> ', listName);
-		// console.log('list :>> ', list);
 		return getColumns(list);
 	}, [isLoading, isError, list]);
 
