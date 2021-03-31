@@ -47,7 +47,7 @@ export const SPList = (props) => {
 				updatedColumns.push(customColumns[i]);
 			}
 		}
-		
+
 		return updatedColumns;
 	}, [columns, customColumns, isError, isLoading]);
 

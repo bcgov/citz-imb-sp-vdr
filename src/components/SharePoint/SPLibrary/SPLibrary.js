@@ -89,7 +89,6 @@ export const SPLibrary = (props) => {
 		useSortBy,
 		usePagination
 	);
-
 	const handleUploadDocument = () => {
 		setFormOpen(true);
 	};

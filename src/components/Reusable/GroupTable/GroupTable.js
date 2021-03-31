@@ -19,7 +19,6 @@ import { removeItemsDialogOptions } from './removeItemsDialogOptions/removeItems
 
 export const GroupTable = (props) => {
 	const { groupId, proponentName } = props;
-
 	const [dialog, setDialog] = useState({
 		open: false,
 	});

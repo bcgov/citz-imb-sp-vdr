@@ -49,7 +49,6 @@ export const SPTable = (props) => {
 						<CircularProgress color={'secondary'} />
 					) : null}
 					{tableActions.map((action, index) => {
-
 						return <div key={index}>{action}</div>;
 					})}
 				</Toolbar>
