@@ -8,20 +8,25 @@ import {
 	Home,
 	useConfig,
 } from 'components';
-import { LinearProgress } from '@material-ui/core';
 
 export const TermsOfService = () => {
 	const [hasCookie, setHasCookie] = useState(false);
-	const [dialogOptions, setDialogOptions] = useState();
-	const config = useConfig();
+	const [dialogOptions, setDialogOptions] = useState({
+		open: false,
+		title: 'Terms of Service',
+	});
 
+	const config = useConfig();
 	const currentUser = useCurrentUser();
 	const logAction = useLogAction();
-	const cookies = new Cookies();
 
 	useEffect(() => {
+		const cookies = new Cookies();
 		const TOS = config.filter((item) => item.Key === 'TOS')[0];
 		setDialogOptions({
+			open: true,
+			submitButtonText: 'Accept',
+			cancelButtonText: 'Reject',
 			onSubmit: () => {
 				cookies.set(
 					`${TOS.Key}-${currentUser.id}-${TOS.Modified}`,
@@ -53,17 +58,9 @@ export const TermsOfService = () => {
 		}
 
 		return () => {};
-	}, [currentUser]);
+	}, [config, currentUser.id, logAction]);
 
-	if (!hasCookie)
-		return (
-			<FormikDialog
-				open={true}
-				submitButtonText={'Accept'}
-				cancelButtonText={'Reject'}
-				{...dialogOptions}
-			/>
-		);
+	if (hasCookie) return <Home />;
 
-	return <Home />;
+	return <FormikDialog {...dialogOptions} />;
 };

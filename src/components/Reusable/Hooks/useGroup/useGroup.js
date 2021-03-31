@@ -42,6 +42,7 @@ export const useGroup = (props) => {
 							Title: member.EntityData.DisplayName,
 							LoginName: member.Key,
 						});
+						return member;
 					});
 
 					// console.log('newValues :>> ', newValues);

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table';
 import {
 	useGroup,
@@ -12,6 +12,7 @@ import { IconButton, LinearProgress } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddIcon from '@material-ui/icons/Add';
+import { removeItemsDialogOptions } from './removeItemsDialogOptions/removeItemsDialogOptions';
 
 //TODO: CRUD operations
 //TODO: global filter
@@ -27,6 +28,25 @@ export const GroupTable = (props) => {
 	const config = useConfig();
 
 	const proponentGroup = useGroup({ groupId });
+
+	const removeItemDialog = useCallback(
+		({ original }) => {
+			removeItemsDialogOptions({
+				original,
+				setDialog,
+				proponentGroup,
+				logAction,
+				proponentName,
+				config,
+			});
+		},
+		[
+			config,
+			logAction,
+			// proponentGroup,
+			proponentName,
+		]
+	);
 
 	const columns = useMemo(() => {
 		if (proponentGroup.isLoading || proponentGroup.isError) return [];
@@ -59,11 +79,7 @@ export const GroupTable = (props) => {
 				},
 			},
 		];
-	}, [
-		proponentGroup.isLoading,
-		proponentGroup.isError,
-		proponentGroup.group,
-	]);
+	}, [proponentGroup.isLoading, proponentGroup.isError, removeItemDialog]);
 
 	const data = useMemo(() => {
 		if (proponentGroup.isLoading || proponentGroup.isError) return [];
@@ -145,60 +161,6 @@ export const GroupTable = (props) => {
 		});
 	};
 
-	const removeItemDialog = ({ original }) => {
-		setDialog({
-			dialogContent: (
-				<Alert>
-					<AlertTitle>Remove {original.Title} from Group?</AlertTitle>
-					{original.Title} will no longer have access to this site
-				</Alert>
-			),
-			onSubmit: async (values, { setSubmitting }) => {
-				try {
-					await proponentGroup.removeMember(original.Id);
-					logAction(
-						`removed ${original.Title} from ${proponentName} group`
-					);
-
-					const removeUserEmail = config.filter(
-						(item) => item.Key === 'removeUserEmail'
-					)[0];
-
-					const contactEmail = config.filter(
-						(item) => item.Key === 'contactEmail'
-					)[0];
-
-					console.log('contactEmail :>> ', contactEmail);
-					await SendConfirmationEmail({
-						addresses: contactEmail.TextValue,
-						proponent: proponentName,
-						subject: removeUserEmail.TextValue,
-						body: removeUserEmail.MultiTextValue,
-						additionalReplacementPairs: [
-							{
-								searchvalue: /\[UserName\]/g,
-								newvalue: original.Title,
-							},
-						],
-						contactEmail,
-					});
-					logAction(
-						`sent ${removeUserEmail.Title} to ${contactEmail.TextValue}`
-					);
-					setSubmitting(false);
-					setDialog({ open: false });
-				} catch (error) {
-					throw error;
-				}
-			},
-			open: true,
-			close: () => {
-				setDialog({ open: false });
-			},
-			title: 'Remove Member',
-		});
-	};
-
 	const tableActions = [
 		<IconButton
 			aria-label='add'
@@ -208,7 +170,7 @@ export const GroupTable = (props) => {
 		</IconButton>,
 	];
 
-	if (proponentGroup.isLoading ) return <LinearProgress />;
+	if (proponentGroup.isLoading) return <LinearProgress />;
 
 	if (proponentGroup.isError) {
 		return (

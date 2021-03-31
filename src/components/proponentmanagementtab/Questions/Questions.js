@@ -5,6 +5,7 @@ import { SPList } from 'components/SharePoint'
 import { Assignee } from './Assignee/Assignee'
 
 export const Questions = (props) => {
+	console.log('Questions')
 	const { UUID } = props
 
 	const questionListName = `${UUID}_Questions`

@@ -10,7 +10,7 @@ import {
 } from 'components/ApiCalls';
 
 export const createQuestionList = async (listName) => {
-	const questionList = await CreateList({ listName });
+	await CreateList({ listName });
 
 	await AddFieldToList({
 		listName,

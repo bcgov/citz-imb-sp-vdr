@@ -13,7 +13,7 @@ export const Logon = () => {
 			false
 		);
 		return () => {};
-	}, [currentUser]);
+	}, [currentUser, logAction]);
 
 	return <TermsOfService />;
 };

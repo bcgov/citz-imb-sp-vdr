@@ -22,7 +22,7 @@ export const DoFetch = async (url, endPoint, options, doNotReturnResponse = fals
 			console.log('403 response :>> ', response);
 			Reauthenticate()
 		} else {
-			throw `${response.status} ${response.statusText} for ${url}${endPoint}`;
+			throw new Error(`${response.status} ${response.statusText} for ${url}${endPoint}`);
 		}
 	}
 	// } catch (error) {

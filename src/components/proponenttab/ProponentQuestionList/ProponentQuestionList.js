@@ -1,5 +1,4 @@
 import React from 'react'
-import { LinearProgress } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import { AnswerCell, useCurrentUser, SelectColumnFilter, useLogAction, useList } from 'components'
 import { SPList } from 'components/SharePoint'

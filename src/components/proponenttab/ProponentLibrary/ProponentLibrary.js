@@ -1,6 +1,5 @@
 import React from 'react'
 import { useCurrentUser } from 'components'
-import { LinearProgress } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import { SPLibrary } from 'components/SharePoint'
 

@@ -11,6 +11,5 @@ export { getCurrentUser } from './getCurrentUser/getCurrentUser';
 export * from './Constants/Constants';
 export * from './Formik/Formik';
 export * from './Hooks';
-export * from './SharePoint';
 export * from './Filters';
 export * from './IconButton';
