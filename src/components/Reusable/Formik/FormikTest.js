@@ -18,7 +18,6 @@ export const FormikTest = ({ open, close }) => {
 			name: 'peoplepicker',
 			label: 'People Picker',
 			initialValue: '',
-			// validationSchema: Yup.string().required('Required'),
 			control: 'peoplepicker',
 			getUserInfo: (userInfo) => {
 				setPeoplePicker(userInfo);
@@ -46,18 +45,6 @@ export const FormikTest = ({ open, close }) => {
 			],
 			required: true,
 		},
-		// {
-		// 	name: 'checkbox',
-		// 	label: 'Checkbox',
-		// 	initialValue: [],
-		// 	validationSchema: Yup.array().required('Required'),
-		// 	control: 'checkbox',
-		// 	options: [
-		// 		{ key: 'Option 1', value: 'Option 1' },
-		// 		{ key: 'Option 2', value: 'Option 2' },
-		// 		{ key: 'Option 3', value: 'Option 3' },
-		// 	],
-		// },
 		{
 			name: 'radio',
 			label: 'Radio',

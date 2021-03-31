@@ -59,7 +59,6 @@ export const FormikDialog = (props) => {
 					label: fields[i].label,
 					required: fields[i].required,
 					options: fields[i].options,
-					// fullWidth: true,
 				};
 
 				_controls.push(<FormikControls {...options} />);

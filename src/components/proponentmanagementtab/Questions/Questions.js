@@ -45,7 +45,6 @@ export const Questions = (props) => {
 		showTitle: false,
 	}
 
-	//========================================
 	const [dialogOptions, setDialogOptions] = useState({ open: false, UUID })
 
 	const closeAnswerDialog = () => {

@@ -13,9 +13,6 @@ import { getList } from './getList/getList';
 export const useList = (props) => {
 	const { listName, preRequisite, isLibrary = false, options = {} } = props;
 
-	// const listQueryName = [listName, 'list']
-	// const itemsQueryName = [listName, 'items']
-
 	let queryOptions = {
 		...options,
 		enabled: !!listName,
@@ -46,8 +43,6 @@ export const useList = (props) => {
 		if (isLoading || isError) return { list: {}, items: [] };
 		return data;
 	}, [isLoading, isError, data]);
-
-	// const items = useQuery(itemsQueryName, () => GetListItems(listName))
 
 	const queryClient = useQueryClient();
 
@@ -171,9 +166,6 @@ export const useList = (props) => {
 			},
 			onError: (error, newItem, context) =>
 				queryClient.setQueryData(listName, context.previousValues),
-			// onSettled: async () => {
-			// 	await queryClient.invalidateQueries(listName);
-			// },
 		}
 	);
 

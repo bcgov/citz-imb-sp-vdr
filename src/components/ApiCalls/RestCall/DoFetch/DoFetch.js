@@ -5,7 +5,7 @@ export const DoFetch = async (url, endPoint, options, doNotReturnResponse = fals
 	if (response.ok) {
 		if (doNotReturnResponse) return null;
 		if (response.status === 204) {
-			//no content
+			//!no content
 			return;
 		} else if (response.status === 304) {
 			console.warning(

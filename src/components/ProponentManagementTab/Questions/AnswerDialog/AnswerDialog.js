@@ -144,23 +144,18 @@ export const AnswerDialog = (props) => {
 						initialValue: Title,
 						control: 'input',
 						readOnly: true,
-						// validationSchema: yup.string().required('Required'),
 					},
 					{
 						name: 'sanitizedQuestion',
 						label: 'Sanitized Question',
 						initialValue: Title,
 						control: 'input',
-						// required: true,
-						// validationSchema: yup.string().required('Required'),
 					},
 					{
 						name: 'answer',
 						label: 'Answer',
 						initialValue: _answer,
 						control: 'input',
-						// required: true,
-						// validationSchema: yup.string().required('Required'),
 					},
 					{
 						name: 'previousAnswer',
@@ -168,7 +163,6 @@ export const AnswerDialog = (props) => {
 						initialValue: '',
 						control: 'select',
 						options: getOptions(),
-						// validationSchema: yup.string(),
 					},
 				],
 				onSubmit: onSubmit,
@@ -185,10 +179,8 @@ export const AnswerDialog = (props) => {
 		closeAnswerDialog,
 		getOptions,
 		onSubmit,
-		// publicQuestions,
 		schema,
 	]);
 
-	// return <div>Hello there</div>
 	return <FormikDialog {...dialogOptions} />;
 };

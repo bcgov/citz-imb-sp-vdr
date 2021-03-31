@@ -38,16 +38,8 @@ export const usePeoplePicker = (props = {}) => {
 						PrincipalSource,
 						PrincipalType,
 						QueryString: event.currentTarget.value,
-						// Required: false,
-						// SharePointGroupID: null,
-						// UrlZone: null,
-						// UrlZoneSpecified: false,
-						// Web: null,
-						// WebApplicationID: null,
 					},
 				},
-				// headers:'',
-				// cache:''
 			}
 			const results = await RestCall(options)
 

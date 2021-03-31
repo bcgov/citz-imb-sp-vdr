@@ -35,7 +35,6 @@ export const FormikControls = (props) => {
 			returnedControl = <HiddenFormikControl {...rest} />
 			break
 		case 'autocomplete':
-			// return <AutoCompleteFormikControl {...rest} />
 			break
 		case 'date':
 		default:

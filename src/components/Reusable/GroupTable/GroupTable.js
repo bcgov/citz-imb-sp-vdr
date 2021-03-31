@@ -39,7 +39,6 @@ export const GroupTable = (props) => {
 		[
 			config,
 			logAction,
-			// proponentGroup,
 			proponentName,
 		]
 	);
