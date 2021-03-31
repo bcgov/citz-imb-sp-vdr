@@ -1,17 +1,17 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { Formik, Form } from 'formik';
 import {
 	Button,
 	Dialog,
-	DialogTitle,
-	DialogContent,
 	DialogActions,
+	DialogContent,
+	DialogTitle,
 	Grid,
 	LinearProgress,
 } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { FormikControls } from 'components';
+import { Form, Formik } from 'formik';
 import { Markup } from 'interweave';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
 export const FormikDialog = (props) => {

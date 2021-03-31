@@ -2,8 +2,8 @@ import {
 	AddPermissionsToList,
 	BreakListPermissionsInheritance,
 	CreateList,
-	GetRoleDefinitions,
 	GetAssociatedGroups,
+	GetRoleDefinitions,
 	RemovePermissionsFromList,
 } from 'components/ApiCalls';
 

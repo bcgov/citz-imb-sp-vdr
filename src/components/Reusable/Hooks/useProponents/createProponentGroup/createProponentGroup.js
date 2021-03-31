@@ -1,7 +1,7 @@
 import {
 	ChangeGroupOwner,
 	CreateGroup,
-	GetAssociatedGroups,
+	GetAssociatedGroups
 } from 'components/ApiCalls';
 
 export const createProponentGroup = async (UUID) => {

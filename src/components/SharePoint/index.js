@@ -1,3 +1,3 @@
-export * from './SPLibrary'
-export * from './SPList'
-export * from './SPTable'
+export * from './SPLibrary/SPLibrary'
+export * from './SPList/SPList'
+export * from './SPTable/SPTable'

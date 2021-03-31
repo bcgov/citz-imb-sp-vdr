@@ -1,8 +1,8 @@
-import { useCallback } from 'react';
+import { useCurrentUser } from 'components';
 import { AddItemsToList } from 'components/ApiCalls';
 import * as moment from 'moment';
 import { useSnackbar } from 'notistack';
-import { useCurrentUser } from 'components';
+import { useCallback } from 'react';
 
 export const useLogAction = () => {
 	const currentUser = useCurrentUser();

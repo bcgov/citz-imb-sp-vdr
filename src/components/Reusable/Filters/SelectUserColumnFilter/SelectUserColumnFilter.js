@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
 import { GetUser } from 'components/ApiCalls';
+import React, { useCallback, useEffect, useState } from 'react';
 
 export const SelectUserColumnFilter = (props) => {
 	const {

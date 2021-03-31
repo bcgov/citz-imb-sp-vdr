@@ -1,16 +1,16 @@
-import React from 'react'
-import { Field } from 'formik'
 import {
-	FormControl,
-	FormLabel,
-	FormHelperText,
 	Checkbox,
-	FormGroup,
+	FormControl,
 	FormControlLabel,
-} from '@material-ui/core'
+	FormGroup,
+	FormHelperText,
+	FormLabel,
+} from '@material-ui/core';
+import { Field } from 'formik';
+import React from 'react';
 
 export const CheckboxGroupFormikControl = (props) => {
-	const { label, name, required, options, ...rest } = props
+	const { label, name, required, options, ...rest } = props;
 	return (
 		<Field name={name}>
 			{({ field, form }) => {
@@ -25,17 +25,24 @@ export const CheckboxGroupFormikControl = (props) => {
 									<FormControlLabel
 										key={`${name}_option_${index}`}
 										control={
-											<Checkbox id={options.value} {...field} value={option.value} checked={field.value.includes(option.value)} />
+											<Checkbox
+												id={options.value}
+												{...field}
+												value={option.value}
+												checked={field.value.includes(
+													option.value
+												)}
+											/>
 										}
 										label={option.key}
 									/>
-								)
+								);
 							})}
 						</FormGroup>
 						<FormHelperText>{form.errors[name]}</FormHelperText>
 					</FormControl>
-				)
+				);
 			}}
 		</Field>
-	)
-}
+	);
+};

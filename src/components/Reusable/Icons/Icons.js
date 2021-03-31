@@ -1,4 +1,3 @@
-import React, { forwardRef } from 'react'
 import Add from '@material-ui/icons/Add'
 import AddBox from '@material-ui/icons/AddBox'
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
@@ -16,6 +15,7 @@ import Remove from '@material-ui/icons/Remove'
 import SaveAlt from '@material-ui/icons/SaveAlt'
 import Search from '@material-ui/icons/Search'
 import ViewColumn from '@material-ui/icons/ViewColumn'
+import React, { forwardRef } from 'react'
 
 export const icons = {
 	Add: forwardRef((props, ref) => <Add {...props} ref={ref} />),

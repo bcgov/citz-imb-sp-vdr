@@ -1,13 +1,12 @@
-import React, { useMemo, useState } from 'react';
-import { useTable, useSortBy, useFilters, usePagination } from 'react-table';
-import { useList } from 'components';
-import { LinearProgress, IconButton } from '@material-ui/core';
-import { Alert, AlertTitle } from '@material-ui/lab';
-import PublishIcon from '@material-ui/icons/Publish';
+import { IconButton, LinearProgress } from '@material-ui/core';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import { SPTable } from '../SPTable';
-import { FormikDialog } from 'components';
-import { DropZone } from '../DropZone';
+import PublishIcon from '@material-ui/icons/Publish';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import { FormikDialog, useList } from 'components';
+import React, { useMemo, useState } from 'react';
+import { useFilters, usePagination, useSortBy, useTable } from 'react-table';
+import { DropZone } from '../DropZone/DropZone';
+import { SPTable } from '../SPTable/SPTable';
 
 export const SPLibrary = (props) => {
 	const {

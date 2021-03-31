@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { FormikDialog, useConfig, useList, useProponents } from 'components';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import * as yup from 'yup';
-import { useConfig, useList, FormikDialog, useProponents } from 'components';
 
 export const AnswerDialog = (props) => {
 	const {
@@ -33,7 +33,7 @@ export const AnswerDialog = (props) => {
 	const onSubmit = useCallback(
 		async (values, { setSubmitting }) => {
 			let questionsItem, subject, body;
-			
+
 			if (values.previousAnswer) {
 				questionsItem = [{ Id: values.previousAnswer }];
 			} else {

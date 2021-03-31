@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { Tabs, Tab, makeStyles } from '@material-ui/core'
+import { makeStyles, Tab, Tabs } from '@material-ui/core'
 import { VerticalTabPanel } from 'components'
+import React, { useState } from 'react'
 import { ProponentLibrary } from '../ProponentLibrary/ProponentLibrary'
 import { ProponentQuestionList } from '../ProponentQuestionList/ProponentQuestionList'
 

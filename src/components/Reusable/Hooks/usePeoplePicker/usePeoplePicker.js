@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
 import { RestCall } from 'components/ApiCalls/RestCall/RestCall'
+import { useEffect, useState } from 'react'
 
 export const usePeoplePicker = (props = {}) => {
 	const [searchResults, setSearchResults] = useState([])

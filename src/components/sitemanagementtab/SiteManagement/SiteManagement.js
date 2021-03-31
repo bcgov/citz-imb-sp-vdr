@@ -1,11 +1,11 @@
-import React, { useState, useReducer, useEffect } from 'react';
-import { useLogAction, FormikDialog } from 'components';
-import { ListItem, List } from '@material-ui/core';
-import * as Yup from 'yup';
+import { List, ListItem } from '@material-ui/core';
+import { FormikDialog, useLogAction } from 'components';
 import { GetListItems, UpdateListItem } from 'components/ApiCalls';
 import { useSnackbar } from 'notistack';
-import { ActivityLog } from '../ActivityLog/ActivityLog';
+import React, { useEffect, useReducer, useState } from 'react';
 import { useQueryClient } from 'react-query';
+import * as Yup from 'yup';
+import { ActivityLog } from '../ActivityLog/ActivityLog';
 
 export const SiteManagement = () => {
 	const listName = 'Config';
@@ -37,7 +37,7 @@ export const SiteManagement = () => {
 			});
 			setSubmitting(false);
 		} finally {
-			clientQuery.invalidateQueries('Config', {refetchInactive:true});
+			clientQuery.invalidateQueries('Config', { refetchInactive: true });
 		}
 	};
 

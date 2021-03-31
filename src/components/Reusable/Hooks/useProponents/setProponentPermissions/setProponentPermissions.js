@@ -1,7 +1,7 @@
 import {
 	AddPermissionsToList,
 	AddPermissionsToSite,
-	GetRoleDefinitions,
+	GetRoleDefinitions
 } from 'components/ApiCalls';
 
 export const setProponentPermissions = async (UUID, groupId) => {

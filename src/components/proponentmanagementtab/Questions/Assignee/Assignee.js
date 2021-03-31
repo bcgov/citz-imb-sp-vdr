@@ -1,5 +1,5 @@
+import { Button, MenuItem, Select } from '@material-ui/core'
 import React from 'react'
-import { Select, Button, MenuItem } from '@material-ui/core'
 
 const AssigneeOptions = [
 	'VICO Manager',

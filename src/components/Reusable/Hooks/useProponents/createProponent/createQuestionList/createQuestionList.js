@@ -1,12 +1,12 @@
 import {
+	AddFieldToList,
+	AddListViewField,
 	BreakListPermissionsInheritance,
 	CreateList,
-	AddFieldToList,
+	CreateView,
 	GetListDefaultView,
 	RemoveListViewAllFields,
-	AddListViewField,
 	UpdateField,
-	CreateView,
 } from 'components/ApiCalls';
 
 export const createQuestionList = async (listName) => {

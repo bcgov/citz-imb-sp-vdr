@@ -1,11 +1,9 @@
-import React from 'react'
-import { useList } from 'components'
-import { LinearProgress } from '@material-ui/core'
+import { LinearProgress } from '@material-ui/core';
+import { useList } from 'components';
+import React from 'react';
 
 export const ActivityLog = () => {
-	const { isLoading, getRender, SelectColumnFilter } = useList(
-		'ActivityLog'
-	)
+	const { isLoading, getRender, SelectColumnFilter } = useList('ActivityLog');
 
 	const listOptions = {
 		customColumns: [
@@ -26,7 +24,7 @@ export const ActivityLog = () => {
 				disableSortBy: true,
 			},
 		],
-	}
+	};
 
-	return isLoading ? <LinearProgress /> : getRender(listOptions)
-}
+	return isLoading ? <LinearProgress /> : getRender(listOptions);
+};

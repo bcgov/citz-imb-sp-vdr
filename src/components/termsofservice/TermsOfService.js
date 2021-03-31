@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import Cookies from 'universal-cookie';
 import {
-	useCurrentUser,
-	useLogAction,
-	FormikDialog,
 	FormatText,
+	FormikDialog,
 	Home,
 	useConfig,
+	useCurrentUser,
+	useLogAction,
 } from 'components';
+import React, { useEffect, useState } from 'react';
+import Cookies from 'universal-cookie';
 
 export const TermsOfService = () => {
 	const [hasCookie, setHasCookie] = useState(false);

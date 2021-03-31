@@ -1,7 +1,7 @@
+import { AnswerCell, SelectColumnFilter, useList, useLogAction } from 'components'
+import { SPList } from 'components/SharePoint'
 import React, { useState } from 'react'
 import { AnswerDialog } from './AnswerDialog/AnswerDialog'
-import { SelectColumnFilter, AnswerCell, useList, useLogAction } from 'components'
-import { SPList } from 'components/SharePoint'
 import { Assignee } from './Assignee/Assignee'
 
 export const Questions = (props) => {

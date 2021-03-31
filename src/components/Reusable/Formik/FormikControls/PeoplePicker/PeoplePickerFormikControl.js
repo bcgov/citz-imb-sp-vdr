@@ -1,6 +1,6 @@
-import React from 'react'
-import { Field } from 'formik'
 import { PeoplePicker } from 'components'
+import { Field } from 'formik'
+import React from 'react'
 
 export const PeoplePickerFormikControl = (props) => {
 	const { name, ...remainingControlProps } = props

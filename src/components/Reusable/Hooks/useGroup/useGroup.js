@@ -1,13 +1,11 @@
 import {
 	AddUsersToGroup,
-	RemoveUsersFromGroup,
 	ChangeGroupOwner,
 	DeleteGroup,
+	RemoveUsersFromGroup,
 } from 'components/ApiCalls';
-
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getGroup } from './getGroup/getGroup';
-
-import { useQuery, useQueryClient, useMutation } from 'react-query';
 
 export const useGroup = (props) => {
 	const { groupId } = props;

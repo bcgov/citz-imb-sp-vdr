@@ -1,5 +1,5 @@
-import React from 'react'
 import { Field } from 'formik'
+import React from 'react'
 
 export const AutoCompleteFormikControl = (props) => {
 	const { name, options, ...remainingControlProps } = props

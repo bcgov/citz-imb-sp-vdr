@@ -1,6 +1,6 @@
-import React from 'react';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { SendConfirmationEmail } from 'components';
+import React from 'react';
 
 export const removeItemsDialogOptions = (props) => {
 	const {

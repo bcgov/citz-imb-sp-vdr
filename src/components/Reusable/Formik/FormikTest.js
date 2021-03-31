@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { FormikDialog } from 'components'
-import * as Yup from 'yup'
+import { FormikDialog } from 'components';
+import React, { useState } from 'react';
+import * as Yup from 'yup';
 
 export const FormikTest = ({ open, close }) => {
-	const [peoplePicker, setPeoplePicker] = useState()
+	const [peoplePicker, setPeoplePicker] = useState();
 
 	const fields = [
 		{
@@ -21,7 +21,7 @@ export const FormikTest = ({ open, close }) => {
 			// validationSchema: Yup.string().required('Required'),
 			control: 'peoplepicker',
 			getUserInfo: (userInfo) => {
-				setPeoplePicker(userInfo)
+				setPeoplePicker(userInfo);
 			},
 		},
 		{
@@ -71,15 +71,15 @@ export const FormikTest = ({ open, close }) => {
 			],
 			required: true,
 		},
-	]
+	];
 
 	const onSubmit = (values, { setSubmitting }) => {
-		values.peoplepicker = peoplePicker
+		values.peoplepicker = peoplePicker;
 		setTimeout(() => {
-			setSubmitting(false)
-			alert(JSON.stringify(values, null, 2))
-		}, 500)
-	}
+			setSubmitting(false);
+			alert(JSON.stringify(values, null, 2));
+		}, 500);
+	};
 
 	return (
 		<div>
@@ -94,5 +94,5 @@ export const FormikTest = ({ open, close }) => {
 				fullScreen={true}
 			/>
 		</div>
-	)
-}
+	);
+};

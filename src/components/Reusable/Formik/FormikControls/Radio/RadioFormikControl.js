@@ -1,16 +1,16 @@
-import React from 'react'
-import { Field } from 'formik'
 import {
 	FormControl,
-	FormLabel,
+	FormControlLabel,
 	FormHelperText,
+	FormLabel,
 	Radio,
 	RadioGroup,
-	FormControlLabel,
-} from '@material-ui/core'
+} from '@material-ui/core';
+import { Field } from 'formik';
+import React from 'react';
 
 export const RadioFormikControl = (props) => {
-	const { label, name, required, options, ...rest } = props
+	const { label, name, required, options, ...rest } = props;
 	return (
 		<Field name={name}>
 			{({ field, form }) => {
@@ -28,13 +28,13 @@ export const RadioFormikControl = (props) => {
 										control={<Radio />}
 										label={option.key}
 									/>
-								)
+								);
 							})}
 						</RadioGroup>
 						<FormHelperText>{form.errors[name]}</FormHelperText>
 					</FormControl>
-				)
+				);
 			}}
 		</Field>
-	)
-}
+	);
+};

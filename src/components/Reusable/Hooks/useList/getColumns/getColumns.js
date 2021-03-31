@@ -1,6 +1,6 @@
-import React from 'react';
+import { Link } from '@material-ui/core';
 import moment from 'moment';
-import { Link } from '@material-ui/core'
+import React from 'react';
 import { ColumnFilter } from '../../../Filters/ColumnFilter/ColumnFilter';
 import { SelectUserColumnFilter } from '../../../Filters/SelectUserColumnFilter/SelectUserColumnFilter';
 import { User } from '../User/User';
