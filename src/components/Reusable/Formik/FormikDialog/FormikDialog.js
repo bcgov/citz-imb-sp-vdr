@@ -81,7 +81,7 @@ export const FormikDialog = (props) => {
 	}, [validationSchemaProps, fields, getValidationSchema]);
 
 	return (
-		<Dialog open={open} onClose={close} {...remainingDialogProps}>
+		<Dialog open={open} onClose={close} maxWidth={'sm'} fullWidth={true} {...remainingDialogProps}>
 			<Formik
 				initialValues={initialValues}
 				validationSchema={validationSchema}

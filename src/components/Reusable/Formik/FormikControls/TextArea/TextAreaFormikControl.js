@@ -9,6 +9,7 @@ import React from 'react';
 
 export const TextAreaFormikControl = (props) => {
 	const { label, name, required, ...rest } = props;
+	console.log('props :>> ', props);
 	return (
 		<Field name={name}>
 			{({ field, form }) => {
@@ -19,8 +20,8 @@ export const TextAreaFormikControl = (props) => {
 						<FormLabel htmlFor={name}>{label}</FormLabel>
 						<TextareaAutosize
 							id={name}
-							rowsMin={3}
-							cols={22}
+							rowsMin={5}
+							cols={70}
 							{...rest}
 							{...field}
 						/>

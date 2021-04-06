@@ -42,7 +42,7 @@ export const AskQuestion = (props) => {
 			initialValue: '',
 			validationSchema: Yup.string().required('Required'),
 			required: true,
-			control: 'input',
+			control: 'textarea',
 		},
 	];
 
