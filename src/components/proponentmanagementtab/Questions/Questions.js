@@ -51,9 +51,9 @@ export const Questions = (props) => {
 		setDialogOptions({ open: false, UUID })
 	}
 
-	const changeAssignee = (value, QuestionID, Id, Title) => {
+	const changeAssignee = (value, QuestionID, Id, Question) => {
 		if (value === 'post') {
-			postAnswer({ QuestionID, Id, Title })
+			postAnswer({ QuestionID, Id, Question })
 		} else {
 			updateItem({
 				Id: Id,
@@ -65,12 +65,12 @@ export const Questions = (props) => {
 	}
 
 	const postAnswer = (props) => {
-		const { QuestionID, Id, Title } = props
+		const { QuestionID, Id, Question } = props
 		setDialogOptions({
 			open: true,
 			QuestionID,
 			Id,
-			Title,
+			Question,
 			UUID,
 			closeAnswerDialog,
 		})

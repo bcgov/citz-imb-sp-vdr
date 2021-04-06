@@ -37,7 +37,7 @@ export const AskQuestion = (props) => {
 
 	const fields = [
 		{
-			name: 'Title',
+			name: 'Question',
 			label: 'Question',
 			initialValue: '',
 			validationSchema: Yup.string().required('Required'),
@@ -118,7 +118,7 @@ export const AskQuestion = (props) => {
 		try {
 			await questionList.addItem(values);
 			await sendEmails();
-			logAction(`successfully asked ${values.Title}`);
+			logAction(`successfully asked ${values.Question}`);
 		} catch (error) {
 			console.error('error submitting question', error);
 		}

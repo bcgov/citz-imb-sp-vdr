@@ -17,14 +17,14 @@ export const Assignee = (props) => {
 		updateAnswer,
 	} = props
 
-	const { AnswerStatus, QuestionID, Title, Id, Answer } = originalValues
+	const { AnswerStatus, QuestionID, Question, Id, Answer } = originalValues
 
 	const handleChange = (event) => {
-		changeAssignee(event.target.value, QuestionID, Id, Title)
+		changeAssignee(event.target.value, QuestionID, Id, Question)
 	}
 
 	const handleClick = () => {
-		updateAnswer({ QuestionID, Id, Title, Answer })
+		updateAnswer({ QuestionID, Id, Question, Answer })
 	}
 
 	if (AnswerStatus === 'Posted')

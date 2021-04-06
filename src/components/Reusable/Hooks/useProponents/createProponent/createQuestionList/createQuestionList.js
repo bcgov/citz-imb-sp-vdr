@@ -16,6 +16,11 @@ export const createQuestionList = async (listName) => {
 		listName,
 		fields: [
 			{
+				FieldTypeKind: 3,
+				Title: 'Question',
+				Required: true,
+			},
+			{
 				FieldTypeKind: 2,
 				Title: 'Answer',
 			},
@@ -49,7 +54,7 @@ export const createQuestionList = async (listName) => {
 	await UpdateField({
 		listName,
 		fieldName: 'Title',
-		field: { Title: 'Question' },
+		field: { Required: false },
 	});
 
 	await UpdateField({

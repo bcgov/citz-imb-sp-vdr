@@ -7,14 +7,14 @@ export const AnswerDialog = (props) => {
 		open,
 		QuestionID,
 		Id,
-		Title,
+		Question,
 		Answer,
 		AnswerId,
 		UUID,
 		isUpdate = false,
 		closeAnswerDialog,
 	} = props;
-
+console.log('props :>> ', props);
 	const [dialogOptions, setDialogOptions] = useState({ open });
 
 	const proponents = useProponents();
@@ -141,14 +141,14 @@ export const AnswerDialog = (props) => {
 					{
 						name: 'Question',
 						label: 'Original Question',
-						initialValue: Title,
+						initialValue: Question,
 						control: 'input',
 						readOnly: true,
 					},
 					{
 						name: 'sanitizedQuestion',
 						label: 'Sanitized Question',
-						initialValue: Title,
+						initialValue: Question,
 						control: 'input',
 					},
 					{
@@ -175,7 +175,7 @@ export const AnswerDialog = (props) => {
 		Answer,
 		Id,
 		QuestionID,
-		Title,
+		Question,
 		closeAnswerDialog,
 		getOptions,
 		onSubmit,
