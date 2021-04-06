@@ -4,7 +4,9 @@ import {
 	ListItemSecondaryAction,
 	ListItemText,
 	Switch,
+	Chip,
 } from '@material-ui/core';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { FormikDialog, useList, useLogAction } from 'components';
 import React, { useState } from 'react';
@@ -32,6 +34,9 @@ export const OverView = (props) => {
 		(item) => item.Withdrawn
 	).length;
 	const documentCount = proponentLibrary.items.length;
+
+	const questionsUnanswered =
+		questionsAsked - questionsAnswered - questionsWithdrawn;
 
 	const handleToggle = (event) => {
 		setDialogOptions({
@@ -117,6 +122,17 @@ export const OverView = (props) => {
 					</ListItemText>
 					<ListItemSecondaryAction>
 						{questionsWithdrawn}
+					</ListItemSecondaryAction>
+				</ListItem>
+				<ListItem>
+					<ListItemText id='overview-list-label-uuid'>
+						Questions Unanswered
+					</ListItemText>
+					<ListItemSecondaryAction>
+						{questionsUnanswered > 0 ? (
+							<ErrorOutlineIcon fontSize={'small'} color={'primary'} />
+						) : null}
+						{questionsUnanswered}
 					</ListItemSecondaryAction>
 				</ListItem>
 				<ListItem>
