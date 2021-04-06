@@ -9,7 +9,7 @@ import { TextAreaFormikControl } from './TextArea/TextAreaFormikControl'
 
 export const FormikControls = (props) => {
 	const { control, ...rest } = props
-console.log('FormikControls props :>> ', props);
+
 	let returnedControl
 
 	switch (control) {

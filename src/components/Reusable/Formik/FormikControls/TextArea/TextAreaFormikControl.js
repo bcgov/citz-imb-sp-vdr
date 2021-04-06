@@ -9,7 +9,7 @@ import React from 'react';
 
 export const TextAreaFormikControl = (props) => {
 	const { label, name, required, ...rest } = props;
-	console.log('props :>> ', props);
+	
 	return (
 		<Field name={name}>
 			{({ field, form }) => {

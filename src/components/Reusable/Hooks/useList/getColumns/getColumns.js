@@ -33,7 +33,6 @@ export const getColumns = (props) => {
 				newColumn.Cell = ({ value }) =>
 					moment(value).format('MMMM Do, YYYY h:mm a');
 				newColumn.disableSortBy = false;
-				console.log('newColumn :>> ', newColumn);
 				break;
 			case 12: //LinkTitle
 				if (viewField.EntityPropertyName !== 'DocIcon') {

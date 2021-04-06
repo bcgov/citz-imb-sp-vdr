@@ -14,7 +14,7 @@ export const AnswerDialog = (props) => {
 		isUpdate = false,
 		closeAnswerDialog,
 	} = props;
-console.log('props :>> ', props);
+
 	const [dialogOptions, setDialogOptions] = useState({ open });
 
 	const proponents = useProponents();
