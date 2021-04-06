@@ -68,7 +68,7 @@ export const FormikDialog = (props) => {
 			setControls(_controls);
 		}
 		return () => {};
-	}, [open, fields]);
+	}, [open]);
 
 	useEffect(() => {
 		if (validationSchemaProps) {
