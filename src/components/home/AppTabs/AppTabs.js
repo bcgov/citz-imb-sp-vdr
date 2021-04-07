@@ -1,25 +1,23 @@
-import React, { useState } from 'react'
-import { AppBar, Tabs, Tab, Paper, makeStyles } from '@material-ui/core'
-
-import HomeIcon from '@material-ui/icons/Home'
-import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
-import SettingsIcon from '@material-ui/icons/Settings'
-import PeopleIcon from '@material-ui/icons/People'
-
+import { AppBar, makeStyles, Paper, Tab, Tabs } from '@material-ui/core';
+import HomeIcon from '@material-ui/icons/Home';
+import PeopleIcon from '@material-ui/icons/People';
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import SettingsIcon from '@material-ui/icons/Settings';
 import {
 	HorizontalTabPanel,
 	Proponent,
-	Public,
 	ProponentManagementTab,
+	Public,
 	SiteManagement,
 	useCurrentUser,
-} from 'components'
+} from 'components';
+import React, { useState } from 'react';
 
 function a11yProps(index) {
 	return {
 		id: `simple-tab-${index}`,
 		'aria-controls': `simple-tabpanel-${index}`,
-	}
+	};
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -36,17 +34,17 @@ const useStyles = makeStyles((theme) => ({
 			color: '#E3A82B',
 		},
 	},
-}))
+}));
 
 export const AppTabs = () => {
-	const classes = useStyles()
-	const [value, setValue] = useState(0)
+	const classes = useStyles();
+	const [value, setValue] = useState(0);
 
 	const handleChange = (event, newValue) => {
-		setValue(newValue)
-	}
+		setValue(newValue);
+	};
 
-	const currentUser = useCurrentUser()
+	const currentUser = useCurrentUser();
 
 	return (
 		<Paper className={classes.root}>
@@ -99,5 +97,5 @@ export const AppTabs = () => {
 				</HorizontalTabPanel>
 			) : null}
 		</Paper>
-	)
-}
+	);
+};

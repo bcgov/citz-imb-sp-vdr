@@ -1,7 +1,7 @@
-import React from 'react'
 import { IconButton as MUIIconButton } from '@material-ui/core'
-import HelpIcon from '@material-ui/icons/Help'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
+import HelpIcon from '@material-ui/icons/Help'
+import React from 'react'
 
 export const IconButton = (props) => {
 	const { onClick, type='', ...iconProps } = props

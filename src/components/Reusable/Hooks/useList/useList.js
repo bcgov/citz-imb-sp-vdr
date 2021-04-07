@@ -1,21 +1,17 @@
-import { useMemo } from 'react';
 import {
-	AddItemsToList,
-	UpdateListItem,
 	AddFileToFolder,
-	RemoveDocumentFromLibrary,
+	AddItemsToList,
 	GetFileBuffer,
+	RemoveDocumentFromLibrary,
+	UpdateListItem,
 } from 'components/ApiCalls';
-import { useQuery, useMutation, useQueryClient } from 'react-query';
-
-import { getList } from './getList/getList';
+import { useMemo } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getColumns } from './getColumns/getColumns';
+import { getList } from './getList/getList';
 
 export const useList = (props) => {
 	const { listName, preRequisite, isLibrary = false, options = {} } = props;
-
-	// const listQueryName = [listName, 'list']
-	// const itemsQueryName = [listName, 'items']
 
 	let queryOptions = {
 		...options,
@@ -40,7 +36,6 @@ export const useList = (props) => {
 		() => getList(listName, listOptions),
 		queryOptions
 	);
-	// console.log('mylist :>> ', mylist)
 
 	const { data, isFetching, isLoading, isError, status, error } = mylist;
 
@@ -49,15 +44,10 @@ export const useList = (props) => {
 		return data;
 	}, [isLoading, isError, data]);
 
-	// const items = useQuery(itemsQueryName, () => GetListItems(listName))
-
 	const queryClient = useQueryClient();
 
 	const columns = useMemo(() => {
 		if (isLoading || isError) return [];
-		// console.log('----------------------------');
-		// console.log('listName :>> ', listName);
-		// console.log('list :>> ', list);
 		return getColumns(list);
 	}, [isLoading, isError, list]);
 
@@ -176,9 +166,6 @@ export const useList = (props) => {
 			},
 			onError: (error, newItem, context) =>
 				queryClient.setQueryData(listName, context.previousValues),
-			// onSettled: async () => {
-			// 	await queryClient.invalidateQueries(listName);
-			// },
 		}
 	);
 

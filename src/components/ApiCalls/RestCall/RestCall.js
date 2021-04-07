@@ -9,7 +9,6 @@ export const RestCall = async ({
 	cache,
 	noReturn = false,
 }) => {
-	// console.log('endPoint :>> ', endPoint);
 	// eslint-disable-next-line
 	const webAbsoluteUrl = _spPageContextInfo.webAbsoluteUrl;
 
@@ -33,8 +32,6 @@ export const RestCall = async ({
 		options.cache = cache;
 	} else {
 		if (method === 'get') {
-			//options.cache = 'reload'
-			//options.headers['If-Match'] = "*"
 			options.headers['Cache-Control'] = 'no-cache';
 			options.headers['Pragma'] = 'no-cache';
 		}
@@ -45,7 +42,7 @@ export const RestCall = async ({
 
 	switch (options.method.toLowerCase()) {
 		case 'get':
-			//no additional processing
+			//!no additional processing
 			break;
 		case 'post':
 			formDigestValue = await GetFormDigestValue(webAbsoluteUrl);
@@ -78,20 +75,6 @@ export const RestCall = async ({
 			);
 	}
 
-	// try {
 	fetchResponse = await DoFetch(webAbsoluteUrl, endPoint, options, noReturn);
-	// console.log('fetchResponse :>> ', fetchResponse);
 	return fetchResponse;
-	// } catch (error) {
-	// 	console.error('RestCall error :>> ', {
-	// 		endPoint,
-	// 		method,
-	// 		body,
-	// 		headers,
-	// 		cache,
-	// 	});
-
-	// 	console.log(error.name)
-
-	// }
 };

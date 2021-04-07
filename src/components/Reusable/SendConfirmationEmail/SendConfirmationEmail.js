@@ -12,7 +12,6 @@ const replaceText = (props) => {
 };
 
 export const SendConfirmationEmail = async (props) => {
-	console.log('SendConfirmationEmail props :>> ', props);
 	const {
 		addresses,
 		proponent,
@@ -59,9 +58,7 @@ export const SendConfirmationEmail = async (props) => {
 			body: newBody,
 			bcc: ['scott.toews@gov.bc.ca'],
 		});
-		// console.log(`SendEmail succeeded: ${addresses}`)
 	} catch (err) {
 		console.error('err :>> ', err);
-		// console.log(`SendEmail failed: ${err.message}; addresses: ${addresses}`)
 	}
 };

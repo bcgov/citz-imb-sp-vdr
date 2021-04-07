@@ -1,17 +1,15 @@
 import { BreakListPermissionsInheritance } from 'components/ApiCalls';
-
-import { MakeUniqueID } from './MakeUniqueID/MakeUniqueID';
 import { createProponentGroup } from '../createProponentGroup/createProponentGroup';
+import { setProponentPermissions } from '../setProponentPermissions/setProponentPermissions';
 import { createProponentLibrary } from './createProponentLibrary/createProponentLibrary';
 import { createQuestionList } from './createQuestionList/createQuestionList';
-import { setProponentPermissions } from '../setProponentPermissions/setProponentPermissions';
+import { MakeUniqueID } from './MakeUniqueID/MakeUniqueID';
 
 export const createProponent = async (props) => {
 	const { currentUser, logAction } = props;
 	const UUID = MakeUniqueID();
 
 	await BreakListPermissionsInheritance({ listName: 'ActivityLog' });
-
 
 	logAction('creating proponent group...', true, 'info', true);
 	const group = await createProponentGroup(UUID);

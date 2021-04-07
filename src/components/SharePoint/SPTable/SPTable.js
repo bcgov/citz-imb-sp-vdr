@@ -1,17 +1,17 @@
-import React from 'react';
 import {
 	AppBar,
 	CircularProgress,
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TablePagination,
+	TableRow,
+	TableSortLabel,
 	Toolbar,
 	Typography,
-	Table,
-	TableHead,
-	TableBody,
-	TableRow,
-	TableCell,
-	TableSortLabel,
-	TablePagination,
 } from '@material-ui/core';
+import React from 'react';
 
 export const SPTable = (props) => {
 	const {

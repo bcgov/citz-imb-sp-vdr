@@ -1,8 +1,8 @@
 import {
-	useList,
 	SendConfirmationEmail,
-	useCurrentUser,
 	useConfig,
+	useCurrentUser,
+	useList,
 	useLogAction,
 } from 'components';
 import { DeleteGroup, GetGroupMembers } from 'components/ApiCalls';
@@ -24,7 +24,10 @@ export const useProponents = () => {
 	)[0];
 
 	const add = async (proponentName) => {
-		const { UUID, group } = await createProponent({ currentUser, logAction });
+		const { UUID, group } = await createProponent({
+			currentUser,
+			logAction,
+		});
 		await proponents.addItem([
 			{
 				Title: proponentName,

@@ -1,7 +1,7 @@
+import { LinearProgress, TextField } from '@material-ui/core'
+import { Autocomplete } from '@material-ui/lab'
 import React from 'react'
 import { usePeoplePicker } from './usePeoplePicker'
-import { TextField, LinearProgress } from '@material-ui/core'
-import { Autocomplete } from '@material-ui/lab'
 
 export const PeoplePicker = (props) => {
 	const {

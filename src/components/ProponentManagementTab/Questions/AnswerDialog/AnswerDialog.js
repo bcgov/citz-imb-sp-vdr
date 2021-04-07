@@ -1,21 +1,19 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { FormikDialog, useConfig, useList, useProponents } from 'components';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import * as yup from 'yup';
-import { useConfig, useList, FormikDialog, useProponents } from 'components';
 
 export const AnswerDialog = (props) => {
 	const {
 		open,
 		QuestionID,
 		Id,
-		Title,
+		Question,
 		Answer,
 		AnswerId,
 		UUID,
 		isUpdate = false,
 		closeAnswerDialog,
 	} = props;
-
-	console.log('AnswerDialog :>> ', props);
 
 	const [dialogOptions, setDialogOptions] = useState({ open });
 
@@ -35,7 +33,7 @@ export const AnswerDialog = (props) => {
 	const onSubmit = useCallback(
 		async (values, { setSubmitting }) => {
 			let questionsItem, subject, body;
-			console.log('values :>> ', values);
+
 			if (values.previousAnswer) {
 				questionsItem = [{ Id: values.previousAnswer }];
 			} else {
@@ -116,10 +114,10 @@ export const AnswerDialog = (props) => {
 
 	useEffect(() => {
 		if (!publicQuestions.isLoading) {
-			let _answer = '';
+			let question = '';
 
 			if (Answer) {
-				_answer = publicQuestions.getItemById(parseInt(Answer)).Answer;
+				question = publicQuestions.items.filter(item=> item.Id === parseInt(Answer))[0];
 			}
 
 			setDialogOptions({
@@ -143,26 +141,21 @@ export const AnswerDialog = (props) => {
 					{
 						name: 'Question',
 						label: 'Original Question',
-						initialValue: Title,
+						initialValue: Question,
 						control: 'input',
 						readOnly: true,
-						// validationSchema: yup.string().required('Required'),
 					},
 					{
 						name: 'sanitizedQuestion',
 						label: 'Sanitized Question',
-						initialValue: Title,
+						initialValue: question.Question ?? Question,
 						control: 'input',
-						// required: true,
-						// validationSchema: yup.string().required('Required'),
 					},
 					{
 						name: 'answer',
 						label: 'Answer',
-						initialValue: _answer,
+						initialValue: question.Answer,
 						control: 'input',
-						// required: true,
-						// validationSchema: yup.string().required('Required'),
 					},
 					{
 						name: 'previousAnswer',
@@ -170,7 +163,6 @@ export const AnswerDialog = (props) => {
 						initialValue: '',
 						control: 'select',
 						options: getOptions(),
-						// validationSchema: yup.string(),
 					},
 				],
 				onSubmit: onSubmit,
@@ -183,14 +175,12 @@ export const AnswerDialog = (props) => {
 		Answer,
 		Id,
 		QuestionID,
-		Title,
+		Question,
 		closeAnswerDialog,
 		getOptions,
 		onSubmit,
-		// publicQuestions,
 		schema,
 	]);
 
-	// return <div>Hello there</div>
 	return <FormikDialog {...dialogOptions} />;
 };

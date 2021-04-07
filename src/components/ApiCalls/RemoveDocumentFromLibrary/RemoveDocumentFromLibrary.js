@@ -10,7 +10,6 @@ export const RemoveDocumentFromLibrary = async ({ listName, itemIds }) => {
 			itemId,
 			expand: 'File',
 		});
-		console.log('itemResponse :>> ', itemResponse.File);
 		const endPoint = `/_api/web/GetFileByServerRelativeUrl('${itemResponse.File.ServerRelativeUrl}')`;
 
 		await RestCall({

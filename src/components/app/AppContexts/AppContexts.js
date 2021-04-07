@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { SnackbarProvider } from 'notistack';
-import { QueryClientProvider, QueryClient } from 'react-query';
-import { ReactQueryDevtoolsPanel } from 'react-query/devtools';
-import { GetListItems } from 'components/ApiCalls';
-import { getCurrentUser } from 'components';
-import { Logon } from './Logon/Logon';
-import { Test } from '../Test';
 import { LinearProgress } from '@material-ui/core';
+import { getCurrentUser } from 'components';
+import { GetListItems } from 'components/ApiCalls';
+import { SnackbarProvider } from 'notistack';
+import React, { useEffect, useState } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtoolsPanel } from 'react-query/devtools';
+import { Test } from '../Test';
+import { Logon } from './Logon/Logon';
 
 const queryClient = new QueryClient({
 	defaultOptions: { queries: { retry: 5 } },
 });
 
-const isTest = true;
+const isTest = false;
 
 export const AppContexts = () => {
 	const [isLoading, setIsLoading] = useState(true);

@@ -1,5 +1,5 @@
+import { Box, Typography } from '@material-ui/core';
 import React from 'react';
-import { Typography, Box } from '@material-ui/core';
 
 export function HorizontalTabPanel(props) {
 	const { children, value, index, ...other } = props;

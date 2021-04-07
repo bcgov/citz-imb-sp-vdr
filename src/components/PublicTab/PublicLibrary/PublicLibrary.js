@@ -1,9 +1,8 @@
-import React, { useMemo } from 'react';
+import { useConfig, useCurrentUser, useProponents } from 'components';
 import { SPLibrary } from 'components/SharePoint';
-import { useProponents, useConfig, useCurrentUser } from 'components';
+import React, { useMemo } from 'react';
 
 export const PublicLibrary = () => {
-	console.log('PublicLibrary');
 	const publicLibrary = 'Documents';
 
 	const dialogProps = useMemo(() => {

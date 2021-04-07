@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
 import {
 	List,
 	ListItem,
-	ListItemText,
 	ListItemSecondaryAction,
+	ListItemText,
 	Switch,
-} from '@material-ui/core'
-import { Alert, AlertTitle } from '@material-ui/lab'
-import { FormikDialog, useLogAction, useList } from 'components'
+	Chip,
+} from '@material-ui/core';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import { FormikDialog, useList, useLogAction } from 'components';
+import React, { useState } from 'react';
 
 export const OverView = (props) => {
 	const {
@@ -16,28 +18,31 @@ export const OverView = (props) => {
 		UUID,
 		setProponentActive,
 		setProponentInactive,
-	} = props
+	} = props;
 
-	const [dialogOptions, setDialogOptions] = useState({ open: false })
+	const [dialogOptions, setDialogOptions] = useState({ open: false });
 
-	const logAction = useLogAction()
-	const proponentQuestions = useList({ listName: `${UUID}_Questions` })
-	const proponentLibrary = useList({ listName: UUID })
+	const logAction = useLogAction();
+	const proponentQuestions = useList({ listName: `${UUID}_Questions` });
+	const proponentLibrary = useList({ listName: UUID });
 
-	const questionsAsked = proponentQuestions.items.length
+	const questionsAsked = proponentQuestions.items.length;
 	const questionsAnswered = proponentQuestions.items.filter(
 		(item) => item.Answer !== null
-	).length
+	).length;
 	const questionsWithdrawn = proponentQuestions.items.filter(
 		(item) => item.Withdrawn
-	).length
-	const documentCount = proponentLibrary.items.length
+	).length;
+	const documentCount = proponentLibrary.items.length;
+
+	const questionsUnanswered =
+		questionsAsked - questionsAnswered - questionsWithdrawn;
 
 	const handleToggle = (event) => {
 		setDialogOptions({
 			open: true,
 			close: () => {
-				setDialogOptions({ open: false })
+				setDialogOptions({ open: false });
 			},
 			title: `Set ${Title} to ${Active ? 'Inactive' : 'Active'}`,
 			dialogContent: Active ? (
@@ -56,20 +61,20 @@ export const OverView = (props) => {
 			onSubmit: async (values, { setSubmitting }) => {
 				try {
 					if (Active) {
-						await setProponentInactive(UUID)
-						logAction(`successfully Inactivated ${UUID}`)
+						await setProponentInactive(UUID);
+						logAction(`successfully Inactivated ${UUID}`);
 					} else {
-						await setProponentActive(UUID)
-						logAction(`successfully Activated ${UUID}`)
+						await setProponentActive(UUID);
+						logAction(`successfully Activated ${UUID}`);
 					}
 				} catch (error) {
-					throw error
+					throw error;
 				}
-				setSubmitting(false)
-				setDialogOptions({ open: false })
+				setSubmitting(false);
+				setDialogOptions({ open: false });
 			},
-		})
-	}
+		});
+	};
 
 	return (
 		<>
@@ -121,6 +126,17 @@ export const OverView = (props) => {
 				</ListItem>
 				<ListItem>
 					<ListItemText id='overview-list-label-uuid'>
+						Questions Unanswered
+					</ListItemText>
+					<ListItemSecondaryAction>
+						{questionsUnanswered > 0 ? (
+							<ErrorOutlineIcon fontSize={'small'} color={'primary'} />
+						) : null}
+						{questionsUnanswered}
+					</ListItemSecondaryAction>
+				</ListItem>
+				<ListItem>
+					<ListItemText id='overview-list-label-uuid'>
 						Documents Submitted
 					</ListItemText>
 					<ListItemSecondaryAction>
@@ -130,5 +146,5 @@ export const OverView = (props) => {
 			</List>
 			<FormikDialog {...dialogOptions} />
 		</>
-	)
-}
+	);
+};

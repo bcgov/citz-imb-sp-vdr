@@ -1,7 +1,7 @@
 import {
+	GetAssociatedGroups,
 	GetCurrentUser,
 	GetListItems,
-	GetAssociatedGroups,
 } from 'components/ApiCalls';
 
 export const getCurrentUser = async () => {

@@ -1,6 +1,9 @@
-import React from 'react'
-import { SPList } from 'components/SharePoint'
+import { SPList } from 'components/SharePoint';
+import React, { useMemo } from 'react';
 
 export const PublicQuestionList = () => {
-	return <SPList listName={'Questions'} />
-}
+	const initialState = useMemo(() => {
+		return { sortBy: [{ id: 'Modified', desc: true }], pageSize: 50 };
+	}, []);
+	return <SPList listName={'Questions'} initialState={initialState} />;
+};

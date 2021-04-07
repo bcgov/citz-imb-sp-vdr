@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
 import {
 	IconButton,
-	useList,
 	SendConfirmationEmail,
 	useConfig,
+	useList,
 	useLogAction,
 } from 'components';
+import { GetGroupMembers, GetUserByEmail } from 'components/ApiCalls';
 import {
 	FormikDialog,
 	useCurrentUser,
 	useProponents,
 } from 'components/Reusable';
-import { GetGroupMembers, GetUserByEmail } from 'components/ApiCalls';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 
 export const AskQuestion = (props) => {
@@ -37,12 +37,12 @@ export const AskQuestion = (props) => {
 
 	const fields = [
 		{
-			name: 'Title',
+			name: 'Question',
 			label: 'Question',
 			initialValue: '',
-			validationSchema: Yup.string().required('Required'),
+			validationSchema: Yup.string().required('Required').min(5),
 			required: true,
-			control: 'input',
+			control: 'textarea',
 		},
 	];
 
@@ -55,14 +55,13 @@ export const AskQuestion = (props) => {
 	};
 
 	const sendEmails = async () => {
-		const proponent = proponents.get(currentUser.data.proponent);
+		const proponent = proponents.get(currentUser.proponent);
 
 		const groupMembers = await GetGroupMembers({
-			groupId: proponent.data.GroupId,
+			groupId: proponent.GroupId,
 		});
 
 		for (let i = 0; i < groupMembers.length; i++) {
-			console.log('addQuestionEmail :>> ', addQuestionEmail);
 			await SendConfirmationEmail({
 				addresses: groupMembers[i].LoginName,
 				proponent: proponent.Title,
@@ -71,7 +70,7 @@ export const AskQuestion = (props) => {
 				additionalReplacementPairs: [
 					{
 						searchvalue: /\[UserName\]/g,
-						newvalue: currentUser.data.name,
+						newvalue: currentUser.name,
 					},
 					{
 						searchvalue: /\[AddresseeName\]/g,
@@ -112,13 +111,14 @@ export const AskQuestion = (props) => {
 		const nextQuestionNumberString = nextQuestionNumber.toString();
 
 		values.QuestionID = `${
-			currentUser.data.proponent
+			currentUser.proponent
 		}-${nextQuestionNumberString.padStart(3, '0')}`;
+		values.AuthorId = currentUser.id;
 
 		try {
 			await questionList.addItem(values);
 			await sendEmails();
-			logAction(`successfully asked ${values.Title}`);
+			logAction(`successfully asked ${values.Question}`);
 		} catch (error) {
 			console.error('error submitting question', error);
 		}

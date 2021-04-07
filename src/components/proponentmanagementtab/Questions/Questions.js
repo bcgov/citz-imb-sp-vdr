@@ -1,11 +1,10 @@
+import { AnswerCell, SelectColumnFilter, useList, useLogAction } from 'components'
+import { SPList } from 'components/SharePoint'
 import React, { useState } from 'react'
 import { AnswerDialog } from './AnswerDialog/AnswerDialog'
-import { SelectColumnFilter, AnswerCell, useList, useLogAction } from 'components'
-import { SPList } from 'components/SharePoint'
 import { Assignee } from './Assignee/Assignee'
 
 export const Questions = (props) => {
-	console.log('Questions')
 	const { UUID } = props
 
 	const questionListName = `${UUID}_Questions`
@@ -46,16 +45,15 @@ export const Questions = (props) => {
 		showTitle: false,
 	}
 
-	//========================================
 	const [dialogOptions, setDialogOptions] = useState({ open: false, UUID })
 
 	const closeAnswerDialog = () => {
 		setDialogOptions({ open: false, UUID })
 	}
 
-	const changeAssignee = (value, QuestionID, Id, Title) => {
+	const changeAssignee = (value, QuestionID, Id, Question) => {
 		if (value === 'post') {
-			postAnswer({ QuestionID, Id, Title })
+			postAnswer({ QuestionID, Id, Question })
 		} else {
 			updateItem({
 				Id: Id,
@@ -67,21 +65,19 @@ export const Questions = (props) => {
 	}
 
 	const postAnswer = (props) => {
-		console.log('postAnswer props :>> ', props)
-		const { QuestionID, Id, Title } = props
+		const { QuestionID, Id, Question } = props
 		setDialogOptions({
 			open: true,
 			QuestionID,
 			Id,
-			Title,
+			Question,
 			UUID,
 			closeAnswerDialog,
 		})
 	}
 
 	const updateAnswer = (props) => {
-		console.log('updateAnswer props :>> ', props)
-		const { QuestionID, Id, Title, Answer } = props
+		const { QuestionID, Id, Question, Answer } = props
 
 		setDialogOptions({
 			open: true,
@@ -89,7 +85,7 @@ export const Questions = (props) => {
 			QuestionID,
 			AnswerId: parseInt(Answer),
 			Id,
-			Title,
+			Question,
 			Answer,
 			UUID,
 			closeAnswerDialog,

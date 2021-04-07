@@ -1,25 +1,24 @@
-import React, { useState } from 'react'
-import { AppBar, Tabs, Tab, Paper } from '@material-ui/core'
-
-import { HorizontalTabPanel } from 'components'
-import { Questions } from '../Questions/Questions'
-import { Library } from '../Library/Library'
-import { Membership } from '../Membership/Membership'
-import { OverView } from '../OverView/OverView'
+import { AppBar, Paper, Tab, Tabs } from '@material-ui/core';
+import { HorizontalTabPanel } from 'components';
+import React, { useState } from 'react';
+import { Library } from '../Library/Library';
+import { Membership } from '../Membership/Membership';
+import { OverView } from '../OverView/OverView';
+import { Questions } from '../Questions/Questions';
 
 function a11yProps(index) {
 	return {
 		id: `simple-tab-${index}`,
 		'aria-controls': `simple-tabpanel-${index}`,
-	}
+	};
 }
 
 export const ManagementTab = (props) => {
-	const [value, setValue] = useState(0)
+	const [value, setValue] = useState(0);
 
 	const handleChange = (event, newValue) => {
-		setValue(newValue)
-	}
+		setValue(newValue);
+	};
 
 	return (
 		<Paper variant={'elevation'}>
@@ -51,5 +50,5 @@ export const ManagementTab = (props) => {
 				<Membership {...props} />
 			</HorizontalTabPanel>
 		</Paper>
-	)
-}
+	);
+};

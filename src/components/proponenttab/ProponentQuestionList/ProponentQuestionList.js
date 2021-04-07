@@ -1,28 +1,33 @@
-import React from 'react'
-import { Alert } from '@material-ui/lab'
-import { AnswerCell, useCurrentUser, SelectColumnFilter, useLogAction, useList } from 'components'
-import { SPList } from 'components/SharePoint'
-
-import { AskQuestion } from './AskQuestion/AskQuestion'
+import { Alert } from '@material-ui/lab';
+import {
+	AnswerCell,
+	SelectColumnFilter,
+	useCurrentUser,
+	useList,
+	useLogAction,
+} from 'components';
+import { SPList } from 'components/SharePoint';
+import React from 'react';
+import { AskQuestion } from './AskQuestion/AskQuestion';
 
 export const ProponentQuestionList = () => {
-	const currentUser = useCurrentUser()
-	const logAction = useLogAction()
-	const proponentQuestionListName = `${currentUser.proponent}_Questions`
+	const currentUser = useCurrentUser();
+	const logAction = useLogAction();
+	const proponentQuestionListName = `${currentUser.proponent}_Questions`;
 
-	const {updateItem} = useList({listName: proponentQuestionListName})
+	const { updateItem } = useList({ listName: proponentQuestionListName });
 
-	const handleWithdraw = async (row)=>{
+	const handleWithdraw = async (row) => {
 		await updateItem({
 			Id: row.original.Id,
 			Withdrawn: true,
 			AnswerStatus: 'Withdrawn',
 			Assignee: '',
-		})
-		logAction(`successfully withdrew ${row.values.Title}`)
-	}
+		});
+		logAction(`successfully withdrew ${row.values.Title}`);
+	};
 
-	const initialState = { sortBy: [{ id: 'Created', desc: true }] }
+	const initialState = { sortBy: [{ id: 'Created', desc: true }] };
 	const customColumns = [
 		{
 			Filter: SelectColumnFilter,
@@ -37,19 +42,19 @@ export const ProponentQuestionList = () => {
 						value={value}
 						proponentQuestionsListName={proponentQuestionListName}
 					/>
-				)
+				);
 			},
 		},
-	]
+	];
 
 	const tableProps = {
 		title: 'Submitted Questions',
 		columnFiltering: true,
 		tableActions: [<AskQuestion listName={proponentQuestionListName} />],
-	}
+	};
 
 	if (!currentUser.isProponent)
-		return <Alert severity={'info'}>User is not a proponent</Alert>
+		return <Alert severity={'info'}>User is not a proponent</Alert>;
 
 	return (
 		<SPList
@@ -58,5 +63,5 @@ export const ProponentQuestionList = () => {
 			initialState={initialState}
 			tableProps={tableProps}
 		/>
-	)
-}
+	);
+};

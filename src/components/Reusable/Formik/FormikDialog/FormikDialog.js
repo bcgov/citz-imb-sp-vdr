@@ -1,17 +1,17 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { Formik, Form } from 'formik';
 import {
 	Button,
 	Dialog,
-	DialogTitle,
-	DialogContent,
 	DialogActions,
+	DialogContent,
+	DialogTitle,
 	Grid,
 	LinearProgress,
 } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { FormikControls } from 'components';
+import { Form, Formik } from 'formik';
 import { Markup } from 'interweave';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
 export const FormikDialog = (props) => {
@@ -59,7 +59,6 @@ export const FormikDialog = (props) => {
 					label: fields[i].label,
 					required: fields[i].required,
 					options: fields[i].options,
-					// fullWidth: true,
 				};
 
 				_controls.push(<FormikControls {...options} />);
@@ -69,7 +68,7 @@ export const FormikDialog = (props) => {
 			setControls(_controls);
 		}
 		return () => {};
-	}, [open, fields]);
+	}, [open]);
 
 	useEffect(() => {
 		if (validationSchemaProps) {
@@ -82,7 +81,7 @@ export const FormikDialog = (props) => {
 	}, [validationSchemaProps, fields, getValidationSchema]);
 
 	return (
-		<Dialog open={open} onClose={close} {...remainingDialogProps}>
+		<Dialog open={open} onClose={close} maxWidth={'sm'} fullWidth={true} {...remainingDialogProps}>
 			<Formik
 				initialValues={initialValues}
 				validationSchema={validationSchema}

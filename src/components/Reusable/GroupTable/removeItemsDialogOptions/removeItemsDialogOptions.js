@@ -1,6 +1,6 @@
-import React from 'react';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { SendConfirmationEmail } from 'components';
+import React from 'react';
 
 export const removeItemsDialogOptions = (props) => {
 	const {
@@ -34,7 +34,6 @@ export const removeItemsDialogOptions = (props) => {
 					(item) => item.Key === 'contactEmail'
 				)[0];
 
-				console.log('contactEmail :>> ', contactEmail);
 				await SendConfirmationEmail({
 					addresses: contactEmail.TextValue,
 					proponent: proponentName,

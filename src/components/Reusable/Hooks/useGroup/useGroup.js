@@ -1,13 +1,11 @@
 import {
 	AddUsersToGroup,
-	RemoveUsersFromGroup,
 	ChangeGroupOwner,
 	DeleteGroup,
+	RemoveUsersFromGroup,
 } from 'components/ApiCalls';
-
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getGroup } from './getGroup/getGroup';
-
-import { useQuery, useQueryClient, useMutation } from 'react-query';
 
 export const useGroup = (props) => {
 	const { groupId } = props;
@@ -26,7 +24,6 @@ export const useGroup = (props) => {
 			}),
 		{
 			onMutate: async (newMembers) => {
-				// console.log('mutating...');
 				await queryClient.cancelQueries(queryName);
 
 				const previousValues = queryClient.getQueryData(queryName);
@@ -35,7 +32,6 @@ export const useGroup = (props) => {
 					let newValues = [...oldValues.members];
 
 					newMembers.members.map((member, index) => {
-						console.log('member :>> ', member);
 						newValues.push({
 							Id: `temp_${index}`,
 							Email: member.EntityData.Email,
@@ -45,22 +41,14 @@ export const useGroup = (props) => {
 						return member;
 					});
 
-					// console.log('newValues :>> ', newValues);
-
 					return { group: oldValues.group, members: newValues };
 				});
 
 				return { previousValues };
 			},
 			onError: (error, newItem, context) => {
-				console.log('error: ', error);
+				console.error('error: ', error);
 				queryClient.setQueryData(queryName, context.previousValues);
-			},
-			onSettled: async () => {
-				// console.log('settling...')
-				// await queryClient.cancelQueries(queryName);
-				// await queryClient.invalidateQueries(queryName);
-				// console.log('done settling')
 			},
 		}
 	);
@@ -73,7 +61,6 @@ export const useGroup = (props) => {
 			}),
 		{
 			onMutate: (userId) => {
-				// console.log('mutating...');
 				const previousValues = queryClient.getQueryData(queryName);
 
 				queryClient.setQueryData(queryName, (oldValues) => {
@@ -89,10 +76,6 @@ export const useGroup = (props) => {
 			},
 			onError: (error, values, context) =>
 				queryClient.setQueryData(queryName, context.previousValues),
-			onSettled: () => {
-				// console.log('settling...')
-				// queryClient.refetchQueries(queryName);
-			},
 		}
 	);
 

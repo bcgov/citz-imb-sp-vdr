@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
 import { RestCall } from 'components/ApiCalls/RestCall/RestCall'
+import { useEffect, useState } from 'react'
 
 export const usePeoplePicker = (props = {}) => {
 	const [searchResults, setSearchResults] = useState([])
@@ -38,16 +38,8 @@ export const usePeoplePicker = (props = {}) => {
 						PrincipalSource,
 						PrincipalType,
 						QueryString: event.currentTarget.value,
-						// Required: false,
-						// SharePointGroupID: null,
-						// UrlZone: null,
-						// UrlZoneSpecified: false,
-						// Web: null,
-						// WebApplicationID: null,
 					},
 				},
-				// headers:'',
-				// cache:''
 			}
 			const results = await RestCall(options)
 

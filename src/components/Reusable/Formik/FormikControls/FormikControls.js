@@ -1,11 +1,11 @@
 import React from 'react'
-import { InputFormikControl } from './Input/InputFormikControl'
-import { TextAreaFormikControl } from './TextArea/TextAreaFormikControl'
-import { SelectFormikControl } from './Select/SelectFormikControl'
-import { RadioFormikControl } from './Radio/RadioFormikControl'
 import { CheckboxGroupFormikControl } from './CheckboxGroup/CheckboxGroupFormikControl'
-import { PeoplePickerFormikControl } from './PeoplePicker/PeoplePickerFormikControl'
 import { HiddenFormikControl } from './Hidden/HiddenFormikControl'
+import { InputFormikControl } from './Input/InputFormikControl'
+import { PeoplePickerFormikControl } from './PeoplePicker/PeoplePickerFormikControl'
+import { RadioFormikControl } from './Radio/RadioFormikControl'
+import { SelectFormikControl } from './Select/SelectFormikControl'
+import { TextAreaFormikControl } from './TextArea/TextAreaFormikControl'
 
 export const FormikControls = (props) => {
 	const { control, ...rest } = props
@@ -35,7 +35,6 @@ export const FormikControls = (props) => {
 			returnedControl = <HiddenFormikControl {...rest} />
 			break
 		case 'autocomplete':
-			// return <AutoCompleteFormikControl {...rest} />
 			break
 		case 'date':
 		default:

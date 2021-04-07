@@ -1,9 +1,9 @@
-import 'react-app-polyfill/ie9'
-import 'react-app-polyfill/stable'
-import React from 'react'
-import ReactDOM from 'react-dom'
 // import * as serviceWorker from './Helper/serviceWorker'
 import { App } from 'components'
+import React from 'react'
+import 'react-app-polyfill/ie9'
+import 'react-app-polyfill/stable'
+import ReactDOM from 'react-dom'
 
 setTimeout(() => {
 	const rootEl = document.createElement('div')

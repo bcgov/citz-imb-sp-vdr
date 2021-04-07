@@ -12,6 +12,5 @@ export const UpdateField = async ({ listName, fieldName, field }) => {
 		method: 'patch',
 		body: field,
 	});
-	console.log('response :>> ', response);
 	return response;
 };

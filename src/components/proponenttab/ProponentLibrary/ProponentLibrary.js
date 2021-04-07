@@ -1,7 +1,7 @@
-import React from 'react'
-import { useCurrentUser } from 'components'
 import { Alert } from '@material-ui/lab'
+import { useCurrentUser } from 'components'
 import { SPLibrary } from 'components/SharePoint'
+import React from 'react'
 
 export const ProponentLibrary = () => {
 	const currentUser = useCurrentUser()

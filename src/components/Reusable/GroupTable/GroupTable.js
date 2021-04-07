@@ -1,21 +1,18 @@
-import React, { useState, useMemo, useCallback } from 'react';
-import { useTable, useSortBy, useFilters, usePagination } from 'react-table';
+import { IconButton, LinearProgress } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import { Alert, AlertTitle } from '@material-ui/lab';
 import {
-	useGroup,
-	useLogAction,
 	FormikDialog,
 	SendConfirmationEmail,
 	useConfig,
+	useGroup,
+	useLogAction,
 } from 'components';
 import { SPTable } from 'components/SharePoint';
-import { IconButton, LinearProgress } from '@material-ui/core';
-import { Alert, AlertTitle } from '@material-ui/lab';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import AddIcon from '@material-ui/icons/Add';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useFilters, usePagination, useSortBy, useTable } from 'react-table';
 import { removeItemsDialogOptions } from './removeItemsDialogOptions/removeItemsDialogOptions';
-
-//TODO: CRUD operations
-//TODO: global filter
 
 export const GroupTable = (props) => {
 	const { groupId, proponentName } = props;
@@ -42,7 +39,6 @@ export const GroupTable = (props) => {
 		[
 			config,
 			logAction,
-			// proponentGroup,
 			proponentName,
 		]
 	);
@@ -82,7 +78,7 @@ export const GroupTable = (props) => {
 
 	const data = useMemo(() => {
 		if (proponentGroup.isLoading || proponentGroup.isError) return [];
-		// console.log('data proponentGroup :>> ', proponentGroup);
+
 		return [...proponentGroup.members];
 	}, [
 		proponentGroup.isLoading,
@@ -119,7 +115,6 @@ export const GroupTable = (props) => {
 					(item) => item.Key === 'contactEmail'
 				)[0];
 
-				console.log('contactEmail :>> ', contactEmail);
 				try {
 					await proponentGroup.addMember(values);
 					logAction(

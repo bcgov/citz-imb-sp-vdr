@@ -1,28 +1,28 @@
-import React, {useState, useEffect} from 'react'
 import {
 	IconButton,
 	LinearProgress,
-	Tabs,
-	Tab,
 	makeStyles,
-} from '@material-ui/core'
-import { Alert, AlertTitle } from '@material-ui/lab'
-import AddIcon from '@material-ui/icons/Add'
-import { GetRoleDefinitions } from 'components/ApiCalls'
+	Tab,
+	Tabs
+} from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import { Alert, AlertTitle } from '@material-ui/lab';
 import {
 	FormikDialog,
 	useLogAction,
-	VerticalTabPanel,
 	useProponents,
-} from 'components'
-import * as Yup from 'yup'
-import { ManagementTab } from '../ManagementTab/ManagementTab'
+	VerticalTabPanel
+} from 'components';
+import { GetRoleDefinitions } from 'components/ApiCalls';
+import React, { useEffect, useState } from 'react';
+import * as Yup from 'yup';
+import { ManagementTab } from '../ManagementTab/ManagementTab';
 
 function a11yProps(index) {
 	return {
 		id: `vertical-tab-${index}`,
 		'aria-controls': `vertical-tabpanel-${index}`,
-	}
+	};
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -30,36 +30,35 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 		backgroundColor: theme.palette.background.paper,
 		display: 'flex',
-		// height: 224,
 	},
 	tabs: {
 		borderRight: `1px solid ${theme.palette.divider}`,
 	},
-}))
+}));
 
 export const ProponentManagement = () => {
-	const classes = useStyles()
-	const [value, setValue] = useState(0)
-	const [dialogOptions, setDialogOptions] = useState({ open: false })
-	const [showMissingRoleAlert, setShowMissingRoleAlert] = useState(false)
-	const proponents = useProponents()
+	const classes = useStyles();
+	const [value, setValue] = useState(0);
+	const [dialogOptions, setDialogOptions] = useState({ open: false });
+	const [showMissingRoleAlert, setShowMissingRoleAlert] = useState(false);
+	const proponents = useProponents();
 
-	const logAction = useLogAction()
+	const logAction = useLogAction();
 
 	const handleChange = (event, newValue) => {
-		setValue(newValue)
-	}
+		setValue(newValue);
+	};
 
 	const getRoleDefinitions = async () => {
-		const roleDefs = await GetRoleDefinitions({})
+		const roleDefs = await GetRoleDefinitions({});
 
 		if (!roleDefs['Read with Add']) {
-			setShowMissingRoleAlert(true)
+			setShowMissingRoleAlert(true);
 		}
-	}
+	};
 
 	const handleAddProponentClick = () => {
-		const proponentNames = proponents.items.map((item) => item.Title)
+		const proponentNames = proponents.items.map((item) => item.Title);
 		setDialogOptions({
 			open: true,
 			fields: [
@@ -70,7 +69,7 @@ export const ProponentManagement = () => {
 					validationSchema: Yup.string()
 						.required('Required')
 						.transform((value, originalvalue) => {
-							return value.toLowerCase()
+							return value.toLowerCase();
 						})
 						.notOneOf(proponentNames, 'Proponent already exists'),
 					control: 'input',
@@ -78,24 +77,24 @@ export const ProponentManagement = () => {
 				},
 			],
 			close: () => {
-				setDialogOptions({ open: false })
+				setDialogOptions({ open: false });
 			},
 			title: 'Add Proponent',
 			onSubmit: async (values, { setSubmitting }) => {
-				await proponents.add(values.proponentName)
-				logAction(`created proponent '${values.proponentName}'`)
-				setSubmitting(false)
-				setDialogOptions({ open: false })
+				await proponents.add(values.proponentName);
+				logAction(`created proponent '${values.proponentName}'`);
+				setSubmitting(false);
+				setDialogOptions({ open: false });
 			},
-		})
-	}
+		});
+	};
 
 	useEffect(() => {
-		getRoleDefinitions()
-		return () => {}
-	}, [])
+		getRoleDefinitions();
+		return () => {};
+	}, []);
 
-	if (proponents.isLoading) return <LinearProgress />
+	if (proponents.isLoading) return <LinearProgress />;
 
 	if (showMissingRoleAlert)
 		return (
@@ -104,7 +103,7 @@ export const ProponentManagement = () => {
 				Site Collection is missing the 'Read with Add' Permission Level,
 				please contact your Site Collection Administrator
 			</Alert>
-		)
+		);
 
 	return (
 		<>
@@ -128,7 +127,7 @@ export const ProponentManagement = () => {
 								label={proponent.Title}
 								{...a11yProps(index)}
 							/>
-						)
+						);
 					})}
 				</Tabs>
 				{proponents.items.map((proponent, index) => {
@@ -145,10 +144,10 @@ export const ProponentManagement = () => {
 								setProponentInactive={proponents.setInactive}
 							/>
 						</VerticalTabPanel>
-					)
+					);
 				})}
 			</div>
 			<FormikDialog {...dialogOptions} />
 		</>
-	)
-}
+	);
+};

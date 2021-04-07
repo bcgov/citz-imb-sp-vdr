@@ -1,5 +1,5 @@
-import { useQuery } from 'react-query';
 import { GetUser } from 'components/ApiCalls';
+import { useQuery } from 'react-query';
 
 export const useUser = (userId) => {
 	const userQueryName = ['user', userId];

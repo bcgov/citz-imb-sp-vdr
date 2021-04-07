@@ -1,10 +1,8 @@
-import React, { useMemo } from 'react';
-import { useTable, useSortBy, useFilters, usePagination } from 'react-table';
 import { Alert, AlertTitle } from '@material-ui/lab';
-
 import { useList } from 'components';
-
-import { SPTable } from '../SPTable';
+import React, { useMemo } from 'react';
+import { useFilters, usePagination, useSortBy, useTable } from 'react-table';
+import { SPTable } from '../SPTable/SPTable';
 
 export const SPList = (props) => {
 	const {

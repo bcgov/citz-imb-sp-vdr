@@ -30,7 +30,6 @@ export async function AddFileToFolder(props) {
 		headers: {
 			accept: 'application/json;odata=verbose',
 			'X-RequestDigest': digestValue,
-			// 'content-length': arrayBuffer.byteLength,
 		},
 	});
 }

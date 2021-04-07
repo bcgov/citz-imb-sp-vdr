@@ -1,13 +1,13 @@
-import React, { useMemo, useEffect } from 'react'
-import { useDropzone } from 'react-dropzone'
 import {
-	Container,
-	Typography,
 	Card,
 	CardContent,
+	Container,
 	List,
 	ListItem,
-} from '@material-ui/core'
+	Typography,
+} from '@material-ui/core';
+import React, { useEffect, useMemo } from 'react';
+import { useDropzone } from 'react-dropzone';
 
 const baseStyle = {
 	flex: 1,
@@ -18,24 +18,24 @@ const baseStyle = {
 	borderWidth: 2,
 	borderColor: 'transparent',
 	borderStyle: 'solid',
-}
+};
 
 const activeStyle = {
 	borderColor: '#00ff00',
-}
+};
 
 const acceptStyle = {
 	borderColor: '#0000ff',
-}
+};
 
 const rejectStyle = {
 	borderColor: '#ff0000',
-}
+};
 
 export const DropZone = (props) => {
-	const { setAcceptedFiles } = props
+	const { setAcceptedFiles } = props;
 
-	const dzone = useDropzone()
+	const dzone = useDropzone();
 
 	const {
 		acceptedFiles,
@@ -44,7 +44,7 @@ export const DropZone = (props) => {
 		isDragActive,
 		isDragAccept,
 		isDragReject,
-	} = dzone
+	} = dzone;
 
 	const style = useMemo(
 		() => ({
@@ -54,12 +54,12 @@ export const DropZone = (props) => {
 			...(isDragReject ? rejectStyle : {}),
 		}),
 		[isDragActive, isDragReject, isDragAccept]
-	)
+	);
 
 	useEffect(() => {
-		setAcceptedFiles(acceptedFiles)
-		return () => {}
-	}, [acceptedFiles, setAcceptedFiles])
+		setAcceptedFiles(acceptedFiles);
+		return () => {};
+	}, [acceptedFiles, setAcceptedFiles]);
 
 	return (
 		<Container>
@@ -80,11 +80,11 @@ export const DropZone = (props) => {
 								<ListItem key={file.path}>
 									{file.path} - {file.size} bytes
 								</ListItem>
-							)
+							);
 						})}
 					</List>
 				</CardContent>
 			</Card>
 		</Container>
-	)
-}
+	);
+};
