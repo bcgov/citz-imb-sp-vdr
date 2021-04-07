@@ -148,7 +148,7 @@ export const AnswerDialog = (props) => {
 					{
 						name: 'sanitizedQuestion',
 						label: 'Sanitized Question',
-						initialValue: question.Question,
+						initialValue: question.Question ?? Question,
 						control: 'input',
 					},
 					{
