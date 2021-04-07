@@ -114,10 +114,10 @@ export const AnswerDialog = (props) => {
 
 	useEffect(() => {
 		if (!publicQuestions.isLoading) {
-			let _answer = '';
+			let question = '';
 
 			if (Answer) {
-				_answer = publicQuestions.getItemById(parseInt(Answer)).Answer;
+				question = publicQuestions.items.filter(item=> item.Id === parseInt(Answer))[0];
 			}
 
 			setDialogOptions({
@@ -148,13 +148,13 @@ export const AnswerDialog = (props) => {
 					{
 						name: 'sanitizedQuestion',
 						label: 'Sanitized Question',
-						initialValue: Question,
+						initialValue: question.Question,
 						control: 'input',
 					},
 					{
 						name: 'answer',
 						label: 'Answer',
-						initialValue: _answer,
+						initialValue: question.Answer,
 						control: 'input',
 					},
 					{

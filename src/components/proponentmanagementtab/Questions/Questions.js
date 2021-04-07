@@ -77,7 +77,7 @@ export const Questions = (props) => {
 	}
 
 	const updateAnswer = (props) => {
-		const { QuestionID, Id, Title, Answer } = props
+		const { QuestionID, Id, Question, Answer } = props
 
 		setDialogOptions({
 			open: true,
@@ -85,7 +85,7 @@ export const Questions = (props) => {
 			QuestionID,
 			AnswerId: parseInt(Answer),
 			Id,
-			Title,
+			Question,
 			Answer,
 			UUID,
 			closeAnswerDialog,
