@@ -10,28 +10,30 @@ Built for SharePoint 2016 on-premise.
 ---
 
 ## Instructions for Deployment
+
 **Site Collection Administrators**
 
-1. Download *CITZ.IMB.SP.VirtualDocumentRoom.wsp* file
+1. Download _CITZ.IMB.SP.VirtualDocumentRoom.wsp_ file
 2. Upload file to your collection Solutions Gallery
 3. Activate the solution
-4. Create a Permission Level titled *Read with Add* that is a copy of the *Read* Permission Level that is also granted the permission to Add Items to lists
+4. Create a Permission Level titled _Read with Add_ that is a copy of the _Read_ Permission Level that is also granted the permission to Add Items to lists
 
-**Note:** if you are re-deploying or deploying a newer version, you will need to deactivate the old version prior to uploading to the Solution Gallery.  If the solution fails to activate, delete it from the gallery and re-upload it.
+**Note:** if you are re-deploying or deploying a newer version, you will need to deactivate the old version prior to uploading to the Solution Gallery. If the solution fails to activate, delete it from the gallery and re-upload it. Updated solutions do not affect existing sites created from previous solution versions.
 
 ## Instructions for site creation
+
 **Site Collection Administrators** or **Site Owners**
 
-1. Navigate to the *Site Contents* of the parent site
-2. Click on *new subsite*
+1. Navigate to the _Site Contents_ of the parent site
+2. Click on _new subsite_
 3. Enter the Title of the site (recommend less than 50 characters)
 4. Optionally, enter a description
 5. Enter the Web Site Address (recommend 8 or less characters)
-6. For the template, select the Custom tab and choose *CITZ IMB Virtual Document Room*
-7. Choose *Use unique permissions*
-8. Choose whether to use the top link bar (recommend *No*)
-9. Click *Create*
+6. For the template, select the Custom tab and choose _CITZ IMB Virtual Document Room_
+7. Choose _Use unique permissions_
+8. Choose whether to use the top link bar (recommend _No_)
+9. Click _Create_
 
-it may take some time to process, do not refresh the page or navigate away.  Once the next page loads, you will be presented with the Terms of Service, you ***Must*** accept this.
+it may take some time to process, do not refresh the page or navigate away. Once the next page loads, you will be presented with the Terms of Service, you **_Must_** accept this.
 
-10. Create new groups for Visitors (Read Access), Members (Edit Access), and Owners (Full Control).  Typically, you would only add users to the Owners group at this time. Do NOT add any Proponents or Proponent Users here
+10. Create new groups for Visitors (Read Access), Members (Edit Access), and Owners (Full Control). Typically, you would only add users to the Owners group at this time. Do NOT add any Proponents or Proponent Users here. You may use existing groups if you have already set them up.
