@@ -7,11 +7,13 @@ import {
 } from 'components/ApiCalls';
 import { useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useCurrentUser } from 'components';
 import { getColumns } from './getColumns/getColumns';
 import { getList } from './getList/getList';
 
 export const useList = (props) => {
 	const { listName, preRequisite, isLibrary = false, options = {} } = props;
+	const currentUser = useCurrentUser();
 
 	let queryOptions = {
 		...options,
@@ -118,7 +120,7 @@ export const useList = (props) => {
 				await queryClient.cancelQueries(listName);
 
 				const previousValues = queryClient.getQueryData(listName);
-
+				
 				queryClient.setQueryData(listName, (oldValues) => {
 					return {
 						...oldValues,
@@ -129,6 +131,7 @@ export const useList = (props) => {
 								File: {
 									Name: newValue.fileData.name,
 								},
+								EditorId: currentUser.id,
 								...newValue,
 							},
 						],
