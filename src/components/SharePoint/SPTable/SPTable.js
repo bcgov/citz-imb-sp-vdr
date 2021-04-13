@@ -116,7 +116,12 @@ export const SPTable = (props) => {
 									{...row.getRowProps()}>
 									{row.cells.map((cell) => {
 										return (
-											<TableCell {...cell.getCellProps()}>
+											<TableCell
+												{...cell.getCellProps()}
+												style={{
+													maxWidth: '250px',
+													wordWrap: 'break-word',
+												}}>
 												{cell.render('Cell')}
 											</TableCell>
 										);

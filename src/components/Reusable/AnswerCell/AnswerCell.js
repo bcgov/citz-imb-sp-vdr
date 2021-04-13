@@ -1,8 +1,8 @@
-import { Chip, LinearProgress, List, ListItem } from '@material-ui/core'
-import { Alert, AlertTitle } from '@material-ui/lab'
-import { useList } from 'components'
-import React from 'react'
-import { WithdrawQuestion } from './WithdrawQuestion/WithdrawQuestion'
+import { Chip, LinearProgress, List, ListItem } from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import { useList } from 'components';
+import React from 'react';
+import { WithdrawQuestion } from './WithdrawQuestion/WithdrawQuestion';
 
 export const AnswerCell = (props) => {
 	const {
@@ -11,20 +11,20 @@ export const AnswerCell = (props) => {
 		proponentQuestionsListName,
 		showWithdrawButton = false,
 		handleWithdraw,
-	} = props
+	} = props;
 
-	const publicQuestions = useList({ listName: 'Questions' })
+	const publicQuestions = useList({ listName: 'Questions' });
 
-	if (value === 'Withdrawn') return <Chip label={value} size={'small'} />
+	if (value === 'Withdrawn') return <Chip label={value} size={'small'} />;
 
 	const item = publicQuestions.items.filter(
 		(item) => item.Id === parseInt(row.original.Answer)
-	)[0]
+	)[0];
 
-	const isSanitized = row.values.Title !== item?.Question
+	const isSanitized = row.values.Title !== item?.Question;
 
 	if (value === 'Posted') {
-		if (publicQuestions.isLoading) return <LinearProgress />
+		if (publicQuestions.isLoading) return <LinearProgress />;
 		return (
 			<List dense={true}>
 				{isSanitized ? (
@@ -34,7 +34,13 @@ export const AnswerCell = (props) => {
 							variant={'outlined'}
 							icon={false}>
 							<AlertTitle>Published Question</AlertTitle>
-							{item.Question}
+							<div
+								style={{
+									maxWidth: '250px',
+									wordWrap: 'break-word',
+								}}>
+								{item.Question}
+							</div>
 						</Alert>
 					</ListItem>
 				) : null}
@@ -44,11 +50,17 @@ export const AnswerCell = (props) => {
 						variant={'outlined'}
 						icon={false}>
 						<AlertTitle>Answer</AlertTitle>
-						{item.Answer}
+						<div
+							style={{
+								maxWidth: '250px',
+								wordWrap: 'break-word',
+							}}>
+							{item.Answer}
+						</div>
 					</Alert>
 				</ListItem>
 			</List>
-		)
+		);
 	}
 
 	if (showWithdrawButton)
@@ -66,7 +78,7 @@ export const AnswerCell = (props) => {
 					/>
 				</ListItem>
 			</List>
-		)
+		);
 
-	return <Chip label={value} size={'small'} color={'secondary'} />
-}
+	return <Chip label={value} size={'small'} color={'secondary'} />;
+};
