@@ -516,7 +516,30 @@ Sincerely,[Title] Administrator</Field>
           <Field Name="YesNoValue">TRUE</Field>
           <Field Name="Instructions">&lt;div class="ExternalClassFD2A33CB41934BF0B59CF526DFCF4CBE"&gt;&lt;p&gt;​Subject and Body may insert site specific values automatically.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;[Title] = the site title&lt;/li&gt;&lt;li&gt;[Addressee] = the person the email is addressed to&lt;/li&gt;&lt;li&gt;[Username] = the added user's name&lt;/li&gt;&lt;li&gt;[Proponent]&amp;#160;= the&amp;#160;​name of the proponent the user is added to&lt;br&gt;&lt;/li&gt;&lt;li&gt;[SiteLink] = the url to the current site&lt;br&gt;&lt;/li&gt;&lt;li&gt;[ContactEmail] = the email address provided in the contact email&lt;br&gt;&lt;/li&gt;&lt;li&gt;[UserName] = the name of the user&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</Field>
         </Row>
+<Row>
+          <Field Name="ID">10</Field>
+          <Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
+          <Field Name="Title">New Proponent Document Email</Field>
+          <Field Name="_ModerationStatus">0</Field>
+          <Field Name="Order">1000.000000000000</Field>
+          <Field Name="FSObjType">0</Field>
+          <Field Name="FileLeafRef">10_.000</Field>
+          <Field Name="MetaInfo">10;#</Field>
+          <Field Name="Key">proponentDocumentEmail</Field>
+          <Field Name="TextValue">New Document Submission in [Title]</Field>
+          <Field Name="MultiTextValue">Dear Proponents,
 
+[UserName] has uploaded a Document on behalf of your organization.
+
+Visit [SiteLink] to view the Document uploaded, privately.
+
+If you encounter issues accessing the site, please contact [ContactEmail]
+
+Sincerely,
+[Title] Administrator​</Field>
+          <Field Name="YesNoValue">TRUE</Field>
+          <Field Name="Instructions">&lt;div class="ExternalClassFD2A33CB41934BF0B59CF526DFCF4CBE"&gt;&lt;p&gt;​Subject and Body may insert site specific values automatically.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;[Title] = the site title&lt;/li&gt;&lt;li&gt;[Addressee] = the person the email is addressed to&lt;/li&gt;&lt;li&gt;[Username] = the added user's name&lt;/li&gt;&lt;li&gt;[Proponent]&amp;#160;= the&amp;#160;​name of the proponent the user is added to&lt;br&gt;&lt;/li&gt;&lt;li&gt;[SiteLink] = the url to the current site&lt;br&gt;&lt;/li&gt;&lt;li&gt;[ContactEmail] = the email address provided in the contact email&lt;br&gt;&lt;/li&gt;&lt;li&gt;[UserName] = the name of the user&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</Field>
+        </Row>
       </Rows>
     </Data>
   </ListInstance>

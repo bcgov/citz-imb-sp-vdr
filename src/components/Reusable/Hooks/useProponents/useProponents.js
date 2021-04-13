@@ -89,6 +89,12 @@ export const useProponents = () => {
 					subject,
 					body,
 					contactEmail,
+					additionalReplacementPairs: [
+						{
+							searchvalue: /\[UserName\]/g,
+							newvalue: currentUser.name,
+						},
+					],
 				});
 			}
 		}
