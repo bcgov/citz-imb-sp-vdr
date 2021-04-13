@@ -118,7 +118,7 @@ export const AskQuestion = (props) => {
 		try {
 			await questionList.addItem(values);
 			await sendEmails();
-			logAction(`successfully asked ${values.Question}`);
+			logAction(`successfully asked ${values.Question.substring(0,100)}`);
 		} catch (error) {
 			console.error('error submitting question', error);
 		}
