@@ -76,7 +76,6 @@ export const useProponents = () => {
 	};
 
 	const sendEmailToProponents = async (props) => {
-		console.log('props :>> ', props);
 		const { subject, body } = props;
 
 		for (let i = 0; i < proponents.items.length; i++) {
