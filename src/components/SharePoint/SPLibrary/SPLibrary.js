@@ -105,7 +105,7 @@ export const SPLibrary = (props) => {
 
 	const uploadDocuments = async (filesToUpload) => {
 		await addDocuments(filesToUpload);
-		uploadCallback();
+		uploadCallback(filesToUpload);
 	};
 
 	const handleFormSubmit = (values, { setSubmitting }) => {

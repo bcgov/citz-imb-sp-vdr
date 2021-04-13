@@ -57,7 +57,6 @@ export const getColumns = (props) => {
 					return <User userId={value} />};
 				newColumn.disableFilters = false;
 				newColumn.Filter = SelectUserColumnFilter;
-					console.log('newColumn :>> ', newColumn);
 				break;
 
 			default:

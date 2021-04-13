@@ -120,8 +120,7 @@ export const useList = (props) => {
 				await queryClient.cancelQueries(listName);
 
 				const previousValues = queryClient.getQueryData(listName);
-				console.log('newValue :>> ', newValue, currentUser);
-
+				
 				queryClient.setQueryData(listName, (oldValues) => {
 					return {
 						...oldValues,
