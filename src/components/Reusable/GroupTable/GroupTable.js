@@ -1,29 +1,29 @@
-import { IconButton, LinearProgress } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { IconButton, LinearProgress } from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
+import { Alert, AlertTitle } from '@material-ui/lab'
 import {
 	FormikDialog,
 	SendConfirmationEmail,
 	useConfig,
 	useGroup,
 	useLogAction,
-} from 'components';
-import { SPTable } from 'components/SharePoint';
-import React, { useCallback, useMemo, useState } from 'react';
-import { useFilters, usePagination, useSortBy, useTable } from 'react-table';
-import { removeItemsDialogOptions } from './removeItemsDialogOptions/removeItemsDialogOptions';
+} from 'components'
+import { SPTable } from 'components/SharePoint'
+import React, { useCallback, useMemo, useState } from 'react'
+import { useFilters, usePagination, useSortBy, useTable } from 'react-table'
+import { removeItemsDialogOptions } from './removeItemsDialogOptions/removeItemsDialogOptions'
 
 export const GroupTable = (props) => {
-	const { groupId, proponentName } = props;
+	const { groupId, proponentName } = props
 	const [dialog, setDialog] = useState({
 		open: false,
-	});
+	})
 
-	const logAction = useLogAction();
-	const config = useConfig();
+	const logAction = useLogAction()
+	const config = useConfig()
 
-	const proponentGroup = useGroup({ groupId });
+	const proponentGroup = useGroup({ groupId })
 
 	const removeItemDialog = useCallback(
 		({ original }) => {
@@ -34,17 +34,13 @@ export const GroupTable = (props) => {
 				logAction,
 				proponentName,
 				config,
-			});
+			})
 		},
-		[
-			config,
-			logAction,
-			proponentName,
-		]
-	);
+		[config.data, logAction, proponentName]
+	)
 
 	const columns = useMemo(() => {
-		if (proponentGroup.isLoading || proponentGroup.isError) return [];
+		if (proponentGroup.isLoading || proponentGroup.isError) return []
 		return [
 			{
 				Header: 'Title',
@@ -63,35 +59,31 @@ export const GroupTable = (props) => {
 				id: 'removeMember',
 				Cell: ({ row }) => {
 					const clickHandler = () => {
-						removeItemDialog(row);
-					};
+						removeItemDialog(row)
+					}
 
 					return (
 						<IconButton color={'primary'} onClick={clickHandler}>
 							<DeleteOutlineIcon />
 						</IconButton>
-					);
+					)
 				},
 			},
-		];
-	}, [proponentGroup.isLoading, proponentGroup.isError, removeItemDialog]);
+		]
+	}, [proponentGroup.isLoading, proponentGroup.isError, removeItemDialog])
 
 	const data = useMemo(() => {
-		if (proponentGroup.isLoading || proponentGroup.isError) return [];
+		if (proponentGroup.isLoading || proponentGroup.isError) return []
 
-		return [...proponentGroup.members];
-	}, [
-		proponentGroup.isLoading,
-		proponentGroup.isError,
-		proponentGroup.members,
-	]);
+		return [...proponentGroup.members]
+	}, [proponentGroup.isLoading, proponentGroup.isError, proponentGroup.members])
 
 	const table = useTable(
 		{ columns, data },
 		useFilters,
 		useSortBy,
 		usePagination
-	);
+	)
 
 	const addItemDialog = () => {
 		setDialog({
@@ -104,22 +96,18 @@ export const GroupTable = (props) => {
 				},
 			],
 			onSubmit: async (values, { setSubmitting }) => {
-				const members = values.members.map(
-					(member) => member.DisplayText
-				);
-				const addUserEmail = config.filter(
+				const members = values.members.map((member) => member.DisplayText)
+				const addUserEmail = config.data.filter(
 					(item) => item.Key === 'addUserEmail'
-				)[0];
+				)[0]
 
-				const contactEmail = config.filter(
+				const contactEmail = config.data.filter(
 					(item) => item.Key === 'contactEmail'
-				)[0];
+				)[0]
 
 				try {
-					await proponentGroup.addMember(values);
-					logAction(
-						`added ${members.join('; ')} to ${proponentName} group`
-					);
+					await proponentGroup.addMember(values)
+					logAction(`added ${members.join('; ')} to ${proponentName} group`)
 					values.members.map(async (member) => {
 						await SendConfirmationEmail({
 							addresses: member.Key,
@@ -133,38 +121,31 @@ export const GroupTable = (props) => {
 								},
 							],
 							contactEmail,
-						});
-						logAction(
-							`sent ${addUserEmail.Title} to ${members.join(
-								'; '
-							)}`
-						);
-					});
+						})
+						logAction(`sent ${addUserEmail.Title} to ${members.join('; ')}`)
+					})
 
-					setSubmitting(false);
-					setDialog({ open: false });
+					setSubmitting(false)
+					setDialog({ open: false })
 				} catch (error) {
-					throw error;
+					throw error
 				}
 			},
 			open: true,
 			close: () => {
-				setDialog({ open: false });
+				setDialog({ open: false })
 			},
 			title: 'Add Member',
-		});
-	};
+		})
+	}
 
 	const tableActions = [
-		<IconButton
-			aria-label='add'
-			color={'secondary'}
-			onClick={addItemDialog}>
+		<IconButton aria-label='add' color={'secondary'} onClick={addItemDialog}>
 			<AddIcon />
 		</IconButton>,
-	];
+	]
 
-	if (proponentGroup.isLoading) return <LinearProgress />;
+	if (proponentGroup.isLoading) return <LinearProgress />
 
 	if (proponentGroup.isError) {
 		return (
@@ -172,7 +153,7 @@ export const GroupTable = (props) => {
 				<AlertTitle>Error</AlertTitle>
 				{proponentGroup.error}
 			</Alert>
-		);
+		)
 	}
 
 	return (
@@ -185,5 +166,5 @@ export const GroupTable = (props) => {
 			/>
 			<FormikDialog {...dialog} />
 		</>
-	);
-};
+	)
+}

@@ -1,15 +1,32 @@
-import { useMemo } from 'react';
-import { useQueryClient } from 'react-query';
+import { useMemo } from 'react'
+import { useQueryClient, useMutation } from 'react-query'
+import {
+	AddFileToFolder,
+	AddItemsToList,
+	GetFileBuffer,
+	RemoveDocumentFromLibrary,
+	UpdateListItem,
+} from 'components/ApiCalls'
 
 export const useConfig = () => {
-	const queryClient = useQueryClient();
+	const listName = 'config'
+	const queryClient = useQueryClient()
 
-	const query = queryClient.getQueryData('config');
+	const query = queryClient.getQueryData(listName)
 
-	const config = useMemo(() => {
-		if (query === undefined) return [];
-		return query;
-	}, [query]);
+	const data = useMemo(() => {
+		if (query === undefined) return []
+		return query
+	}, [query])
 
-	return config;
-};
+	const updateItemMutation = useMutation(
+		(updateItem) => UpdateListItem({ listName, items: updateItem }),
+		{
+
+
+			onSettled: async () => await queryClient.refetchQueries(listName),
+		}
+	)
+
+	return { data, updateItem: updateItemMutation.mutateAsync }
+}

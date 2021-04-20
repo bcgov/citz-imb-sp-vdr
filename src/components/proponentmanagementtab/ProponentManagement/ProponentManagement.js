@@ -3,26 +3,30 @@ import {
 	LinearProgress,
 	makeStyles,
 	Tab,
-	Tabs
-} from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import { Alert, AlertTitle } from '@material-ui/lab';
+	Tabs,
+	Switch,
+	FormControlLabel,
+} from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
+import { Alert, AlertTitle } from '@material-ui/lab'
 import {
 	FormikDialog,
 	useLogAction,
 	useProponents,
-	VerticalTabPanel
-} from 'components';
-import { GetRoleDefinitions } from 'components/ApiCalls';
-import React, { useEffect, useState } from 'react';
-import * as Yup from 'yup';
-import { ManagementTab } from '../ManagementTab/ManagementTab';
+	useConfig,
+	VerticalTabPanel,
+} from 'components'
+import { GetRoleDefinitions } from 'components/ApiCalls'
+import React, { useEffect, useState } from 'react'
+import * as Yup from 'yup'
+import { ManagementTab } from '../ManagementTab/ManagementTab'
+import { toggleAllowSubmissions } from './toggleAllowSubmissions/toggleAllowSubmissions'
 
 function a11yProps(index) {
 	return {
 		id: `vertical-tab-${index}`,
 		'aria-controls': `vertical-tabpanel-${index}`,
-	};
+	}
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -34,31 +38,36 @@ const useStyles = makeStyles((theme) => ({
 	tabs: {
 		borderRight: `1px solid ${theme.palette.divider}`,
 	},
-}));
+}))
 
 export const ProponentManagement = () => {
-	const classes = useStyles();
-	const [value, setValue] = useState(0);
-	const [dialogOptions, setDialogOptions] = useState({ open: false });
-	const [showMissingRoleAlert, setShowMissingRoleAlert] = useState(false);
-	const proponents = useProponents();
+	const classes = useStyles()
+	const [value, setValue] = useState(0)
+	const [dialogOptions, setDialogOptions] = useState({ open: false })
+	const [showMissingRoleAlert, setShowMissingRoleAlert] = useState(false)
+	const proponents = useProponents()
+	const config = useConfig()
 
-	const logAction = useLogAction();
+	const allowSubmissions = config.data.filter(
+		(item) => item.Key === 'allowSubmissions'
+	)[0].YesNoValue
+
+	const logAction = useLogAction()
 
 	const handleChange = (event, newValue) => {
-		setValue(newValue);
-	};
+		setValue(newValue)
+	}
 
 	const getRoleDefinitions = async () => {
-		const roleDefs = await GetRoleDefinitions({});
+		const roleDefs = await GetRoleDefinitions({})
 
 		if (!roleDefs['Read with Add']) {
-			setShowMissingRoleAlert(true);
+			setShowMissingRoleAlert(true)
 		}
-	};
+	}
 
 	const handleAddProponentClick = () => {
-		const proponentNames = proponents.items.map((item) => item.Title);
+		const proponentNames = proponents.items.map((item) => item.Title)
 		setDialogOptions({
 			open: true,
 			fields: [
@@ -69,7 +78,7 @@ export const ProponentManagement = () => {
 					validationSchema: Yup.string()
 						.required('Required')
 						.transform((value, originalvalue) => {
-							return value.toLowerCase();
+							return value.toLowerCase()
 						})
 						.notOneOf(proponentNames, 'Proponent already exists'),
 					control: 'input',
@@ -77,41 +86,65 @@ export const ProponentManagement = () => {
 				},
 			],
 			close: () => {
-				setDialogOptions({ open: false });
+				setDialogOptions({ open: false })
 			},
 			title: 'Add Proponent',
 			onSubmit: async (values, { setSubmitting }) => {
-				await proponents.add(values.proponentName);
-				logAction(`created proponent '${values.proponentName}'`);
-				setSubmitting(false);
-				setDialogOptions({ open: false });
+				await proponents.add(values.proponentName)
+				logAction(`created proponent '${values.proponentName}'`)
+				setSubmitting(false)
+				setDialogOptions({ open: false })
 			},
-		});
-	};
+		})
+	}
+
+	const handleAllowSubmissionToggle = async () => {
+		const allowSubmissionsResults = await toggleAllowSubmissions(allowSubmissions, proponents, config)
+		console.log('allowSubmissionsResults :>> ', allowSubmissionsResults);
+		logAction(`changed allow submisstions to ${allowSubmissionsResults}`)
+	}
 
 	useEffect(() => {
-		getRoleDefinitions();
-		return () => {};
-	}, []);
+		getRoleDefinitions()
+		return () => {}
+	}, [])
 
-	if (proponents.isLoading) return <LinearProgress />;
+	if (proponents.isLoading) return <LinearProgress />
 
 	if (showMissingRoleAlert)
 		return (
 			<Alert severity='error'>
 				<AlertTitle>Missing Permission Level</AlertTitle>
-				Site Collection is missing the 'Read with Add' Permission Level,
-				please contact your Site Collection Administrator
+				Site Collection is missing the 'Read with Add' Permission Level, please
+				contact your Site Collection Administrator
 			</Alert>
-		);
+		)
 
 	return (
 		<>
-			<IconButton
-				aria-label={'Add Proponent'}
-				onClick={handleAddProponentClick}>
-				<AddIcon />
-			</IconButton>
+			<FormControlLabel
+				control={
+					<IconButton
+						aria-label={'Add Proponent'}
+						onClick={handleAddProponentClick}>
+						<AddIcon />
+					</IconButton>
+				}
+				label={'New Proponent'}
+			/>
+			<FormControlLabel
+				control={
+					<Switch
+						onChange={handleAllowSubmissionToggle}
+						checked={allowSubmissions}
+						inputProps={{
+							'aria-labelledby': 'overview-list-label-active',
+						}}
+					/>
+				}
+				label={'Allow Submissions'}
+			/>
+
 			<div className={classes.root}>
 				<Tabs
 					orientation='vertical'
@@ -122,20 +155,13 @@ export const ProponentManagement = () => {
 					className={classes.tabs}>
 					{proponents.items.map((proponent, index) => {
 						return (
-							<Tab
-								key={index}
-								label={proponent.Title}
-								{...a11yProps(index)}
-							/>
-						);
+							<Tab key={index} label={proponent.Title} {...a11yProps(index)} />
+						)
 					})}
 				</Tabs>
 				{proponents.items.map((proponent, index) => {
 					return (
-						<VerticalTabPanel
-							key={index}
-							value={value}
-							index={index}>
+						<VerticalTabPanel key={index} value={value} index={index}>
 							<ManagementTab
 								{...proponent}
 								isLoading={proponents.isLoading}
@@ -144,10 +170,10 @@ export const ProponentManagement = () => {
 								setProponentInactive={proponents.setInactive}
 							/>
 						</VerticalTabPanel>
-					);
+					)
 				})}
 			</div>
 			<FormikDialog {...dialogOptions} />
 		</>
-	);
-};
+	)
+}

@@ -5,44 +5,40 @@ import {
 	useConfig,
 	useCurrentUser,
 	useLogAction,
-} from 'components';
-import React, { useEffect, useState } from 'react';
-import Cookies from 'universal-cookie';
+} from 'components'
+import React, { useEffect, useState } from 'react'
+import Cookies from 'universal-cookie'
 
 export const TermsOfService = () => {
-	const [hasCookie, setHasCookie] = useState(false);
+	const [hasCookie, setHasCookie] = useState(false)
 	const [dialogOptions, setDialogOptions] = useState({
 		open: false,
 		title: 'Terms of Service',
-	});
+	})
 
-	const config = useConfig();
-	const currentUser = useCurrentUser();
-	const logAction = useLogAction();
+	const config = useConfig()
+	const currentUser = useCurrentUser()
+	const logAction = useLogAction()
 
 	useEffect(() => {
-		const cookies = new Cookies();
-		const TOS = config.filter((item) => item.Key === 'TOS')[0];
+		const cookies = new Cookies()
+		const TOS = config.data.filter((item) => item.Key === 'TOS')[0]
 		setDialogOptions({
 			open: true,
 			submitButtonText: 'Accept',
 			cancelButtonText: 'Reject',
 			onSubmit: () => {
-				cookies.set(
-					`${TOS.Key}-${currentUser.id}-${TOS.Modified}`,
-					true,
-					{
-						path: '/',
-						maxAge: TOS.NumberValue * 24 * 60 * 60,
-					}
-				);
+				cookies.set(`${TOS.Key}-${currentUser.id}-${TOS.Modified}`, true, {
+					path: '/',
+					maxAge: TOS.NumberValue * 24 * 60 * 60,
+				})
 
-				logAction('agreed to TOS', false);
-				setHasCookie(true);
+				logAction('agreed to TOS', false)
+				setHasCookie(true)
 			},
 			close: async () => {
-				await logAction('disagreed to TOS', false);
-				window.location = '/_layouts/signout.aspx';
+				await logAction('disagreed to TOS', false)
+				window.location = '/_layouts/signout.aspx'
 			},
 			title: TOS.TextValue,
 			dialogContent: (
@@ -52,15 +48,15 @@ export const TermsOfService = () => {
 					}}
 				/>
 			),
-		});
+		})
 		if (cookies.get(`${TOS.Key}-${currentUser.id}-${TOS.Modified}`)) {
-			setHasCookie(true);
+			setHasCookie(true)
 		}
 
-		return () => {};
-	}, [config, currentUser.id, logAction]);
+		return () => {}
+	}, [config.data, currentUser.id, logAction])
 
-	if (hasCookie) return <Home />;
+	if (hasCookie) return <Home />
 
-	return <FormikDialog {...dialogOptions} />;
-};
+	return <FormikDialog {...dialogOptions} />
+}
