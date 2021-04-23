@@ -115,14 +115,14 @@ export const useProponents = () => {
 		add,
 		addUser,
 		get,
-		isLoading: proponents.isLoading,
+		isLoading: proponents.isLoading || config.isLoading,
 		// proponents,
 		items: proponents.items,
 		removeUser,
 		sendEmailToProponents,
 		setActive,
 		setInactive,
-		allowSubmissions: allowSubmissions.YesNoValue,
+		allowSubmissions: allowSubmissions?.YesNoValue,
 		toggleAllowSubmissions,
 	}
 }

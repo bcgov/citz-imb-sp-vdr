@@ -56,7 +56,7 @@ export const TermsOfService = () => {
 			}
 		}
 		return () => {}
-	}, [config, currentUser.id, logAction])
+	}, [config.isLoading, currentUser.id, logAction])
 
 	if (hasCookie) return <Home />
 
