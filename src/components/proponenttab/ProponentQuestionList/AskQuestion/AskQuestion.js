@@ -23,13 +23,13 @@ export const AskQuestion = (props) => {
 	const config = useConfig()
 	const logAction = useLogAction()
 
-	const addQuestionEmail = config.data.filter(
+	const addQuestionEmail = config.items.filter(
 		(item) => item.Key === 'addQuestionEmail'
 	)[0]
-	const newQuestionEmail = config.data.filter(
+	const newQuestionEmail = config.items.filter(
 		(item) => item.Key === 'newQuestionEmail'
 	)[0]
-	const contactEmail = config.data.filter(
+	const contactEmail = config.items.filter(
 		(item) => item.Key === 'contactEmail'
 	)[0]
 

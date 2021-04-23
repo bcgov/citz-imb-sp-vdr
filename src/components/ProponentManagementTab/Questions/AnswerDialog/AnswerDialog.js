@@ -21,10 +21,10 @@ export const AnswerDialog = (props) => {
 	const publicQuestions = useList({ listName: 'Questions' })
 	const config = useConfig()
 
-	const updatedAnswerEmail = config.data.filter(
+	const updatedAnswerEmail = config.items.filter(
 		(item) => item.Key === 'updatedAnswerEmail'
 	)
-	const newAnswerEmail = config.data.filter(
+	const newAnswerEmail = config.items.filter(
 		(item) => item.Key === 'newAnswerEmail'
 	)[0]
 

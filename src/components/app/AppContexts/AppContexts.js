@@ -1,46 +1,38 @@
-import { LinearProgress } from '@material-ui/core';
-import { getCurrentUser } from 'components';
-import { GetListItems } from 'components/ApiCalls';
-import { SnackbarProvider } from 'notistack';
-import React, { useEffect, useState } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtoolsPanel } from 'react-query/devtools';
-import { Test } from '../Test';
-import { Logon } from './Logon/Logon';
+import { LinearProgress } from '@material-ui/core'
+import { getCurrentUser, useConfig } from 'components'
+import { GetListItems } from 'components/ApiCalls'
+import { SnackbarProvider } from 'notistack'
+import React, { useEffect, useState } from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtoolsPanel } from 'react-query/devtools'
+import { Test } from '../Test'
+import { Logon } from './Logon/Logon'
 
 const queryClient = new QueryClient({
 	defaultOptions: { queries: { retry: 5 } },
-});
+})
 
-const isTest = true;
+const isTest = false
 
 export const AppContexts = () => {
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(true)
 
 	const prefetch = async () => {
-		await queryClient.prefetchQuery(
-			'config',
-			() => GetListItems({ listName: 'Config' }),
-			{
-				staleTime: 'Infinity',
-				cacheTime: 'Infinity',
-			}
-		);
 
 		await queryClient.prefetchQuery('CurrentUser', () => getCurrentUser(), {
 			staleTime: 'Infinity',
 			cacheTime: 'Infinity',
-		});
+		})
 
-		setIsLoading(false);
-	};
+		setIsLoading(false)
+	}
 
 	useEffect(() => {
-		prefetch();
-		return () => {};
-	}, []);
+		prefetch()
+		return () => {}
+	}, [])
 
-	if (isLoading) return <LinearProgress />;
+	if (isLoading) return <LinearProgress />
 
 	return (
 		<SnackbarProvider
@@ -62,5 +54,5 @@ export const AppContexts = () => {
 				)}
 			</QueryClientProvider>
 		</SnackbarProvider>
-	);
-};
+	)
+}

@@ -36,7 +36,7 @@ export const GroupTable = (props) => {
 				config,
 			})
 		},
-		[config.data, logAction, proponentName]
+		[config.items, logAction, proponentName]
 	)
 
 	const columns = useMemo(() => {
@@ -97,11 +97,11 @@ export const GroupTable = (props) => {
 			],
 			onSubmit: async (values, { setSubmitting }) => {
 				const members = values.members.map((member) => member.DisplayText)
-				const addUserEmail = config.data.filter(
+				const addUserEmail = config.items.filter(
 					(item) => item.Key === 'addUserEmail'
 				)[0]
 
-				const contactEmail = config.data.filter(
+				const contactEmail = config.items.filter(
 					(item) => item.Key === 'contactEmail'
 				)[0]
 

@@ -24,11 +24,11 @@ export const removeItemsDialogOptions = (props) => {
 				await proponentGroup.removeMember(original.Id)
 				logAction(`removed ${original.Title} from ${proponentName} group`)
 
-				const removeUserEmail = config.data.filter(
+				const removeUserEmail = config.items.filter(
 					(item) => item.Key === 'removeUserEmail'
 				)[0]
 
-				const contactEmail = config.data.filter(
+				const contactEmail = config.items.filter(
 					(item) => item.Key === 'contactEmail'
 				)[0]
 

@@ -3,7 +3,7 @@ import { GetList } from '../GetList/GetList';
 
 export const UpdateListItem = async ({ listName, listGUID, items }) => {
 	let endPoint;
-console.log('{listName, listGUID, items} :>> ', {listName, listGUID, items});
+
 	if (!Array.isArray(items)) items = [items];
 
 	if (listGUID) {

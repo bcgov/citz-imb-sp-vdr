@@ -20,13 +20,13 @@ export const ProponentLibrary = () => {
 
 	const listName = currentUser.proponent
 
-	const proponentDocumentEmail = config.data.filter(
+	const proponentDocumentEmail = config.items.filter(
 		(item) => item.Key === 'proponentDocumentEmail'
 	)[0]
-	const VICOManagerDocumentEmail = config.data.filter(
+	const VICOManagerDocumentEmail = config.items.filter(
 		(item) => item.Key === 'newDocumentEmail'
 	)[0]
-	const contactEmail = config.data.filter(
+	const contactEmail = config.items.filter(
 		(item) => item.Key === 'contactEmail'
 	)[0]
 

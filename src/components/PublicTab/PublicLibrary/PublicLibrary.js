@@ -13,7 +13,7 @@ export const PublicLibrary = () => {
 	const config = useConfig()
 	const currentUser = useCurrentUser()
 
-	const publicDocumentEmail = config.data.filter(
+	const publicDocumentEmail = config.items.filter(
 		(item) => item.Key === 'publicDocumentEmail'
 	)[0]
 

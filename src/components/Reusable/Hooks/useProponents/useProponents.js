@@ -19,8 +19,12 @@ export const useProponents = () => {
 	const config = useConfig()
 	const logAction = useLogAction()
 
-	const contactEmail = config.data.filter(
+	const contactEmail = config.items.filter(
 		(item) => item.Key === 'contactEmail'
+	)[0]
+
+	const allowSubmissions = config.items.filter(
+		(item) => item.Key === 'allowSubmissions'
 	)[0]
 
 	const add = async (proponentName) => {
@@ -100,6 +104,13 @@ export const useProponents = () => {
 		}
 	}
 
+	const toggleAllowSubmissions = async () => {
+		await config.updateItem({
+			Id: allowSubmissions.Id,
+			YesNoValue: !allowSubmissions.YesNoValue,
+		})
+	}
+
 	return {
 		add,
 		addUser,
@@ -111,5 +122,7 @@ export const useProponents = () => {
 		sendEmailToProponents,
 		setActive,
 		setInactive,
+		allowSubmissions: allowSubmissions.YesNoValue,
+		toggleAllowSubmissions,
 	}
 }

@@ -21,40 +21,42 @@ export const TermsOfService = () => {
 	const logAction = useLogAction()
 
 	useEffect(() => {
-		const cookies = new Cookies()
-		const TOS = config.data.filter((item) => item.Key === 'TOS')[0]
-		setDialogOptions({
-			open: true,
-			submitButtonText: 'Accept',
-			cancelButtonText: 'Reject',
-			onSubmit: () => {
-				cookies.set(`${TOS.Key}-${currentUser.id}-${TOS.Modified}`, true, {
-					path: '/',
-					maxAge: TOS.NumberValue * 24 * 60 * 60,
-				})
+		console.log('config :>> ', config)
+		if (!config.isLoading) {
+			const cookies = new Cookies()
+			const TOS = config.items.filter((item) => item.Key === 'TOS')[0]
+			setDialogOptions({
+				open: true,
+				submitButtonText: 'Accept',
+				cancelButtonText: 'Reject',
+				onSubmit: () => {
+					cookies.set(`${TOS.Key}-${currentUser.id}-${TOS.Modified}`, true, {
+						path: '/',
+						maxAge: TOS.NumberValue * 24 * 60 * 60,
+					})
 
-				logAction('agreed to TOS', false)
+					logAction('agreed to TOS', false)
+					setHasCookie(true)
+				},
+				close: async () => {
+					await logAction('disagreed to TOS', false)
+					window.location = '/_layouts/signout.aspx'
+				},
+				title: TOS.TextValue,
+				dialogContent: (
+					<div
+						dangerouslySetInnerHTML={{
+							__html: FormatText(TOS.MultiTextValue),
+						}}
+					/>
+				),
+			})
+			if (cookies.get(`${TOS.Key}-${currentUser.id}-${TOS.Modified}`)) {
 				setHasCookie(true)
-			},
-			close: async () => {
-				await logAction('disagreed to TOS', false)
-				window.location = '/_layouts/signout.aspx'
-			},
-			title: TOS.TextValue,
-			dialogContent: (
-				<div
-					dangerouslySetInnerHTML={{
-						__html: FormatText(TOS.MultiTextValue),
-					}}
-				/>
-			),
-		})
-		if (cookies.get(`${TOS.Key}-${currentUser.id}-${TOS.Modified}`)) {
-			setHasCookie(true)
+			}
 		}
-
 		return () => {}
-	}, [config.data, currentUser.id, logAction])
+	}, [config, currentUser.id, logAction])
 
 	if (hasCookie) return <Home />
 

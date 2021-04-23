@@ -17,10 +17,9 @@ import {
 	VerticalTabPanel,
 } from 'components'
 import { GetRoleDefinitions } from 'components/ApiCalls'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import * as Yup from 'yup'
 import { ManagementTab } from '../ManagementTab/ManagementTab'
-import { toggleAllowSubmissions } from './toggleAllowSubmissions/toggleAllowSubmissions'
 
 function a11yProps(index) {
 	return {
@@ -46,11 +45,6 @@ export const ProponentManagement = () => {
 	const [dialogOptions, setDialogOptions] = useState({ open: false })
 	const [showMissingRoleAlert, setShowMissingRoleAlert] = useState(false)
 	const proponents = useProponents()
-	const config = useConfig()
-
-	const allowSubmissions = config.data.filter(
-		(item) => item.Key === 'allowSubmissions'
-	)[0].YesNoValue
 
 	const logAction = useLogAction()
 
@@ -99,9 +93,7 @@ export const ProponentManagement = () => {
 	}
 
 	const handleAllowSubmissionToggle = async () => {
-		const allowSubmissionsResults = await toggleAllowSubmissions(allowSubmissions, proponents, config)
-		console.log('allowSubmissionsResults :>> ', allowSubmissionsResults);
-		logAction(`changed allow submisstions to ${allowSubmissionsResults}`)
+		await proponents.toggleAllowSubmissions()
 	}
 
 	useEffect(() => {
@@ -136,7 +128,7 @@ export const ProponentManagement = () => {
 				control={
 					<Switch
 						onChange={handleAllowSubmissionToggle}
-						checked={allowSubmissions}
+						checked={proponents.allowSubmissions}
 						inputProps={{
 							'aria-labelledby': 'overview-list-label-active',
 						}}

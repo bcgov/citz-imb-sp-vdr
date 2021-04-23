@@ -3,7 +3,6 @@ export const toggleAllowSubmissions = async (
 	proponents,
 	config
 ) => {
-	console.log('proponents :>> ', proponents)
 	if (allowSubmissions) {
 		//set proponents libraries to contribute
 	} else {
@@ -11,15 +10,12 @@ export const toggleAllowSubmissions = async (
 	}
 
 	//set config list allowSubmissions to !allowSubmissions
-	console.log('config :>> ', config)
-	const allowSubmissionsConfig = config.data.filter(
+
+	const allowSubmissionsConfig = config.items.filter(
 		(item) => item.Key === 'allowSubmissions'
 	)[0]
-	console.log('allowSubmissionsConfig :>> ', allowSubmissionsConfig)
-	await config.updateItem({
-		Id: allowSubmissionsConfig.Id,
-		YesNoValue: !allowSubmissions,
-	})
+
+
 
 	return !allowSubmissions
 }
