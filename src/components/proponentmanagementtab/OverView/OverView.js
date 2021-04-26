@@ -4,12 +4,11 @@ import {
 	ListItemSecondaryAction,
 	ListItemText,
 	Switch,
-	Chip,
-} from '@material-ui/core';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import { Alert, AlertTitle } from '@material-ui/lab';
-import { FormikDialog, useList, useLogAction } from 'components';
-import React, { useState } from 'react';
+} from '@material-ui/core'
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline'
+import { Alert, AlertTitle } from '@material-ui/lab'
+import { FormikDialog, useList, useLogAction } from 'components'
+import React, { useState } from 'react'
 
 export const OverView = (props) => {
 	const {
@@ -18,31 +17,31 @@ export const OverView = (props) => {
 		UUID,
 		setProponentActive,
 		setProponentInactive,
-	} = props;
+	} = props
 
-	const [dialogOptions, setDialogOptions] = useState({ open: false });
+	const [dialogOptions, setDialogOptions] = useState({ open: false })
 
-	const logAction = useLogAction();
-	const proponentQuestions = useList({ listName: `${UUID}_Questions` });
-	const proponentLibrary = useList({ listName: UUID });
+	const logAction = useLogAction()
+	const proponentQuestions = useList({ listName: `${UUID}_Questions` })
+	const proponentLibrary = useList({ listName: UUID })
 
-	const questionsAsked = proponentQuestions.items.length;
+	const questionsAsked = proponentQuestions.items.length
 	const questionsAnswered = proponentQuestions.items.filter(
 		(item) => item.Answer !== null
-	).length;
+	).length
 	const questionsWithdrawn = proponentQuestions.items.filter(
 		(item) => item.Withdrawn
-	).length;
-	const documentCount = proponentLibrary.items.length;
+	).length
+	const documentCount = proponentLibrary.items.length
 
 	const questionsUnanswered =
-		questionsAsked - questionsAnswered - questionsWithdrawn;
+		questionsAsked - questionsAnswered - questionsWithdrawn
 
 	const handleToggle = (event) => {
 		setDialogOptions({
 			open: true,
 			close: () => {
-				setDialogOptions({ open: false });
+				setDialogOptions({ open: false })
 			},
 			title: `Set ${Title} to ${Active ? 'Inactive' : 'Active'}`,
 			dialogContent: Active ? (
@@ -52,37 +51,33 @@ export const OverView = (props) => {
 				</Alert>
 			) : (
 				<Alert severity={'info'}>
-					<AlertTitle>
-						A new group will be created for the proponent
-					</AlertTitle>
+					<AlertTitle>A new group will be created for the proponent</AlertTitle>
 					You will need to manually add users.
 				</Alert>
 			),
 			onSubmit: async (values, { setSubmitting }) => {
 				try {
 					if (Active) {
-						await setProponentInactive(UUID);
-						logAction(`successfully Inactivated ${UUID}`);
+						await setProponentInactive(UUID)
+						logAction(`successfully Inactivated ${UUID}`)
 					} else {
-						await setProponentActive(UUID);
-						logAction(`successfully Activated ${UUID}`);
+						await setProponentActive(UUID)
+						logAction(`successfully Activated ${UUID}`)
 					}
 				} catch (error) {
-					throw error;
+					throw error
 				}
-				setSubmitting(false);
-				setDialogOptions({ open: false });
+				setSubmitting(false)
+				setDialogOptions({ open: false })
 			},
-		});
-	};
+		})
+	}
 
 	return (
 		<>
 			<List>
 				<ListItem>
-					<ListItemText id='overview-list-label-uuid'>
-						Unique Id
-					</ListItemText>
+					<ListItemText id='overview-list-label-uuid'>Unique Id</ListItemText>
 					<ListItemSecondaryAction>{UUID}</ListItemSecondaryAction>
 				</ListItem>
 				<ListItem>
@@ -104,17 +99,13 @@ export const OverView = (props) => {
 					<ListItemText id='overview-list-label-uuid'>
 						Questions Asked
 					</ListItemText>
-					<ListItemSecondaryAction>
-						{questionsAsked}
-					</ListItemSecondaryAction>
+					<ListItemSecondaryAction>{questionsAsked}</ListItemSecondaryAction>
 				</ListItem>
 				<ListItem>
 					<ListItemText id='overview-list-label-uuid'>
 						Questions Answered
 					</ListItemText>
-					<ListItemSecondaryAction>
-						{questionsAnswered}
-					</ListItemSecondaryAction>
+					<ListItemSecondaryAction>{questionsAnswered}</ListItemSecondaryAction>
 				</ListItem>
 				<ListItem>
 					<ListItemText id='overview-list-label-uuid'>
@@ -139,12 +130,10 @@ export const OverView = (props) => {
 					<ListItemText id='overview-list-label-uuid'>
 						Documents Submitted
 					</ListItemText>
-					<ListItemSecondaryAction>
-						{documentCount}
-					</ListItemSecondaryAction>
+					<ListItemSecondaryAction>{documentCount}</ListItemSecondaryAction>
 				</ListItem>
 			</List>
 			<FormikDialog {...dialogOptions} />
 		</>
-	);
-};
+	)
+}

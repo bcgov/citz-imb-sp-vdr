@@ -1,6 +1,6 @@
-import React from 'react';
-import { Membership } from 'components/ProponentManagementTab/Membership/Membership'
+import React from 'react'
+import { ProponentManagement } from 'components/ProponentManagementTab/ProponentManagement/ProponentManagement'
 
 export const Test = () => {
-	return <Membership GroupId={2389} Title={'Test'}  />;
-};
+	return <ProponentManagement />
+}

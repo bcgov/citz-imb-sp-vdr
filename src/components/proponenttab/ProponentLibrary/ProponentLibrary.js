@@ -1,52 +1,52 @@
-import { Alert } from '@material-ui/lab';
+import { Alert } from '@material-ui/lab'
 import {
 	useCurrentUser,
 	useProponents,
 	useConfig,
 	useLogAction,
 	SendConfirmationEmail,
-} from 'components';
-import { SPLibrary } from 'components/SharePoint';
-import React from 'react';
+} from 'components'
+import { SPLibrary } from 'components/SharePoint'
+import React from 'react'
 
 export const ProponentLibrary = () => {
-	const currentUser = useCurrentUser();
-	const proponents = useProponents();
-	const config = useConfig();
-	const logAction = useLogAction();
+	const currentUser = useCurrentUser()
+	const proponents = useProponents()
+	const config = useConfig()
+	const logAction = useLogAction()
 
 	if (!currentUser.isProponent)
-		return <Alert severity={'info'}>User is not a proponent</Alert>;
+		return <Alert severity={'info'}>User is not a proponent</Alert>
 
-	const listName = currentUser.proponent;
+	const listName = currentUser.proponent
 
-	const proponentDocumentEmail = config.filter(
+	const proponentDocumentEmail = config.items.filter(
 		(item) => item.Key === 'proponentDocumentEmail'
-	)[0];
-	const VICOManagerDocumentEmail = config.filter(
+	)[0]
+	const VICOManagerDocumentEmail = config.items.filter(
 		(item) => item.Key === 'newDocumentEmail'
-	)[0];
-	const contactEmail = config.filter(
+	)[0]
+	const contactEmail = config.items.filter(
 		(item) => item.Key === 'contactEmail'
-	)[0];
+	)[0]
 
 	const uploadCallback = async (files) => {
 		for (let i = 0; i < files.length; i++) {
-			logAction(`successfully uploaded ${files[i].name}`);
+			logAction(`successfully uploaded ${files[i].name}`)
 		}
 		await proponents.sendEmailToProponents({
 			subject: proponentDocumentEmail.TextValue,
 			body: proponentDocumentEmail.MultiTextValue,
-		});
+		})
 		await SendConfirmationEmail({
-			addresses:contactEmail.TextValue,
+			addresses: contactEmail.TextValue,
 			proponent: currentUser.proponent,
-			subject:VICOManagerDocumentEmail.TextValue,
-			body:VICOManagerDocumentEmail.MultiTextValue,
+			subject: VICOManagerDocumentEmail.TextValue,
+			body: VICOManagerDocumentEmail.MultiTextValue,
 			contactEmail,
-		});
-		logAction(`successfully sent email notifications`);
-	};
+		})
+		logAction(`successfully sent email notifications`)
+	}
 
 	return (
 		<SPLibrary
@@ -56,5 +56,5 @@ export const ProponentLibrary = () => {
 			allowDelete={true}
 			uploadCallback={uploadCallback}
 		/>
-	);
-};
+	)
+}

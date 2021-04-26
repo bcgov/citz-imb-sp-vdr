@@ -1,15 +1,13 @@
-import { useMemo } from 'react';
-import { useQueryClient } from 'react-query';
+import { useList } from 'components'
 
 export const useConfig = () => {
-	const queryClient = useQueryClient();
+	const listName = 'Config'
 
-	const query = queryClient.getQueryData('config');
+	const config = useList({ listName })
 
-	const config = useMemo(() => {
-		if (query === undefined) return [];
-		return query;
-	}, [query]);
-
-	return config;
-};
+	return {
+		items: config.items,
+		updateItem: config.updateItem,
+		isLoading: config.isLoading,
+	}
+}

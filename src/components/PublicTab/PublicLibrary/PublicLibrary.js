@@ -1,28 +1,28 @@
-import { useConfig, useCurrentUser, useProponents } from 'components';
-import { SPLibrary } from 'components/SharePoint';
-import React, { useMemo } from 'react';
+import { useConfig, useCurrentUser, useProponents } from 'components'
+import { SPLibrary } from 'components/SharePoint'
+import React, { useMemo } from 'react'
 
 export const PublicLibrary = () => {
-	const publicLibrary = 'Documents';
+	const publicLibrary = 'Documents'
 
 	const dialogProps = useMemo(() => {
-		return { title: `Upload to ${publicLibrary}` };
-	}, []);
+		return { title: `Upload to ${publicLibrary}` }
+	}, [])
 
-	const proponents = useProponents();
-	const config = useConfig();
-	const currentUser = useCurrentUser();
+	const proponents = useProponents()
+	const config = useConfig()
+	const currentUser = useCurrentUser()
 
-	const publicDocumentEmail = config.filter(
+	const publicDocumentEmail = config.items.filter(
 		(item) => item.Key === 'publicDocumentEmail'
-	)[0];
+	)[0]
 
 	const uploadCallback = async () => {
 		await proponents.sendEmailToProponents({
 			subject: publicDocumentEmail.TextValue,
 			body: publicDocumentEmail.MultiTextValue,
-		});
-	};
+		})
+	}
 
 	return (
 		<SPLibrary
@@ -32,5 +32,5 @@ export const PublicLibrary = () => {
 			allowUpload={currentUser.isOwner}
 			allowDelete={currentUser.isOwner}
 		/>
-	);
-};
+	)
+}
