@@ -5,7 +5,9 @@ export const RemovePermissionsFromList = async ({
 	principalId,
 	roleDefId,
 }) => {
-	let endPoint = `/_api/web/Lists/getByTitle('${listName}')/RoleAssignments/removeRoleAssignment(principalid=${principalId},roledefid=${roleDefId})`;
+	let endPoint = `/_api/web/Lists/getByTitle('${listName}')/RoleAssignments/removeRoleAssignment(principalid=${principalId}`;
+
+	if(roleDefId) endPoint += `,roledefid=${roleDefId})`
 
 	const response = await RestCall({
 		endPoint,

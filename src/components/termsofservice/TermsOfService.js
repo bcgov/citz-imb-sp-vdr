@@ -21,7 +21,6 @@ export const TermsOfService = () => {
 	const logAction = useLogAction()
 
 	useEffect(() => {
-		console.log('config :>> ', config)
 		if (!config.isLoading) {
 			const cookies = new Cookies()
 			const TOS = config.items.filter((item) => item.Key === 'TOS')[0]

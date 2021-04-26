@@ -5,10 +5,17 @@ import {
 	useList,
 	useLogAction,
 } from 'components'
-import { DeleteGroup, GetGroupMembers } from 'components/ApiCalls'
+import {
+	DeleteGroup,
+	GetGroupMembers,
+	GetRoleDefinitions,
+	RemovePermissionsFromList,
+	AddPermissionsToList,
+} from 'components/ApiCalls'
 import { createProponent } from './createProponent/createProponent'
 import { createProponentGroup } from './createProponentGroup/createProponentGroup'
 import { setProponentPermissions } from './setProponentPermissions/setProponentPermissions'
+import { setProponentLibraryPermissions } from './setProponentLibraryPermissions/setProponentLibraryPermissions'
 
 export const useProponents = () => {
 	const currentUser = useCurrentUser()
@@ -105,10 +112,42 @@ export const useProponents = () => {
 	}
 
 	const toggleAllowSubmissions = async () => {
-		await config.updateItem({
+		const roles = await GetRoleDefinitions()
+
+		const activeProponents = proponents.items.filter(
+			(proponent) => proponent.Active === true
+		)
+
+		config.updateItem({
 			Id: allowSubmissions.Id,
 			YesNoValue: !allowSubmissions.YesNoValue,
 		})
+
+		for (const proponent of activeProponents) {
+			if (allowSubmissions.YesNoValue) {
+				await RemovePermissionsFromList({
+					listName: proponent.UUID,
+					principalId: proponent.GroupId,
+					roleDefId: roles.Contribute.Id,
+				})
+				await AddPermissionsToList({
+					listName: proponent.UUID,
+					principalId: proponent.GroupId,
+					roleDefId: roles.Read.Id,
+				})
+			} else {
+				await RemovePermissionsFromList({
+					listName: proponent.UUID,
+					principalId: proponent.GroupId,
+					roleDefId: roles.Read.Id,
+				})
+				await AddPermissionsToList({
+					listName: proponent.UUID,
+					principalId: proponent.GroupId,
+					roleDefId: roles.Contribute.Id,
+				})
+			}
+		}
 	}
 
 	return {
