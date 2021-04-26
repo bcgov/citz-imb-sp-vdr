@@ -855,7 +855,7 @@
 				</Query>
 				<ViewFields>
 					<FieldRef Name="Created" />
-					<FieldRef Name="LinkTitle" />
+					<FieldRef Name="Title" />
 					<FieldRef Name="User" />
 					<FieldRef Name="Proponent" />
 				</ViewFields>

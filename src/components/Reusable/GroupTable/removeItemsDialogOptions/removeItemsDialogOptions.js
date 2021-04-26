@@ -1,6 +1,6 @@
-import { Alert, AlertTitle } from '@material-ui/lab';
-import { SendConfirmationEmail } from 'components';
-import React from 'react';
+import { Alert, AlertTitle } from '@material-ui/lab'
+import { SendConfirmationEmail } from 'components'
+import React from 'react'
 
 export const removeItemsDialogOptions = (props) => {
 	const {
@@ -10,7 +10,7 @@ export const removeItemsDialogOptions = (props) => {
 		logAction,
 		proponentName,
 		config,
-	} = props;
+	} = props
 
 	setDialog({
 		dialogContent: (
@@ -21,18 +21,16 @@ export const removeItemsDialogOptions = (props) => {
 		),
 		onSubmit: async (values, { setSubmitting }) => {
 			try {
-				await proponentGroup.removeMember(original.Id);
-				logAction(
-					`removed ${original.Title} from ${proponentName} group`
-				);
+				await proponentGroup.removeMember(original.Id)
+				logAction(`removed ${original.Title} from ${proponentName} group`)
 
-				const removeUserEmail = config.filter(
+				const removeUserEmail = config.items.filter(
 					(item) => item.Key === 'removeUserEmail'
-				)[0];
+				)[0]
 
-				const contactEmail = config.filter(
+				const contactEmail = config.items.filter(
 					(item) => item.Key === 'contactEmail'
-				)[0];
+				)[0]
 
 				await SendConfirmationEmail({
 					addresses: contactEmail.TextValue,
@@ -46,20 +44,18 @@ export const removeItemsDialogOptions = (props) => {
 						},
 					],
 					contactEmail,
-				});
-				logAction(
-					`sent ${removeUserEmail.Title} to ${contactEmail.TextValue}`
-				);
-				setSubmitting(false);
-				setDialog({ open: false });
+				})
+				logAction(`sent ${removeUserEmail.Title} to ${contactEmail.TextValue}`)
+				setSubmitting(false)
+				setDialog({ open: false })
 			} catch (error) {
-				throw error;
+				throw error
 			}
 		},
 		open: true,
 		close: () => {
-			setDialog({ open: false });
+			setDialog({ open: false })
 		},
 		title: 'Remove Member',
-	});
-};
+	})
+}

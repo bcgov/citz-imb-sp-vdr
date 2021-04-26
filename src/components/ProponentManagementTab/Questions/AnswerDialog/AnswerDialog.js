@@ -1,6 +1,6 @@
-import { FormikDialog, useConfig, useList, useProponents } from 'components';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import * as yup from 'yup';
+import { FormikDialog, useConfig, useList, useProponents } from 'components'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import * as yup from 'yup'
 
 export const AnswerDialog = (props) => {
 	const {
@@ -13,29 +13,29 @@ export const AnswerDialog = (props) => {
 		UUID,
 		isUpdate = false,
 		closeAnswerDialog,
-	} = props;
+	} = props
 
-	const [dialogOptions, setDialogOptions] = useState({ open });
+	const [dialogOptions, setDialogOptions] = useState({ open })
 
-	const proponents = useProponents();
-	const publicQuestions = useList({ listName: 'Questions' });
-	const config = useConfig();
+	const proponents = useProponents()
+	const publicQuestions = useList({ listName: 'Questions' })
+	const config = useConfig()
 
-	const updatedAnswerEmail = config.filter(
+	const updatedAnswerEmail = config.items.filter(
 		(item) => item.Key === 'updatedAnswerEmail'
-	);
-	const newAnswerEmail = config.filter(
+	)
+	const newAnswerEmail = config.items.filter(
 		(item) => item.Key === 'newAnswerEmail'
-	)[0];
+	)[0]
 
-	const proponentQuestions = useList({ listName: `${UUID}_Questions` });
+	const proponentQuestions = useList({ listName: `${UUID}_Questions` })
 
 	const onSubmit = useCallback(
 		async (values, { setSubmitting }) => {
-			let questionsItem, subject, body;
+			let questionsItem, subject, body
 
 			if (values.previousAnswer) {
-				questionsItem = [{ Id: values.previousAnswer }];
+				questionsItem = [{ Id: values.previousAnswer }]
 			} else {
 				if (isUpdate) {
 					//! may break if changed to selected previous answer
@@ -43,53 +43,48 @@ export const AnswerDialog = (props) => {
 						Id: AnswerId,
 						Question: values.sanitizedQuestion,
 						Answer: values.answer,
-					});
+					})
 
-					subject = updatedAnswerEmail.TextValue;
-					body = updatedAnswerEmail.MultiTextValue;
+					subject = updatedAnswerEmail.TextValue
+					body = updatedAnswerEmail.MultiTextValue
 				} else {
 					questionsItem = await publicQuestions.addItem({
 						Question: values.sanitizedQuestion,
 						Answer: values.answer,
-					});
+					})
 
 					await proponentQuestions.updateItem({
 						Id: values.Id,
 						Answer: questionsItem[0].Id.toString(),
 						AnswerStatus: 'Posted',
 						Assignee: 'Posted Answer',
-					});
+					})
 
-					subject = newAnswerEmail.TextValue;
-					body = newAnswerEmail.MultiTextValue;
+					subject = newAnswerEmail.TextValue
+					body = newAnswerEmail.MultiTextValue
 				}
 				await proponents.sendEmailToProponents({
 					subject,
 					body,
-				});
+				})
 			}
 
-			setSubmitting(false);
-			closeAnswerDialog();
+			setSubmitting(false)
+			closeAnswerDialog()
 		},
-		[
-			AnswerId,
-			closeAnswerDialog,
-			isUpdate,
-			newAnswerEmail,
-		]
-	);
+		[AnswerId, closeAnswerDialog, isUpdate, newAnswerEmail]
+	)
 
 	const getOptions = useCallback(() => {
 		const options = publicQuestions.items.map((item) => {
 			return {
 				key: `${item.Question} >> ${item.Answer}`,
 				value: item.Id,
-			};
-		});
+			}
+		})
 
-		return options;
-	}, [publicQuestions.items]);
+		return options
+	}, [publicQuestions.items])
 
 	const schema = useMemo(
 		() =>
@@ -100,9 +95,9 @@ export const AnswerDialog = (props) => {
 				answer: yup.string().when('previousAnswer', {
 					is: (previousAnswer) => {
 						if (previousAnswer) {
-							return false;
+							return false
 						} else {
-							return true;
+							return true
 						}
 					},
 					then: yup.string().required('Required'),
@@ -110,14 +105,16 @@ export const AnswerDialog = (props) => {
 				}),
 			}),
 		[]
-	);
+	)
 
 	useEffect(() => {
 		if (!publicQuestions.isLoading) {
-			let question = '';
+			let question = ''
 
 			if (Answer) {
-				question = publicQuestions.items.filter(item=> item.Id === parseInt(Answer))[0];
+				question = publicQuestions.items.filter(
+					(item) => item.Id === parseInt(Answer)
+				)[0]
 			}
 
 			setDialogOptions({
@@ -166,9 +163,9 @@ export const AnswerDialog = (props) => {
 					},
 				],
 				onSubmit: onSubmit,
-			});
+			})
 		}
-		return () => {};
+		return () => {}
 	}, [
 		publicQuestions.isLoading,
 		open,
@@ -180,7 +177,7 @@ export const AnswerDialog = (props) => {
 		getOptions,
 		onSubmit,
 		schema,
-	]);
+	])
 
-	return <FormikDialog {...dialogOptions} />;
-};
+	return <FormikDialog {...dialogOptions} />
+}

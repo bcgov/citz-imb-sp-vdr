@@ -1,12 +1,5 @@
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
-  <ListInstance FeatureId="{00000000-0000-0000-0000-000000000000}"
-                TemplateType="124"
-                Title="Composed Looks"
-                Description="Use this list to store composed looks. These looks can be applied to this site by navigating to Site Settings and choosing Change the look."
-                Url="_catalogs/design"
-                CustomSchema="Files\_catalogs\design\Schema.xml"
-                HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom"
-                RootWebOnly="FALSE">
+  <ListInstance FeatureId="{00000000-0000-0000-0000-000000000000}" TemplateType="124" Title="Composed Looks" Description="Use this list to store composed looks. These looks can be applied to this site by navigating to Site Settings and choosing Change the look." Url="_catalogs/design" CustomSchema="Files\_catalogs\design\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE">
     <Data>
       <Rows>
         <Row>
@@ -277,40 +270,10 @@
       </Rows>
     </Data>
   </ListInstance>
-  <ListInstance FeatureId="{00000000-0000-0000-0000-000000000000}"
-                TemplateType="116"
-                Title="Master Page Gallery"
-                Description="Use the master page gallery to store master pages. The master pages in this gallery are available to this site and any sites underneath it."
-                Url="_catalogs/masterpage"
-                CustomSchema="Files\_catalogs\masterpage\Schema.xml"
-                HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom"
-                RootWebOnly="FALSE" />
-  <ListInstance FeatureId="{00bfea71-e717-4e80-aa17-d0c71b360101}"
-                TemplateType="101"
-                Title="Documents"
-                Description=""
-                Url="Documents"
-                CustomSchema="Files\Documents\Schema.xml"
-                HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom"
-                RootWebOnly="FALSE" />
-  <ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}"
-                TemplateType="100"
-                Title="ActivityLog"
-                Description=""
-                Url="Lists/ActivityLog"
-                CustomSchema="Files\Lists\ActivityLog\Schema.xml"
-                HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom"
-                RootWebOnly="FALSE"
-                Hidden="TRUE" />
-  <ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}"
-                TemplateType="100"
-                Title="Config"
-                Description=""
-                Url="Lists/Config"
-                CustomSchema="Files\Lists\Config\Schema.xml"
-                HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom"
-                RootWebOnly="FALSE"
-                Hidden="TRUE">
+  <ListInstance FeatureId="{00000000-0000-0000-0000-000000000000}" TemplateType="116" Title="Master Page Gallery" Description="Use the master page gallery to store master pages. The master pages in this gallery are available to this site and any sites underneath it." Url="_catalogs/masterpage" CustomSchema="Files\_catalogs\masterpage\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" />
+  <ListInstance FeatureId="{00bfea71-e717-4e80-aa17-d0c71b360101}" TemplateType="101" Title="Documents" Description="" Url="Documents" CustomSchema="Files\Documents\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" />
+  <ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="ActivityLog" Description="" Url="Lists/ActivityLog" CustomSchema="Files\Lists\ActivityLog\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" Hidden="TRUE" />
+  <ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="Config" Description="" Url="Lists/Config" CustomSchema="Files\Lists\Config\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" Hidden="TRUE">
     <Data>
       <Rows>
         <Row>
@@ -452,7 +415,7 @@ Sincerely,[Title] Manager</Field>
           <Field Name="YesNoValue">TRUE</Field>
           <Field Name="Instructions">&lt;div class="ExternalClassFD2A33CB41934BF0B59CF526DFCF4CBE"&gt;&lt;p&gt;​Subject and Body may insert site specific values automatically.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;[Title] = the site title&lt;/li&gt;&lt;li&gt;[Addressee] = the person the email is addressed to&lt;/li&gt;&lt;li&gt;[Username] = the added user's name&lt;/li&gt;&lt;li&gt;[Proponent]&amp;#160;= the&amp;#160;​name of the proponent the user is added to&lt;br&gt;&lt;/li&gt;&lt;li&gt;[SiteLink] = the url to the current site&lt;br&gt;&lt;/li&gt;&lt;li&gt;[ContactEmail] = the email address provided in the contact email&lt;br&gt;&lt;/li&gt;&lt;li&gt;[UserName] = the name of the user&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</Field>
         </Row>
-                <Row>
+        <Row>
           <Field Name="ID">7</Field>
           <Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
           <Field Name="Title">User Remove Email</Field>
@@ -516,36 +479,55 @@ Sincerely,[Title] Administrator</Field>
           <Field Name="YesNoValue">TRUE</Field>
           <Field Name="Instructions">&lt;div class="ExternalClassFD2A33CB41934BF0B59CF526DFCF4CBE"&gt;&lt;p&gt;​Subject and Body may insert site specific values automatically.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;[Title] = the site title&lt;/li&gt;&lt;li&gt;[Addressee] = the person the email is addressed to&lt;/li&gt;&lt;li&gt;[Username] = the added user's name&lt;/li&gt;&lt;li&gt;[Proponent]&amp;#160;= the&amp;#160;​name of the proponent the user is added to&lt;br&gt;&lt;/li&gt;&lt;li&gt;[SiteLink] = the url to the current site&lt;br&gt;&lt;/li&gt;&lt;li&gt;[ContactEmail] = the email address provided in the contact email&lt;br&gt;&lt;/li&gt;&lt;li&gt;[UserName] = the name of the user&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</Field>
         </Row>
+        <Row>
+          <Field Name="ID">10</Field>
+          <Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
+          <Field Name="Title">New Proponent Document Email</Field>
+          <Field Name="_ModerationStatus">0</Field>
+          <Field Name="Order">1000.000000000000</Field>
+          <Field Name="FSObjType">0</Field>
+          <Field Name="FileLeafRef">10_.000</Field>
+          <Field Name="MetaInfo">10;#</Field>
+          <Field Name="Key">proponentDocumentEmail</Field>
+          <Field Name="TextValue">New Document Submission in [Title]</Field>
+          <Field Name="MultiTextValue">Dear Proponents,
 
+[UserName] has uploaded a Document on behalf of your organization.
+
+Visit [SiteLink] to view the Document uploaded, privately.
+
+If you encounter issues accessing the site, please contact [ContactEmail]
+
+Sincerely,
+[Title] Administrator​</Field>
+          <Field Name="YesNoValue">TRUE</Field>
+          <Field Name="Instructions">&lt;div class="ExternalClassFD2A33CB41934BF0B59CF526DFCF4CBE"&gt;&lt;p&gt;​Subject and Body may insert site specific values automatically.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;[Title] = the site title&lt;/li&gt;&lt;li&gt;[Addressee] = the person the email is addressed to&lt;/li&gt;&lt;li&gt;[Username] = the added user's name&lt;/li&gt;&lt;li&gt;[Proponent]&amp;#160;= the&amp;#160;​name of the proponent the user is added to&lt;br&gt;&lt;/li&gt;&lt;li&gt;[SiteLink] = the url to the current site&lt;br&gt;&lt;/li&gt;&lt;li&gt;[ContactEmail] = the email address provided in the contact email&lt;br&gt;&lt;/li&gt;&lt;li&gt;[UserName] = the name of the user&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</Field>
+        </Row>
+        <Row>
+          <Field Name="ID">11</Field>
+          <Field Name="ContentTypeId">0x01008181AE056CF53F48A8066293726AF276</Field>
+          <Field Name="Title">VICO Manager New Proponent Document Email</Field>
+          <Field Name="_ModerationStatus">0</Field>
+          <Field Name="Order">1100.000000000000</Field>
+          <Field Name="FSObjType">0</Field>
+          <Field Name="FileLeafRef">11_.000</Field>
+          <Field Name="MetaInfo">11;#</Field>
+          <Field Name="Key">newDocumentEmail</Field>
+          <Field Name="TextValue">New Document Submission in [Title]</Field>
+          <Field Name="MultiTextValue">Dear VICO Manager,
+
+A new document was uploaded to the VICO site, by [Proponent]
+
+VICO system​</Field>
+          <Field Name="YesNoValue">TRUE</Field>
+          <Field Name="Instructions">&lt;div class="ExternalClassFD2A33CB41934BF0B59CF526DFCF4CBE"&gt;&lt;p&gt;​Subject and Body may insert site specific values automatically.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;[Title] = the site title&lt;/li&gt;&lt;li&gt;[Addressee] = the person the email is addressed to&lt;/li&gt;&lt;li&gt;[Username] = the added user's name&lt;/li&gt;&lt;li&gt;[Proponent]&amp;#160;= the&amp;#160;​name of the proponent the user is added to&lt;br&gt;&lt;/li&gt;&lt;li&gt;[SiteLink] = the url to the current site&lt;br&gt;&lt;/li&gt;&lt;li&gt;[ContactEmail] = the email address provided in the contact email&lt;br&gt;&lt;/li&gt;&lt;li&gt;[UserName] = the name of the user&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</Field>
+        </Row>
       </Rows>
     </Data>
   </ListInstance>
-  <ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}"
-                TemplateType="100"
-                Title="Proponents"
-                Description=""
-                Url="Lists/Proponents"
-                CustomSchema="Files\Lists\Proponents\Schema.xml"
-                HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom"
-                RootWebOnly="FALSE"
-                Hidden="TRUE" />
-  <ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}"
-                TemplateType="100"
-                Title="Questions"
-                Description=""
-                Url="Lists/Questions"
-                CustomSchema="Files\Lists\Questions\Schema.xml"
-                HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom"
-                RootWebOnly="FALSE" />
-  <ListInstance FeatureId="{00bfea71-e717-4e80-aa17-d0c71b360101}"
-                TemplateType="101"
-                Title="Site Assets"
-                Description="Use this library to store files which are included on pages within this site, such as images on Wiki pages."
-                Url="SiteAssets"
-                CustomSchema="Files\SiteAssets\Schema.xml"
-                HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom"
-                RootWebOnly="FALSE"
-                Hidden="TRUE">
+  <ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="Proponents" Description="" Url="Lists/Proponents" CustomSchema="Files\Lists\Proponents\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" Hidden="TRUE" />
+  <ListInstance FeatureId="{00bfea71-de22-43b2-a848-c05709900100}" TemplateType="100" Title="Questions" Description="" Url="Lists/Questions" CustomSchema="Files\Lists\Questions\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" />
+  <ListInstance FeatureId="{00bfea71-e717-4e80-aa17-d0c71b360101}" TemplateType="101" Title="Site Assets" Description="Use this library to store files which are included on pages within this site, such as images on Wiki pages." Url="SiteAssets" CustomSchema="Files\SiteAssets\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" Hidden="TRUE">
     <Data>
       <Rows>
         <Row>
@@ -571,16 +553,8 @@ Sincerely,[Title] Administrator</Field>
       </Rows>
     </Data>
   </ListInstance>
-  <ListInstance FeatureId="{00bfea71-c796-4402-9f2f-0eb9a6e71b18}"
-                TemplateType="119"
-                Title="Site Pages"
-                Description=""
-                Url="SitePages"
-                CustomSchema="Files\SitePages\Schema.xml"
-                HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom"
-                RootWebOnly="FALSE" />
-  <Receivers ListUrl="_catalogs/masterpage"
-             Scope="Web">
+  <ListInstance FeatureId="{00bfea71-c796-4402-9f2f-0eb9a6e71b18}" TemplateType="119" Title="Site Pages" Description="" Url="SitePages" CustomSchema="Files\SitePages\Schema.xml" HyperlinkBaseUrl="https://citz.sp.gov.bc.ca/sites/DEV/VDRoom" RootWebOnly="FALSE" />
+  <Receivers ListUrl="_catalogs/masterpage" Scope="Web">
     <Receiver>
       <Name>Document ID Generator</Name>
       <Synchronization>Synchronous</Synchronization>
@@ -1206,8 +1180,7 @@ Sincerely,[Title] Administrator</Field>
       <SourceType>1</SourceType>
     </Receiver>
   </Receivers>
-  <Receivers ListUrl="Documents"
-             Scope="Web">
+  <Receivers ListUrl="Documents" Scope="Web">
     <Receiver>
       <Name>Document ID Generator</Name>
       <Synchronization>Synchronous</Synchronization>
@@ -1313,8 +1286,7 @@ Sincerely,[Title] Administrator</Field>
       <SourceType>1</SourceType>
     </Receiver>
   </Receivers>
-  <Receivers ListUrl="SiteAssets"
-             Scope="Web">
+  <Receivers ListUrl="SiteAssets" Scope="Web">
     <Receiver>
       <Name>Document ID Generator</Name>
       <Synchronization>Synchronous</Synchronization>
@@ -1472,8 +1444,7 @@ Sincerely,[Title] Administrator</Field>
       <SourceType>1</SourceType>
     </Receiver>
   </Receivers>
-  <Receivers ListUrl="SitePages"
-             Scope="Web">
+  <Receivers ListUrl="SitePages" Scope="Web">
     <Receiver>
       <Name>Document ID Generator</Name>
       <Synchronization>Synchronous</Synchronization>
