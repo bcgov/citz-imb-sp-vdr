@@ -12,7 +12,7 @@ const queryClient = new QueryClient({
 	defaultOptions: { queries: { retry: 5 } },
 })
 
-const isTest = false
+const isTest = true
 
 export const AppContexts = () => {
 	const [isLoading, setIsLoading] = useState(true)
