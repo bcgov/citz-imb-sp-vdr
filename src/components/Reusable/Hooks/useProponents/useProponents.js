@@ -6,16 +6,15 @@ import {
 	useLogAction,
 } from 'components'
 import {
+	AddPermissionsToList,
 	DeleteGroup,
 	GetGroupMembers,
 	GetRoleDefinitions,
 	RemovePermissionsFromList,
-	AddPermissionsToList,
 } from 'components/ApiCalls'
 import { createProponent } from './createProponent/createProponent'
 import { createProponentGroup } from './createProponentGroup/createProponentGroup'
 import { setProponentPermissions } from './setProponentPermissions/setProponentPermissions'
-import { setProponentLibraryPermissions } from './setProponentLibraryPermissions/setProponentLibraryPermissions'
 
 export const useProponents = () => {
 	const currentUser = useCurrentUser()
