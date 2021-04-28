@@ -1,4 +1,4 @@
-import { IconButton, LinearProgress } from '@material-ui/core'
+import { Button, IconButton, LinearProgress } from '@material-ui/core'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 import PublishIcon from '@material-ui/icons/Publish'
 import { Alert, AlertTitle } from '@material-ui/lab'
@@ -13,6 +13,7 @@ export const SPLibrary = (props) => {
 		listName,
 		uploadCallback = () => {},
 		allowUpload = false,
+		uploadText = 'Upload',
 		allowDelete = false,
 		...tableProps
 	} = props
@@ -93,13 +94,12 @@ export const SPLibrary = (props) => {
 
 	if (allowUpload)
 		tableActions.push(
-			<IconButton
-				onClick={handleUploadDocument}
-				size={'small'}
+			<Button
 				color={'secondary'}
-				arial-label={'upload'}>
-				<PublishIcon />
-			</IconButton>
+				onClick={handleUploadDocument}
+				endIcon={<PublishIcon />}>
+				{uploadText}
+			</Button>
 		)
 
 	const uploadDocuments = async (filesToUpload) => {
