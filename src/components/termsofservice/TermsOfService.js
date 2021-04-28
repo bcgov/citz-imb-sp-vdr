@@ -26,6 +26,7 @@ export const TermsOfService = () => {
 			const TOS = config.items.filter((item) => item.Key === 'TOS')[0]
 			setDialogOptions({
 				open: true,
+				disableBackdropClick: true,
 				submitButtonText: 'Accept',
 				cancelButtonText: 'Reject',
 				onSubmit: () => {
