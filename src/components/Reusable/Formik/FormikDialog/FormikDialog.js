@@ -24,6 +24,8 @@ export const FormikDialog = (props) => {
 		children,
 		instructions,
 		dialogContent,
+		dialogActionsTop = false,
+		dialogActionsBottom = true,
 		submitButtonText = 'Submit',
 		cancelButtonText = 'Cancel',
 		validationSchema: validationSchemaProps,
@@ -80,6 +82,28 @@ export const FormikDialog = (props) => {
 		return () => {}
 	}, [validationSchemaProps, fields, getValidationSchema])
 
+	const dialogActions = (isSubmitting,submitForm) => (
+		<DialogActions>
+			{onSubmit ? (
+				<Button
+					variant='contained'
+					color='primary'
+					disabled={isSubmitting}
+					onClick={submitForm}>
+					{submitButtonText}
+				</Button>
+			) : null}
+
+			<Button
+				variant='contained'
+				color='primary'
+				disabled={isSubmitting}
+				onClick={close}>
+				{cancelButtonText}
+			</Button>
+		</DialogActions>
+	)
+
 	return (
 		<Dialog
 			open={open}
@@ -95,6 +119,7 @@ export const FormikDialog = (props) => {
 					return (
 						<Form>
 							<DialogTitle>{title}</DialogTitle>
+							{dialogActionsTop ? dialogActions(isSubmitting,submitForm) : null}
 							<DialogContent dividers={true}>
 								<Grid container direction={'column'} spacing={1}>
 									{instructions ? (
@@ -117,25 +142,7 @@ export const FormikDialog = (props) => {
 									{isSubmitting ? <LinearProgress /> : null}
 								</Grid>
 							</DialogContent>
-							<DialogActions>
-								{onSubmit ? (
-									<Button
-										variant='contained'
-										color='primary'
-										disabled={isSubmitting}
-										onClick={submitForm}>
-										{submitButtonText}
-									</Button>
-								) : null}
-
-								<Button
-									variant='contained'
-									color='primary'
-									disabled={isSubmitting}
-									onClick={close}>
-									{cancelButtonText}
-								</Button>
-							</DialogActions>
+							{dialogActionsBottom ? dialogActions(isSubmitting,submitForm) : null}
 						</Form>
 					)
 				}}

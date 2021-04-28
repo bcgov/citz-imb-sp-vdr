@@ -6,7 +6,7 @@ import { useSnackbar } from 'notistack'
 import React, { useEffect, useReducer, useState } from 'react'
 import { useQueryClient } from 'react-query'
 import * as Yup from 'yup'
-import { ActivityLog } from '../ActivityLog/ActivityLog'
+import { ActivityLog } from '../../Reusable/Hooks/useConfig/ActivityLog/ActivityLog'
 
 export const SiteManagement = () => {
 	// const listName = 'Config'

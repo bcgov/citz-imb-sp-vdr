@@ -1,19 +1,19 @@
-import React, { useState, useMemo } from 'react'
-import { Edit } from '@material-ui/icons'
 import { IconButton } from '@material-ui/core'
+import { Edit } from '@material-ui/icons'
 import { FormikDialog } from 'components'
+import React, { useState } from 'react'
 import { getDialogFields } from './getDialogFields/getDialogFields'
 
-export const EditItem = ({ row }) => {
+export const EditItem = ({ row, updateItem }) => {
 	const [formOpen, setFormOpen] = useState(false)
 
-	const fields = useMemo(() => getDialogFields(row.original), [row])
+	const handleSubmit = async (values, { setSubmitting }) => {
+		const item = { ...values, Id: row.original.Id }
 
-	const handleSubmit = (values, { setSubmitting }) => {
-		console.log('props :>> ', values, { setSubmitting })
+		await updateItem(item)
 
-		// values.Id = items[action].Id
-		// 					handleSave(action, values, setSubmitting)
+		setSubmitting(false)
+		setFormOpen(false)
 	}
 
 	return (
@@ -22,8 +22,8 @@ export const EditItem = ({ row }) => {
 				<Edit />
 			</IconButton>
 			<FormikDialog
-				fields={fields}
-				onSubmit={handleSubmit}
+				fields={getDialogFields(row.original)}
+				onSubmit={row.values.Key === 'allowSubmissions' ? null : handleSubmit}
 				open={formOpen}
 				close={() => setFormOpen(false)}
 				title={row.original.Title}

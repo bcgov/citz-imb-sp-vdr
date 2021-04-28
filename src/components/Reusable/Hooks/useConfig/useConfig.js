@@ -3,6 +3,7 @@ import { useList } from 'components'
 import { useTable, useFilters, useSortBy, usePagination } from 'react-table'
 import { SPTable } from 'components/SharePoint'
 import { EditItem } from './EditItem/EditItem'
+import { ActivityLog } from './ActivityLog/ActivityLog'
 
 export const useConfig = () => {
 	const listName = 'Config'
@@ -20,19 +21,26 @@ export const useConfig = () => {
 
 	const columns = useMemo(() => {
 		if (isLoading || isError) return []
-		console.log('viewColumns :>> ', viewColumns)
+
 		return [
 			{
 				Footer: 'Edit',
 				Header: 'Edit',
-				Cell: ({ row }) => <EditItem row={row} />,
+				Cell: ({ row }) => <EditItem row={row} updateItem={updateItem} />,
 			},
-			...viewColumns.filter((column) => column.Header === 'Title'),
+			...viewColumns.filter(
+				(column) => column.Header === 'Title' || column.Header === 'Key'
+			),
 		]
 	}, [viewColumns, isError, isLoading])
 
+	const data = useMemo(() => {
+		if (isLoading || isError) return []
+		return items
+	}, [items, isError, isLoading])
+
 	const table = useTable(
-		{ columns, data: items },
+		{ columns, data, initialState: { pageSize: 50 } },
 		useFilters,
 		useSortBy,
 		usePagination
@@ -42,6 +50,12 @@ export const useConfig = () => {
 		items,
 		updateItem,
 		isLoading,
-		render: <SPTable table={table} title='Site Management' />,
+		render: (
+			<SPTable
+				table={table}
+				title='Site Management'
+				tableActions={[<ActivityLog />]}
+			/>
+		),
 	}
 }
