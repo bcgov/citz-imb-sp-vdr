@@ -1,15 +1,16 @@
+import { Button } from '@material-ui/core'
+import PublishIcon from '@material-ui/icons/Publish'
 import {
-	IconButton,
 	SendConfirmationEmail,
 	useConfig,
 	useList,
-	useLogAction,
+	useLogAction
 } from 'components'
 import { GetGroupMembers, GetUserByEmail } from 'components/ApiCalls'
 import {
 	FormikDialog,
 	useCurrentUser,
-	useProponents,
+	useProponents
 } from 'components/Reusable'
 import React, { useState } from 'react'
 import * as Yup from 'yup'
@@ -128,7 +129,12 @@ export const AskQuestion = (props) => {
 
 	return (
 		<>
-			<IconButton type={'add'} onClick={handleClick} />
+			<Button
+				color={'secondary'}
+				onClick={handleClick}
+				endIcon={<PublishIcon />}>
+				Submit a questions
+			</Button>
 			<FormikDialog
 				open={formOpen}
 				close={handleClose}
