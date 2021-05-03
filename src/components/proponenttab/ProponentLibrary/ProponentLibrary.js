@@ -50,6 +50,7 @@ export const ProponentLibrary = () => {
 
 	return (
 		<SPLibrary
+			uploadText='Submit a document'
 			listName={listName}
 			title={'Submitted Documents'}
 			allowUpload={true}

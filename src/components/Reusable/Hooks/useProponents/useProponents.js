@@ -6,16 +6,15 @@ import {
 	useLogAction,
 } from 'components'
 import {
+	AddPermissionsToList,
 	DeleteGroup,
 	GetGroupMembers,
 	GetRoleDefinitions,
 	RemovePermissionsFromList,
-	AddPermissionsToList,
 } from 'components/ApiCalls'
 import { createProponent } from './createProponent/createProponent'
 import { createProponentGroup } from './createProponentGroup/createProponentGroup'
 import { setProponentPermissions } from './setProponentPermissions/setProponentPermissions'
-import { setProponentLibraryPermissions } from './setProponentLibraryPermissions/setProponentLibraryPermissions'
 
 export const useProponents = () => {
 	const currentUser = useCurrentUser()
@@ -34,20 +33,8 @@ export const useProponents = () => {
 		(item) => item.Key === 'allowSubmissions'
 	)[0]
 
-	const add = async (proponentName) => {
-		const { UUID, group } = await createProponent({
-			currentUser,
-			logAction,
-		})
-		await proponents.addItem([
-			{
-				Title: proponentName,
-				UUID: UUID,
-				Active: true,
-				GroupId: group,
-			},
-		])
-	}
+	const add = async (proponentName) =>
+		await createProponent(proponentName, { proponents, currentUser, logAction })
 
 	const setActive = async (UUID) => {
 		const group = await createProponentGroup(UUID)

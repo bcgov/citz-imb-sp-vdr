@@ -18,12 +18,13 @@ export const SPTable = (props) => {
 		table,
 		isFetching = false,
 		columnFiltering = false,
-		columns,
+
 		tableActions = [],
 		title = '',
 	} = props;
 
 	const {
+		columns,
 		getTableProps,
 		getTableBodyProps,
 		headerGroups,

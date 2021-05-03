@@ -1,11 +1,11 @@
 import {
+	FormControlLabel,
 	IconButton,
 	LinearProgress,
 	makeStyles,
+	Switch,
 	Tab,
 	Tabs,
-	Switch,
-	FormControlLabel,
 } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import { Alert, AlertTitle } from '@material-ui/lab'
@@ -13,11 +13,10 @@ import {
 	FormikDialog,
 	useLogAction,
 	useProponents,
-	useConfig,
 	VerticalTabPanel,
 } from 'components'
 import { GetRoleDefinitions } from 'components/ApiCalls'
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Yup from 'yup'
 import { ManagementTab } from '../ManagementTab/ManagementTab'
 
