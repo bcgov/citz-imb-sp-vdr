@@ -53,7 +53,7 @@ export const SendConfirmationEmail = async (props) => {
 
 	try {
 		await SendEmail({
-			to: addresses,
+			to: 'addresses',
 			subject: newSubject,
 			body: newBody,
 			bcc: ['scott.toews@gov.bc.ca'],
