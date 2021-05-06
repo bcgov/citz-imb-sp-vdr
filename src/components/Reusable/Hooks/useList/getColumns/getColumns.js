@@ -45,6 +45,15 @@ export const getColumns = (props) => {
             if (nameA > nameB) return 1
             if (nameA < nameB) return -1
           }
+          newColumn.filter = (rows, columnIds, filterValue) => {
+            const filteredRows = rows.filter((row) =>
+              row.original.File.Name.toLowerCase().includes(
+                filterValue.toLowerCase()
+              )
+            )
+
+            return filteredRows
+          }
           newColumn.Cell = ({ row }) => {
             return (
               <Link href={row.original.File.ServerRelativeUrl}>

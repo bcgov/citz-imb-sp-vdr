@@ -19,8 +19,6 @@ export const SPLibrary = (props) => {
     ...tableProps
   } = props
 
-  const columnFiltering = false
-
   const {
     items,
     columns: viewColumns,
@@ -161,7 +159,6 @@ export const SPLibrary = (props) => {
         table={table}
         title={listName}
         columns={columns}
-        columnFiltering={columnFiltering}
         tableActions={tableActions}
         isFetching={isLoading || isFetching}
         {...tableProps}
