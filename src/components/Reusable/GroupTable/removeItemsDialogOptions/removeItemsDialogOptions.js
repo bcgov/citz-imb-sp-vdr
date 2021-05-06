@@ -10,6 +10,7 @@ export const removeItemsDialogOptions = (props) => {
 		logAction,
 		proponentName,
 		config,
+		reQueryProponents
 	} = props
 
 	setDialog({
@@ -46,6 +47,7 @@ export const removeItemsDialogOptions = (props) => {
 					contactEmail,
 				})
 				logAction(`sent ${removeUserEmail.Title} to ${contactEmail.TextValue}`)
+				reQueryProponents()
 				setSubmitting(false)
 				setDialog({ open: false })
 			} catch (error) {
