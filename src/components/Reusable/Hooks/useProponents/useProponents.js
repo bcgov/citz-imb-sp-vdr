@@ -1,154 +1,176 @@
 import {
-	SendConfirmationEmail,
-	useConfig,
-	useCurrentUser,
-	useList,
-	useLogAction,
+  SendConfirmationEmail,
+  useConfig,
+  useCurrentUser,
+  useList,
+  useLogAction,
 } from 'components'
 import {
-	AddPermissionsToList,
-	DeleteGroup,
-	GetGroupMembers,
-	GetRoleDefinitions,
-	RemovePermissionsFromList,
+  AddPermissionsToList,
+  DeleteGroup,
+  GetGroupMembers,
+  GetRoleDefinitions,
+  RemovePermissionsFromList,
 } from 'components/ApiCalls'
 import { createProponent } from './createProponent/createProponent'
 import { createProponentGroup } from './createProponentGroup/createProponentGroup'
 import { setProponentPermissions } from './setProponentPermissions/setProponentPermissions'
+import { useState, useEffect } from 'react'
 
 export const useProponents = () => {
-	const currentUser = useCurrentUser()
-	const proponents = useList({
-		listName: 'Proponents',
-		preRequisite: currentUser.Id,
-	})
-	const config = useConfig()
-	const logAction = useLogAction()
+  const [allUserIds, setAllUserIds] = useState([])
 
-	const contactEmail = config.items.filter(
-		(item) => item.Key === 'contactEmail'
-	)[0]
+  const currentUser = useCurrentUser()
+  const proponents = useList({
+    listName: 'Proponents',
+    preRequisite: currentUser.Id,
+  })
+  const config = useConfig()
+  const logAction = useLogAction()
 
-	const allowSubmissions = config.items.filter(
-		(item) => item.Key === 'allowSubmissions'
-	)[0]
+  const contactEmail = config.items.filter(
+    (item) => item.Key === 'contactEmail'
+  )[0]
 
-	const add = async (proponentName) =>
-		await createProponent(proponentName, { proponents, currentUser, logAction })
+  const allowSubmissions = config.items.filter(
+    (item) => item.Key === 'allowSubmissions'
+  )[0]
 
-	const setActive = async (UUID) => {
-		const group = await createProponentGroup(UUID)
+  const add = async (proponentName) =>
+    await createProponent(proponentName, { proponents, currentUser, logAction })
 
-		await setProponentPermissions(UUID, group)
+  const setActive = async (UUID) => {
+    const group = await createProponentGroup(UUID)
 
-		const currentProponent = proponents.items.filter(
-			(item) => item.UUID === UUID
-		)[0]
-		await proponents.updateItem([
-			{ Id: currentProponent.Id, Active: true, GroupId: group },
-		])
-	}
+    await setProponentPermissions(UUID, group)
 
-	const setInactive = async (UUID) => {
-		const currentProponent = proponents.items.filter(
-			(item) => item.UUID === UUID
-		)[0]
-		await DeleteGroup({
-			groupId: currentProponent.GroupId,
-		})
-		await proponents.updateItem([
-			{ Id: currentProponent.Id, Active: false, GroupId: 0 },
-		])
-	}
+    const currentProponent = proponents.items.filter(
+      (item) => item.UUID === UUID
+    )[0]
+    await proponents.updateItem([
+      { Id: currentProponent.Id, Active: true, GroupId: group },
+    ])
+  }
 
-	const addUser = async (userId, UUID) => {
-		alert('addUserToProponent')
-	}
+  const setInactive = async (UUID) => {
+    const currentProponent = proponents.items.filter(
+      (item) => item.UUID === UUID
+    )[0]
+    await DeleteGroup({
+      groupId: currentProponent.GroupId,
+    })
+    await proponents.updateItem([
+      { Id: currentProponent.Id, Active: false, GroupId: 0 },
+    ])
+  }
 
-	const removeUser = async (userId, UUID) => {
-		alert('removeUserFromProponent')
-	}
+  const addUser = async (userId, UUID) => {
+    alert('addUserToProponent')
+  }
 
-	const get = (UUID) => {
-		return proponents.items.filter((item) => item.UUID === UUID)[0]
-	}
+  const removeUser = async (userId, UUID) => {
+    alert('removeUserFromProponent')
+  }
 
-	const sendEmailToProponents = async (props) => {
-		const { subject, body } = props
+  const getUserIds = async () => {
+    const userIds = []
+    for (let i = 0; i < proponents.items.length; i++) {
+      const members = await GetGroupMembers({
+        groupId: proponents.items[i].GroupId,
+      })
+      userIds.push(...members.map((member) => member.Id))
+    }
+    setAllUserIds(userIds)
+  }
 
-		for (let i = 0; i < proponents.items.length; i++) {
-			const groupMembers = await GetGroupMembers({
-				groupId: proponents.items[i].GroupId,
-			})
-			if (groupMembers.length) {
-				await SendConfirmationEmail({
-					addresses: groupMembers.map((member) => member.LoginName),
-					proponent: proponents.items[i].Title,
-					subject,
-					body,
-					contactEmail,
-					additionalReplacementPairs: [
-						{
-							searchvalue: /\[UserName\]/g,
-							newvalue: currentUser.name,
-						},
-					],
-				})
-			}
-		}
-	}
+  useEffect(() => {
+    if (!proponents.isLoading && !proponents.isFetching) getUserIds()
 
-	const toggleAllowSubmissions = async () => {
-		const roles = await GetRoleDefinitions()
+    return () => {}
+  }, [proponents.isLoading, proponents.isFetching])
 
-		const activeProponents = proponents.items.filter(
-			(proponent) => proponent.Active === true
-		)
+  const get = (UUID) => {
+    return proponents.items.filter((item) => item.UUID === UUID)[0]
+  }
 
-		config.updateItem({
-			Id: allowSubmissions.Id,
-			YesNoValue: !allowSubmissions.YesNoValue,
-		})
+  const sendEmailToProponents = async (props) => {
+    const { subject, body } = props
 
-		for (const proponent of activeProponents) {
-			if (allowSubmissions.YesNoValue) {
-				await RemovePermissionsFromList({
-					listName: proponent.UUID,
-					principalId: proponent.GroupId,
-					roleDefId: roles.Contribute.Id,
-				})
-				await AddPermissionsToList({
-					listName: proponent.UUID,
-					principalId: proponent.GroupId,
-					roleDefId: roles.Read.Id,
-				})
-			} else {
-				await RemovePermissionsFromList({
-					listName: proponent.UUID,
-					principalId: proponent.GroupId,
-					roleDefId: roles.Read.Id,
-				})
-				await AddPermissionsToList({
-					listName: proponent.UUID,
-					principalId: proponent.GroupId,
-					roleDefId: roles.Contribute.Id,
-				})
-			}
-		}
-	}
+    for (let i = 0; i < proponents.items.length; i++) {
+      const groupMembers = await GetGroupMembers({
+        groupId: proponents.items[i].GroupId,
+      })
+      if (groupMembers.length) {
+        await SendConfirmationEmail({
+          addresses: groupMembers.map((member) => member.LoginName),
+          proponent: proponents.items[i].Title,
+          subject,
+          body,
+          contactEmail,
+          additionalReplacementPairs: [
+            {
+              searchvalue: /\[UserName\]/g,
+              newvalue: currentUser.name,
+            },
+          ],
+        })
+      }
+    }
+  }
 
-	return {
-		add,
-		addUser,
-		get,
-		isLoading: proponents.isLoading || config.isLoading,
-		// proponents,
-		items: proponents.items,
-		removeUser,
-		sendEmailToProponents,
-		setActive,
-		setInactive,
-		allowSubmissions: allowSubmissions?.YesNoValue,
-		toggleAllowSubmissions,
-	}
+  const toggleAllowSubmissions = async () => {
+    const roles = await GetRoleDefinitions()
+
+    const activeProponents = proponents.items.filter(
+      (proponent) => proponent.Active === true
+    )
+
+    config.updateItem({
+      Id: allowSubmissions.Id,
+      YesNoValue: !allowSubmissions.YesNoValue,
+    })
+
+    for (const proponent of activeProponents) {
+      if (allowSubmissions.YesNoValue) {
+        await RemovePermissionsFromList({
+          listName: proponent.UUID,
+          principalId: proponent.GroupId,
+          roleDefId: roles.Contribute.Id,
+        })
+        await AddPermissionsToList({
+          listName: proponent.UUID,
+          principalId: proponent.GroupId,
+          roleDefId: roles.Read.Id,
+        })
+      } else {
+        await RemovePermissionsFromList({
+          listName: proponent.UUID,
+          principalId: proponent.GroupId,
+          roleDefId: roles.Read.Id,
+        })
+        await AddPermissionsToList({
+          listName: proponent.UUID,
+          principalId: proponent.GroupId,
+          roleDefId: roles.Contribute.Id,
+        })
+      }
+    }
+  }
+
+  return {
+    add,
+    addUser,
+    get,
+    isLoading: proponents.isLoading || config.isLoading,
+    // proponents,
+    items: proponents.items,
+    removeUser,
+    sendEmailToProponents,
+    setActive,
+    setInactive,
+    allowSubmissions: allowSubmissions?.YesNoValue,
+    toggleAllowSubmissions,
+    allUserIds,
+    reQuery: proponents.reQuery,
+  }
 }
