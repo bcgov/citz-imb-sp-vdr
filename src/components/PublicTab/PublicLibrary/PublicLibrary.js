@@ -46,6 +46,7 @@ export const PublicLibrary = () => {
       allowUpload={currentUser.isOwner}
       allowDelete={currentUser.isOwner}
       deleteCallback={deleteCallback}
+      columnFiltering={true}
     />
   )
 }

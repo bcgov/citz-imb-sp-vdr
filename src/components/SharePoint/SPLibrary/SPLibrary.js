@@ -5,7 +5,7 @@ import { Alert, AlertTitle } from '@material-ui/lab'
 import { FormikDialog, useList } from 'components'
 import React, { useMemo, useState } from 'react'
 import { useFilters, usePagination, useSortBy, useTable } from 'react-table'
-import { DropZone } from '../DropZone/DropZone'
+import { DropZone } from './DocumentUpload/DropZone/DropZone'
 import { SPTable } from '../SPTable/SPTable'
 
 export const SPLibrary = (props) => {
@@ -18,8 +18,6 @@ export const SPLibrary = (props) => {
     allowDelete = false,
     ...tableProps
   } = props
-
-  const columnFiltering = false
 
   const {
     items,
@@ -161,7 +159,6 @@ export const SPLibrary = (props) => {
         table={table}
         title={listName}
         columns={columns}
-        columnFiltering={columnFiltering}
         tableActions={tableActions}
         isFetching={isLoading || isFetching}
         {...tableProps}

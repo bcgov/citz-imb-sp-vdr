@@ -1,4 +1,7 @@
-﻿<List Title="Documents" Direction="none" Url="Documents" BaseType="1" Type="101" MultipleDataList="FALSE" BrowserFileHandling="permissive" DisableAttachments="TRUE" Catalog="FALSE" VersioningEnabled="TRUE" SendToLocation="|" ImageUrl="/_layouts/15/images/itdl.png?rev=40" MajorVersionLimit="10" xmlns:ows="Microsoft SharePoint" xmlns:spctf="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms" xmlns="http://schemas.microsoft.com/sharepoint/">
+﻿<List Title="Documents" Direction="none" Url="Documents" BaseType="1" Type="101" MultipleDataList="FALSE" BrowserFileHandling="permissive" DisableAttachments="TRUE" Catalog="FALSE" VersioningEnabled="TRUE" SendToLocation="|" ImageUrl="/_layouts/15/images/itdl.png?rev=40" MajorVersionLimit="10"
+	xmlns:ows="Microsoft SharePoint"
+	xmlns:spctf="http://schemas.microsoft.com/sharepoint/v3/contenttype/forms"
+	xmlns="http://schemas.microsoft.com/sharepoint/">
 	<MetaData>
 		<ContentTypes>
 			<ContentType ID="0x0101" Name="Document" Group="Document Content Types" Description="Create a new document." FeatureId="{695b6570-a48b-4a8e-8ea5-26ea7fc1d162}">
@@ -1079,7 +1082,7 @@
 								<Column Name="ID" />
 							</ScriptQuote>
 							<HTML><![CDATA[');return false;" target="_self">]]></HTML>
-							<HTML><![CDATA[<img border="0" align="absmiddle" style="cursor: pointer" src="/_layouts/15/images/rbunsel.gif?rev=40"  alt="]]></HTML>
+							<HTML><![CDATA[<img border="0" align="absmiddle" style="cursor: pointer" src="/_layouts/15/images/rbunsel.gif?rev=40" alt="]]></HTML>
 							<HTML>Normal</HTML>
 							<HTML><![CDATA["/>]]></HTML>
 							<HTML><![CDATA[</a>]]></HTML>
@@ -1118,7 +1121,7 @@
 								<Column Name="ID" />
 							</ScriptQuote>
 							<HTML><![CDATA[');return false;" target="_self">]]></HTML>
-							<HTML><![CDATA[<img border="0" align="absmiddle" style="cursor: pointer" src="/_layouts/15/images/rbunsel.gif?rev=40"  alt="]]></HTML>
+							<HTML><![CDATA[<img border="0" align="absmiddle" style="cursor: pointer" src="/_layouts/15/images/rbunsel.gif?rev=40" alt="]]></HTML>
 							<HTML>Normal</HTML>
 							<HTML><![CDATA["/>]]></HTML>
 							<HTML><![CDATA[</a>]]></HTML>
@@ -1293,6 +1296,7 @@
 				</Query>
 				<ViewFields>
 					<FieldRef Name="LinkFilenameNoMenu" />
+					<FieldRef Name="Modified" />
 				</ViewFields>
 				<RowLimit Paged="TRUE">30</RowLimit>
 				<Aggregations Value="Off" />
