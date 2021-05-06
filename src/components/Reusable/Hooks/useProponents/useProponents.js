@@ -78,7 +78,7 @@ export const useProponents = () => {
       const members = await GetGroupMembers({
         groupId: proponents.items[i].GroupId,
       })
-      userIds.push(...members.map((member) => member.Id))
+      userIds.push(...members.map((member) => member.LoginName))
     }
     setAllUserIds(userIds)
   }

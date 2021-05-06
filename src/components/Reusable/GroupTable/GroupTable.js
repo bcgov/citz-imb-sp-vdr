@@ -100,8 +100,15 @@ export const GroupTable = (props) => {
         },
       ],
       onSubmit: async (values, { setSubmitting }) => {
-        console.log('values :>> ', values)
-        console.log('allUserIds :>> ', proponents.allUserIds)
+        for (let i = 0; i < values.members.length; i++) {
+          if (proponents.allUserIds.includes(values.members[i].Key)) {
+            alert(
+              `${values.members[i].DisplayText} is already a member of a proponent`
+            )
+            setSubmitting(false)
+            return
+          }
+        }
 
         const members = values.members.map((member) => member.DisplayText)
         const addUserEmail = config.items.filter(
@@ -131,7 +138,7 @@ export const GroupTable = (props) => {
             })
             logAction(`sent ${addUserEmail.Title} to ${members.join('; ')}`)
           })
-
+          proponents.reQuery()
           setSubmitting(false)
           setDialog({ open: false })
         } catch (error) {
