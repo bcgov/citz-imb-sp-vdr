@@ -18,7 +18,6 @@ export const SPTable = (props) => {
 		table,
 		isFetching = false,
 		columnFiltering = false,
-
 		tableActions = [],
 		title = '',
 	} = props;
