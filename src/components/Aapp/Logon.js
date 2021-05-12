@@ -1,10 +1,5 @@
-import {
-  TermsOfService,
-  useCurrentUser,
-  useLogAction,
-  useConfig,
-} from 'components'
-import React, { useEffect } from 'react'
+import { TermsOfService, useCurrentUser, useLogAction } from 'components'
+import { useEffect } from 'react'
 import { deviceDetect } from 'react-device-detect'
 export const Logon = () => {
   const currentUser = useCurrentUser()

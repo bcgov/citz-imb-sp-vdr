@@ -1,8 +1,8 @@
 import { AppBar, Paper, Tab, Tabs } from '@material-ui/core';
 import { HorizontalTabPanel } from 'components';
 import React, { useState } from 'react';
-import { Library } from '../Library/Library';
-import { Membership } from '../Membership/Membership';
+import { Library } from './Library';
+import { Membership } from './Membership';
 import { OverView } from './OverView';
 import { Questions } from './Questions';
 
