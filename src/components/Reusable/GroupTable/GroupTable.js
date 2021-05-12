@@ -12,7 +12,7 @@ import {
 import { SPTable } from 'components/SharePoint'
 import React, { useCallback, useMemo, useState } from 'react'
 import { useFilters, usePagination, useSortBy, useTable } from 'react-table'
-import { useProponents } from '../Hooks'
+import { useProponents } from '../../Hooks'
 import { removeItemsDialogOptions } from './removeItemsDialogOptions/removeItemsDialogOptions'
 
 export const GroupTable = (props) => {
