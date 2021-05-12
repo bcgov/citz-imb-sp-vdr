@@ -1,4 +1,4 @@
-import { useConfig, useCurrentUser, useProponents } from 'components'
+import { useConfig, useCurrentUser, useProponents } from 'components/Hooks'
 import { useLogAction } from 'components/Reusable'
 import { SPLibrary } from 'components/SharePoint'
 import React, { useMemo } from 'react'

@@ -1,5 +1,5 @@
 import { LinearProgress } from '@material-ui/core'
-import { getCurrentUser } from 'components'
+import { getCurrentUser } from 'components/Reusable'
 import { useCallback, useEffect, useState } from 'react'
 import { useQueryClient } from 'react-query'
 import { ReactQueryDevtoolsPanel } from 'react-query/devtools'

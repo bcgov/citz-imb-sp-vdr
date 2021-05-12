@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { useList } from 'components'
+import { useList } from 'components/Hooks'
 import { useTable, useFilters, useSortBy, usePagination } from 'react-table'
 import { SPTable } from 'components/SharePoint'
 import { EditItem } from './EditItem/EditItem'

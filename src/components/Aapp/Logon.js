@@ -1,4 +1,5 @@
-import { TermsOfService, useCurrentUser, useLogAction } from 'components'
+import { TermsOfService } from 'components/TermsOfServices'
+import { useCurrentUser, useLogAction } from 'components/Hooks'
 import { useEffect } from 'react'
 import { deviceDetect } from 'react-device-detect'
 export const Logon = () => {

@@ -7,7 +7,7 @@ import {
 } from 'components/Api'
 import { useMemo } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { useCurrentUser } from 'components'
+import { useCurrentUser } from 'components/Hooks'
 import { getColumns } from './getColumns/getColumns'
 import { getList } from './getList/getList'
 

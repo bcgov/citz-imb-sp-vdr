@@ -1,10 +1,10 @@
 import {
-  SendConfirmationEmail,
+  // SendConfirmationEmail,
   useConfig,
   useCurrentUser,
   useList,
   useLogAction,
-} from 'components'
+} from 'components/Hooks'
 import {
   AddPermissionsToList,
   DeleteGroup,
@@ -101,19 +101,19 @@ export const useProponents = () => {
         groupId: proponents.items[i].GroupId,
       })
       if (groupMembers.length) {
-        await SendConfirmationEmail({
-          addresses: groupMembers.map((member) => member.LoginName),
-          proponent: proponents.items[i].Title,
-          subject,
-          body,
-          contactEmail,
-          additionalReplacementPairs: [
-            {
-              searchvalue: /\[UserName\]/g,
-              newvalue: currentUser.name,
-            },
-          ],
-        })
+        // await SendConfirmationEmail({
+        //   addresses: groupMembers.map((member) => member.LoginName),
+        //   proponent: proponents.items[i].Title,
+        //   subject,
+        //   body,
+        //   contactEmail,
+        //   additionalReplacementPairs: [
+        //     {
+        //       searchvalue: /\[UserName\]/g,
+        //       newvalue: currentUser.name,
+        //     },
+        //   ],
+        // })
       }
     }
   }
