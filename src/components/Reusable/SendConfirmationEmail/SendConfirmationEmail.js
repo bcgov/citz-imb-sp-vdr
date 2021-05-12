@@ -1,4 +1,4 @@
-import { GetSite, SendEmail } from 'components/ApiCalls';
+import { GetSite, SendEmail } from 'components/Api';
 
 const replaceText = (props) => {
 	const { text, values } = props;

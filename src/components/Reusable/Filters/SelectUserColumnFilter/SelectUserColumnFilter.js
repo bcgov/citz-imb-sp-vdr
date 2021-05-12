@@ -1,4 +1,4 @@
-import { GetUser } from 'components/ApiCalls';
+import { GetUser } from 'components/Api';
 import React, { useCallback, useEffect, useState } from 'react';
 
 export const SelectUserColumnFilter = (props) => {
