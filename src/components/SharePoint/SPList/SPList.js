@@ -1,72 +1,36 @@
 import { Alert, AlertTitle } from '@material-ui/lab'
-import { useList } from 'components'
-import React, { useMemo } from 'react'
-import { useFilters, usePagination, useSortBy, useTable } from 'react-table'
+import { useList } from 'components/Hooks'
+import React from 'react'
 import { SPTable } from '../SPTable/SPTable'
 
 export const SPList = (props) => {
-	const { listName, initialState = {}, customColumns = [], tableProps } = props
+  const {
+    listName,
+    allowDelete,
+    deleteCallback,
+    allowUpload,
+  } = props
 
-	const { items, columns, isLoading, isError, error, isFetching } = useList({
-		listName,
-	})
+  const { table, isLoading, isError, error, isFetching } = useList(listName, {
+    allowDelete,
+    deleteCallback,
+    allowUpload,
+  })
 
-	const data = useMemo(() => {
-		if (isLoading || isError) {
-			return []
-		}
+  if (isError) {
+    return (
+      <Alert severity='error'>
+        <AlertTitle>Error</AlertTitle>
+        {error}
+      </Alert>
+    )
+  }
 
-		return items
-	}, [isLoading, isError, items])
-
-	const tableColumns = useMemo(() => {
-		if (isLoading || isError) return []
-
-		let updatedColumns = columns
-
-		for (let i = 0; i < customColumns.length; i++) {
-			let isNewColumn = true
-			for (let j = 0; j < columns.length; j++) {
-				if (customColumns[i].accessor === updatedColumns[j].accessor) {
-					updatedColumns[j] = {
-						...updatedColumns[j],
-						...customColumns[i],
-					}
-					isNewColumn = false
-					break
-				}
-			}
-			if (isNewColumn) {
-				updatedColumns.push(customColumns[i])
-			}
-		}
-
-		return updatedColumns
-	}, [columns, customColumns, isError, isLoading])
-
-	const table = useTable(
-		{ columns, data, initialState },
-		useFilters,
-		useSortBy,
-		usePagination
-	)
-
-	if (isError) {
-		return (
-			<Alert severity='error'>
-				<AlertTitle>Error</AlertTitle>
-				{error}
-			</Alert>
-		)
-	}
-
-	return (
-		<SPTable
-			table={table}
-			title={listName}
-			columns={tableColumns}
-			isFetching={isLoading || isFetching}
-			{...tableProps}
-		/>
-	)
+  return (
+    <SPTable
+      table={table}
+      title={listName}
+      isFetching={isLoading || isFetching}
+    />
+  )
 }

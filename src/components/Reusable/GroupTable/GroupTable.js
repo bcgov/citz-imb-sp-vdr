@@ -40,7 +40,7 @@ export const GroupTable = (props) => {
         reQueryProponents: proponents.reQuery,
       })
     },
-    [config.items, logAction, proponentName]
+    [config, logAction, proponentGroup, proponentName, proponents.reQuery]
   )
 
   const columns = useMemo(() => {

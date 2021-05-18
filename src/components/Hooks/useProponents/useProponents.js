@@ -15,7 +15,7 @@ import {
 import { createProponent } from './createProponent/createProponent'
 import { createProponentGroup } from './createProponentGroup/createProponentGroup'
 import { setProponentPermissions } from './setProponentPermissions/setProponentPermissions'
-import { useState, useEffect } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 
 export const useProponents = () => {
   const [allUserIds, setAllUserIds] = useState([])
@@ -28,9 +28,9 @@ export const useProponents = () => {
   const config = useConfig()
   const logAction = useLogAction()
 
-  const contactEmail = config.items.filter(
-    (item) => item.Key === 'contactEmail'
-  )[0]
+  // const contactEmail = config.items.filter(
+  //   (item) => item.Key === 'contactEmail'
+  // )[0]
 
   const allowSubmissions = config.items.filter(
     (item) => item.Key === 'allowSubmissions'
@@ -64,15 +64,15 @@ export const useProponents = () => {
     ])
   }
 
-  const addUser = async (userId, UUID) => {
-    alert('addUserToProponent')
-  }
+  // const addUser = async (userId, UUID) => {
+  //   alert('addUserToProponent')
+  // }
 
-  const removeUser = async (userId, UUID) => {
-    alert('removeUserFromProponent')
-  }
+  // const removeUser = async (userId, UUID) => {
+  //   alert('removeUserFromProponent')
+  // }
 
-  const getUserIds = async () => {
+  const getUserIds = useCallback(async () => {
     const userIds = []
     for (let i = 0; i < proponents.items.length; i++) {
       const members = await GetGroupMembers({
@@ -81,20 +81,20 @@ export const useProponents = () => {
       userIds.push(...members.map((member) => member.LoginName))
     }
     setAllUserIds(userIds)
-  }
+  }, [proponents.items])
 
   useEffect(() => {
     if (!proponents.isLoading && !proponents.isFetching) getUserIds()
 
     return () => {}
-  }, [proponents.isLoading, proponents.isFetching])
+  }, [proponents.isLoading, proponents.isFetching, getUserIds])
 
   const get = (UUID) => {
     return proponents.items.filter((item) => item.UUID === UUID)[0]
   }
 
   const sendEmailToProponents = async (props) => {
-    const { subject, body } = props
+    // const { subject, body } = props
 
     for (let i = 0; i < proponents.items.length; i++) {
       const groupMembers = await GetGroupMembers({
@@ -159,12 +159,12 @@ export const useProponents = () => {
 
   return {
     add,
-    addUser,
+    // addUser,
     get,
     isLoading: proponents.isLoading || config.isLoading,
     // proponents,
     items: proponents.items,
-    removeUser,
+    // removeUser,
     sendEmailToProponents,
     setActive,
     setInactive,

@@ -6,7 +6,7 @@ import {
   useLogAction,
   SendConfirmationEmail,
 } from 'components'
-import { SPLibrary } from 'components/SharePoint'
+// import { SPLibrary } from 'components/SharePoint'
 import React from 'react'
 
 export const ProponentLibrary = () => {
@@ -63,15 +63,15 @@ export const ProponentLibrary = () => {
     }
   }
 
-  return (
-    <SPLibrary
-      uploadText='Submit a document'
-      listName={listName}
-      title={'Submitted Documents'}
-      allowUpload={true}
-      allowDelete={true}
-      uploadCallback={uploadCallback}
-      deleteCallback={deleteCallback}
-    />
-  )
+  // return (
+    // <SPLibrary
+    //   uploadText='Submit a document'
+    //   listName={listName}
+    //   title={'Submitted Documents'}
+    //   allowUpload={true}
+    //   allowDelete={true}
+    //   uploadCallback={uploadCallback}
+    //   deleteCallback={deleteCallback}
+    // />
+  // )
 }

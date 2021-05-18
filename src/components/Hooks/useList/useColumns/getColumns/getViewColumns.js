@@ -1,11 +1,10 @@
 import { Link } from '@material-ui/core'
 import moment from 'moment'
-import React, { useMemo } from 'react'
-import { ColumnFilter } from '../../../Reusable/Filters/ColumnFilter/ColumnFilter'
-import { SelectUserColumnFilter } from '../../../Reusable/Filters/SelectUserColumnFilter/SelectUserColumnFilter'
-import { User } from '../User/User'
+import React from 'react'
+import { ColumnFilter, SelectUserColumnFilter } from 'components/Reusable'
+import { User } from '../../User/User'
 
-export const getColumns = (props) => {
+export const getViewColumns = (props) => {
   const { CurrentView, Fields } = props
   const fields = Fields.results
   const viewColumns = CurrentView.ViewFields.Items.results

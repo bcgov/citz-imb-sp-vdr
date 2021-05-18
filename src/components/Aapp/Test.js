@@ -1,5 +1,8 @@
 import React from 'react'
+import { PublicLibrary } from 'components/Tabs/PublicSpace/PublicLibrary'
 
 export const Test = () => {
-  return <div>hello</div>
+
+  return <PublicLibrary />
+
 }

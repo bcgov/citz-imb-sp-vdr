@@ -13,7 +13,6 @@ export const useConfig = () => {
 		columns: viewColumns,
 		isLoading,
 		isError,
-		error,
 		updateItem,
 	} = useList({
 		listName,
@@ -32,7 +31,7 @@ export const useConfig = () => {
 				(column) => column.Header === 'Title' || column.Header === 'Key'
 			),
 		]
-	}, [viewColumns, isError, isLoading])
+	}, [isLoading, isError, viewColumns, updateItem])
 
 	const data = useMemo(() => {
 		if (isLoading || isError) return []

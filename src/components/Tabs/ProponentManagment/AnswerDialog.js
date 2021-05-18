@@ -89,7 +89,19 @@ export const AnswerDialog = (props) => {
       setSubmitting(false)
       closeAnswerDialog()
     },
-    [AnswerId, closeAnswerDialog, isUpdate, newAnswerEmail]
+    [
+      AnswerId,
+      closeAnswerDialog,
+      isUpdate,
+      logAction,
+      newAnswerEmail.MultiTextValue,
+      newAnswerEmail.TextValue,
+      proponentQuestions,
+      proponents,
+      publicQuestions,
+      updatedAnswerEmail.MultiTextValue,
+      updatedAnswerEmail.TextValue,
+    ]
   )
 
   const getOptions = useCallback(() => {
@@ -194,6 +206,7 @@ export const AnswerDialog = (props) => {
     getOptions,
     onSubmit,
     schema,
+    publicQuestions.items,
   ])
 
   return <FormikDialog {...dialogOptions} />

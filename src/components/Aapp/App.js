@@ -6,7 +6,7 @@ import { ReactQueryDevtoolsPanel } from 'react-query/devtools'
 import { Test } from './Test'
 import { Logon } from './Logon'
 
-const isTest = false
+const isTest = true
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(true)
