@@ -1,7 +1,7 @@
-import { useConfig } from 'components'
+import { useConfig } from 'components/Hooks'
 
 export const SiteManagement = () => {
   const config = useConfig()
-
-  return config.render
+  console.log('config :>> ', config)
+  return <div>hello there</div>
 }

@@ -1,7 +1,7 @@
 import {
-  // useConfig,
+  useConfig,
   useCurrentUser,
-  // useProponents,
+  useProponents,
   useLogAction,
 } from 'components/Hooks'
 import { SPList } from 'components/SharePoint'
@@ -14,25 +14,26 @@ export const PublicLibrary = () => {
   //   return { title: `Upload to ${publicLibrary}` }
   // }, [])
   const logAction = useLogAction()
-  // const proponents = useProponents()
-  // const config = useConfig()
+  const proponents = useProponents()
+  const config = useConfig()
   const currentUser = useCurrentUser()
 
-  // const publicDocumentEmail = config.items.filter(
-  //   (item) => item.Key === 'publicDocumentEmail'
-  // )[0]
+  const publicDocumentEmail = config.items.filter(
+    (item) => item.Key === 'publicDocumentEmail'
+  )[0]
 
-  // const uploadCallback = async (result, fileNames) => {
-  //   if (result === 'success') {
-  //     await proponents.sendEmailToProponents({
-  //       subject: publicDocumentEmail.TextValue,
-  //       body: publicDocumentEmail.MultiTextValue,
-  //     })
-  //     logAction(`uploaded ${fileNames}`)
-  //   } else {
-  //     logAction(`failed to upload ${fileNames}`, { variant: 'error' })
-  //   }
-  // }
+  const uploadCallback = async (result, fileNames) => {
+    console.log('uploadCallback :>> ', result, fileNames);
+    if (result === 'success') {
+      await proponents.sendEmailToProponents({
+        subject: publicDocumentEmail.TextValue,
+        body: publicDocumentEmail.MultiTextValue,
+      })
+      logAction(`uploaded ${fileNames}`)
+    } else {
+      logAction(`failed to upload ${fileNames}`, { variant: 'error' })
+    }
+  }
 
   const deleteCallback = async (isSuccess, fileName) => {
     if (isSuccess) {
@@ -46,7 +47,7 @@ export const PublicLibrary = () => {
     <SPList
       listName={publicLibrary}
       // dialogProps={dialogProps}
-      // uploadCallback={uploadCallback}
+      uploadCallback={uploadCallback}
       allowUpload={currentUser.isOwner}
       allowDelete={currentUser.isOwner}
       deleteCallback={deleteCallback}

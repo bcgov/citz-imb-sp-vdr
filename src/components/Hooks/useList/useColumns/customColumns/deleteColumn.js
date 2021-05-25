@@ -9,7 +9,7 @@ export const deleteColumn = (remove) => {
       return (
         <DeleteFile
           deleteFile={() => remove(row.original.Id)}
-          fileName={row.original.File.Name}
+          fileName={row.original.File?.Name}
         />
       )
     },

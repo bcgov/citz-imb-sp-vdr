@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState } from 'react'
+import { DocumentUpload } from 'components/SharePoint'
+import { useMemo } from 'react'
 import { useQuery } from 'react-query'
 import { useFilters, usePagination, useSortBy, useTable } from 'react-table'
 import { getList } from './getList/getList'
 import { useColumns } from './useColumns/useColumns'
 import { useMutations } from './useMutations/useMutations'
-import { DocumentUpload } from 'components/SharePoint'
 
 export const useList = (listName, options = {}) => {
   const {
@@ -12,32 +12,19 @@ export const useList = (listName, options = {}) => {
     allowDelete,
     deleteCallback,
     allowUpload = false,
-    ...otherOptions
+    uploadCallback,
   } = options
-  const [queryOptions, setQueryOptions] = useState({
-    ...otherOptions,
-    enabled: !!listName,
-  })
 
-  const [tableActions, setTableActions] = useState([])
+  const queryOptions = useMemo(() => {
+    if (preRequisite)
+      return {
+        enabled: !!listName && !!preRequisite,
+      }
 
-  useEffect(() => {
-    if (preRequisite) {
-      setQueryOptions((prevState) => {
-        return {
-          ...prevState,
-          enabled: !!listName && !!preRequisite,
-        }
-      })
+    return {
+      enabled: !!listName,
     }
-    return () => {}
   }, [listName, preRequisite])
-
-  useEffect(() => {
-    if (allowUpload)
-      setTableActions((prevState) => [...prevState, <DocumentUpload />])
-    return () => {}
-  }, [allowUpload])
 
   const { data, isFetching, isLoading, isError, error } = useQuery(
     listName,
@@ -55,18 +42,29 @@ export const useList = (listName, options = {}) => {
     deleteCallback,
   })
 
+  const { add, remove, update } = useMutations(listName, { deleteCallback })
+
+  const tableActions = useMemo(() => {
+    if (allowUpload)
+      return [
+        <DocumentUpload
+          listName={listName}
+          addDocuments={add}
+          uploadCallback={uploadCallback}
+        />,
+      ]
+    return []
+  }, [add, allowUpload, listName, uploadCallback])
+
   const table = useTable(
     {
       columns,
       data: items,
-      // initialState
     },
     useFilters,
     useSortBy,
     usePagination
   )
-
-  const { add, remove, update } = useMutations(listName, { deleteCallback })
 
   return {
     items,

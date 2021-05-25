@@ -2,18 +2,18 @@ import { Button } from '@material-ui/core'
 import PublishIcon from '@material-ui/icons/Publish'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import { FormikDialog } from 'components/Reusable'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { DropZone } from './DropZone/DropZone'
 
 export const DocumentUpload = (props) => {
-  const { listName, addDocuments, uploadCallback } = props
+  const { listName, addDocuments, uploadCallback = () => {} } = props
 
   const [formOpen, setFormOpen] = useState(false)
-  const [dialogContent, setDialogContent] = useState(null)
+  const [warningContent, setWarningContent] = useState(null)
   const [filesToUpload, setFilesToUpload] = useState([])
 
   const uploadDocuments = async (filesToUpload) => {
-	const fileNames = filesToUpload.map((file) => file.name).join('; ')
+    const fileNames = filesToUpload.map((file) => file.name).join('; ')
     try {
       await addDocuments(filesToUpload)
       uploadCallback('success', fileNames)
@@ -25,13 +25,12 @@ export const DocumentUpload = (props) => {
 
   const handleFormSubmit = (values, { setSubmitting }) => {
     if (!filesToUpload.length) {
-      setDialogContent(() => {
-        return (
-          <Alert severity={'error'}>
-            <AlertTitle>Error</AlertTitle>Cannot upload 0 files
-          </Alert>
-        )
-      })
+      setWarningContent(
+        <Alert severity={'error'}>
+          <AlertTitle>Error</AlertTitle>Cannot upload 0 files
+        </Alert>
+      )
+
       setSubmitting(false)
       return
     }
@@ -42,18 +41,18 @@ export const DocumentUpload = (props) => {
   }
 
   const handleFormClose = () => {
-    setDialogContent(null)
+    setWarningContent(null)
     setFormOpen(false)
-  }
-
-  const handleFilesToUpload = (files) => {
-    setFilesToUpload(files)
-    setDialogContent(null)
   }
 
   const handleUploadDocument = () => {
     setFormOpen(true)
   }
+
+  useEffect(() => {
+    if (filesToUpload.length) setWarningContent(null)
+    return () => {}
+  }, [filesToUpload])
 
   return (
     <>
@@ -67,9 +66,9 @@ export const DocumentUpload = (props) => {
         open={formOpen}
         onSubmit={handleFormSubmit}
         close={handleFormClose}
-        title={`Upload to ${listName}`}
-        dialogContent={dialogContent}>
-        <DropZone setAcceptedFiles={handleFilesToUpload} />
+        title={`Upload to ${listName}`}>
+        {warningContent}
+        <DropZone setAcceptedFiles={setFilesToUpload} />
       </FormikDialog>
     </>
   )

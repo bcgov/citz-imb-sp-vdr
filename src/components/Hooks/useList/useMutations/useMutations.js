@@ -6,8 +6,10 @@ import {
   UpdateListItem,
 } from 'components/Api'
 import { useCurrentUser } from 'components/Hooks'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
+
+const libraryTemplate = 101
 
 export const useMutations = (listName, options) => {
   const { deleteCallback = () => {} } = options
@@ -125,14 +127,17 @@ export const useMutations = (listName, options) => {
         return { previousValues }
       },
       onError: async (err, variables, context) => {
-        console.log('{err, variables, context} :>> ', {
+        console.error('{err, variables, context} :>> ', {
           err,
           variables,
           context,
         })
-        deleteCallback(false,  context.previousValues.items.filter(
-          (item) => item.Id === variables
-        )[0].File.Name)
+        deleteCallback(
+          false,
+          context.previousValues.items.filter(
+            (item) => item.Id === variables
+          )[0].File.Name
+        )
         return queryClient.setQueryData(listName, context.previousValues)
       },
       onSuccess: (data, variables, context) => {
@@ -146,31 +151,10 @@ export const useMutations = (listName, options) => {
     }
   )
 
-  const add = useCallback(() => {
-    if (status !== 'success') return () => {}
-    if (data.list.BaseTemplate === 101)
-      return async (fileInput) => {
-        for (let i = 0; i < fileInput.length; i++) {
-          var arrayBuffer = await GetFileBuffer(fileInput[i])
-
-          await addDocumentMutation.mutateAsync({
-            fileData: fileInput[i],
-            fileContents: arrayBuffer,
-          })
-        }
-      }
-    return addItemMutation.mutateAsync
-  }, [
-    addDocumentMutation,
-    addItemMutation.mutateAsync,
-    data?.list?.BaseTemplate,
-    status,
-  ])
-
   const remove = useCallback(
     (id) => {
       if (status !== 'success') return () => {}
-      if (data.list.BaseTemplate === 101)
+      if (data.list.BaseTemplate === libraryTemplate)
         return deleteDocumentMutation.mutateAsync(id)
       return (id) => {
         console.warn('not implemented')
@@ -178,5 +162,29 @@ export const useMutations = (listName, options) => {
     },
     [data?.list?.BaseTemplate, deleteDocumentMutation, status]
   )
-  return { add, remove, update: updateItemMutation.mutateAsync }
+
+  const add = useMemo(() => {
+    return data?.list?.BaseTemplate === libraryTemplate
+      ? async (fileInput) => {
+          for (let i = 0; i < fileInput.length; i++) {
+            var arrayBuffer = await GetFileBuffer(fileInput[i])
+
+            await addDocumentMutation.mutateAsync({
+              fileData: fileInput[i],
+              fileContents: arrayBuffer,
+            })
+          }
+        }
+      : addItemMutation.mutateAsync
+  }, [
+    addDocumentMutation,
+    addItemMutation.mutateAsync,
+    data?.list?.BaseTemplate,
+  ])
+
+  return {
+    add,
+    remove,
+    update: updateItemMutation.mutateAsync,
+  }
 }

@@ -55,8 +55,8 @@ export const getViewColumns = (props) => {
           }
           newColumn.Cell = ({ row }) => {
             return (
-              <Link href={row.original.File.ServerRelativeUrl}>
-                {row.original.File.Name}
+              <Link href={row.original.File?.ServerRelativeUrl}>
+                {row.original.File?.Name ?? ''}
               </Link>
             )
           }

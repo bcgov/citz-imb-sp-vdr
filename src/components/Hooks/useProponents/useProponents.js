@@ -1,10 +1,10 @@
 import {
-  // SendConfirmationEmail,
   useConfig,
   useCurrentUser,
   useList,
   useLogAction,
 } from 'components/Hooks'
+import { SendConfirmationEmail } from 'components/Reusable'
 import {
   AddPermissionsToList,
   DeleteGroup,
@@ -21,8 +21,7 @@ export const useProponents = () => {
   const [allUserIds, setAllUserIds] = useState([])
 
   const currentUser = useCurrentUser()
-  const proponents = useList({
-    listName: 'Proponents',
+  const proponents = useList('Proponents', {
     preRequisite: currentUser.Id,
   })
   const config = useConfig()
@@ -94,26 +93,28 @@ export const useProponents = () => {
   }
 
   const sendEmailToProponents = async (props) => {
-    // const { subject, body } = props
+    console.log('sendEmailToProponents props :>> ', props)
+    const { subject, body } = props
 
     for (let i = 0; i < proponents.items.length; i++) {
       const groupMembers = await GetGroupMembers({
         groupId: proponents.items[i].GroupId,
       })
       if (groupMembers.length) {
-        // await SendConfirmationEmail({
-        //   addresses: groupMembers.map((member) => member.LoginName),
-        //   proponent: proponents.items[i].Title,
-        //   subject,
-        //   body,
-        //   contactEmail,
-        //   additionalReplacementPairs: [
-        //     {
-        //       searchvalue: /\[UserName\]/g,
-        //       newvalue: currentUser.name,
-        //     },
-        //   ],
-        // })
+        console.log('groupMembers :>> ', groupMembers)
+        await SendConfirmationEmail({
+          addresses: groupMembers.map((member) => member.LoginName),
+          proponent: proponents.items[i].Title,
+          subject,
+          body,
+          contactEmail: 'Scott.Toews@gov.bc.ca',
+          additionalReplacementPairs: [
+            {
+              searchvalue: /\[UserName\]/g,
+              newvalue: currentUser.name,
+            },
+          ],
+        })
       }
     }
   }

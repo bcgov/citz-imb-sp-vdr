@@ -33,12 +33,13 @@ export const FormikDialog = (props) => {
   } = props
 
   const { initialValues, controls } = useMemo(() => {
-    const fieldObject = {}
+    if (!open) return { initialValues: {}, controls: [] }
+    const initialValues = {}
 
     const controls = []
 
     for (let i = 0; i < fields.length; i++) {
-      fieldObject[fields[i].name] = fields[i].initialValue
+      initialValues[fields[i].name] = fields[i].initialValue
 
       let options = {
         control: fields[i].control,
@@ -51,9 +52,9 @@ export const FormikDialog = (props) => {
       controls.push(<FormikControls {...options} />)
     }
 
-    return { fieldObject, controls }
-  }, [fields])
-
+    return { initialValues, controls }
+  }, [fields, open])
+  
   const validationSchema = useMemo(() => {
     if (validationSchemaProps) {
       return validationSchemaProps
