@@ -4,15 +4,12 @@ import React from 'react'
 import { SPTable } from '../SPTable/SPTable'
 
 export const SPList = (props) => {
-  const { listName, allowDelete, deleteCallback, allowUpload, uploadCallback } =
-    props
+  const { listName, ...tableProps } = props
 
-  const { table, isLoading, isError, error, isFetching } = useList(listName, {
-    allowDelete,
-    deleteCallback,
-    allowUpload,
-    uploadCallback,
-  })
+  const { table, isLoading, isError, error, isFetching } = useList(
+    listName,
+    tableProps
+  )
 
   if (isError) {
     return (

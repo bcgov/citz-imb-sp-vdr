@@ -1,8 +1,6 @@
 import React from 'react'
-import { PublicLibrary } from 'components/Tabs/PublicSpace/PublicLibrary'
+import { ProponentQuestionList } from 'components/Tabs/MyOrganization/ProponentQuestionList'
 
 export const Test = () => {
-
-  return <PublicLibrary />
-
+  return <ProponentQuestionList />
 }

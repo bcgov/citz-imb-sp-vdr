@@ -4,9 +4,9 @@ import {
   useProponents,
   useConfig,
   useLogAction,
-  SendConfirmationEmail,
-} from 'components'
-// import { SPLibrary } from 'components/SharePoint'
+} from 'components/Hooks'
+import { SendConfirmationEmail } from 'components/Reusable'
+import { SPList } from 'components/SharePoint'
 import React from 'react'
 
 export const ProponentLibrary = () => {
@@ -31,6 +31,7 @@ export const ProponentLibrary = () => {
   )[0]
 
   const uploadCallback = async (result, fileNames) => {
+    console.log('uploadCallback :>> ', result,fileNames);
     if (result === 'success') {
       logAction(`uploaded ${fileNames}`)
       try {
@@ -63,15 +64,15 @@ export const ProponentLibrary = () => {
     }
   }
 
-  // return (
-    // <SPLibrary
-    //   uploadText='Submit a document'
-    //   listName={listName}
-    //   title={'Submitted Documents'}
-    //   allowUpload={true}
-    //   allowDelete={true}
-    //   uploadCallback={uploadCallback}
-    //   deleteCallback={deleteCallback}
-    // />
-  // )
+  return (
+    <SPList
+      uploadText='Submit a document'
+      listName={listName}
+      title={'Submitted Documents'}
+      allowUpload={true}
+      allowDelete={true}
+      uploadCallback={uploadCallback}
+      deleteCallback={deleteCallback}
+    />
+  )
 }

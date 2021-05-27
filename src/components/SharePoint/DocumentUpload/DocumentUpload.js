@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react'
 import { DropZone } from './DropZone/DropZone'
 
 export const DocumentUpload = (props) => {
-  const { listName, addDocuments, uploadCallback = () => {} } = props
+  const { listName, addDocuments, children, uploadCallback = () => {} } = props
 
   const [formOpen, setFormOpen] = useState(false)
   const [warningContent, setWarningContent] = useState(null)
@@ -60,7 +60,7 @@ export const DocumentUpload = (props) => {
         color={'secondary'}
         onClick={handleUploadDocument}
         endIcon={<PublishIcon />}>
-        upload
+        {children}
       </Button>
       <FormikDialog
         open={formOpen}

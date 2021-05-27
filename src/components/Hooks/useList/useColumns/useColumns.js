@@ -16,7 +16,7 @@ export const useColumns = (listName, options) => {
   const columns = useMemo(() => {
     if (status !== 'success') return []
 
-    const viewColumns = getViewColumns(data.list)
+    const viewColumns = getViewColumns(data?.list)
     const additionalColumns = []
 
     if (allowDelete) additionalColumns.push(deleteColumn(remove))

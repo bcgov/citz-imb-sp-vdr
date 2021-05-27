@@ -5,17 +5,19 @@ import {
 	makeStyles,
 	Switch,
 	Tab,
-	Tabs,
+	Tabs
 } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import { Alert, AlertTitle } from '@material-ui/lab'
+import { GetRoleDefinitions } from 'components/Api'
+import {
+	useLogAction,
+	useProponents
+} from 'components/Hooks'
 import {
 	FormikDialog,
-	useLogAction,
-	useProponents,
-	VerticalTabPanel,
-} from 'components'
-import { GetRoleDefinitions } from 'components/Api'
+	VerticalTabPanel
+} from 'components/Reusable'
 import React, { useEffect, useState } from 'react'
 import * as Yup from 'yup'
 import { ManagementTab } from './ManagementTab'

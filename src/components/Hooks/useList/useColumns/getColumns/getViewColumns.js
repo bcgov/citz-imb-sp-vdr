@@ -5,6 +5,7 @@ import { ColumnFilter, SelectUserColumnFilter } from 'components/Reusable'
 import { User } from '../../User/User'
 
 export const getViewColumns = (props) => {
+  if (!props) return []
   const { CurrentView, Fields } = props
   const fields = Fields.results
   const viewColumns = CurrentView.ViewFields.Items.results

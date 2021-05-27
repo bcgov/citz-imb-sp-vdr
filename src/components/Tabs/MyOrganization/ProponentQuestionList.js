@@ -1,11 +1,6 @@
 import { Alert } from '@material-ui/lab'
-import {
-  AnswerCell,
-  SelectColumnFilter,
-  useCurrentUser,
-  useList,
-  useLogAction,
-} from 'components'
+import { useCurrentUser, useList, useLogAction } from 'components/Hooks'
+import { AnswerCell, SelectColumnFilter } from 'components/Reusable'
 import { SPList } from 'components/SharePoint'
 import React from 'react'
 import { AskQuestion } from './AskQuestion'

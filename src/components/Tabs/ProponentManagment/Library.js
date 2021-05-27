@@ -1,8 +1,8 @@
-// import { SPLibrary } from 'components/SharePoint'
+import { SPList } from 'components/SharePoint'
 import React from 'react'
 
 export const Library = (props) => {
-	const { UUID } = props
+  const { UUID } = props
 
-	// return <SPLibrary  listName={UUID}/>
+  return <SPList listName={UUID} />
 }

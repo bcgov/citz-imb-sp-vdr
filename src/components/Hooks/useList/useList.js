@@ -13,6 +13,7 @@ export const useList = (listName, options = {}) => {
     deleteCallback,
     allowUpload = false,
     uploadCallback,
+    uploadText = 'Upload',
   } = options
 
   const queryOptions = useMemo(() => {
@@ -50,8 +51,9 @@ export const useList = (listName, options = {}) => {
         <DocumentUpload
           listName={listName}
           addDocuments={add}
-          uploadCallback={uploadCallback}
-        />,
+          uploadCallback={uploadCallback}>
+          {uploadText}
+        </DocumentUpload>,
       ]
     return []
   }, [add, allowUpload, listName, uploadCallback])
