@@ -31,7 +31,6 @@ export const ProponentLibrary = () => {
   )[0]
 
   const uploadCallback = async (result, fileNames) => {
-    console.log('uploadCallback :>> ', result,fileNames);
     if (result === 'success') {
       logAction(`uploaded ${fileNames}`)
       try {

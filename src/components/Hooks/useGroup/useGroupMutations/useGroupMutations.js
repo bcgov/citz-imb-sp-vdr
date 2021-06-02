@@ -24,9 +24,7 @@ export const useGroupMutations = (groupId, options = {}) => {
   //   const { status, data } = queryClient.getQueryState(listName)
 
   const onSettled = useCallback(async () => {
-    console.log('onSettled')
     await queryClient.invalidateQueries(queryName)
-    console.log('onSettled end')
   }, [queryClient, queryName])
 
   const onError = useCallback(
@@ -45,7 +43,6 @@ export const useGroupMutations = (groupId, options = {}) => {
       }),
     {
       onMutate: async (newMembers) => {
-        console.log('onMutate')
         await queryClient.cancelQueries(queryName)
 
         const previousValues = queryClient.getQueryData(queryName)
@@ -62,7 +59,7 @@ export const useGroupMutations = (groupId, options = {}) => {
             })
             return member
           })
-          console.log('onMutate End')
+
           return { group: oldValues.group, members: newValues }
         })
 
@@ -70,7 +67,6 @@ export const useGroupMutations = (groupId, options = {}) => {
       },
       onError,
       onSuccess: async (data, variables, context) => {
-        console.log('onSuccess')
         await queryClient.cancelQueries()
         await addMemberCallback(data, variables, context)
         setTimeout(() => {
@@ -81,7 +77,6 @@ export const useGroupMutations = (groupId, options = {}) => {
           })
         }, 10000)
         // await queryClient.invalidateQueries()
-        console.log('onSuccess end')
       },
       // onSettled: async () => await queryClient.invalidateQueries(queryName),
     }

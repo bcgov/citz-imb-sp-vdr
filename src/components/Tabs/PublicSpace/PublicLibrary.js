@@ -23,7 +23,6 @@ export const PublicLibrary = () => {
   )[0]
 
   const uploadCallback = async (result, fileNames) => {
-    console.log('uploadCallback :>> ', result, fileNames);
     if (result === 'success') {
       await proponents.sendEmailToProponents({
         subject: publicDocumentEmail.TextValue,

@@ -31,7 +31,7 @@ export const useProponents = () => {
   // const contactEmail = config.items.filter(
   //   (item) => item.Key === 'contactEmail'
   // )[0]
-  
+
   const allowSubmissions = useMemo(
     () => config.items.filter((item) => item.Key === 'allowSubmissions')[0],
     [config.items]
@@ -112,7 +112,6 @@ export const useProponents = () => {
 
   const sendEmailToProponents = useCallback(
     async (props) => {
-      console.log('sendEmailToProponents props :>> ', props)
       const { subject, body } = props
 
       for (let i = 0; i < proponents.items.length; i++) {

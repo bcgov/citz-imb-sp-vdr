@@ -14,7 +14,7 @@ const libraryTemplate = 101
 export const useListMutations = (listName, options) => {
   const { deleteCallback = () => {} } = options
   const currentUser = useCurrentUser()
-console.log('listName :>> ', listName);
+
   const queryClient = useQueryClient()
 
   const { status, data } = queryClient.getQueryState(listName)

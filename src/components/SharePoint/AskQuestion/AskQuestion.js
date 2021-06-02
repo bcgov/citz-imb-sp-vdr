@@ -9,7 +9,7 @@ import {
   useProponents,
 } from 'components/Hooks'
 import { FormikDialog, SendConfirmationEmail } from 'components/Reusable'
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import * as Yup from 'yup'
 
 export const AskQuestion = (props) => {
@@ -21,7 +21,7 @@ export const AskQuestion = (props) => {
   const config = useConfig()
   const logAction = useLogAction()
 
-   const [formOpen, setFormOpen] = useState(false)
+  const [formOpen, setFormOpen] = useState(false)
 
   const fields = [
     {
@@ -43,7 +43,6 @@ export const AskQuestion = (props) => {
   }, [])
 
   const sendEmails = useCallback(async (proponent) => {
-
     const addQuestionEmail = config.items.filter(
       (item) => item.Key === 'addQuestionEmail'
     )[0]
@@ -88,47 +87,55 @@ export const AskQuestion = (props) => {
       body: newQuestionEmail.MultiTextValue,
       contactEmail,
     })
-  }, [
-    
-  ])
+  }, [config, currentUser])
 
-  const onSubmit = useCallback(async (values, { setSubmitting }) => {
-    let latestItem = { Id: 0 }
-    let nextQuestionNumber
+  const onSubmit = useCallback(
+    async (values, { setSubmitting }) => {
+      let latestItem = { Id: 0 }
+      let nextQuestionNumber
 
-    if (questionList.items.length > 0) {
-      for (let i = 0; i < questionList.items.length; i++) {
-        if (questionList.items[i].Id > latestItem.Id)
-          latestItem = questionList.items[i]
+      if (questionList.items.length > 0) {
+        for (let i = 0; i < questionList.items.length; i++) {
+          if (questionList.items[i].Id > latestItem.Id)
+            latestItem = questionList.items[i]
+        }
+
+        nextQuestionNumber = parseInt(latestItem.QuestionID.slice(-3)) + 1
+      } else {
+        nextQuestionNumber = 1
       }
 
-      nextQuestionNumber = parseInt(latestItem.QuestionID.slice(-3)) + 1
-    } else {
-      nextQuestionNumber = 1
-    }
+      const nextQuestionNumberString = nextQuestionNumber.toString()
 
-    const nextQuestionNumberString = nextQuestionNumber.toString()
+      values.QuestionID = `${
+        currentUser.proponent
+      }-${nextQuestionNumberString.padStart(3, '0')}`
+      values.AuthorId = currentUser.id
 
-    values.QuestionID = `${
-      currentUser.proponent
-    }-${nextQuestionNumberString.padStart(3, '0')}`
-    values.AuthorId = currentUser.id
+      const proponent = proponents.get(currentUser.proponent)
 
-    const proponent = proponents.get(currentUser.proponent)
-
-    try {
-      await questionList.add(values)
-      await sendEmails(proponent)
-      logAction(`successfully asked ${values.Question.substring(0, 100)}`)
-    } catch (error) {
-      console.error('error submitting question', error)
-      logAction(`failed to submit ${values.Question.substring(0, 100)}`, {
-        variant: 'error',
-      })
-    }
-    setSubmitting(false)
-    handleClose()
-  }, [currentUser.id, currentUser.proponent, handleClose, logAction, proponents, questionList, sendEmails])
+      try {
+        await questionList.add(values)
+        await sendEmails(proponent)
+        logAction(`successfully asked ${values.Question.substring(0, 100)}`)
+      } catch (error) {
+        console.error('error submitting question', error)
+        logAction(`failed to submit ${values.Question.substring(0, 100)}`, {
+          variant: 'error',
+        })
+      }
+      setSubmitting(false)
+      handleClose()
+    },
+    [
+      currentUser,
+      handleClose,
+      logAction,
+      proponents,
+      questionList,
+      sendEmails,
+    ]
+  )
 
   return (
     <>

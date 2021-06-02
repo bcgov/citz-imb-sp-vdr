@@ -2,7 +2,7 @@ import { Alert } from '@material-ui/lab'
 import { useCurrentUser, useList, useLogAction } from 'components/Hooks'
 import { AnswerCell, SelectColumnFilter } from 'components/Reusable'
 import { SPList } from 'components/SharePoint'
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback } from 'react'
 
 export const ProponentQuestionList = () => {
   const currentUser = useCurrentUser()
