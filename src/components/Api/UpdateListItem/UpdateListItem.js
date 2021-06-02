@@ -11,7 +11,7 @@ export const UpdateListItem = async ({ listName, listGUID, items }) => {
 	} else {
 		endPoint = `/_api/web/Lists/getByTitle('${listName}')/items`;
 	}
-
+console.log('listName :>> ', listName);
 	const listResponse = await GetList({ listName, listGUID });
 
 	let responses = [];

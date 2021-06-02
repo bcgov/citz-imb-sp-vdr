@@ -1,40 +1,27 @@
 import { Button } from '@material-ui/core'
 import PublishIcon from '@material-ui/icons/Publish'
-import {
-  SendConfirmationEmail,
-  useConfig,
-  useList,
-  useLogAction,
-} from 'components'
 import { GetGroupMembers, GetUserByEmail } from 'components/Api'
 import {
-  FormikDialog,
+  useConfig,
   useCurrentUser,
+  useList,
+  useLogAction,
   useProponents,
-} from 'components/Reusable'
-import React, { useState } from 'react'
+} from 'components/Hooks'
+import { FormikDialog, SendConfirmationEmail } from 'components/Reusable'
+import React, { useState, useMemo, useCallback } from 'react'
 import * as Yup from 'yup'
 
 export const AskQuestion = (props) => {
   const { listName } = props
 
-  const questionList = useList({ listName })
+  const questionList = useList(listName)
   const currentUser = useCurrentUser()
   const proponents = useProponents()
   const config = useConfig()
   const logAction = useLogAction()
 
-  const addQuestionEmail = config.items.filter(
-    (item) => item.Key === 'addQuestionEmail'
-  )[0]
-  const newQuestionEmail = config.items.filter(
-    (item) => item.Key === 'newQuestionEmail'
-  )[0]
-  const contactEmail = config.items.filter(
-    (item) => item.Key === 'contactEmail'
-  )[0]
-
-  const [formOpen, setFormOpen] = useState(false)
+   const [formOpen, setFormOpen] = useState(false)
 
   const fields = [
     {
@@ -47,16 +34,25 @@ export const AskQuestion = (props) => {
     },
   ]
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     setFormOpen(true)
-  }
+  }, [])
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setFormOpen(false)
-  }
+  }, [])
 
-  const sendEmails = async () => {
-    const proponent = proponents.get(currentUser.proponent)
+  const sendEmails = useCallback(async (proponent) => {
+
+    const addQuestionEmail = config.items.filter(
+      (item) => item.Key === 'addQuestionEmail'
+    )[0]
+    const newQuestionEmail = config.items.filter(
+      (item) => item.Key === 'newQuestionEmail'
+    )[0]
+    const contactEmail = config.items.filter(
+      (item) => item.Key === 'contactEmail'
+    )[0]
 
     const groupMembers = await GetGroupMembers({
       groupId: proponent.GroupId,
@@ -92,9 +88,11 @@ export const AskQuestion = (props) => {
       body: newQuestionEmail.MultiTextValue,
       contactEmail,
     })
-  }
+  }, [
+    
+  ])
 
-  const onSubmit = async (values, { setSubmitting }) => {
+  const onSubmit = useCallback(async (values, { setSubmitting }) => {
     let latestItem = { Id: 0 }
     let nextQuestionNumber
 
@@ -116,9 +114,11 @@ export const AskQuestion = (props) => {
     }-${nextQuestionNumberString.padStart(3, '0')}`
     values.AuthorId = currentUser.id
 
+    const proponent = proponents.get(currentUser.proponent)
+
     try {
-      await questionList.addItem(values)
-      await sendEmails()
+      await questionList.add(values)
+      await sendEmails(proponent)
       logAction(`successfully asked ${values.Question.substring(0, 100)}`)
     } catch (error) {
       console.error('error submitting question', error)
@@ -128,7 +128,7 @@ export const AskQuestion = (props) => {
     }
     setSubmitting(false)
     handleClose()
-  }
+  }, [currentUser.id, currentUser.proponent, handleClose, logAction, proponents, questionList, sendEmails])
 
   return (
     <>

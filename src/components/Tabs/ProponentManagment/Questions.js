@@ -10,9 +10,7 @@ export const Questions = (props) => {
 
   const questionListName = `${UUID}_Questions`
 
-  const { updateItem } = useList({
-    listName: questionListName,
-  })
+  const { updateItem } = useList(questionListName)
 
   const logAction = useLogAction()
 

@@ -18,8 +18,8 @@ export const OverView = (props) => {
   const [dialogOptions, setDialogOptions] = useState({ open: false })
 
   const logAction = useLogAction()
-  const proponentQuestions = useList({ listName: `${UUID}_Questions` })
-  const proponentLibrary = useList({ listName: UUID })
+  const proponentQuestions = useList(`${UUID}_Questions`)
+  const proponentLibrary = useList(UUID)
 
   const questionsAsked = proponentQuestions.items.length
   const questionsAnswered = proponentQuestions.items.filter(

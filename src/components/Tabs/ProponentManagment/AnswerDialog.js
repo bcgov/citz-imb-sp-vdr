@@ -24,7 +24,7 @@ export const AnswerDialog = (props) => {
   const [dialogOptions, setDialogOptions] = useState({ open })
 
   const proponents = useProponents()
-  const publicQuestions = useList({ listName: 'Questions' })
+  const publicQuestions = useList('Questions')
   const config = useConfig()
   const logAction = useLogAction()
 
@@ -35,7 +35,7 @@ export const AnswerDialog = (props) => {
     (item) => item.Key === 'newAnswerEmail'
   )[0]
 
-  const proponentQuestions = useList({ listName: `${UUID}_Questions` })
+  const proponentQuestions = useList(`${UUID}_Questions`)
 
   const onSubmit = useCallback(
     async (values, { setSubmitting }) => {

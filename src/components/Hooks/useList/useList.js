@@ -1,10 +1,12 @@
-import { DocumentUpload } from 'components/SharePoint'
+import { DocumentUpload, AskQuestion } from 'components/SharePoint'
 import { useMemo } from 'react'
 import { useQuery } from 'react-query'
 import { useFilters, usePagination, useSortBy, useTable } from 'react-table'
 import { getList } from './getList/getList'
 import { useColumns } from './useColumns/useColumns'
 import { useListMutations } from './useListMutations/useListMutations'
+
+const libraryTemplate = 101
 
 export const useList = (listName, options = {}) => {
   const {
@@ -14,6 +16,7 @@ export const useList = (listName, options = {}) => {
     allowUpload = false,
     uploadCallback,
     uploadText = 'Upload',
+    customColumns,
   } = options
 
   const queryOptions = useMemo(() => {
@@ -41,22 +44,40 @@ export const useList = (listName, options = {}) => {
   const columns = useColumns(listName, {
     allowDelete,
     deleteCallback,
+    customColumns,
   })
 
   const { add, remove, update } = useListMutations(listName, { deleteCallback })
 
   const tableActions = useMemo(() => {
-    if (allowUpload)
-      return [
-        <DocumentUpload
-          listName={listName}
-          addDocuments={add}
-          uploadCallback={uploadCallback}>
-          {uploadText}
-        </DocumentUpload>,
-      ]
+    if (isLoading || isError) return []
+
+    if (allowUpload) {
+      if (data.list.BaseTemplate === libraryTemplate) {
+        return [
+          <DocumentUpload
+            listName={listName}
+            addDocuments={add}
+            uploadCallback={uploadCallback}>
+            {uploadText}
+          </DocumentUpload>,
+        ]
+      } else {
+        return [<AskQuestion listName={listName} />]
+      }
+    }
+
     return []
-  }, [add, allowUpload, listName, uploadCallback, uploadText])
+  }, [
+    add,
+    allowUpload,
+    data,
+    isError,
+    isLoading,
+    listName,
+    uploadCallback,
+    uploadText,
+  ])
 
   const table = useTable(
     {

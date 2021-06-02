@@ -5,7 +5,7 @@ import { getViewColumns } from './getColumns/getViewColumns'
 import { useListMutations } from '../useListMutations/useListMutations'
 
 export const useColumns = (listName, options) => {
-  const { allowDelete = false, deleteCallback } = options
+  const { allowDelete = false, deleteCallback, customColumns = [] } = options
 
   const { remove } = useListMutations(listName, { deleteCallback })
 
@@ -21,9 +21,23 @@ export const useColumns = (listName, options) => {
 
     if (allowDelete) additionalColumns.push(deleteColumn(remove))
 
-    return [...additionalColumns, ...viewColumns]
+    const modifiedColumns = []
+
+    for (let i = 0; i < viewColumns.length; i++) {
+      const element = customColumns.filter(
+        (column) => column.accessor === viewColumns[i].accessor
+      )[0]
+
+      if (element) {
+        modifiedColumns.push(element)
+      } else {
+        modifiedColumns.push(viewColumns[i])
+      }
+    }
+
+    return [...additionalColumns, ...modifiedColumns]
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allowDelete, data, status])
+  }, [status])
 
   return columns
 }

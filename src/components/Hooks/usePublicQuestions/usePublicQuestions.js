@@ -1,5 +1,5 @@
 import { useList } from 'components/Hooks'
 
 export const usePublicQuestions = () => {
-	return useList({ listName: 'Questions' })
+	return useList('Questions')
 }

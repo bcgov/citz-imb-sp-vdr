@@ -2,34 +2,37 @@ import { Alert } from '@material-ui/lab'
 import { useCurrentUser, useList, useLogAction } from 'components/Hooks'
 import { AnswerCell, SelectColumnFilter } from 'components/Reusable'
 import { SPList } from 'components/SharePoint'
-import React from 'react'
-import { AskQuestion } from './AskQuestion'
+import React, { useCallback, useMemo } from 'react'
 
 export const ProponentQuestionList = () => {
   const currentUser = useCurrentUser()
   const logAction = useLogAction()
-  const proponentQuestionListName = `${currentUser.proponent}_Questions`
+  const listName = `${currentUser.proponent}_Questions`
 
-  const { updateItem } = useList({ listName: proponentQuestionListName })
+  const { update } = useList(listName)
 
-  const handleWithdraw = async (row) => {
-    try {
-      await updateItem({
-        Id: row.original.Id,
-        Withdrawn: true,
-        AnswerStatus: 'Withdrawn',
-        Assignee: '',
-      })
-      logAction(`successfully withdrew '${row.values.Question}'`)
-    } catch (error) {
-      console.error(error)
-      logAction(`failed to withdraw '${row.values.Question}'`, {
-        variant: 'error',
-      })
-    }
-  }
+  const handleWithdraw = useCallback(
+    async (row) => {
+      try {
+        await update({
+          Id: row.original.Id,
+          Withdrawn: true,
+          AnswerStatus: 'Withdrawn',
+          Assignee: '',
+        })
+        logAction(`successfully withdrew '${row.values.Question}'`)
+      } catch (error) {
+        console.error(error)
+        logAction(`failed to withdraw '${row.values.Question}'`, {
+          variant: 'error',
+        })
+      }
+    },
+    [logAction, update]
+  )
 
   const initialState = { sortBy: [{ id: 'Created', desc: true }] }
+
   const customColumns = [
     {
       Filter: SelectColumnFilter,
@@ -42,28 +45,24 @@ export const ProponentQuestionList = () => {
             showWithdrawButton={true}
             handleWithdraw={handleWithdraw}
             value={value}
-            proponentQuestionsListName={proponentQuestionListName}
+            listName={listName}
           />
         )
       },
     },
   ]
 
-  const tableProps = {
-    title: 'Submitted Questions',
-    columnFiltering: true,
-    tableActions: [<AskQuestion listName={proponentQuestionListName} />],
-  }
-
   if (!currentUser.isProponent)
     return <Alert severity={'info'}>User is not a proponent</Alert>
 
   return (
     <SPList
-      listName={proponentQuestionListName}
+      listName={listName}
       customColumns={customColumns}
       initialState={initialState}
-      tableProps={tableProps}
+      title={'Submitted Questions'}
+      columnFiltering={true}
+      allowUpload={true}
     />
   )
 }

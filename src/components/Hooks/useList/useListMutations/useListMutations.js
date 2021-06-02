@@ -14,7 +14,7 @@ const libraryTemplate = 101
 export const useListMutations = (listName, options) => {
   const { deleteCallback = () => {} } = options
   const currentUser = useCurrentUser()
-
+console.log('listName :>> ', listName);
   const queryClient = useQueryClient()
 
   const { status, data } = queryClient.getQueryState(listName)
@@ -47,25 +47,26 @@ export const useListMutations = (listName, options) => {
   )
 
   const updateItemMutation = useMutation(
-    (updateItem) => UpdateListItem({ listName, items: updateItem }),
+    (items) => UpdateListItem({ listName, items }),
     {
-      onMutate: async (updateItem) => {
+      onMutate: async (items) => {
         const previousValues = queryClient.getQueryData(listName)
 
-        queryClient.setQueryData(listName, (oldValues) => {
-          let newValues = [...oldValues.items]
+        // queryClient.setQueryData(listName, (oldValues) => {
+        //   console.log('oldValues :>> ', oldValues);
+        //   let newValues = [...oldValues.items]
 
-          const itemIndex = newValues.findIndex(
-            (item) => item.Id === updateItem.Id
-          )
+        //   const itemIndex = newValues.findIndex(
+        //     (item) => item.Id === items.Id
+        //   )
 
-          newValues[itemIndex] = {
-            ...newValues[itemIndex],
-            ...updateItem,
-          }
+        //   newValues[itemIndex] = {
+        //     ...newValues[itemIndex],
+        //     ...items,
+        //   }
 
-          return { list: oldValues.list, items: newValues }
-        })
+        //   return { list: oldValues.list, items: newValues }
+        // })
 
         return { previousValues }
       },
