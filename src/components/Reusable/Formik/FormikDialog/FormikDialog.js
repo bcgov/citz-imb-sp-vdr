@@ -8,7 +8,7 @@ import {
   LinearProgress,
 } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
-import { FormikControls } from 'components'
+import { FormikControls } from 'components/Reusable/Formik'
 import { Form, Formik } from 'formik'
 import { Markup } from 'interweave'
 import React, { useMemo } from 'react'
@@ -54,7 +54,7 @@ export const FormikDialog = (props) => {
 
     return { initialValues, controls }
   }, [fields, open])
-  
+
   const validationSchema = useMemo(() => {
     if (validationSchemaProps) {
       return validationSchemaProps

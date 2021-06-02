@@ -1,6 +1,8 @@
+// import { ProponentManagement } from 'components/Tabs'
+import { Membership } from 'components/Tabs/ProponentManagment/Membership'
 import React from 'react'
-import { ProponentQuestionList } from 'components/Tabs/MyOrganization/ProponentQuestionList'
 
 export const Test = () => {
-  return <ProponentQuestionList />
+  // return <ProponentManagement />
+  return <Membership GroupId={2499} Title={'Proponent A'} />
 }

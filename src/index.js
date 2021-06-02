@@ -1,11 +1,11 @@
 // import * as serviceWorker from './Helper/serviceWorker'
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 import { App } from 'components/Aapp'
+import { SnackbarProvider } from 'notistack'
 import 'react-app-polyfill/ie9'
 import 'react-app-polyfill/stable'
 import ReactDOM from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { SnackbarProvider } from 'notistack'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 5 } },

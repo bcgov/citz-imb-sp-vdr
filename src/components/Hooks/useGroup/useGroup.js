@@ -1,120 +1,112 @@
-import {
-	AddUsersToGroup,
-	ChangeGroupOwner,
-	DeleteGroup,
-	RemoveUsersFromGroup,
-} from 'components/Api';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { getGroup } from './getGroup/getGroup';
+import { useProponents } from 'components/Hooks'
+import { useCallback, useMemo } from 'react'
+import { useQuery } from 'react-query'
+import { useFilters, usePagination, useSortBy, useTable } from 'react-table'
+import { AddMember } from './AddMember/AddMember'
+import { removeMemberColumn } from './customColumns/removeMemberColumn'
+import { getGroup } from './getGroup/getGroup'
+import { useGroupMutations } from './useGroupMutations/useGroupMutations'
 
-export const useGroup = (props) => {
-	const { groupId } = props;
+export const useGroup = (groupId, options = {}) => {
+  const {
+    allowRemoveMember = false,
+    allowAddMember = false,
+    addMemberCallback,
+    removeMemberCallback,
+  } = options
+  const queryName = useMemo(() => ['Group', groupId], [groupId])
 
-	const queryName = ['Group', groupId];
+  const proponents = useProponents()
 
-	const group = useQuery(queryName, () => getGroup(groupId));
+  const { data, isFetching, isLoading, isError } = useQuery(queryName, () =>
+    getGroup(groupId)
+  )
 
-	const queryClient = useQueryClient();
+  const members = useMemo(() => {
+    if (isLoading || isError) return []
+    return data.members
+  }, [data, isError, isLoading])
 
-	const addMemberMutation = useMutation(
-		(values) =>
-			AddUsersToGroup({
-				groupId: groupId,
-				loginNames: values.members.map((user) => user.Key),
-			}),
-		{
-			onMutate: async (newMembers) => {
-				await queryClient.cancelQueries(queryName);
+  const { addMembers, removeMember } = useGroupMutations(groupId, {
+    addMemberCallback,
+    removeMemberCallback,
+  })
 
-				const previousValues = queryClient.getQueryData(queryName);
+  const columns = useMemo(() => {
+    const cols = [
+      {
+        Header: 'Title',
+        accessor: 'Title',
+        Filter: true,
+        disableFilters: true,
+      },
+      {
+        Header: 'E-mail',
+        accessor: 'Email',
+        Filter: true,
+        disableFilters: true,
+      },
+    ]
 
-				queryClient.setQueryData(queryName, (oldValues) => {
-					let newValues = [...oldValues.members];
+    if (allowRemoveMember) cols.push(removeMemberColumn(removeMember))
 
-					newMembers.members.map((member, index) => {
-						newValues.push({
-							Id: `temp_${index}`,
-							Email: member.EntityData.Email,
-							Title: member.EntityData.DisplayName,
-							LoginName: member.Key,
-						});
-						return member;
-					});
+    return cols
+  }, [allowRemoveMember, removeMember])
 
-					return { group: oldValues.group, members: newValues };
-				});
+  const table = useTable(
+    {
+      columns,
+      data: members,
+    },
+    useFilters,
+    useSortBy,
+    usePagination
+  )
 
-				return { previousValues };
-			},
-			onError: (error, newItem, context) => {
-				console.error('error: ', error);
-				queryClient.setQueryData(queryName, context.previousValues);
-			},
-		}
-	);
+  const addMemberSubmit = useCallback(
+    async (values) => {
+      for (let i = 0; i < values.members.length; i++) {
+        if (proponents.allUserIds.includes(values.members[i].Key)) {
+          alert(
+            `${values.members[i].DisplayText} is already a member of a proponent`
+          )
+          return
+        }
+      }
 
-	const removeMemberMutation = useMutation(
-		(userId) =>
-			RemoveUsersFromGroup({
-				groupId,
-				userIds: userId,
-			}),
-		{
-			onMutate: (userId) => {
-				const previousValues = queryClient.getQueryData(queryName);
+      await addMembers(values)
+    },
+    [addMembers, proponents.allUserIds]
+  )
 
-				queryClient.setQueryData(queryName, (oldValues) => {
-					return {
-						...oldValues,
-						members: oldValues.members.filter(
-							(member) => member.Id !== userId
-						),
-					};
-				});
+  const tableActions = useMemo(() => {
+    if (allowAddMember)
+      return [
+        <AddMember addMemberSubmit={addMemberSubmit}>Add Member</AddMember>,
+      ]
+    return []
+  }, [addMemberSubmit, allowAddMember])
 
-				return { previousValues };
-			},
-			onError: (error, values, context) =>
-				queryClient.setQueryData(queryName, context.previousValues),
-		}
-	);
-
-	const changeGroupOwnerMutation = useMutation(
-		(newOwnerId) =>
-			ChangeGroupOwner({
-				groupId: group.data.Id,
-				ownerGroupId: newOwnerId,
-			}),
-		{
-			onSuccess: () => queryClient.refetchQueries(queryName),
-		}
-	);
-	const deleteGroupMutation = useMutation(
-		() =>
-			DeleteGroup({
-				groupId,
-			}),
-		{
-			onSuccess: () => queryClient.invalidateQueries(queryName),
-		}
-	);
-
-	return {
-		...group.data,
-		isLoading: group.isLoading,
-		isError: group.isError,
-		isMutating: changeGroupOwnerMutation.isLoading
-			? true
-			: deleteGroupMutation.isLoading
-			? true
-			: addMemberMutation.isLoading
-			? true
-			: removeMemberMutation.isLoading
-			? true
-			: false,
-		changeGroupOwner: changeGroupOwnerMutation.mutateAsync,
-		deleteGroup: deleteGroupMutation.mutateAsync,
-		addMember: addMemberMutation.mutateAsync,
-		removeMember: removeMemberMutation.mutateAsync,
-	};
-};
+  return {
+    members,
+    isLoading,
+    isFetching,
+    table: { ...table, tableActions },
+    // ...group.data,
+    // isLoading: group.isLoading,
+    // isError: group.isError,
+    // isMutating: changeGroupOwnerMutation.isLoading
+    //   ? true
+    //   : deleteGroupMutation.isLoading
+    //   ? true
+    //   : addMemberMutation.isLoading
+    //   ? true
+    //   : removeMemberMutation.isLoading
+    //   ? true
+    //   : false,
+    // changeGroupOwner: changeGroupOwnerMutation.mutateAsync,
+    // deleteGroup: deleteGroupMutation.mutateAsync,
+    // addMember: addMemberMutation.mutateAsync,
+    removeMember,
+  }
+}

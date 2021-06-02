@@ -2,12 +2,12 @@ import { useMemo } from 'react'
 import { useQueryClient } from 'react-query'
 import { deleteColumn } from './customColumns/deleteColumn'
 import { getViewColumns } from './getColumns/getViewColumns'
-import { useMutations } from '../useMutations/useMutations'
+import { useListMutations } from '../useListMutations/useListMutations'
 
 export const useColumns = (listName, options) => {
   const { allowDelete = false, deleteCallback } = options
 
-  const { remove } = useMutations(listName, { deleteCallback })
+  const { remove } = useListMutations(listName, { deleteCallback })
 
   const queryClient = useQueryClient()
 
@@ -23,7 +23,7 @@ export const useColumns = (listName, options) => {
 
     return [...additionalColumns, ...viewColumns]
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allowDelete, data?.list, status])
+  }, [allowDelete, data, status])
 
   return columns
 }

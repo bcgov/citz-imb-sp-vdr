@@ -33,7 +33,7 @@ export const SPTable = (props) => {
     gotoPage,
     setPageSize,
     prepareRow,
-    tableActions,
+    tableActions = [],
   } = table
 
   const { pageIndex, pageSize } = state

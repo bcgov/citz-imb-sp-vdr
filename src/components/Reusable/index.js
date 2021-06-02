@@ -1,7 +1,7 @@
 export { AnswerCell } from './AnswerCell/AnswerCell';
 export * from './Filters';
 export { FormatText } from './FormatText/FormatText';
-export * from './Formik/Formik';
+export * from './Formik';
 export { getCurrentUser } from './getCurrentUser/getCurrentUser';
 export { GroupTable } from './GroupTable/GroupTable';
 export * from '../Hooks';

@@ -4,7 +4,7 @@ import { useQuery } from 'react-query'
 import { useFilters, usePagination, useSortBy, useTable } from 'react-table'
 import { getList } from './getList/getList'
 import { useColumns } from './useColumns/useColumns'
-import { useMutations } from './useMutations/useMutations'
+import { useListMutations } from './useListMutations/useListMutations'
 
 export const useList = (listName, options = {}) => {
   const {
@@ -43,7 +43,7 @@ export const useList = (listName, options = {}) => {
     deleteCallback,
   })
 
-  const { add, remove, update } = useMutations(listName, { deleteCallback })
+  const { add, remove, update } = useListMutations(listName, { deleteCallback })
 
   const tableActions = useMemo(() => {
     if (allowUpload)
@@ -56,7 +56,7 @@ export const useList = (listName, options = {}) => {
         </DocumentUpload>,
       ]
     return []
-  }, [add, allowUpload, listName, uploadCallback])
+  }, [add, allowUpload, listName, uploadCallback, uploadText])
 
   const table = useTable(
     {

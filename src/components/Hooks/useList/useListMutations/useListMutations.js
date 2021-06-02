@@ -11,7 +11,7 @@ import { useMutation, useQueryClient } from 'react-query'
 
 const libraryTemplate = 101
 
-export const useMutations = (listName, options) => {
+export const useListMutations = (listName, options) => {
   const { deleteCallback = () => {} } = options
   const currentUser = useCurrentUser()
 

@@ -1,5 +1,10 @@
-import { FormikDialog, useConfig, useList, useProponents } from 'components'
-import { useLogAction } from 'components/Reusable'
+import { FormikDialog } from 'components/Reusable'
+import {
+  useLogAction,
+  useConfig,
+  useList,
+  useProponents,
+} from 'components/Hooks'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import * as yup from 'yup'
 

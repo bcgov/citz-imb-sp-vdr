@@ -1,4 +1,4 @@
-import { PeoplePicker } from 'components'
+import { PeoplePicker } from 'components/Hooks'
 import { Field } from 'formik'
 import React from 'react'
 
