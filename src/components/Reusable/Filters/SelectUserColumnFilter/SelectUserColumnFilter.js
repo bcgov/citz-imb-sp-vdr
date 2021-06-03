@@ -16,7 +16,7 @@ export const SelectUserColumnFilter = (props) => {
     let userOptions = []
 
     for (let i = 0; i < uniqueUserIds.length; i++) {
-      const user = await GetUser({ userId: uniqueUserIds[i] })
+      const user = await GetUser(uniqueUserIds[i])
       userOptions.push(
         <option key={i} value={uniqueUserIds[i]}>
           {user.Title}

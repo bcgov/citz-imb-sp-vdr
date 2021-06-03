@@ -19,6 +19,8 @@ export const useList = (listName, options = {}) => {
     customColumns,
   } = options
 
+  if(listName === undefined) throw new Error('listName is undefined in useList')
+
   const queryOptions = useMemo(() => {
     if (preRequisite)
       return {

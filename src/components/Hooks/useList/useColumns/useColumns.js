@@ -21,18 +21,20 @@ export const useColumns = (listName, options) => {
 
     if (allowDelete) additionalColumns.push(deleteColumn(remove))
 
-    const modifiedColumns = []
+    const modifiedColumns = [...viewColumns]
 
-    for (let i = 0; i < viewColumns.length; i++) {
-      const element = customColumns.filter(
-        (column) => column.accessor === viewColumns[i].accessor
-      )[0]
-
-      if (element) {
-        modifiedColumns.push(element)
-      } else {
-        modifiedColumns.push(viewColumns[i])
+    for (let i = 0; i < customColumns.length; i++) {
+      let foundCustomColumnInViewColumns = false
+      for (let j = 0; j < viewColumns.length; j++) {
+        if (customColumns[i].accessor === viewColumns[j].accessor) {
+          modifiedColumns[j] = customColumns[i]
+          foundCustomColumnInViewColumns = true
+          break
+        }
       }
+
+      if (!foundCustomColumnInViewColumns)
+        modifiedColumns.push(customColumns[i])
     }
 
     return [...additionalColumns, ...modifiedColumns]

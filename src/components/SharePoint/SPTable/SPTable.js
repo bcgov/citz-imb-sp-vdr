@@ -19,6 +19,7 @@ export const SPTable = (props) => {
     isFetching = false,
     columnFiltering = false,
     title = '',
+    showTitle=true
   } = props
 
   const {
@@ -43,7 +44,7 @@ export const SPTable = (props) => {
       <AppBar position={'static'}>
         <Toolbar>
           <Typography variant={'h6'} style={{ flexGrow: 1 }}>
-            {title}
+            {showTitle ? title : null}
           </Typography>
           {isFetching ? <CircularProgress color={'secondary'} /> : null}
           {tableActions.map((action, index) => (
