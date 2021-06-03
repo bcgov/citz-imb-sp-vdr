@@ -1,4 +1,4 @@
-import { GetSite, SendEmail } from 'components/ApiCalls';
+import { GetSite, SendEmail } from 'components/Api';
 
 const replaceText = (props) => {
 	const { text, values } = props;
@@ -13,7 +13,7 @@ const replaceText = (props) => {
 
 export const SendConfirmationEmail = async (props) => {
 	const {
-		addresses,
+		// addresses,
 		proponent,
 		subject,
 		body,
