@@ -17,7 +17,7 @@ export const useGroup = (groupId, options = {}) => {
   const queryName = useMemo(() => ['Group', groupId], [groupId])
 
   const proponents = useProponents()
-
+  
   const { data, isFetching, isLoading, isError } = useQuery(queryName, () =>
     getGroup(groupId)
   )
@@ -27,9 +27,17 @@ export const useGroup = (groupId, options = {}) => {
     return data.members
   }, [data, isError, isLoading])
 
+  const removeCallback = useCallback(
+    async (data, variables, context) => {
+      await proponents.refetch()
+      removeMemberCallback(data, variables, context)
+    },
+    [proponents, removeMemberCallback]
+  )
+
   const { addMembers, removeMember } = useGroupMutations(groupId, {
     addMemberCallback,
-    removeMemberCallback,
+    removeMemberCallback: removeCallback,
   })
 
   const columns = useMemo(() => {
@@ -75,8 +83,9 @@ export const useGroup = (groupId, options = {}) => {
       }
 
       await addMembers(values)
+      await proponents.refetch()
     },
-    [addMembers, proponents.allUserIds]
+    [addMembers, proponents]
   )
 
   const tableActions = useMemo(() => {

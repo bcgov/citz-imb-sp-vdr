@@ -44,7 +44,7 @@ export const PublicLibrary = () => {
 
   return (
     <SPList
-      listName={publicLibrary}
+      listName={listName}
       // dialogProps={dialogProps}
       uploadCallback={uploadCallback}
       allowUpload={currentUser.isOwner}

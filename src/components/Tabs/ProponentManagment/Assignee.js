@@ -34,7 +34,6 @@ export const Assignee = (props) => {
       if (value === 'post') {
         setDialogOpen(true)
       } else {
-        console.log('Id :>> ', Id)
         update({
           Id: Id,
           AnswerStatus: 'Under Review',

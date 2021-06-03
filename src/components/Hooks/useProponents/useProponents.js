@@ -119,7 +119,6 @@ export const useProponents = () => {
           groupId: proponents.items[i].GroupId,
         })
         if (groupMembers.length) {
-          console.log('groupMembers :>> ', groupMembers)
           await SendConfirmationEmail({
             addresses: groupMembers.map((member) => member.LoginName),
             proponent: proponents.items[i].Title,
@@ -192,6 +191,6 @@ export const useProponents = () => {
     allowSubmissions: allowSubmissions?.YesNoValue,
     toggleAllowSubmissions,
     allUserIds,
-    reQuery: proponents.reQuery,
+    refetch: proponents.refetch,
   }
 }
