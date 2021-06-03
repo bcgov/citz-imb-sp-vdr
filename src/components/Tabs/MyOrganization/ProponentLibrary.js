@@ -4,9 +4,9 @@ import {
   useProponents,
   useConfig,
   useLogAction,
-  SendConfirmationEmail,
-} from 'components'
-import { SPLibrary } from 'components/SharePoint'
+} from 'components/Hooks'
+import { SendConfirmationEmail } from 'components/Reusable'
+import { SPList } from 'components/SharePoint'
 import React from 'react'
 
 export const ProponentLibrary = () => {
@@ -64,7 +64,7 @@ export const ProponentLibrary = () => {
   }
 
   return (
-    <SPLibrary
+    <SPList
       uploadText='Submit a document'
       listName={listName}
       title={'Submitted Documents'}

@@ -1,11 +1,6 @@
-import {
-  FormatText,
-  FormikDialog,
-  Home,
-  useConfig,
-  useCurrentUser,
-  useLogAction,
-} from 'components'
+import { Home } from 'components/Tabs'
+import { FormatText, FormikDialog } from 'components/Reusable'
+import { useConfig, useCurrentUser, useLogAction } from 'components/Hooks'
 import React, { useEffect, useState } from 'react'
 import Cookies from 'universal-cookie'
 
@@ -56,7 +51,7 @@ export const TermsOfService = () => {
       }
     }
     return () => {}
-  }, [config.isLoading, currentUser.id, logAction])
+  }, [config.isLoading, config.items, currentUser.id, logAction])
 
   if (hasCookie) return <Home />
 

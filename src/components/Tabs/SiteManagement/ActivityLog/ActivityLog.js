@@ -1,5 +1,5 @@
 import { SPList } from 'components/SharePoint'
-import { FormikDialog } from 'components'
+import { FormikDialog } from 'components/Reusable'
 import React, { useMemo, useState } from 'react'
 import HistoryIcon from '@material-ui/icons/History'
 import { Button } from '@material-ui/core'
@@ -25,6 +25,7 @@ export const ActivityLog = () => {
 				close={() => setFormOpen(false)}
 				title='Activity Log'
 				dialogActionsTop={true}
+				cancelButtonText={'Close'}
 				maxWidth={'lg'}>
 				<SPList listName={'ActivityLog'} initialState={initialState} />
 			</FormikDialog>

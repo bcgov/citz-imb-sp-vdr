@@ -3,15 +3,15 @@ import HomeIcon from '@material-ui/icons/Home'
 import PeopleIcon from '@material-ui/icons/People'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer'
 import SettingsIcon from '@material-ui/icons/Settings'
+import { useCurrentUser } from 'components/Hooks'
 import {
-  HorizontalTabPanel,
   Proponent,
-  ProponentManagementTab,
+  ProponentManagement,
   Public,
   SiteManagement,
-  useCurrentUser,
-} from 'components'
-import React, { useState } from 'react'
+} from 'components/Tabs'
+import { HorizontalTabPanel } from 'components/Reusable'
+import { useState } from 'react'
 
 function a11yProps(index) {
   return {
@@ -84,7 +84,7 @@ export const AppTabs = () => {
       </HorizontalTabPanel>
       {currentUser.isOwner ? (
         <HorizontalTabPanel value={value} index={2}>
-          <ProponentManagementTab />
+          <ProponentManagement />
         </HorizontalTabPanel>
       ) : null}
       {currentUser.isOwner ? (

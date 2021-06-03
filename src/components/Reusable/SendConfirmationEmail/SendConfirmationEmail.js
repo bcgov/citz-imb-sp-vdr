@@ -13,7 +13,7 @@ const replaceText = (props) => {
 
 export const SendConfirmationEmail = async (props) => {
 	const {
-		addresses,
+		// addresses,
 		proponent,
 		subject,
 		body,

@@ -1,7 +1,38 @@
-import { useConfig } from 'components'
+import { SPList } from 'components/SharePoint'
+import { ActivityLog } from './ActivityLog/ActivityLog'
+import { EditItem } from './EditItem/EditItem'
 
 export const SiteManagement = () => {
-  const config = useConfig()
+  const initialState = {
+    hiddenColumns: [
+      'GroupValueId',
+      'MultiTextValue',
+      'NumberValue',
+      'TextValue',
+      'YesNoValue',
+      'Instructions',
+    ],
+    columnOrder: ["Edit"]
+  }
+  const customColumns = [
+    {
+      Header: 'Edit',
+      Footer: 'Edit',
+      accessor: 'Edit',
+      id: 'Edit',
+      Cell: ({row}) => <EditItem {...row} />,
+    },
+  ]
 
-  return config.render
+  const additionalTableActions = [<ActivityLog />]
+
+  return (
+    <SPList
+      listName={'config'}
+      initialState={initialState}
+      customColumns={customColumns}
+      showTitle={false}
+      additionalTableActions={additionalTableActions}
+    />
+  )
 }

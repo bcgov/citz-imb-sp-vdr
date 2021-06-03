@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { AppTabs } from '../AppTabs'
+import { AppTabs } from './AppTabs'
 
 export const Home = () => {
 	const [isHome, setIsHome] = useState(false)

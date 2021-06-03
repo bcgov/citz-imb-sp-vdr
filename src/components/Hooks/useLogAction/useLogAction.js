@@ -1,4 +1,4 @@
-import { useCurrentUser } from 'components'
+import { useCurrentUser } from 'components/Hooks'
 import { AddItemsToList } from 'components/Api'
 import * as moment from 'moment'
 import { useSnackbar } from 'notistack'

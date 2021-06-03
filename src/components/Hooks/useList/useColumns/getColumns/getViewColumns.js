@@ -1,11 +1,11 @@
 import { Link } from '@material-ui/core'
 import moment from 'moment'
-import React, { useMemo } from 'react'
-import { ColumnFilter } from '../../../Reusable/Filters/ColumnFilter/ColumnFilter'
-import { SelectUserColumnFilter } from '../../../Reusable/Filters/SelectUserColumnFilter/SelectUserColumnFilter'
-import { User } from '../User/User'
+import React from 'react'
+import { ColumnFilter, SelectUserColumnFilter } from 'components/Reusable'
+import { User } from '../../User/User'
 
-export const getColumns = (props) => {
+export const getViewColumns = (props) => {
+  if (!props) return []
   const { CurrentView, Fields } = props
   const fields = Fields.results
   const viewColumns = CurrentView.ViewFields.Items.results
@@ -56,8 +56,8 @@ export const getColumns = (props) => {
           }
           newColumn.Cell = ({ row }) => {
             return (
-              <Link href={row.original.File.ServerRelativeUrl}>
-                {row.original.File.Name}
+              <Link href={row.original.File?.ServerRelativeUrl}>
+                {row.original.File?.Name ?? ''}
               </Link>
             )
           }

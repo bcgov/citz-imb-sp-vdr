@@ -13,7 +13,7 @@ export const AddUsersToGroup = async ({ groupId, groupName, loginNames }) => {
 
 	const responses = [];
 
-	loginNames.forEach(async (loginName) => {
+	await loginNames.forEach(async (loginName) => {
 		const response = await RestCall({
 			endPoint: endPoint,
 			method: 'post',

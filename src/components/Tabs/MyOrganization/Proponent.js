@@ -1,5 +1,5 @@
 import { makeStyles, Tab, Tabs } from '@material-ui/core'
-import { VerticalTabPanel } from 'components'
+import { VerticalTabPanel } from 'components/Reusable'
 import React, { useState } from 'react'
 import { ProponentLibrary } from './ProponentLibrary'
 import { ProponentQuestionList } from './ProponentQuestionList'
