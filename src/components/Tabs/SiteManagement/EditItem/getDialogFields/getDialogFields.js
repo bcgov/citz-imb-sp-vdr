@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 
 export const getDialogFields = (originalRow) => {
-	let response = []
+	let fields = []
 
 	const emailFields = [
 		{
@@ -24,7 +24,7 @@ export const getDialogFields = (originalRow) => {
 
 	switch (originalRow.Key) {
 		case 'TOS':
-			response = [
+			fields = [
 				{
 					name: 'TextValue',
 					label: 'Title',
@@ -52,10 +52,10 @@ export const getDialogFields = (originalRow) => {
 			]
 			break
 		case 'addUserEmail':
-			response = emailFields
+			fields = emailFields
 			break
 		case 'contactEmail':
-			response = [
+			fields = [
 				{
 					name: 'TextValue',
 					label: 'Contact Email',
@@ -69,33 +69,34 @@ export const getDialogFields = (originalRow) => {
 			]
 			break
 		case 'addQuestionEmail':
-			response = emailFields
+			fields = emailFields
 			break
 		case 'newQuestionEmail':
-			response = emailFields
+			fields = emailFields
 			break
 		case 'newAnswerEmail':
-			response = emailFields
+			fields = emailFields
 			break
 		case 'removeUserEmail':
-			response = emailFields
+			fields = emailFields
 			break
 		case 'updatedAnswerEmail':
-			response = emailFields
+			fields = emailFields
 			break
 		case 'publicDocumentEmail':
-			response = emailFields
+			fields = emailFields
 			break
 		case 'proponentDocumentEmail':
-			response = emailFields
+			fields = emailFields
 			break
 		case 'newDocumentEmail':
-			response = emailFields
+			fields = emailFields
 			break
 		case 'viewActivityLog':
 			break
 		default:
-			response = []
+			fields = []
 	}
-	return response
+	
+	return fields
 }

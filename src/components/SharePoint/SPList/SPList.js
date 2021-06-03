@@ -4,7 +4,7 @@ import React from 'react'
 import { SPTable } from '../SPTable/SPTable'
 
 export const SPList = (props) => {
-  const { listName, showTitle,columnFiltering, ...listProps } = props
+  const { listName, showTitle, columnFiltering, ...listProps } = props
 
   const { table, isLoading, isError, error, isFetching } = useList(
     listName,

@@ -19,7 +19,7 @@ export const SPTable = (props) => {
     isFetching = false,
     columnFiltering = false,
     title = '',
-    showTitle=true
+    showTitle = true,
   } = props
 
   const {

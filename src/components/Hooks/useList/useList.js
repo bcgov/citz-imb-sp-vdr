@@ -1,7 +1,13 @@
 import { DocumentUpload, AskQuestion } from 'components/SharePoint'
 import { useMemo } from 'react'
 import { useQuery } from 'react-query'
-import { useFilters, usePagination, useSortBy, useTable } from 'react-table'
+import {
+  useColumnOrder,
+  useFilters,
+  usePagination,
+  useSortBy,
+  useTable,
+} from 'react-table'
 import { getList } from './getList/getList'
 import { useColumns } from './useColumns/useColumns'
 import { useListMutations } from './useListMutations/useListMutations'
@@ -17,9 +23,12 @@ export const useList = (listName, options = {}) => {
     uploadCallback,
     uploadText = 'Upload',
     customColumns,
+    initialState = {},
+    additionalTableActions = [],
   } = options
 
-  if(listName === undefined) throw new Error('listName is undefined in useList')
+  if (listName === undefined)
+    throw new Error('listName is undefined in useList')
 
   const queryOptions = useMemo(() => {
     if (preRequisite)
@@ -63,15 +72,17 @@ export const useList = (listName, options = {}) => {
             uploadCallback={uploadCallback}>
             {uploadText}
           </DocumentUpload>,
+          ...additionalTableActions,
         ]
       } else {
-        return [<AskQuestion listName={listName} />]
+        return [<AskQuestion listName={listName} />, ...additionalTableActions]
       }
     }
 
-    return []
+    return [...additionalTableActions]
   }, [
     add,
+    additionalTableActions,
     allowUpload,
     data,
     isError,
@@ -85,10 +96,12 @@ export const useList = (listName, options = {}) => {
     {
       columns,
       data: items,
+      initialState,
     },
     useFilters,
     useSortBy,
-    usePagination
+    usePagination,
+    useColumnOrder
   )
 
   return {
