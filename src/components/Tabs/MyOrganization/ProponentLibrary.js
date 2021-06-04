@@ -72,6 +72,7 @@ export const ProponentLibrary = () => {
       allowDelete={true}
       uploadCallback={uploadCallback}
       deleteCallback={deleteCallback}
+      columnFiltering={true}
     />
   )
 }

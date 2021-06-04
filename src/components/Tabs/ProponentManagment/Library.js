@@ -4,5 +4,5 @@ import React from 'react'
 export const Library = (props) => {
   const { UUID } = props
 
-  return <SPList listName={UUID} />
+  return <SPList listName={UUID} columnFiltering={true} />
 }
