@@ -36,7 +36,7 @@ export const useProponents = () => {
   const add = useCallback(
     async (proponentName) =>
       await createProponent(proponentName, {
-        proponentsList,
+        proponents: proponentsList,
         currentUser,
         logAction,
       }),
