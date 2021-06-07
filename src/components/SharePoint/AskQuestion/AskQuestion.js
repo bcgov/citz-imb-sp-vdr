@@ -40,44 +40,60 @@ export const AskQuestion = (props) => {
     setFormOpen(false)
   }, [])
 
-  const onSubmit = useCallback(async (values, { setSubmitting }) => {
-    let latestItem = { Id: 0 }
-    let nextQuestionNumber
+  const onSubmit = useCallback(
+    async (values, { setSubmitting }) => {
+      let latestItem = { Id: 0 }
+      let nextQuestionNumber
 
-    if (questionList.items.length > 0) {
-      for (let i = 0; i < questionList.items.length; i++) {
-        if (questionList.items[i].Id > latestItem.Id)
-          latestItem = questionList.items[i]
+      if (questionList.items.length > 0) {
+        for (let i = 0; i < questionList.items.length; i++) {
+          if (questionList.items[i].Id > latestItem.Id)
+            latestItem = questionList.items[i]
+        }
+
+        nextQuestionNumber = parseInt(latestItem.QuestionID.slice(-3)) + 1
+      } else {
+        nextQuestionNumber = 1
       }
 
-      nextQuestionNumber = parseInt(latestItem.QuestionID.slice(-3)) + 1
-    } else {
-      nextQuestionNumber = 1
-    }
+      const nextQuestionNumberString = nextQuestionNumber.toString()
 
-    const nextQuestionNumberString = nextQuestionNumber.toString()
+      values.QuestionID = `${
+        currentUser.proponent
+      }-${nextQuestionNumberString.padStart(3, '0')}`
+      values.AuthorId = currentUser.id
+      try {
+        await questionList.add(values)
+        logAction(`successfully asked ${values.Question.substring(0, 100)}`)
 
-    values.QuestionID = `${
-      currentUser.proponent
-    }-${nextQuestionNumberString.padStart(3, '0')}`
-    values.AuthorId = currentUser.id
-
-    try {
-      await questionList.add(values)
-
-      await sendEmailToCurrentProponentMembers('addQuestionEmail')
-      await sendEmailToSiteContact('newQuestionEmail')
-
-      logAction(`successfully asked ${values.Question.substring(0, 100)}`)
-    } catch (error) {
-      console.error('error submitting question', error)
-      logAction(`failed to submit ${values.Question.substring(0, 100)}`, {
-        variant: 'error',
-      })
-    }
-    setSubmitting(false)
-    handleClose()
-  }, [])
+        try {
+          await sendEmailToCurrentProponentMembers('addQuestionEmail', {
+            currentUser,
+          })
+          await sendEmailToSiteContact('newQuestionEmail', {
+            proponentId: currentUser.proponent,
+          })
+        } catch (error) {
+          console.error('error sending emails', error)
+        }
+      } catch (error) {
+        console.error('error submitting question', error)
+        logAction(`failed to submit ${values.Question.substring(0, 100)}`, {
+          variant: 'error',
+        })
+      }
+      setSubmitting(false)
+      handleClose()
+    },
+    [
+      currentUser,
+      handleClose,
+      logAction,
+      questionList,
+      sendEmailToCurrentProponentMembers,
+      sendEmailToSiteContact,
+    ]
+  )
 
   return (
     <>

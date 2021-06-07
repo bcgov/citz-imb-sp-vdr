@@ -17,7 +17,7 @@ export const useGroup = (groupId, options = {}) => {
   const queryName = useMemo(() => ['Group', groupId], [groupId])
 
   const proponents = useProponents()
-  
+
   const { data, isFetching, isLoading, isError } = useQuery(queryName, () =>
     getGroup(groupId)
   )
@@ -74,7 +74,7 @@ export const useGroup = (groupId, options = {}) => {
   const addMemberSubmit = useCallback(
     async (values) => {
       for (let i = 0; i < values.members.length; i++) {
-        if (proponents.allUserIds.includes(values.members[i].Key)) {
+        if (proponents.allUserLoginNames.includes(values.members[i].Key)) {
           alert(
             `${values.members[i].DisplayText} is already a member of a proponent`
           )

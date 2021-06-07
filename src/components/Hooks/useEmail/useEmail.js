@@ -1,133 +1,376 @@
+import { GetUser, SendEmail } from 'components/Api'
+import { useConfig, useLogAction, useProponents } from 'components/Hooks'
 import { useCallback, useMemo } from 'react'
-import {
-  useConfig,
-  useCurrentUser,
-  useLogAction,
-  useProponents,
-} from 'components/Reusable'
 // import { GetGroupMembers } from 'components/Api'
 // import { formatText } from './formatText'
 
 export const useEmail = () => {
   const config = useConfig()
-  const currentUser = useCurrentUser()
-  const {
-    add,
-    get,
-    isLoading,
-    items,
-    setActive,
-    setInactive,
-    allowSubmissions,
-    toggleAllowSubmissions,
-    refetch,
-    allUserLoginNames,
-  } = useProponents()
+  const { get: getProponent, allUserLoginNames } = useProponents()
   const logAction = useLogAction()
 
   const contactEmail = useMemo(
-    () => config.items.filter((item) => item.Key === 'contactEmail')[0],
+    () =>
+      config.items.filter((item) => item.Key === 'contactEmail')[0].TextValue,
     [config.items]
   )
 
-  const sendEmailToCurrentProponentMembers = useCallback(async (props) => {
-    console.log('sendEmailToCurrentProponentMembers props :>> ', props)
-    return 'sendEmailToCurrentProponentMembers props :>> '
-  }, [])
+  const replacementPairs = useMemo(() => {
+    return [
+      { searchvalue: /\n/g, newvalue: '<br>' },
+      // eslint-disable-next-line no-undef
+      { searchvalue: /\[Title\]/g, newvalue: _spPageContextInfo.webTitle },
+      {
+        searchvalue: /\[SiteLink\]/g,
+        // eslint-disable-next-line no-undef
+        newvalue: `<a href='${_spPageContextInfo.webAbsoluteUrl}'>${_spPageContextInfo.webTitle}</a>`,
+      },
+      {
+        searchvalue: /\[ContactEmail\]/g,
+        newvalue: contactEmail,
+      },
+    ]
+  }, [contactEmail])
 
-  const sendEmailToAllProponents = useCallback(async (props) => {
-    console.log('sendEmailToAllProponents props :>> ', props)
+  const replaceText = useCallback(
+    (text, options = {}) => {
+      const { additionalPairValues = [] } = options
+      let newText = text
 
-    console.log(
-      'allUserLoginNames :>> ',
-      allUserLoginNames
-    )
-    // console.log('sendEmailToAllProponentMembers props :>> ', {
-    //   subject,
-    //   body,
-    // })
-    // console.log('proponents :>> ', proponents)
+      const replacements = [...replacementPairs, ...additionalPairValues]
 
-    // subject = formatText(subject, {
-    //   proponent: 'proponent',
-    //   contactEmail,
-    //   additionalReplacementPairs: [
-    //     {
-    //       searchvalue: /\[UserName\]/g,
-    //       newvalue: currentUser.name,
-    //     },
-    //   ],
-    // })
-    // body = formatText(body, {
-    //   proponent: 'proponent',
-    //   contactEmail,
-    //   additionalReplacementPairs: [
-    //     {
-    //       searchvalue: /\[UserName\]/g,
-    //       newvalue: currentUser.name,
-    //     },
-    //   ],
-    // })
+      for (let i = 0; i < replacements.length; i++) {
+        newText = newText.replace(
+          replacements[i].searchvalue,
+          replacements[i].newvalue
+        )
+      }
 
-    // for (let i = 0; i < proponents.items.length; i++) {
-    //   console.log(proponents.items[i].GroupId)
-    //   const groupMembers = await GetGroupMembers({
-    //     groupId: proponents.items[i].GroupId,
-    //   })
-    //   if (groupMembers.length) {
-    //     try {
-    //       console.log('send email props: ', {
-    //         to: 'addresses',
-    //         subject,
-    //         body,
-    //         bcc: ['scott.toews@gov.bc.ca'],
-    //       })
-    //       // await SendEmail({
-    //       //     to: 'addresses',
-    //       //     subject,
-    //       //     body,
-    //       //     bcc: ['scott.toews@gov.bc.ca'],
-    //       // });
-    //     } catch (err) {
-    //       console.error('err :>> ', err)
-    //     }
-    //     // await SendConfirmationEmail({
-    //     //   addresses: groupMembers.map((member) => member.LoginName),
-    //     //  ,
-    //     //   subject,
-    //     //   body,
-    //     //   contactEmail,
-    //     // })
-    //   }
-    // }
-    logAction(`sent '${props}' email to all proponents`, {
-      snackbar: false,
-    })
-    return 'sendEmailToAllProponents props :>> '
-  }, [])
+      return newText
+    },
+    [replacementPairs]
+  )
 
-  const sendEmailToSiteContact = useCallback((props) => {
-    console.log('sendEmailToSiteContact props :>> ', props)
-    return 'sendEmailToSiteContact props :>> '
-  }, [])
+  const sendEmailToCurrentProponentMembers = useCallback(
+    async (type, options = {}) => {
+      const { currentUser } = options
 
-  const sendEmailToNewMember = useCallback((props) => {
-    console.log('sendEmailToSiteContact props :>> ', props)
-    // SendConfirmationEmail({
-    //   addresses: member.Key,
-    //   proponent: Title,
-    //   subject: addUserEmail.TextValue,
-    //   body: addUserEmail.MultiTextValue,
-    //   additionalReplacementPairs: [
-    //     {
-    //       searchvalue: /\[AddresseeName\]/g,
-    //       newvalue: member.DisplayText,
-    //     },
-    //   ],
-    //   contactEmail,
-    // })
-    return 'sendEmailToSiteContact props :>> '
-  }, [])
+      const proponentUsers = getProponent(currentUser.proponent).Users
+
+      let emailContents = []
+
+      switch (type) {
+        case 'addQuestionEmail':
+          emailContents = proponentUsers.map((user) => {
+            const subject = config.items.filter((item) => item.Key === type)[0]
+              .TextValue
+            const body = config.items.filter((item) => item.Key === type)[0]
+              .MultiTextValue
+
+            const additionalPairValues = [
+              {
+                searchvalue: /\[AddresseeName\]/g,
+                newvalue: user.Title,
+              },
+              {
+                searchvalue: /\[UserName\]/g,
+                newvalue: currentUser.name,
+              },
+              {
+                searchvalue: /\[Proponent\]/g,
+                newvalue: currentUser.proponent,
+              },
+            ]
+
+            const newBody = replaceText(body, { additionalPairValues })
+
+            const newSubject = replaceText(subject, { additionalPairValues })
+
+            return [
+              {
+                to: user.LoginName,
+                subject: newSubject,
+                body: newBody,
+              },
+              user.Title,
+            ]
+          })
+
+          break
+
+        case 'proponentDocumentEmail':
+          emailContents = proponentUsers.map((user) => {
+            const subject = config.items.filter((item) => item.Key === type)[0]
+              .TextValue
+            const body = config.items.filter((item) => item.Key === type)[0]
+              .MultiTextValue
+
+            const additionalPairValues = [
+              {
+                searchvalue: /\[UserName\]/g,
+                newvalue: currentUser.name,
+              },
+            ]
+
+            const newBody = replaceText(body, { additionalPairValues })
+
+            const newSubject = replaceText(subject, { additionalPairValues })
+
+            return [
+              {
+                to: user.LoginName,
+                subject: newSubject,
+                body: newBody,
+              },
+              user.Title,
+            ]
+          })
+
+          break
+
+        case 'withdrawQuestionEmail':
+          emailContents = proponentUsers.map((user) => {
+            const subject = config.items.filter((item) => item.Key === type)[0]
+              .TextValue
+            const body = config.items.filter((item) => item.Key === type)[0]
+              .MultiTextValue
+
+            const additionalPairValues = [
+              {
+                searchvalue: /\[AddresseeName\]/g,
+                newvalue: user.Title,
+              },
+              {
+                searchvalue: /\[UserName\]/g,
+                newvalue: currentUser.name,
+              },
+            ]
+
+            const newBody = replaceText(body, { additionalPairValues })
+
+            const newSubject = replaceText(subject, { additionalPairValues })
+
+            return [
+              {
+                to: user.LoginName,
+                subject: newSubject,
+                body: newBody,
+              },
+              user.Title,
+            ]
+          })
+
+          break
+
+        default:
+          console.error(
+            `sendEmailToCurrentProponentMembers type '${type}' is invalid`
+          )
+          return
+      }
+
+      try {
+        for (let i = 0; i < emailContents.length; i++) {
+          await SendEmail(emailContents[i][0])
+          logAction(`sent ${type} to ${emailContents[i][1]}`, {
+            snackbar: false,
+          })
+        }
+      } catch (err) {
+        console.error('err :>> ', err)
+      }
+      return
+    },
+    [config.items, getProponent, logAction, replaceText]
+  )
+
+  const sendEmailToAllProponents = useCallback(async (type, options = {}) => {
+    let emailContents = []
+
+    switch (type) {
+      case 'publicDocumentEmail':
+        emailContents = allUserLoginNames.map((user) => {
+          const subject = config.items.filter((item) => item.Key === type)[0]
+            .TextValue
+          const body = config.items.filter((item) => item.Key === type)[0]
+            .MultiTextValue
+
+          const newBody = replaceText(body)
+
+          const newSubject = replaceText(subject)
+
+          return {
+            to: user,
+            subject: newSubject,
+            body: newBody,
+          }
+        })
+        break
+
+      case 'newAnswerEmail':
+        emailContents = allUserLoginNames.map((user) => {
+          const subject = config.items.filter((item) => item.Key === type)[0]
+            .TextValue
+          const body = config.items.filter((item) => item.Key === type)[0]
+            .MultiTextValue
+
+          const newBody = replaceText(body)
+
+          const newSubject = replaceText(subject)
+
+          return {
+            to: user,
+            subject: newSubject,
+            body: newBody,
+          }
+        })
+        break
+
+      case 'updatedAnswerEmail':
+        emailContents = allUserLoginNames.map((user) => {
+          const subject = config.items.filter((item) => item.Key === type)[0]
+            .TextValue
+          const body = config.items.filter((item) => item.Key === type)[0]
+            .MultiTextValue
+
+          const newBody = replaceText(body)
+
+          const newSubject = replaceText(subject)
+
+          return {
+            to: user,
+            subject: newSubject,
+            body: newBody,
+          }
+        })
+        break
+
+      default:
+        console.error(`sendEmailToAllProponents type '${type}' is invalid`)
+        return
+    }
+
+    try {
+      for (let i = 0; i < emailContents.length; i++) {
+        await SendEmail(emailContents[i])
+      }
+      logAction(`sent '${type}' to all proponent members`)
+    } catch (err) {
+      console.error('err :>> ', err)
+    }
+
+    return
+  }, [allUserLoginNames, config.items, logAction, replaceText])
+
+  const sendEmailToSiteContact = useCallback(
+    async (type, options = {}) => {
+      const { userId, proponentName, proponentId } = options
+      let subject = '',
+        body = '',
+        additionalPairValues = []
+
+      switch (type) {
+        case 'removeUserEmail':
+          const user = await GetUser(userId)
+
+          additionalPairValues = [
+            {
+              searchvalue: /\[UserName\]/g,
+              newvalue: user.Title,
+            },
+            {
+              searchvalue: /\[Proponent\]/g,
+              newvalue: proponentName,
+            },
+          ]
+          break
+
+        case 'newQuestionEmail':
+          additionalPairValues = [
+            {
+              searchvalue: /\[Proponent\]/g,
+              newvalue: getProponent(proponentId).Title,
+            },
+          ]
+          break
+
+        case 'newDocumentEmail':
+          additionalPairValues = [
+            {
+              searchvalue: /\[Proponent\]/g,
+              newvalue: getProponent(proponentId).Title,
+            },
+          ]
+          break
+
+        default:
+          console.error(`sendEmailToSiteContact type '${type}' is invalid`)
+          return
+      }
+
+      subject = config.items.filter((item) => item.Key === type)[0].TextValue
+      body = config.items.filter((item) => item.Key === type)[0].MultiTextValue
+
+      const newBody = replaceText(body, { additionalPairValues })
+
+      const newSubject = replaceText(subject, { additionalPairValues })
+
+      try {
+        await SendEmail({
+          to: contactEmail,
+          subject: newSubject,
+          body: newBody,
+        })
+        logAction(`sent ${type} to ${contactEmail}`, { snackbar: false })
+      } catch (err) {
+        console.error('err :>> ', err)
+      }
+
+      return
+    },
+    [config.items, contactEmail, getProponent, logAction, replaceText]
+  )
+
+  const sendEmailToNewMember = useCallback(
+    async (options = {}) => {
+      const { member, proponentName } = options
+
+      const subject = config.items.filter(
+        (item) => item.Key === 'addUserEmail'
+      )[0].TextValue
+      const body = config.items.filter((item) => item.Key === 'addUserEmail')[0]
+        .MultiTextValue
+
+      const additionalPairValues = [
+        {
+          searchvalue: /\[AddresseeName\]/g,
+          newvalue: member.DisplayText,
+        },
+        {
+          searchvalue: /\[Proponent\]/g,
+          newvalue: proponentName,
+        },
+      ]
+
+      const newBody = replaceText(body, { additionalPairValues })
+
+      const newSubject = replaceText(subject, { additionalPairValues })
+
+      try {
+        await SendEmail({
+          to: member.Key,
+          subject: newSubject,
+          body: newBody,
+        })
+        logAction(`sent welcome email to ${member.DisplayText}`)
+      } catch (err) {
+        console.error('err :>> ', err)
+      }
+
+      return
+    },
+    [config.items, logAction, replaceText]
+  )
 
   return {
     sendEmailToAllProponents,
@@ -136,36 +379,3 @@ export const useEmail = () => {
     sendEmailToNewMember,
   }
 }
-
-/*
-
-const sendEmailToProponents = useCallback(
-    async (props) => {
-      const { subject, body } = props
-
-      for (let i = 0; i < proponents.items.length; i++) {
-        const groupMembers = await GetGroupMembers({
-          groupId: proponents.items[i].GroupId,
-        })
-        if (groupMembers.length) {
-          await SendConfirmationEmail({
-            addresses: groupMembers.map((member) => member.LoginName),
-            proponent: proponents.items[i].Title,
-            subject,
-            body,
-            contactEmail,
-            additionalReplacementPairs: [
-              {
-                searchvalue: /\[UserName\]/g,
-                newvalue: currentUser.name,
-              },
-            ],
-          })
-        }
-      }
-    },
-    [contactEmail, currentUser, proponents]
-  )
-
-
-*/

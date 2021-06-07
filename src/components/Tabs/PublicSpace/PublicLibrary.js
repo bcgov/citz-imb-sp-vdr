@@ -11,7 +11,7 @@ export const PublicLibrary = () => {
   const uploadCallback = async (result, fileNames) => {
     if (result === 'success') {
       logAction(`uploaded ${fileNames}`)
-      sendEmailToAllProponents('publicDocumentEmail')
+      await sendEmailToAllProponents('publicDocumentEmail')
     } else {
       logAction(`failed to upload ${fileNames}`, { variant: 'error' })
     }

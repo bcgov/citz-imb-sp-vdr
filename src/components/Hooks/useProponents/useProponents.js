@@ -78,7 +78,7 @@ export const useProponents = () => {
       allUsers.push(...data[i].Users.map((user) => user.LoginName))
     }
 
-    return []
+    return allUsers
   }, [data, isLoading, isError])
 
   const get = useCallback(

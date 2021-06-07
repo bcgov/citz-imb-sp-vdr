@@ -5,7 +5,8 @@ import React from 'react'
 
 export const ProponentLibrary = () => {
   const currentUser = useCurrentUser()
-  const { sendEmailToAllProponents, sendEmailToSiteContact } = useEmail()
+  const { sendEmailToCurrentProponentMembers, sendEmailToSiteContact } =
+    useEmail()
   const logAction = useLogAction()
 
   if (!currentUser.isProponent)
@@ -17,11 +18,12 @@ export const ProponentLibrary = () => {
     if (result === 'success') {
       logAction(`uploaded ${fileNames}`)
       try {
-        await sendEmailToAllProponents('proponentDocumentEmail')
-
-        await sendEmailToSiteContact('newDocumentEmail')
-
-        logAction(`successfully sent email notifications`)
+        await sendEmailToCurrentProponentMembers('proponentDocumentEmail', {
+          currentUser,
+        })
+        await sendEmailToSiteContact('newDocumentEmail', {
+          proponentId: currentUser.proponent,
+        })
       } catch (error) {
         console.error(error)
         logAction(`failed to send email notifications`, { variant: 'error' })

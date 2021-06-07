@@ -1,9 +1,4 @@
-import {
-  useConfig,
-  useList,
-  useLogAction,
-  useProponents,
-} from 'components/Hooks'
+import { useEmail, useList, useLogAction } from 'components/Hooks'
 import { FormikDialog } from 'components/Reusable'
 import React, { useCallback, useMemo } from 'react'
 import * as yup from 'yup'
@@ -20,77 +15,63 @@ export const AnswerDialog = (props) => {
     listName,
   } = props
 
-
   const publicQuestions = useList('Questions')
-  const config = useConfig()
   const logAction = useLogAction()
+  const { sendEmailToAllProponents } = useEmail()
 
   const proponentQuestions = useList(listName)
 
-  const onSubmit = useCallback(async (values, { setSubmitting }) => {
-    let questionsItem, subject, body
+  const onSubmit = useCallback(
+    async (values, { setSubmitting }) => {
+      let questionsItem
 
-    const updatedAnswerEmail = config.items.filter(
-      (item) => item.Key === 'updatedAnswerEmail'
-    )[0]
-
-    const newAnswerEmail = config.items.filter(
-      (item) => item.Key === 'newAnswerEmail'
-    )[0]
-
-    try {
-      if (values.previousAnswer) {
-        questionsItem = [{ Id: values.previousAnswer }]
-      } else {
-        if (isUpdate) {
-          //! may break if changed to selected previous answer
-          questionsItem = await publicQuestions.update({
-            Id: Answer,
-            Question: values.sanitizedQuestion,
-            Answer: values.answer,
-          })
-
-          subject = updatedAnswerEmail.TextValue
-          body = updatedAnswerEmail.MultiTextValue
+      try {
+        if (values.previousAnswer) {
+          questionsItem = [{ Id: values.previousAnswer }]
         } else {
-          questionsItem = await publicQuestions.add({
-            Question: values.sanitizedQuestion,
-            Answer: values.answer,
-          })
-          await proponentQuestions.update({
-            Id: values.Id,
-            Answer: questionsItem[0].Id.toString(),
-            AnswerStatus: 'Posted',
-            Assignee: 'Posted Answer',
-          })
-
-          subject = newAnswerEmail.TextValue
-          body = newAnswerEmail.MultiTextValue
+          if (isUpdate) {
+            //! may break if changed to selected previous answer
+            questionsItem = await publicQuestions.update({
+              Id: Answer,
+              Question: values.sanitizedQuestion,
+              Answer: values.answer,
+            })
+            await sendEmailToAllProponents('updatedAnswerEmail')
+          } else {
+            questionsItem = await publicQuestions.add({
+              Question: values.sanitizedQuestion,
+              Answer: values.answer,
+            })
+            await proponentQuestions.update({
+              Id: values.Id,
+              Answer: questionsItem[0].Id.toString(),
+              AnswerStatus: 'Posted',
+              Assignee: 'Posted Answer',
+            })
+            logAction(`answered question '${values.sanitizedQuestion}'`)
+            await sendEmailToAllProponents('newAnswerEmail')
+          }
         }
-        logAction(`answered question '${values.sanitizedQuestion}'`)
-        try {
-          //! await proponents.sendEmailToProponents({
-          //   subject,
-          //   body,
-          // })
-          logAction(`send email to proponents`)
-        } catch (error) {
-          console.error(error)
-          logAction(`send email failed`, {
-            variant: 'error',
-          })
-        }
+      } catch (error) {
+        console.error(error)
+        logAction(`answer question failed '${values.sanitizedQuestion}'`, {
+          variant: 'error',
+        })
       }
-    } catch (error) {
-      console.error(error)
-      logAction(`answer question failed '${values.sanitizedQuestion}'`, {
-        variant: 'error',
-      })
-    }
 
-    setSubmitting(false)
-    closeAnswerDialog()
-  }, [])
+      setSubmitting(false)
+      closeAnswerDialog()
+    },
+    [
+      Answer,
+      closeAnswerDialog,
+      isUpdate,
+      logAction,
+      proponentQuestions,
+      publicQuestions,
+      sendEmailToAllProponents,
+    ]
+  )
 
   const getOptions = useCallback(() => {
     const options = publicQuestions.items.map((item) => {

@@ -8,18 +8,27 @@ export const Membership = (props) => {
   const { sendEmailToSiteContact, sendEmailToNewMember } = useEmail()
   const logAction = useLogAction()
 
-  const addMemberCallback = useCallback(async (data, variables, context) => {
-    const members = variables.members.map((member) => member.DisplayText)
+  const addMemberCallback = useCallback(
+    async (data, variables, context) => {
+      const members = variables.members.map((member) => member.DisplayText)
 
-    logAction(`added ${members.join('; ')} to ${Title} group`)
-    await variables.members.map(async (member) => {
-      logAction(await sendEmailToNewMember('addUserEmail', member))
-    })
-  }, [])
+      logAction(`added ${members.join('; ')} to ${Title} group`)
+      await variables.members.map(async (member) => {
+        await sendEmailToNewMember({ member, proponentName:Title })
+      })
+    },
+    [Title, logAction, sendEmailToNewMember]
+  )
 
-  const removeMemberCallback = useCallback(async (data, variables, context) => {
-    logAction(await sendEmailToSiteContact('removeUserEmail'))
-  }, [])
+  const removeMemberCallback = useCallback(
+    async (data, variables, context) => {
+      await sendEmailToSiteContact('removeUserEmail', {
+        userId: variables,
+        proponentName: Title,
+      })
+    },
+    [Title, sendEmailToSiteContact]
+  )
 
   return (
     <SPGroup
