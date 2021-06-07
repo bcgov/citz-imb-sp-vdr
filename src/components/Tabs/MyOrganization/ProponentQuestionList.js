@@ -71,7 +71,7 @@ export const ProponentQuestionList = () => {
       listName={listName}
       customColumns={customColumns}
       initialState={initialState}
-      title={'Submitted Questions'}
+      title={'Questions'}
       columnFiltering={true}
       allowUpload={true}
     />
