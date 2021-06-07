@@ -33,9 +33,13 @@ export const ProponentLibrary = () => {
     }
   }
 
-  const deleteCallback = async (result, fileName) => {
-    if (result === 'success') {
+  const deleteCallback = async (isSuccess, fileName) => {
+
+    if (isSuccess) {
       logAction(`deleted ${fileName}`)
+      sendEmailToCurrentProponentMembers('ProponentDeleteDocumentEmail', {
+        currentUser,
+      })
     } else {
       logAction(`failed to delete ${fileName}`, { variant: 'error' })
     }

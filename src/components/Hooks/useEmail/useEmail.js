@@ -162,6 +162,40 @@ export const useEmail = () => {
 
           break
 
+        case 'ProponentDeleteDocumentEmail':
+          emailContents = proponentUsers.map((user) => {
+            const subject = config.items.filter((item) => item.Key === type)[0]
+              .TextValue
+            const body = config.items.filter((item) => item.Key === type)[0]
+              .MultiTextValue
+
+            const additionalPairValues = [
+              {
+                searchvalue: /\[AddresseeName\]/g,
+                newvalue: user.Title,
+              },
+              {
+                searchvalue: /\[UserName\]/g,
+                newvalue: currentUser.name,
+              },
+            ]
+
+            const newBody = replaceText(body, { additionalPairValues })
+
+            const newSubject = replaceText(subject, { additionalPairValues })
+
+            return [
+              {
+                to: user.LoginName,
+                subject: newSubject,
+                body: newBody,
+              },
+              user.Title,
+            ]
+          })
+
+          break
+
         default:
           console.error(
             `sendEmailToCurrentProponentMembers type '${type}' is invalid`
@@ -184,83 +218,86 @@ export const useEmail = () => {
     [config.items, getProponent, logAction, replaceText]
   )
 
-  const sendEmailToAllProponents = useCallback(async (type, options = {}) => {
-    let emailContents = []
+  const sendEmailToAllProponents = useCallback(
+    async (type, options = {}) => {
+      let emailContents = []
 
-    switch (type) {
-      case 'publicDocumentEmail':
-        emailContents = allUserLoginNames.map((user) => {
-          const subject = config.items.filter((item) => item.Key === type)[0]
-            .TextValue
-          const body = config.items.filter((item) => item.Key === type)[0]
-            .MultiTextValue
+      switch (type) {
+        case 'publicDocumentEmail':
+          emailContents = allUserLoginNames.map((user) => {
+            const subject = config.items.filter((item) => item.Key === type)[0]
+              .TextValue
+            const body = config.items.filter((item) => item.Key === type)[0]
+              .MultiTextValue
 
-          const newBody = replaceText(body)
+            const newBody = replaceText(body)
 
-          const newSubject = replaceText(subject)
+            const newSubject = replaceText(subject)
 
-          return {
-            to: user,
-            subject: newSubject,
-            body: newBody,
-          }
-        })
-        break
+            return {
+              to: user,
+              subject: newSubject,
+              body: newBody,
+            }
+          })
+          break
 
-      case 'newAnswerEmail':
-        emailContents = allUserLoginNames.map((user) => {
-          const subject = config.items.filter((item) => item.Key === type)[0]
-            .TextValue
-          const body = config.items.filter((item) => item.Key === type)[0]
-            .MultiTextValue
+        case 'newAnswerEmail':
+          emailContents = allUserLoginNames.map((user) => {
+            const subject = config.items.filter((item) => item.Key === type)[0]
+              .TextValue
+            const body = config.items.filter((item) => item.Key === type)[0]
+              .MultiTextValue
 
-          const newBody = replaceText(body)
+            const newBody = replaceText(body)
 
-          const newSubject = replaceText(subject)
+            const newSubject = replaceText(subject)
 
-          return {
-            to: user,
-            subject: newSubject,
-            body: newBody,
-          }
-        })
-        break
+            return {
+              to: user,
+              subject: newSubject,
+              body: newBody,
+            }
+          })
+          break
 
-      case 'updatedAnswerEmail':
-        emailContents = allUserLoginNames.map((user) => {
-          const subject = config.items.filter((item) => item.Key === type)[0]
-            .TextValue
-          const body = config.items.filter((item) => item.Key === type)[0]
-            .MultiTextValue
+        case 'updatedAnswerEmail':
+          emailContents = allUserLoginNames.map((user) => {
+            const subject = config.items.filter((item) => item.Key === type)[0]
+              .TextValue
+            const body = config.items.filter((item) => item.Key === type)[0]
+              .MultiTextValue
 
-          const newBody = replaceText(body)
+            const newBody = replaceText(body)
 
-          const newSubject = replaceText(subject)
+            const newSubject = replaceText(subject)
 
-          return {
-            to: user,
-            subject: newSubject,
-            body: newBody,
-          }
-        })
-        break
+            return {
+              to: user,
+              subject: newSubject,
+              body: newBody,
+            }
+          })
+          break
 
-      default:
-        console.error(`sendEmailToAllProponents type '${type}' is invalid`)
-        return
-    }
-
-    try {
-      for (let i = 0; i < emailContents.length; i++) {
-        await SendEmail(emailContents[i])
+        default:
+          console.error(`sendEmailToAllProponents type '${type}' is invalid`)
+          return
       }
-      logAction(`sent '${type}' to all proponent members`)
-    } catch (err) {
-      console.error('err :>> ', err)
-    }
 
-    return
-  }, [allUserLoginNames, config.items, logAction, replaceText])
+      try {
+        for (let i = 0; i < emailContents.length; i++) {
+          await SendEmail(emailContents[i])
+        }
+        logAction(`sent '${type}' to all proponent members`)
+      } catch (err) {
+        console.error('err :>> ', err)
+      }
+
+      return
+    },
+    [allUserLoginNames, config.items, logAction, replaceText]
+  )
 
   const sendEmailToSiteContact = useCallback(
     async (type, options = {}) => {
