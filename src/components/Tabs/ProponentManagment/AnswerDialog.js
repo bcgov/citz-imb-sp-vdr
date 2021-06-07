@@ -24,34 +24,37 @@ export const AnswerDialog = (props) => {
   const onSubmit = useCallback(
     async (values, { setSubmitting }) => {
       let questionsItem
+      let emailType = ''
 
       try {
         if (values.previousAnswer) {
           questionsItem = [{ Id: values.previousAnswer }]
+          emailType = 'newAnswerEmail'
         } else {
           if (isUpdate) {
-            //! may break if changed to selected previous answer
             questionsItem = await publicQuestions.update({
-              Id: Answer,
+              Id: parseInt(Answer),
               Question: values.sanitizedQuestion,
               Answer: values.answer,
             })
-            await sendEmailToAllProponents('updatedAnswerEmail')
+            emailType = 'updatedAnswerEmail'
           } else {
             questionsItem = await publicQuestions.add({
               Question: values.sanitizedQuestion,
               Answer: values.answer,
             })
-            await proponentQuestions.update({
-              Id: values.Id,
-              Answer: questionsItem[0].Id.toString(),
-              AnswerStatus: 'Posted',
-              Assignee: 'Posted Answer',
-            })
-            logAction(`answered question '${values.sanitizedQuestion}'`)
-            await sendEmailToAllProponents('newAnswerEmail')
+            emailType = 'newAnswerEmail'
           }
         }
+
+        await proponentQuestions.update({
+          Id: values.Id,
+          Answer: questionsItem[0].Id.toString(),
+          AnswerStatus: 'Posted',
+          Assignee: 'Posted Answer',
+        })
+        logAction(`answered question '${values.sanitizedQuestion}'`)
+        await sendEmailToAllProponents(emailType)
       } catch (error) {
         console.error(error)
         logAction(`answer question failed '${values.sanitizedQuestion}'`, {

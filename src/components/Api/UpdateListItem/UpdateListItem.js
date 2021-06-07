@@ -14,21 +14,19 @@ export const UpdateListItem = async ({ listName, listGUID, items }) => {
 
 	const listResponse = await GetList({ listName, listGUID });
 
-	let responses = [];
-
 	items.forEach(async (item) => {
 		let tempItem = {
 			...item,
 			__metadata: { type: listResponse.ListItemEntityTypeFullName },
 		};
-		const response = await RestCall({
+		await RestCall({
 			endPoint: `${endPoint}(${tempItem.Id})`,
 			method: 'merge',
 			body: tempItem,
 		});
 
-		responses.push(response);
 	});
 
-	return responses;
+	//updating items in sharepoint does not return content
+	return items;
 };
