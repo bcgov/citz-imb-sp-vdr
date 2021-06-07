@@ -23,8 +23,6 @@ export const AnswerCell = (props) => {
     const item = publicQuestions.items.filter(
       (item) => item.Id === parseInt(row.original.Answer)
     )[0]
-    console.log('item :>> ', item?.Question);
-    console.log('row.values.Question :>> ', row.values.Question);
     const isSanitized = row.values.Question !== item?.Question
 
     return (
