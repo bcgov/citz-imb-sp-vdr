@@ -23,8 +23,9 @@ export const AnswerCell = (props) => {
     const item = publicQuestions.items.filter(
       (item) => item.Id === parseInt(row.original.Answer)
     )[0]
-
-    const isSanitized = row.values.Title !== item?.Question
+    console.log('item :>> ', item?.Question);
+    console.log('row.values.Question :>> ', row.values.Question);
+    const isSanitized = row.values.Question !== item?.Question
 
     return (
       <List dense={true}>
