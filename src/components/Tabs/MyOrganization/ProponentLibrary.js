@@ -1,18 +1,11 @@
 import { Alert } from '@material-ui/lab'
-import {
-  useCurrentUser,
-  useProponents,
-  useConfig,
-  useLogAction,
-} from 'components/Hooks'
-import { SendConfirmationEmail } from 'components/Reusable'
+import { useCurrentUser, useEmail, useLogAction } from 'components/Hooks'
 import { SPList } from 'components/SharePoint'
 import React from 'react'
 
 export const ProponentLibrary = () => {
   const currentUser = useCurrentUser()
-  const proponents = useProponents()
-  const config = useConfig()
+  const { sendEmailToAllProponents, sendEmailToSiteContact } = useEmail()
   const logAction = useLogAction()
 
   if (!currentUser.isProponent)
@@ -20,31 +13,14 @@ export const ProponentLibrary = () => {
 
   const listName = currentUser.proponent
 
-  const proponentDocumentEmail = config.items.filter(
-    (item) => item.Key === 'proponentDocumentEmail'
-  )[0]
-  const VICOManagerDocumentEmail = config.items.filter(
-    (item) => item.Key === 'newDocumentEmail'
-  )[0]
-  const contactEmail = config.items.filter(
-    (item) => item.Key === 'contactEmail'
-  )[0]
-
   const uploadCallback = async (result, fileNames) => {
     if (result === 'success') {
       logAction(`uploaded ${fileNames}`)
       try {
-        await proponents.sendEmailToProponents({
-          subject: proponentDocumentEmail.TextValue,
-          body: proponentDocumentEmail.MultiTextValue,
-        })
-        await SendConfirmationEmail({
-          addresses: contactEmail.TextValue,
-          proponent: currentUser.proponent,
-          subject: VICOManagerDocumentEmail.TextValue,
-          body: VICOManagerDocumentEmail.MultiTextValue,
-          contactEmail,
-        })
+        await sendEmailToAllProponents('proponentDocumentEmail')
+
+        await sendEmailToSiteContact('newDocumentEmail')
+
         logAction(`successfully sent email notifications`)
       } catch (error) {
         console.error(error)

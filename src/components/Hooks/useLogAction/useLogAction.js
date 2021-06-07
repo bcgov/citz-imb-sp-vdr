@@ -18,6 +18,10 @@ export const useLogAction = () => {
       const timeStamp = moment().format('dddd, MMMM Do, YYYY @ h:mm:ss a')
       const activity = `${currentUser.name} ${message} on ${timeStamp}`
       try {
+        if (snackbar)
+          enqueueSnackbar(message, {
+            variant,
+          })
         if (!snackbarOnly)
           await AddItemsToList({
             listName: 'ActivityLog',
@@ -29,11 +33,6 @@ export const useLogAction = () => {
           })
 
         console.warn('LogAction :>> ', activity)
-
-        if (snackbar)
-          enqueueSnackbar(message, {
-            variant,
-          })
       } catch (error) {
         console.error('error :>> ', error)
         enqueueSnackbar(`Error: ${message} - ${error}`, {

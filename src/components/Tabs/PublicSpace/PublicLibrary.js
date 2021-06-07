@@ -1,34 +1,17 @@
-import {
-  useConfig,
-  useCurrentUser,
-  useProponents,
-  useLogAction,
-} from 'components/Hooks'
+import { useCurrentUser, useEmail, useLogAction } from 'components/Hooks'
 import { SPList } from 'components/SharePoint'
-// import React, { useMemo } from 'react'
 
 export const PublicLibrary = () => {
   const listName = 'Documents'
 
-  // const dialogProps = useMemo(() => {
-  //   return { title: `Upload to ${publicLibrary}` }
-  // }, [])
   const logAction = useLogAction()
-  const proponents = useProponents()
-  const config = useConfig()
   const currentUser = useCurrentUser()
-
-  const publicDocumentEmail = config.items.filter(
-    (item) => item.Key === 'publicDocumentEmail'
-  )[0]
+  const { sendEmailToAllProponents } = useEmail()
 
   const uploadCallback = async (result, fileNames) => {
     if (result === 'success') {
-      await proponents.sendEmailToProponents({
-        subject: publicDocumentEmail.TextValue,
-        body: publicDocumentEmail.MultiTextValue,
-      })
       logAction(`uploaded ${fileNames}`)
+      sendEmailToAllProponents('publicDocumentEmail')
     } else {
       logAction(`failed to upload ${fileNames}`, { variant: 'error' })
     }

@@ -1,6 +1,6 @@
 // import * as serviceWorker from './Helper/serviceWorker'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
-import { App } from 'components/Aapp'
+import { App } from 'components/App'
 import { SnackbarProvider } from 'notistack'
 import 'react-app-polyfill/ie9'
 import 'react-app-polyfill/stable'

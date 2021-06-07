@@ -1,14 +1,12 @@
 import { Button } from '@material-ui/core'
 import PublishIcon from '@material-ui/icons/Publish'
-import { GetGroupMembers, GetUserByEmail } from 'components/Api'
 import {
-  useConfig,
   useCurrentUser,
+  useEmail,
   useList,
   useLogAction,
-  useProponents,
 } from 'components/Hooks'
-import { FormikDialog, SendConfirmationEmail } from 'components/Reusable'
+import { FormikDialog } from 'components/Reusable'
 import React, { useCallback, useState } from 'react'
 import * as Yup from 'yup'
 
@@ -17,8 +15,8 @@ export const AskQuestion = (props) => {
 
   const questionList = useList(listName)
   const currentUser = useCurrentUser()
-  const proponents = useProponents()
-  const config = useConfig()
+  const { sendEmailToCurrentProponentMembers, sendEmailToSiteContact } =
+    useEmail()
   const logAction = useLogAction()
 
   const [formOpen, setFormOpen] = useState(false)
@@ -42,100 +40,44 @@ export const AskQuestion = (props) => {
     setFormOpen(false)
   }, [])
 
-  const sendEmails = useCallback(async (proponent) => {
-    const addQuestionEmail = config.items.filter(
-      (item) => item.Key === 'addQuestionEmail'
-    )[0]
-    const newQuestionEmail = config.items.filter(
-      (item) => item.Key === 'newQuestionEmail'
-    )[0]
-    const contactEmail = config.items.filter(
-      (item) => item.Key === 'contactEmail'
-    )[0]
+  const onSubmit = useCallback(async (values, { setSubmitting }) => {
+    let latestItem = { Id: 0 }
+    let nextQuestionNumber
 
-    const groupMembers = await GetGroupMembers({
-      groupId: proponent.GroupId,
-    })
+    if (questionList.items.length > 0) {
+      for (let i = 0; i < questionList.items.length; i++) {
+        if (questionList.items[i].Id > latestItem.Id)
+          latestItem = questionList.items[i]
+      }
 
-    for (let i = 0; i < groupMembers.length; i++) {
-      await SendConfirmationEmail({
-        addresses: groupMembers[i].LoginName,
-        proponent: proponent.Title,
-        subject: addQuestionEmail.TextValue,
-        body: addQuestionEmail.MultiTextValue,
-        additionalReplacementPairs: [
-          {
-            searchvalue: /\[UserName\]/g,
-            newvalue: currentUser.name,
-          },
-          {
-            searchvalue: /\[AddresseeName\]/g,
-            newvalue: groupMembers[i].Title,
-          },
-        ],
-        contactEmail,
+      nextQuestionNumber = parseInt(latestItem.QuestionID.slice(-3)) + 1
+    } else {
+      nextQuestionNumber = 1
+    }
+
+    const nextQuestionNumberString = nextQuestionNumber.toString()
+
+    values.QuestionID = `${
+      currentUser.proponent
+    }-${nextQuestionNumberString.padStart(3, '0')}`
+    values.AuthorId = currentUser.id
+
+    try {
+      await questionList.add(values)
+
+      await sendEmailToCurrentProponentMembers('addQuestionEmail')
+      await sendEmailToSiteContact('newQuestionEmail')
+
+      logAction(`successfully asked ${values.Question.substring(0, 100)}`)
+    } catch (error) {
+      console.error('error submitting question', error)
+      logAction(`failed to submit ${values.Question.substring(0, 100)}`, {
+        variant: 'error',
       })
     }
-    const contactEmailUser = await GetUserByEmail({
-      email: contactEmail.TextValue,
-    })
-
-    await SendConfirmationEmail({
-      addresses: contactEmailUser[0].LoginName,
-      proponent: proponent.Title,
-      subject: newQuestionEmail.TextValue,
-      body: newQuestionEmail.MultiTextValue,
-      contactEmail,
-    })
-  }, [config, currentUser])
-
-  const onSubmit = useCallback(
-    async (values, { setSubmitting }) => {
-      let latestItem = { Id: 0 }
-      let nextQuestionNumber
-
-      if (questionList.items.length > 0) {
-        for (let i = 0; i < questionList.items.length; i++) {
-          if (questionList.items[i].Id > latestItem.Id)
-            latestItem = questionList.items[i]
-        }
-
-        nextQuestionNumber = parseInt(latestItem.QuestionID.slice(-3)) + 1
-      } else {
-        nextQuestionNumber = 1
-      }
-
-      const nextQuestionNumberString = nextQuestionNumber.toString()
-
-      values.QuestionID = `${
-        currentUser.proponent
-      }-${nextQuestionNumberString.padStart(3, '0')}`
-      values.AuthorId = currentUser.id
-
-      const proponent = proponents.get(currentUser.proponent)
-
-      try {
-        await questionList.add(values)
-        await sendEmails(proponent)
-        logAction(`successfully asked ${values.Question.substring(0, 100)}`)
-      } catch (error) {
-        console.error('error submitting question', error)
-        logAction(`failed to submit ${values.Question.substring(0, 100)}`, {
-          variant: 'error',
-        })
-      }
-      setSubmitting(false)
-      handleClose()
-    },
-    [
-      currentUser,
-      handleClose,
-      logAction,
-      proponents,
-      questionList,
-      sendEmails,
-    ]
-  )
+    setSubmitting(false)
+    handleClose()
+  }, [])
 
   return (
     <>

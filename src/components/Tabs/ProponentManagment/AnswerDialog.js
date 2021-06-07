@@ -20,7 +20,7 @@ export const AnswerDialog = (props) => {
     listName,
   } = props
 
-  const proponents = useProponents()
+
   const publicQuestions = useList('Questions')
   const config = useConfig()
   const logAction = useLogAction()
@@ -69,10 +69,10 @@ export const AnswerDialog = (props) => {
         }
         logAction(`answered question '${values.sanitizedQuestion}'`)
         try {
-          await proponents.sendEmailToProponents({
-            subject,
-            body,
-          })
+          //! await proponents.sendEmailToProponents({
+          //   subject,
+          //   body,
+          // })
           logAction(`send email to proponents`)
         } catch (error) {
           console.error(error)
@@ -90,7 +90,7 @@ export const AnswerDialog = (props) => {
 
     setSubmitting(false)
     closeAnswerDialog()
-  }, [Answer, closeAnswerDialog, config, isUpdate, logAction, proponentQuestions, proponents, publicQuestions])
+  }, [])
 
   const getOptions = useCallback(() => {
     const options = publicQuestions.items.map((item) => {

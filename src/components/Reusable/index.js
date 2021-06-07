@@ -8,5 +8,4 @@ export * from '../Hooks';
 export { HorizontalTabPanel } from './HorizontalTabPanel/HorizontalTabPanel';
 export * from './IconButton';
 export { icons } from './Icons/Icons';
-export { SendConfirmationEmail } from './SendConfirmationEmail/SendConfirmationEmail';
 export { VerticalTabPanel } from './VerticalTabPanel/VerticalTabPanel';

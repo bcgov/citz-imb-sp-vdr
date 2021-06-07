@@ -1,18 +1,35 @@
 import { Alert } from '@material-ui/lab'
-import { useCurrentUser, useList, useLogAction } from 'components/Hooks'
+import {
+  useConfig,
+  useCurrentUser,
+  useList,
+  useLogAction,
+  useProponents,
+} from 'components/Hooks'
 import { AnswerCell, SelectColumnFilter } from 'components/Reusable'
 import { SPList } from 'components/SharePoint'
 import React, { useCallback } from 'react'
 
 export const ProponentQuestionList = () => {
   const currentUser = useCurrentUser()
-  const logAction = useLogAction()
   const listName = `${currentUser.proponent}_Questions`
 
+
+  const logAction = useLogAction()
+
+  const config = useConfig()
   const { update } = useList(listName)
 
   const handleWithdraw = useCallback(
     async (row) => {
+      const withdrawEmailConfig = config.items.filter(
+        (item) => item.Key === 'withdrawQuestionEmail'
+      )[0]
+
+      const contactEmail = config.items.filter(
+        (item) => item.Key === 'withdrawQuestionEmail'
+      )[0].TextValue
+
       try {
         await update({
           Id: row.original.Id,
@@ -21,6 +38,10 @@ export const ProponentQuestionList = () => {
           Assignee: '',
         })
         logAction(`successfully withdrew '${row.values.Question}'`)
+        //! await proponents.sendEmailToProponents({
+        //   subject: withdrawEmailConfig.TextValue,
+        //   body: withdrawEmailConfig.MultiTextValue,
+        // })
       } catch (error) {
         console.error(error)
         logAction(`failed to withdraw '${row.values.Question}'`, {
@@ -28,7 +49,7 @@ export const ProponentQuestionList = () => {
         })
       }
     },
-    [logAction, update]
+    []
   )
 
   const initialState = { sortBy: [{ id: 'Created', desc: true }] }

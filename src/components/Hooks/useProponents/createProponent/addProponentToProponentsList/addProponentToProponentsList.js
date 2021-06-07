@@ -2,7 +2,7 @@ export const addProponentToProponentsList = async (
 	proponentName,
 	{proponents, UUID, group }
 ) => {
-	await proponents.addItem([
+	await proponents.add([
 		{
 			Title: proponentName,
 			UUID: UUID,
