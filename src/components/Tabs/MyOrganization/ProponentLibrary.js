@@ -1,51 +1,33 @@
 import { Alert } from '@material-ui/lab'
-import {
-  useCurrentUser,
-  useProponents,
-  useConfig,
-  useLogAction,
-} from 'components/Hooks'
-import { SendConfirmationEmail } from 'components/Reusable'
+import { useConfig, useCurrentUser, useEmail, useLogAction } from 'components/Hooks'
 import { SPList } from 'components/SharePoint'
 import React from 'react'
 
 export const ProponentLibrary = () => {
   const currentUser = useCurrentUser()
-  const proponents = useProponents()
-  const config = useConfig()
+  const { sendEmailToCurrentProponentMembers, sendEmailToSiteContact } =
+    useEmail()
   const logAction = useLogAction()
+  const config = useConfig()
+
+  const allowUpload = config.items.filter(item=>item.Key==='allowSubmissions')[0].YesNoValue
+console.log('allowUpload :>> ', allowUpload);
 
   if (!currentUser.isProponent)
     return <Alert severity={'info'}>User is not a proponent</Alert>
 
   const listName = currentUser.proponent
 
-  const proponentDocumentEmail = config.items.filter(
-    (item) => item.Key === 'proponentDocumentEmail'
-  )[0]
-  const VICOManagerDocumentEmail = config.items.filter(
-    (item) => item.Key === 'newDocumentEmail'
-  )[0]
-  const contactEmail = config.items.filter(
-    (item) => item.Key === 'contactEmail'
-  )[0]
-
   const uploadCallback = async (result, fileNames) => {
     if (result === 'success') {
       logAction(`uploaded ${fileNames}`)
       try {
-        await proponents.sendEmailToProponents({
-          subject: proponentDocumentEmail.TextValue,
-          body: proponentDocumentEmail.MultiTextValue,
+        await sendEmailToCurrentProponentMembers('proponentDocumentEmail', {
+          currentUser,
         })
-        await SendConfirmationEmail({
-          addresses: contactEmail.TextValue,
-          proponent: currentUser.proponent,
-          subject: VICOManagerDocumentEmail.TextValue,
-          body: VICOManagerDocumentEmail.MultiTextValue,
-          contactEmail,
+        await sendEmailToSiteContact('newDocumentEmail', {
+          proponentId: currentUser.proponent,
         })
-        logAction(`successfully sent email notifications`)
       } catch (error) {
         console.error(error)
         logAction(`failed to send email notifications`, { variant: 'error' })
@@ -55,9 +37,13 @@ export const ProponentLibrary = () => {
     }
   }
 
-  const deleteCallback = async (result, fileName) => {
-    if (result === 'success') {
+  const deleteCallback = async (isSuccess, fileName) => {
+
+    if (isSuccess) {
       logAction(`deleted ${fileName}`)
+      sendEmailToCurrentProponentMembers('ProponentDeleteDocumentEmail', {
+        currentUser,
+      })
     } else {
       logAction(`failed to delete ${fileName}`, { variant: 'error' })
     }
@@ -68,10 +54,11 @@ export const ProponentLibrary = () => {
       uploadText='Submit a document'
       listName={listName}
       title={'Submitted Documents'}
-      allowUpload={true}
-      allowDelete={true}
+      allowUpload={allowUpload}
+      allowDelete={allowUpload}
       uploadCallback={uploadCallback}
       deleteCallback={deleteCallback}
+      columnFiltering={true}
     />
   )
 }

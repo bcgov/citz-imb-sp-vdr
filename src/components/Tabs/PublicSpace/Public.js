@@ -45,7 +45,7 @@ export const Public = () => {
 				<PublicLibrary />
 			</VerticalTabPanel>
 			<VerticalTabPanel value={value} index={1}>
-				{/* <PublicQuestionList /> */}
+				<PublicQuestionList />
 			</VerticalTabPanel>
 		</div>
 	)

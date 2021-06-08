@@ -1,13 +1,21 @@
 import { Alert } from '@material-ui/lab'
-import { useCurrentUser, useList, useLogAction } from 'components/Hooks'
+import {
+  useCurrentUser,
+  useEmail,
+  useList,
+  useLogAction,
+} from 'components/Hooks'
 import { AnswerCell, SelectColumnFilter } from 'components/Reusable'
 import { SPList } from 'components/SharePoint'
 import React, { useCallback } from 'react'
 
 export const ProponentQuestionList = () => {
   const currentUser = useCurrentUser()
-  const logAction = useLogAction()
   const listName = `${currentUser.proponent}_Questions`
+
+  const { sendEmailToCurrentProponentMembers } = useEmail()
+
+  const logAction = useLogAction()
 
   const { update } = useList(listName)
 
@@ -21,6 +29,9 @@ export const ProponentQuestionList = () => {
           Assignee: '',
         })
         logAction(`successfully withdrew '${row.values.Question}'`)
+        sendEmailToCurrentProponentMembers('withdrawQuestionEmail', {
+          currentUser,
+        })
       } catch (error) {
         console.error(error)
         logAction(`failed to withdraw '${row.values.Question}'`, {
@@ -28,7 +39,7 @@ export const ProponentQuestionList = () => {
         })
       }
     },
-    [logAction, update]
+    [currentUser, logAction, sendEmailToCurrentProponentMembers, update]
   )
 
   const initialState = { sortBy: [{ id: 'Created', desc: true }] }
@@ -60,7 +71,7 @@ export const ProponentQuestionList = () => {
       listName={listName}
       customColumns={customColumns}
       initialState={initialState}
-      title={'Submitted Questions'}
+      title={'Questions'}
       columnFiltering={true}
       allowUpload={true}
     />

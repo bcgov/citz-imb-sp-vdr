@@ -27,7 +27,7 @@ export const ActivityLog = () => {
 				dialogActionsTop={true}
 				cancelButtonText={'Close'}
 				maxWidth={'lg'}>
-				<SPList listName={'ActivityLog'} initialState={initialState} />
+				<SPList listName={'ActivityLog'} initialState={initialState} columnFiltering={true} />
 			</FormikDialog>
 		</>
 	)

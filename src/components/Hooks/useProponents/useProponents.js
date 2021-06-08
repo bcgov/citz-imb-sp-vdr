@@ -1,50 +1,52 @@
 import {
+  AddPermissionsToList,
+  DeleteGroup,
+  GetRoleDefinitions,
+  RemovePermissionsFromList,
+} from 'components/Api'
+import {
   useConfig,
   useCurrentUser,
   useList,
   useLogAction,
 } from 'components/Hooks'
-import { SendConfirmationEmail } from 'components/Reusable'
-import {
-  AddPermissionsToList,
-  DeleteGroup,
-  GetGroupMembers,
-  GetRoleDefinitions,
-  RemovePermissionsFromList,
-} from 'components/Api'
+import { useCallback, useMemo } from 'react'
+import { useQuery } from 'react-query'
 import { createProponent } from './createProponent/createProponent'
 import { createProponentGroup } from './createProponentGroup/createProponentGroup'
+import { getProponents } from './getProponents'
 import { setProponentPermissions } from './setProponentPermissions/setProponentPermissions'
-import { useCallback, useState, useEffect, useMemo } from 'react'
 
 export const useProponents = () => {
-  const [allUserIds, setAllUserIds] = useState([])
-
   const currentUser = useCurrentUser()
-
-  const proponents = useList('Proponents', {
-    preRequisite: currentUser.Id,
-  })
   const config = useConfig()
   const logAction = useLogAction()
 
-  // const contactEmail = config.items.filter(
-  //   (item) => item.Key === 'contactEmail'
-  // )[0]
+  const proponentsList = useList('Proponents')
+  const { data, isLoading, isError, refetch } = useQuery(
+    ['Proponents', 'data'],
+    () => getProponents()
+  )
 
   const allowSubmissions = useMemo(
-    () => config.items.filter((item) => item.Key === 'allowSubmissions')[0],
+    () =>
+      config.items.filter((item) => item.Key === 'allowSubmissions')[0]
+        .YesNoValue,
+    [config.items]
+  )
+  const allowSubmissionsId = useMemo(
+    () => config.items.filter((item) => item.Key === 'allowSubmissions')[0].Id,
     [config.items]
   )
 
   const add = useCallback(
     async (proponentName) =>
       await createProponent(proponentName, {
-        proponents,
+        proponents: proponentsList,
         currentUser,
         logAction,
       }),
-    [currentUser, logAction, proponents]
+    [currentUser, logAction, proponentsList]
   )
 
   const setActive = useCallback(
@@ -53,106 +55,58 @@ export const useProponents = () => {
 
       await setProponentPermissions(UUID, group)
 
-      const currentProponent = proponents.items.filter(
-        (item) => item.UUID === UUID
-      )[0]
-      await proponents.updateItem([
+      const currentProponent = data.filter((item) => item.UUID === UUID)[0]
+      await proponentsList.update([
         { Id: currentProponent.Id, Active: true, GroupId: group },
       ])
     },
-    [proponents]
+    [data, proponentsList]
   )
 
   const setInactive = useCallback(
     async (UUID) => {
-      const currentProponent = proponents.items.filter(
-        (item) => item.UUID === UUID
-      )[0]
+      const currentProponent = data.filter((item) => item.UUID === UUID)[0]
       await DeleteGroup({
         groupId: currentProponent.GroupId,
       })
-      await proponents.updateItem([
+      await proponentsList.update([
         { Id: currentProponent.Id, Active: false, GroupId: 0 },
       ])
     },
-    [proponents]
+    [data, proponentsList]
   )
 
-  // const addUser = async (userId, UUID) => {
-  //   alert('addUserToProponent')
-  // }
+  const allUserLoginNames = useMemo(() => {
+    if (isLoading || isError) return []
+    const allUsers = []
 
-  // const removeUser = async (userId, UUID) => {
-  //   alert('removeUserFromProponent')
-  // }
-
-  const getUserIds = useCallback(async () => {
-    const userIds = []
-    for (let i = 0; i < proponents.items.length; i++) {
-      const members = await GetGroupMembers({
-        groupId: proponents.items[i].GroupId,
-      })
-      userIds.push(...members.map((member) => member.LoginName))
+    for (let i = 0; i < data.length; i++) {
+      allUsers.push(...data[i].Users.map((user) => user.LoginName))
     }
-    setAllUserIds(userIds)
-  }, [proponents.items])
 
-  useEffect(() => {
-    if (!proponents.isLoading && !proponents.isFetching) getUserIds()
-
-    return () => {}
-  }, [proponents.isLoading, proponents.isFetching, getUserIds])
+    return allUsers
+  }, [data, isLoading, isError])
 
   const get = useCallback(
     (UUID) => {
-      return proponents.items.filter((item) => item.UUID === UUID)[0]
+      return data.filter((item) => item.UUID === UUID)[0]
     },
-    [proponents.items]
-  )
-
-  const sendEmailToProponents = useCallback(
-    async (props) => {
-      const { subject, body } = props
-
-      for (let i = 0; i < proponents.items.length; i++) {
-        const groupMembers = await GetGroupMembers({
-          groupId: proponents.items[i].GroupId,
-        })
-        if (groupMembers.length) {
-          console.log('groupMembers :>> ', groupMembers)
-          await SendConfirmationEmail({
-            addresses: groupMembers.map((member) => member.LoginName),
-            proponent: proponents.items[i].Title,
-            subject,
-            body,
-            contactEmail: 'Scott.Toews@gov.bc.ca',
-            additionalReplacementPairs: [
-              {
-                searchvalue: /\[UserName\]/g,
-                newvalue: currentUser.name,
-              },
-            ],
-          })
-        }
-      }
-    },
-    [currentUser.name, proponents.items]
+    [data]
   )
 
   const toggleAllowSubmissions = useCallback(async () => {
     const roles = await GetRoleDefinitions()
 
-    const activeProponents = proponents.items.filter(
+    const activeProponents = data.filter(
       (proponent) => proponent.Active === true
     )
+    console.log('activeProponents :>> ', activeProponents)
 
-    config.updateItem({
-      Id: allowSubmissions.Id,
-      YesNoValue: !allowSubmissions.YesNoValue,
-    })
+    console.log('allowSubmissions :>> ', allowSubmissions)
 
     for (const proponent of activeProponents) {
-      if (allowSubmissions.YesNoValue) {
+      console.log('forloop', proponent)
+      if (allowSubmissions) {
         await RemovePermissionsFromList({
           listName: proponent.UUID,
           principalId: proponent.GroupId,
@@ -176,22 +130,23 @@ export const useProponents = () => {
         })
       }
     }
-  }, [allowSubmissions, config, proponents])
+
+    config.update({
+      Id: allowSubmissionsId,
+      YesNoValue: !allowSubmissions,
+    })
+  }, [allowSubmissionsId, allowSubmissions, config, data])
 
   return {
     add,
-    // addUser,
     get,
-    isLoading: proponents.isLoading || config.isLoading,
-    // proponents,
-    items: proponents.items,
-    // removeUser,
-    sendEmailToProponents,
+    isLoading: isLoading || config.isLoading,
+    items: data,
     setActive,
     setInactive,
-    allowSubmissions: allowSubmissions?.YesNoValue,
+    allowSubmissions: allowSubmissions,
     toggleAllowSubmissions,
-    allUserIds,
-    reQuery: proponents.reQuery,
+    refetch,
+    allUserLoginNames,
   }
 }

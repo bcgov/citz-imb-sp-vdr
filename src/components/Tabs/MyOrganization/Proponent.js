@@ -39,7 +39,7 @@ export const Proponent = () => {
 				aria-label='Vertical tabs example'
 				className={classes.tabs}>
 				<Tab label='Submitted Documents' {...a11yProps(0)} />
-				<Tab label='Submitted Questions' {...a11yProps(1)} />
+				<Tab label='Questions' {...a11yProps(1)} />
 			</Tabs>
 			<VerticalTabPanel value={value} index={0}>
 				<ProponentLibrary />

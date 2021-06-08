@@ -41,7 +41,7 @@ export const useList = (listName, options = {}) => {
     }
   }, [listName, preRequisite])
 
-  const { data, isFetching, isLoading, isError, error } = useQuery(
+  const { data, isFetching, isLoading, isError, error, refetch } = useQuery(
     listName,
     () => getList(listName),
     queryOptions
@@ -115,5 +115,6 @@ export const useList = (listName, options = {}) => {
     add,
     remove,
     update,
+    refetch,
   }
 }
