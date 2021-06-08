@@ -1,5 +1,5 @@
 import { Alert } from '@material-ui/lab'
-import { useCurrentUser, useEmail, useLogAction } from 'components/Hooks'
+import { useConfig, useCurrentUser, useEmail, useLogAction } from 'components/Hooks'
 import { SPList } from 'components/SharePoint'
 import React from 'react'
 
@@ -8,6 +8,10 @@ export const ProponentLibrary = () => {
   const { sendEmailToCurrentProponentMembers, sendEmailToSiteContact } =
     useEmail()
   const logAction = useLogAction()
+  const config = useConfig()
+
+  const allowUpload = config.items.filter(item=>item.Key==='allowSubmissions')[0].YesNoValue
+console.log('allowUpload :>> ', allowUpload);
 
   if (!currentUser.isProponent)
     return <Alert severity={'info'}>User is not a proponent</Alert>
@@ -50,8 +54,8 @@ export const ProponentLibrary = () => {
       uploadText='Submit a document'
       listName={listName}
       title={'Submitted Documents'}
-      allowUpload={true}
-      allowDelete={true}
+      allowUpload={allowUpload}
+      allowDelete={allowUpload}
       uploadCallback={uploadCallback}
       deleteCallback={deleteCallback}
       columnFiltering={true}

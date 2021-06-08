@@ -88,7 +88,35 @@ export const ProponentManagement = () => {
   }, [logAction, proponents])
 
   const handleAllowSubmissionToggle = useCallback(async () => {
-    await proponents.toggleAllowSubmissions()
+    setDialogOptions({
+      open: true,
+      close: () => {
+        setDialogOptions({ open: false })
+      },
+      title: `Set Allow Submissions to ${!proponents.allowSubmissions}`,
+      dialogContent: proponents.allowSubmissions ? (
+        <Alert severity={'info'}>
+          <AlertTitle>Submission Change</AlertTitle>
+          Proponents will no longer be able to submit or delete documents.
+        </Alert>
+      ) : (
+        <Alert severity={'info'}>
+          <AlertTitle>Submission Change</AlertTitle>
+          Proponents will now be able to submit or delete documents.
+        </Alert>
+      ),
+      onSubmit: async (values, { setSubmitting }) => {
+        try {
+          await proponents.toggleAllowSubmissions()
+          await proponents.refetch()
+        } catch (error) {
+          throw error
+        }
+        setSubmitting(false)
+        setDialogOptions({ open: false })
+      },
+    })
+
   }, [proponents])
 
   useEffect(() => {

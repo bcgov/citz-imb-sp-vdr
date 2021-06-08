@@ -29,7 +29,13 @@ export const useProponents = () => {
   )
 
   const allowSubmissions = useMemo(
-    () => config.items.filter((item) => item.Key === 'allowSubmissions')[0],
+    () =>
+      config.items.filter((item) => item.Key === 'allowSubmissions')[0]
+        .YesNoValue,
+    [config.items]
+  )
+  const allowSubmissionsId = useMemo(
+    () => config.items.filter((item) => item.Key === 'allowSubmissions')[0].Id,
     [config.items]
   )
 
@@ -94,14 +100,13 @@ export const useProponents = () => {
     const activeProponents = data.filter(
       (proponent) => proponent.Active === true
     )
+    console.log('activeProponents :>> ', activeProponents)
 
-    config.update({
-      Id: allowSubmissions.Id,
-      YesNoValue: !allowSubmissions.YesNoValue,
-    })
+    console.log('allowSubmissions :>> ', allowSubmissions)
 
     for (const proponent of activeProponents) {
-      if (allowSubmissions.YesNoValue) {
+      console.log('forloop', proponent)
+      if (allowSubmissions) {
         await RemovePermissionsFromList({
           listName: proponent.UUID,
           principalId: proponent.GroupId,
@@ -125,7 +130,12 @@ export const useProponents = () => {
         })
       }
     }
-  }, [allowSubmissions.Id, allowSubmissions.YesNoValue, config, data])
+
+    config.update({
+      Id: allowSubmissionsId,
+      YesNoValue: !allowSubmissions,
+    })
+  }, [allowSubmissionsId, allowSubmissions, config, data])
 
   return {
     add,
@@ -134,7 +144,7 @@ export const useProponents = () => {
     items: data,
     setActive,
     setInactive,
-    allowSubmissions: allowSubmissions?.YesNoValue,
+    allowSubmissions: allowSubmissions,
     toggleAllowSubmissions,
     refetch,
     allUserLoginNames,
