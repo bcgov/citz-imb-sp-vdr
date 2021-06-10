@@ -6,7 +6,10 @@ export const getProponents = async () => {
   const items = await GetListItems({ listName })
 
   for (let i = 0; i < items.length; i++) {
-    const group = await GetGroup(items[i].GroupId, {expand:'Users', select: 'Users'})
+    const group = await GetGroup(items[i].GroupId, {
+      expand: 'Users',
+      select: 'Users',
+    })
 
     items[i].Users = group.Users.results
   }

@@ -11,7 +11,6 @@ export const ProponentLibrary = () => {
   const config = useConfig()
 
   const allowUpload = config.items.filter(item=>item.Key==='allowSubmissions')[0].YesNoValue
-console.log('allowUpload :>> ', allowUpload);
 
   if (!currentUser.isProponent)
     return <Alert severity={'info'}>User is not a proponent</Alert>
