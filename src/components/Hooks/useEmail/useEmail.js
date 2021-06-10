@@ -210,8 +210,14 @@ export const useEmail = () => {
             snackbar: false,
           })
         }
-      } catch (err) {
-        console.error('err :>> ', err)
+      } catch (error) {
+        logAction(
+          `Error: sendEmailToCurrentProponentMembers - ${type} - ${error}`,
+          {
+            variant: 'error',
+            snackbar: false,
+          }
+        )
       }
       return
     },
@@ -290,8 +296,11 @@ export const useEmail = () => {
           await SendEmail(emailContents[i])
         }
         logAction(`sent '${type}' to all proponent members`)
-      } catch (err) {
-        console.error('err :>> ', err)
+      } catch (error) {
+        logAction(`Error: sendEmailToAllProponents - ${type} - ${error}`, {
+          variant: 'error',
+          snackbar: false,
+        })
       }
 
       return
@@ -359,8 +368,11 @@ export const useEmail = () => {
           body: newBody,
         })
         logAction(`sent ${type} to ${contactEmail}`, { snackbar: false })
-      } catch (err) {
-        console.error('err :>> ', err)
+      } catch (error) {
+        logAction(`Error: sendEmailToSiteContact - ${type} - ${error}`, {
+          variant: 'error',
+          snackbar: false,
+        })
       }
 
       return
@@ -400,8 +412,11 @@ export const useEmail = () => {
           body: newBody,
         })
         logAction(`sent welcome email to ${member.DisplayText}`)
-      } catch (err) {
-        console.error('err :>> ', err)
+      } catch (error) {
+        logAction(`Error: sendEmailToNewMember - ${error}`, {
+          variant: 'error',
+          snackbar: false,
+        })
       }
 
       return

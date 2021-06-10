@@ -32,7 +32,11 @@ export const useLogAction = () => {
             },
           })
 
-        console.warn('LogAction :>> ', activity)
+        if (variant === 'error') {
+          console.error('LogAction :>> ', activity)
+        } else {
+          console.warn('LogAction :>> ', activity)
+        }
       } catch (error) {
         console.error('error :>> ', error)
         enqueueSnackbar(`Error: ${message} - ${error}`, {
