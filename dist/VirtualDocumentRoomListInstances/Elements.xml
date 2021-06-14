@@ -331,7 +331,8 @@ You have been added to the BC Government’s [Title], as member of the [Proponen
 
 If you encounter issues accessing the site, please contact [ContactEmail]
 
-Sincerely,[Title] Administrator​</Field>
+Sincerely,
+[Title] Administrator​</Field>
           <Field Name="YesNoValue">TRUE</Field>
           <Field Name="Instructions">&lt;div class="ExternalClassFD2A33CB41934BF0B59CF526DFCF4CBE"&gt;&lt;p&gt;​Subject and Body may insert site specific values automatically.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;[Title] = the site title&lt;/li&gt;&lt;li&gt;[Addressee] = the person the email is addressed to&lt;/li&gt;&lt;li&gt;[Username] = the added user's name&lt;/li&gt;&lt;li&gt;[Proponent]&amp;#160;= the&amp;#160;​name of the proponent the user is added to&lt;br&gt;&lt;/li&gt;&lt;li&gt;[SiteLink] = the url to the current site&lt;br&gt;&lt;/li&gt;&lt;li&gt;[contactEmail] = the email address provided in the contact email&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</Field>
         </Row>
@@ -356,7 +357,8 @@ Questions are typically answered between 24 – 48 hours, depending on the avail
 
 If you encounter issues accessing the site, please contact [ContactEmail]
 
-Sincerely,[Title] Administrator​</Field>
+Sincerely,
+[Title] Administrator​</Field>
           <Field Name="YesNoValue">TRUE</Field>
           <Field Name="Instructions">&lt;div class="ExternalClassFD2A33CB41934BF0B59CF526DFCF4CBE"&gt;&lt;p&gt;​Subject and Body may insert site specific values automatically.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;[Title] = the site title&lt;/li&gt;&lt;li&gt;[Addressee] = the person the email is addressed to&lt;/li&gt;&lt;li&gt;[Username] = the added user's name&lt;/li&gt;&lt;li&gt;[Proponent]&amp;#160;= the&amp;#160;​name of the proponent the user is added to&lt;br&gt;&lt;/li&gt;&lt;li&gt;[SiteLink] = the url to the current site&lt;br&gt;&lt;/li&gt;&lt;li&gt;[contactEmail] = the email address provided in the contact email&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</Field>
         </Row>
@@ -390,7 +392,8 @@ Sincerely,[Title] Administrator​</Field>
 
 Please click here [SiteLink] to view submitted Questions.
 
-Yours truly,[Title] System​</Field>
+Yours truly,
+[Title] System​</Field>
           <Field Name="YesNoValue">TRUE</Field>
           <Field Name="Instructions">&lt;div class="ExternalClassFD2A33CB41934BF0B59CF526DFCF4CBE"&gt;&lt;p&gt;​Subject and Body may insert site specific values automatically.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;[Title] = the site title&lt;/li&gt;&lt;li&gt;[Addressee] = the person the email is addressed to&lt;/li&gt;&lt;li&gt;[Username] = the added user's name&lt;/li&gt;&lt;li&gt;[Proponent]&amp;#160;= the&amp;#160;​name of the proponent the user is added to&lt;br&gt;&lt;/li&gt;&lt;li&gt;[SiteLink] = the url to the current site&lt;br&gt;&lt;/li&gt;&lt;li&gt;[contactEmail] = the email address provided in the contact email&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</Field>
         </Row>
@@ -453,7 +456,8 @@ Please be advised an answer that was previously posted publicly has been updated
 
 Please visit [SiteLink] to review the question and answer in the public space.
 
-Sincerely,[Title] Manager</Field>
+Sincerely,
+[Title] Manager</Field>
           <Field Name="YesNoValue">TRUE</Field>
           <Field Name="Instructions">&lt;div class="ExternalClassFD2A33CB41934BF0B59CF526DFCF4CBE"&gt;&lt;p&gt;​Subject and Body may insert site specific values automatically.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;[Title] = the site title&lt;/li&gt;&lt;li&gt;[Addressee] = the person the email is addressed to&lt;/li&gt;&lt;li&gt;[Username] = the added user's name&lt;/li&gt;&lt;li&gt;[Proponent]&amp;#160;= the&amp;#160;​name of the proponent the user is added to&lt;br&gt;&lt;/li&gt;&lt;li&gt;[SiteLink] = the url to the current site&lt;br&gt;&lt;/li&gt;&lt;li&gt;[ContactEmail] = the email address provided in the contact email&lt;br&gt;&lt;/li&gt;&lt;li&gt;[UserName] = the name of the user&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</Field>
         </Row>
@@ -476,7 +480,8 @@ Visit [SiteLink] to view the newly uploaded document.
 
 If you encounter issues accessing the site, please contact [ContactEmail]
 
-Sincerely,[Title] Administrator</Field>
+Sincerely,
+[Title] Administrator</Field>
           <Field Name="YesNoValue">TRUE</Field>
           <Field Name="Instructions">&lt;div class="ExternalClassFD2A33CB41934BF0B59CF526DFCF4CBE"&gt;&lt;p&gt;​Subject and Body may insert site specific values automatically.&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;[Title] = the site title&lt;/li&gt;&lt;li&gt;[Addressee] = the person the email is addressed to&lt;/li&gt;&lt;li&gt;[Username] = the added user's name&lt;/li&gt;&lt;li&gt;[Proponent]&amp;#160;= the&amp;#160;​name of the proponent the user is added to&lt;br&gt;&lt;/li&gt;&lt;li&gt;[SiteLink] = the url to the current site&lt;br&gt;&lt;/li&gt;&lt;li&gt;[ContactEmail] = the email address provided in the contact email&lt;br&gt;&lt;/li&gt;&lt;li&gt;[UserName] = the name of the user&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</Field>
         </Row>
