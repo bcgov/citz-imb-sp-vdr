@@ -28,7 +28,7 @@ Built for SharePoint 2016 on-premise.
 2. Click on _new subsite_
 3. Enter the Title of the site (recommend less than 50 characters)
 4. Optionally, enter a description
-5. Enter the Web Site Address (recommend 8 or less characters - no spaces or non alphanumeric characters)
+5. Enter the Web Site Address (recommend 8 or less characters - no spaces, alphanumeric characters only)
 6. For the template, select the Custom tab and choose _CITZ IMB Virtual Document Room_
 7. Choose _Use unique permissions_
 8. Choose whether to use the top link bar (recommend _No_)
