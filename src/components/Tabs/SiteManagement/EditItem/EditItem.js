@@ -16,7 +16,7 @@ export const EditItem = (props) => {
     const item = { ...values, Id: original.Id }
 
     await update(item)
-	  logAction(`updated ${original.Title}`)
+	  logAction(`updated '${original.Title}'`)
 
     setSubmitting(false)
     setFormOpen(false)
