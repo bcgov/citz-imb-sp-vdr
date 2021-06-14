@@ -120,7 +120,7 @@ export const ProponentManagement = () => {
                 setDialogOptions({ open: false })
             },
         })
-    }, [proponents])
+    }, [logAction, proponents])
 
     useEffect(() => {
         getRoleDefinitions()
