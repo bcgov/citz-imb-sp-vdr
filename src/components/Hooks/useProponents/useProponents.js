@@ -100,12 +100,8 @@ export const useProponents = () => {
     const activeProponents = data.filter(
       (proponent) => proponent.Active === true
     )
-    console.log('activeProponents :>> ', activeProponents)
-
-    console.log('allowSubmissions :>> ', allowSubmissions)
 
     for (const proponent of activeProponents) {
-      console.log('forloop', proponent)
       if (allowSubmissions) {
         await RemovePermissionsFromList({
           listName: proponent.UUID,
@@ -131,7 +127,7 @@ export const useProponents = () => {
       }
     }
 
-    config.update({
+    await config.update({
       Id: allowSubmissionsId,
       YesNoValue: !allowSubmissions,
     })
