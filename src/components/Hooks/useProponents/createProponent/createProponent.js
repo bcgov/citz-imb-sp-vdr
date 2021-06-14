@@ -17,6 +17,7 @@ export const createProponent = async (
   const UUID = MakeUniqueID()
 
   await BreakListPermissionsInheritance({ listName: 'ActivityLog' })
+  await BreakListPermissionsInheritance({ listName: 'Proponents' })
 
   logAction('creating proponent group...', { variant: 'warning' })
   const group = await createProponentGroup(UUID)
@@ -61,16 +62,20 @@ export const createProponent = async (
     variant: 'warning',
     snackbarOnly: true,
   })
-  await setProponentPermissions(UUID, group)
-  logAction('proponent permissions set', {
-    variant: 'success',
-    snackbarOnly: true,
-  })
 
-  await addProponentToProponentsList(proponentName, {
+  const proponent = await addProponentToProponentsList(proponentName, {
     proponents,
     UUID,
     group,
+  })
+
+  console.log('proponent :>> ', proponent)
+  const proponentId = proponent[0].Id
+
+  await setProponentPermissions(UUID, group, proponentId)
+  logAction('proponent permissions set', {
+    variant: 'success',
+    snackbarOnly: true,
   })
 
   return { UUID, group }
