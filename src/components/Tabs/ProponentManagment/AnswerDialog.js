@@ -156,16 +156,16 @@ export const AnswerDialog = (props) => {
           console.log("I'm changin my answer")
         },
       },
-      {
-        name: 'previousAnswer',
-        label: 'Select an already Answered Question',
-        initialValue: '',
-        control: 'select',
-        options: getOptions(),
-        // onChange: ()=>{console.log("I'm changing my selected answer")}
-      },
+      // {
+      //   name: 'previousAnswer',
+      //   label: 'Select an already Answered Question',
+      //   initialValue: '',
+      //   control: 'select',
+      //   options: getOptions(),
+      //   // onChange: ()=>{console.log("I'm changing my selected answer")}
+      // },
     ]
-  }, [Answer, Id, Question, QuestionID, getOptions, publicQuestions])
+  }, [Answer, Id, Question, QuestionID, publicQuestions])
 
   return (
     <FormikDialog
