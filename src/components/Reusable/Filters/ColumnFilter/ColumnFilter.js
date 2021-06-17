@@ -8,7 +8,10 @@ export const ColumnFilter = ({ column }) => {
 			placeholder={'filter column'}
 			color={'primary'}
 			value={filterValue || ''}
-			onChange={(e) => setFilter(e.target.value)}
+			onChange={(e) => {
+				e.preventDefault()
+				return setFilter(e.target.value)
+			}}
 		/>
 	)
 }
