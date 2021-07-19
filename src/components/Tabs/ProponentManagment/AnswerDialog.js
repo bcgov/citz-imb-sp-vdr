@@ -76,16 +76,16 @@ export const AnswerDialog = (props) => {
     ]
   )
 
-  const getOptions = useCallback(() => {
-    const options = publicQuestions.items.map((item) => {
-      return {
-        key: `${item.Question} >> ${item.Answer}`,
-        value: item.Id,
-      }
-    })
+  // const getOptions = useCallback(() => {
+  //   const options = publicQuestions.items.map((item) => {
+  //     return {
+  //       key: `${item.Question} >> ${item.Answer}`,
+  //       value: item.Id,
+  //     }
+  //   })
 
-    return options
-  }, [publicQuestions])
+  //   return options
+  // }, [publicQuestions])
 
   const schema = useMemo(
     () =>

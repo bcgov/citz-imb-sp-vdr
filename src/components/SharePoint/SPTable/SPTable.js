@@ -12,6 +12,9 @@ import {
   Typography,
 } from '@material-ui/core'
 import React from 'react'
+import ImportExportIcon from '@material-ui/icons/ImportExport';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 export const SPTable = (props) => {
   const {
@@ -66,15 +69,15 @@ export const SPTable = (props) => {
                       <div>
                         {column.render('Header')}
                         <span>
-                          {column.isSorted ? (
-                            column.isSortedDesc ? (
-                              <TableSortLabel direction={'desc'} />
-                            ) : (
-                              <TableSortLabel direction={'asc'} />
-                            )
-                          ) : (
-                            <TableSortLabel hideSortIcon={true} />
-                          )}
+                          {column.canSort ?
+                            <TableSortLabel hideSortIcon={true}>
+                              {column.isSorted ?
+                                column.isSortedDesc
+                                  ? <ArrowDownwardIcon fontSize={'small'} htmlColor={'#aaa'} />
+                                  : <ArrowUpwardIcon fontSize={'small'} htmlColor={'#aaa'} />
+                                : <ImportExportIcon fontSize={'small'} htmlColor={'#aaa'} />}
+                            </TableSortLabel>
+                            : null}
                         </span>
                       </div>
                       {columnFiltering ? (
