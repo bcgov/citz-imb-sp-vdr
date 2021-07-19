@@ -55,6 +55,24 @@ export const SPTable = (props) => {
           ))}
         </Toolbar>
       </AppBar>
+      {pageSize < rows.length ? (
+        <TablePagination
+          component='div'
+          rowsPerPage={pageSize}
+          count={rows.length}
+          page={pageIndex}
+          onChangePage={(event, newPage) => {
+            gotoPage(newPage)
+          }}
+          labelDisplayedRows={(from, to, count) => {
+            return `Page ${pageIndex + 1} of ${pageOptions.length}`
+          }}
+          onChangeRowsPerPage={(event) => {
+            setPageSize(parseInt(event.target.value, 10))
+            gotoPage(0)
+          }}
+        />
+      ) : null}
       <Table {...getTableProps()}>
         <TableHead>
           {headerGroups.map((headerGroup, index) => {
