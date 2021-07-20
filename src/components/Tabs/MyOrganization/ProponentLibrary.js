@@ -58,6 +58,7 @@ export const ProponentLibrary = () => {
       uploadCallback={uploadCallback}
       deleteCallback={deleteCallback}
       columnFiltering={true}
+      noRecordsText={'Your organization has not submitted any documents yet'}
     />
   )
 }
