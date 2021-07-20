@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react'
 import { DropZone } from './DropZone/DropZone'
 
 export const DocumentUpload = (props) => {
-  const { listName, addDocuments, children, uploadCallback = () => {} } = props
+  const { addDocuments, children, uploadCallback = () => { }, title = 'Upload' } = props
 
   const [formOpen, setFormOpen] = useState(false)
   const [warningContent, setWarningContent] = useState(null)
@@ -51,7 +51,7 @@ export const DocumentUpload = (props) => {
 
   useEffect(() => {
     if (filesToUpload.length) setWarningContent(null)
-    return () => {}
+    return () => { }
   }, [filesToUpload])
 
   return (
@@ -66,7 +66,7 @@ export const DocumentUpload = (props) => {
         open={formOpen}
         onSubmit={handleFormSubmit}
         close={handleFormClose}
-        title={`Upload to ${listName}`}>
+        title={title}>
         {warningContent}
         <DropZone setAcceptedFiles={setFilesToUpload} />
       </FormikDialog>

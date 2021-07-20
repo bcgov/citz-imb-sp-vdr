@@ -67,7 +67,7 @@ export const useList = (listName, options = {}) => {
       if (data.list.BaseTemplate === libraryTemplate) {
         return [
           <DocumentUpload
-            listName={listName}
+            title={`Upload to ${listName}`}
             addDocuments={add}
             uploadCallback={uploadCallback}>
             {uploadText}
@@ -75,7 +75,7 @@ export const useList = (listName, options = {}) => {
           ...additionalTableActions,
         ]
       } else {
-        return [<AskQuestion listName={listName} />, ...additionalTableActions]
+        return [<AskQuestion listName={listName} title={`Submit a Question`} />, ...additionalTableActions]
       }
     }
 

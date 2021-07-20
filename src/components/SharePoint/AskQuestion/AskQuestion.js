@@ -11,7 +11,7 @@ import React, { useCallback, useState } from 'react'
 import * as Yup from 'yup'
 
 export const AskQuestion = (props) => {
-  const { listName } = props
+  const { listName, title='Upload' } = props
 
   const questionList = useList(listName)
   const currentUser = useCurrentUser()
@@ -101,14 +101,14 @@ export const AskQuestion = (props) => {
         color={'secondary'}
         onClick={handleClick}
         endIcon={<PublishIcon />}>
-        Submit a questions
+        {title}
       </Button>
       <FormikDialog
         open={formOpen}
         close={handleClose}
         fields={fields}
         onSubmit={onSubmit}
-        title={'Ask a Question'}
+        title={title}
       />
     </>
   )
