@@ -7,7 +7,7 @@ import { useCallback, useMemo, useState, useEffect } from 'react'
 export const useEmail = () => {
 
   const [contactEmail, setContactEmail] = useState()
-
+  const [contactEmailLogin, setContactEmailLogin] = useState()
   const config = useConfig()
   const { get: getProponent, allUserLoginNames } = useProponents()
   const logAction = useLogAction()
@@ -21,13 +21,14 @@ export const useEmail = () => {
 
   const getContactEmail = async () => {
     const emailAddress = config.items.filter((item) => item.Key === 'contactEmail')[0].TextValue
-
+    setContactEmail(emailAddress)
     const user = await GetUserByEmail({ email: emailAddress })
-    setContactEmail(user[0].LoginName)
+    setContactEmailLogin(user[0].LoginName)
 
   }
 
   const replacementPairs = useMemo(() => {
+    console.log(`contactEmail`, contactEmail)
     return [
       { searchvalue: /\n/g, newvalue: '<br>' },
       // eslint-disable-next-line no-undef
@@ -375,7 +376,7 @@ export const useEmail = () => {
 
       try {
         await SendEmail({
-          to: contactEmail,
+          to: contactEmailLogin,
           subject: newSubject,
           body: newBody,
         })
@@ -389,7 +390,7 @@ export const useEmail = () => {
 
       return
     },
-    [config.items, contactEmail, getProponent, logAction, replaceText]
+    [config.items, contactEmail, contactEmailLogin, getProponent, logAction, replaceText]
   )
 
   const sendEmailToNewMember = useCallback(
