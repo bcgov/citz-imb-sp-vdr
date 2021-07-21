@@ -33,8 +33,13 @@ const useStyles = makeStyles((theme) => ({
     '& button.MuiTab-textColorSecondary.Mui-selected': {
       color: '#E3A82B',
     },
+    '& button.MuiTab-textColorSecondary:hover': {
+      backgroundColor: 'transparent'
+    },
+
   },
 }))
+
 
 export const AppTabs = () => {
   const classes = useStyles()
