@@ -28,7 +28,6 @@ export const useEmail = () => {
   }
 
   const replacementPairs = useMemo(() => {
-    console.log(`contactEmail`, contactEmail)
     return [
       { searchvalue: /\n/g, newvalue: '<br>' },
       // eslint-disable-next-line no-undef
