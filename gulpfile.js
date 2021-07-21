@@ -8,8 +8,8 @@ gulp.task('build-script', function () {
 		.pipe(
 			gulp.dest('./dist/VirtualDocumentRoomModules/Files/SiteAssets/js')
 		)
-		.pipe(gulp.dest('a:/VDRoom/SiteAssets/js')) //dev
-		.pipe(gulp.dest('b:/VDRoom/SiteAssets/js')); //uat
+		.pipe(gulp.dest('a:/js')) //dev
+		.pipe(gulp.dest('b:/js')); //uat
 });
 
 gulp.task('build-css', function () {
@@ -19,8 +19,8 @@ gulp.task('build-css', function () {
 		.pipe(
 			gulp.dest('./dist/VirtualDocumentRoomModules/Files/SiteAssets/css')
 		)
-		.pipe(gulp.dest('a:/VDRoom/SiteAssets/js')) //dev
-		.pipe(gulp.dest('b:/VDRoom/SiteAssets/js')); //uat
+		.pipe(gulp.dest('a:/css')) //dev
+		.pipe(gulp.dest('b:/css')); //uat
 });
 
 gulp.task('default', gulp.parallel(['build-script', 'build-css']));

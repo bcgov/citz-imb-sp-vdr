@@ -1,19 +1,31 @@
-import { GetUser, SendEmail } from 'components/Api'
+import { GetUser, SendEmail, GetUserByEmail } from 'components/Api'
 import { useConfig, useLogAction, useProponents } from 'components/Hooks'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useState, useEffect } from 'react'
 // import { GetGroupMembers } from 'components/Api'
 // import { formatText } from './formatText'
 
 export const useEmail = () => {
+
+  const [contactEmail, setContactEmail] = useState()
+
   const config = useConfig()
   const { get: getProponent, allUserLoginNames } = useProponents()
   const logAction = useLogAction()
 
-  const contactEmail = useMemo(
-    () =>
-      config.items.filter((item) => item.Key === 'contactEmail')[0].TextValue,
-    [config.items]
-  )
+  useEffect(() => {
+    getContactEmail()
+    return () => {
+
+    }
+  }, [])
+
+  const getContactEmail = async () => {
+    const emailAddress = config.items.filter((item) => item.Key === 'contactEmail')[0].TextValue
+
+    const user = await GetUserByEmail({ email: emailAddress })
+    setContactEmail(user[0].LoginName)
+
+  }
 
   const replacementPairs = useMemo(() => {
     return [

@@ -44,13 +44,13 @@ export const AskQuestion = (props) => {
     async (values, { setSubmitting }) => {
       let latestItem = { Id: 0 }
       let nextQuestionNumber
-
+console.log(`questionList`, questionList)
       if (questionList.items.length > 0) {
         for (let i = 0; i < questionList.items.length; i++) {
           if (questionList.items[i].Id > latestItem.Id)
             latestItem = questionList.items[i]
         }
-
+console.log(`latestItem`, latestItem)
         nextQuestionNumber = parseInt(latestItem.QuestionID.slice(-3)) + 1
       } else {
         nextQuestionNumber = 1
