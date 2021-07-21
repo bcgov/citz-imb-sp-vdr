@@ -23,6 +23,7 @@ export const SPTable = (props) => {
     columnFiltering = false,
     title = '',
     showTitle = true,
+    noRecordsText = 'No Records Found'
   } = props
 
   const {
@@ -135,7 +136,7 @@ export const SPTable = (props) => {
             })
           ) : (
             <TableRow key={`${title}_tableBodyRow_NoRecords`}>
-              <TableCell colSpan={columns.length}>No Records Found</TableCell>
+              <TableCell colSpan={columns.length}>{noRecordsText}</TableCell>
             </TableRow>
           )}
         </TableBody>

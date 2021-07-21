@@ -74,6 +74,7 @@ export const ProponentQuestionList = () => {
       title={'Questions'}
       columnFiltering={true}
       allowUpload={true}
+      noRecordsText={'Your organization has not submitted any questions yet'}
     />
   )
 }

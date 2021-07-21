@@ -1,21 +1,34 @@
-import { GetUser, SendEmail } from 'components/Api'
+import { GetUser, SendEmail, GetUserByEmail } from 'components/Api'
 import { useConfig, useLogAction, useProponents } from 'components/Hooks'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useState, useEffect } from 'react'
 // import { GetGroupMembers } from 'components/Api'
 // import { formatText } from './formatText'
 
 export const useEmail = () => {
+
+  const [contactEmail, setContactEmail] = useState()
+  const [contactEmailLogin, setContactEmailLogin] = useState()
   const config = useConfig()
   const { get: getProponent, allUserLoginNames } = useProponents()
   const logAction = useLogAction()
 
-  const contactEmail = useMemo(
-    () =>
-      config.items.filter((item) => item.Key === 'contactEmail')[0].TextValue,
-    [config.items]
-  )
+  useEffect(() => {
+    getContactEmail()
+    return () => {
+
+    }
+  }, [])
+
+  const getContactEmail = async () => {
+    const emailAddress = config.items.filter((item) => item.Key === 'contactEmail')[0].TextValue
+    setContactEmail(emailAddress)
+    const user = await GetUserByEmail({ email: emailAddress })
+    setContactEmailLogin(user[0].LoginName)
+
+  }
 
   const replacementPairs = useMemo(() => {
+    console.log(`contactEmail`, contactEmail)
     return [
       { searchvalue: /\n/g, newvalue: '<br>' },
       // eslint-disable-next-line no-undef
@@ -363,7 +376,7 @@ export const useEmail = () => {
 
       try {
         await SendEmail({
-          to: contactEmail,
+          to: contactEmailLogin,
           subject: newSubject,
           body: newBody,
         })
@@ -377,7 +390,7 @@ export const useEmail = () => {
 
       return
     },
-    [config.items, contactEmail, getProponent, logAction, replaceText]
+    [config.items, contactEmail, contactEmailLogin, getProponent, logAction, replaceText]
   )
 
   const sendEmailToNewMember = useCallback(

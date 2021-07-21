@@ -34,6 +34,7 @@ export const PublicLibrary = () => {
       allowDelete={currentUser.isOwner}
       deleteCallback={deleteCallback}
       columnFiltering={true}
+      noRecordsText={'No documents have been made public yet'}
     />
   )
 }
