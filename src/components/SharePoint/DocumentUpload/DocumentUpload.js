@@ -13,7 +13,7 @@ export const DocumentUpload = (props) => {
   const [filesToUpload, setFilesToUpload] = useState([])
 
   const uploadDocuments = async (filesToUpload) => {
-    const fileNames = filesToUpload.map((file) => file.name).join('; ')
+    const fileNames = filesToUpload.map((file) => file.name)
     try {
       await addDocuments(filesToUpload)
       uploadCallback('success', fileNames)
