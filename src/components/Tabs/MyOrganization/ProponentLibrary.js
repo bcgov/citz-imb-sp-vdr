@@ -10,7 +10,7 @@ export const ProponentLibrary = () => {
   const logAction = useLogAction()
   const config = useConfig()
 
-  const allowUpload = config.items.filter(item=>item.Key==='allowSubmissions')[0].YesNoValue
+  const allowUpload = config.items.filter(item => item.Key === 'allowSubmissions')[0].YesNoValue
 
   if (!currentUser.isProponent)
     return <Alert severity={'info'}>User is not a proponent</Alert>
@@ -19,7 +19,14 @@ export const ProponentLibrary = () => {
 
   const uploadCallback = async (result, fileNames) => {
     if (result === 'success') {
-      logAction(`uploaded ${fileNames}`)
+      fileNames.map(fileName => {
+        logAction(`uploaded ${fileName}`, {
+          snackbar: false,
+        })
+      })
+      logAction(`uploaded ${fileNames.length} files`, {
+        snackbarOnly: true,
+      })
       try {
         await sendEmailToCurrentProponentMembers('proponentDocumentEmail', {
           currentUser,
