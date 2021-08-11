@@ -13,6 +13,9 @@ export const ColumnFilter = ({ column }) => {
 				e.preventDefault()
 				return setFilter(e.target.value)
 			}}
+			onKeyPress={(e) => {
+				if (e.charCode === 13) e.preventDefault()
+			}}
 		/>
 	)
 }
