@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useCurrentUser, useEmail, useLogAction } from 'components/Hooks'
 import { SPList } from 'components/SharePoint'
 
@@ -33,6 +34,10 @@ export const PublicLibrary = () => {
     }
   }
 
+  const initialState = useMemo(() => {
+    return { sortBy: [{ id: 'Modified', desc: true }] }
+  }, [])
+
   return (
     <SPList
       listName={listName}
@@ -43,6 +48,7 @@ export const PublicLibrary = () => {
       deleteCallback={deleteCallback}
       columnFiltering={true}
       noRecordsText={'No documents have been made public yet'}
+      initialState={initialState}
     />
   )
 }

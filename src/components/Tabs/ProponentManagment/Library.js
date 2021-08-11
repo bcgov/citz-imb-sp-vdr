@@ -1,8 +1,12 @@
 import { SPList } from 'components/SharePoint'
-import React from 'react'
+import { useMemo } from 'react'
 
 export const Library = (props) => {
   const { UUID } = props
 
-  return <SPList listName={UUID} columnFiltering={true} />
+  const initialState = useMemo(() => {
+    return { sortBy: [{ id: 'Modified', desc: true }] }
+  }, [])
+
+  return <SPList listName={UUID} columnFiltering={true} initialState={initialState} />
 }
