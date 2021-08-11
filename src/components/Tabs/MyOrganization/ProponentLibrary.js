@@ -1,7 +1,7 @@
 import { Alert } from '@material-ui/lab'
 import { useConfig, useCurrentUser, useEmail, useLogAction } from 'components/Hooks'
 import { SPList } from 'components/SharePoint'
-import React from 'react'
+import { useMemo } from 'react'
 
 export const ProponentLibrary = () => {
   const currentUser = useCurrentUser()
@@ -11,6 +11,10 @@ export const ProponentLibrary = () => {
   const config = useConfig()
 
   const allowUpload = config.items.filter(item => item.Key === 'allowSubmissions')[0].YesNoValue
+
+  const initialState = useMemo(() => {
+    return { sortBy: [{ id: 'Modified', desc: true }] }
+  }, [])
 
   if (!currentUser.isProponent)
     return <Alert severity={'info'}>User is not a proponent</Alert>
@@ -55,6 +59,8 @@ export const ProponentLibrary = () => {
     }
   }
 
+
+
   return (
     <SPList
       uploadText='Submit a document'
@@ -66,6 +72,7 @@ export const ProponentLibrary = () => {
       deleteCallback={deleteCallback}
       columnFiltering={true}
       noRecordsText={'Your organization has not submitted any documents yet'}
+      initialState={initialState}
     />
   )
 }
