@@ -23,7 +23,7 @@ export const DocumentUpload = (props) => {
     }
   }
 
-  const handleFormSubmit = (values, { setSubmitting }) => {
+  const handleFormSubmit = async (values, { setSubmitting }) => {
     if (!filesToUpload.length) {
       setWarningContent(
         <Alert severity={'error'}>
@@ -35,7 +35,7 @@ export const DocumentUpload = (props) => {
       return
     }
 
-    uploadDocuments(filesToUpload)
+    await uploadDocuments(filesToUpload)
     setSubmitting(false)
     handleFormClose()
   }
