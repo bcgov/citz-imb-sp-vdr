@@ -16,20 +16,20 @@ const baseStyle = {
 	alignItems: 'center',
 	padding: '20px',
 	borderWidth: 2,
-	borderColor: 'transparent',
+	borderColor: '#234075',
 	borderStyle: 'solid',
 };
 
 const activeStyle = {
-	borderColor: '#00ff00',
+	borderColor: '#00ff00', //green
 };
 
 const acceptStyle = {
-	borderColor: '#0000ff',
+	borderColor: '#0000ff', //blue
 };
 
 const rejectStyle = {
-	borderColor: '#ff0000',
+	borderColor: '#ff0000', //red
 };
 
 export const DropZone = (props) => {
@@ -70,8 +70,14 @@ export const DropZone = (props) => {
 						style,
 					})}>
 					<input id={'getFile'} {...getInputProps()} />
+					<Typography color={'primary'}>
+						Drag documents to this box to upload
+					</Typography>
 					<Typography>
-						Drag documents here to upload, or click to browse for
+						or
+					</Typography>
+					<Typography color={'primary'}>
+						Click this box to browse for
 						documents
 					</Typography>
 					<List>
