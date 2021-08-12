@@ -19,6 +19,7 @@ export const Questions = (props) => {
     {
       Filter: SelectColumnFilter,
       accessor: 'Assignee',
+      Header: 'Assignee',
       Cell: ({ value, row }) => {
         return <Assignee row={row} value={value} listName={listName} />
       },
