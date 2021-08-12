@@ -151,7 +151,7 @@ export const AnswerDialog = (props) => {
         name: 'answer',
         label: 'Answer',
         initialValue: postedAnswer?.Answer ?? '',
-        control: 'input',
+        control: 'textarea',
         onChange: () => {
           console.log("I'm changin my answer")
         },

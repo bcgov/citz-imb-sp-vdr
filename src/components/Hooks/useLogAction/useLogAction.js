@@ -19,11 +19,9 @@ export const useLogAction = () => {
       const activityFillerCharacters = 4
 
       const timeStamp = moment().format('dddd, MMMM Do, YYYY @ h:mm:ss a')
-      console.log(`currentUser.name.length`, currentUser.name.length)
-      console.log(`timeStamp.length`, timeStamp.length)
-
 
       const activity = `${currentUser.name} ${message.substring(0, fieldLength - activityFillerCharacters - currentUser.name.length - timeStamp.length)} on ${timeStamp}`
+
       try {
         if (snackbar)
           enqueueSnackbar(message, {
