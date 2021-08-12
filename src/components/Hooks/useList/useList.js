@@ -1,5 +1,5 @@
-import { DocumentUpload, AskQuestion } from 'components/SharePoint'
-import { useMemo } from 'react'
+import { DocumentUpload, AskQuestion, DownloadSelected } from 'components/SharePoint'
+import React, { useMemo } from 'react'
 import { useQuery } from 'react-query'
 import {
   useColumnOrder,
@@ -7,6 +7,7 @@ import {
   usePagination,
   useSortBy,
   useTable,
+  useRowSelect
 } from 'react-table'
 import { getList } from './getList/getList'
 import { useColumns } from './useColumns/useColumns'
@@ -25,6 +26,7 @@ export const useList = (listName, options = {}) => {
     customColumns,
     initialState = {},
     additionalTableActions = [],
+    downloadSelected = false,
   } = options
 
   if (listName === undefined)
@@ -60,26 +62,90 @@ export const useList = (listName, options = {}) => {
 
   const { add, remove, update } = useListMutations(listName, { deleteCallback })
 
+  const IndeterminateCheckbox = React.forwardRef(
+    ({ indeterminate, ...rest }, ref) => {
+      const defaultRef = React.useRef()
+      const resolvedRef = ref || defaultRef
+
+      React.useEffect(() => {
+        resolvedRef.current.indeterminate = indeterminate
+      }, [resolvedRef, indeterminate])
+
+      return (
+        <>
+          <input type="checkbox" ref={resolvedRef} {...rest} />
+        </>
+      )
+    }
+  )
+
+  const table = useTable(
+    {
+      columns,
+      data: items,
+      initialState,
+    },
+    useFilters,
+    useSortBy,
+    usePagination,
+    useColumnOrder,
+    useRowSelect,
+    hooks => {
+      hooks.visibleColumns.push(columns => {
+        if (downloadSelected) {
+          return [
+            // Let's make a column for selection
+            {
+              id: 'selection',
+              // The header can use the table's getToggleAllRowsSelectedProps method
+              // to render a checkbox
+              Header: ({ getToggleAllRowsSelectedProps }) => (
+                <div>
+                  <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+                </div>
+              ),
+              // The cell can use the individual row's getToggleRowSelectedProps method
+              // to the render a checkbox
+              Cell: ({ row }) => (
+                <div>
+                  <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+                </div>
+              ),
+            },
+            ...columns,
+          ]
+        } else {
+          return columns
+        }
+
+      })
+    }
+  )
+
   const tableActions = useMemo(() => {
     if (isLoading || isError) return []
 
+    const actions = additionalTableActions
+
+    if (downloadSelected) {
+      actions.push(<DownloadSelected selectedRows={table.selectedFlatRows} >Download Selected</DownloadSelected>)
+    }
+
     if (allowUpload) {
       if (data.list.BaseTemplate === libraryTemplate) {
-        return [
+        actions.push(
           <DocumentUpload
             title={`Upload to ${listName}`}
             addDocuments={add}
             uploadCallback={uploadCallback}>
             {uploadText}
-          </DocumentUpload>,
-          ...additionalTableActions,
-        ]
+          </DocumentUpload>)
       } else {
-        return [<AskQuestion listName={listName} title={`Submit a Question`} />, ...additionalTableActions]
+        actions.push(<AskQuestion listName={listName} title={`Submit a Question`} />)
       }
     }
 
-    return [...additionalTableActions]
+    return actions
   }, [
     add,
     additionalTableActions,
@@ -92,17 +158,9 @@ export const useList = (listName, options = {}) => {
     uploadText,
   ])
 
-  const table = useTable(
-    {
-      columns,
-      data: items,
-      initialState,
-    },
-    useFilters,
-    useSortBy,
-    usePagination,
-    useColumnOrder
-  )
+
+
+
 
   return {
     items,

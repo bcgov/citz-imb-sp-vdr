@@ -8,5 +8,5 @@ export const Library = (props) => {
     return { sortBy: [{ id: 'Modified', desc: true }] }
   }, [])
 
-  return <SPList listName={UUID} columnFiltering={true} initialState={initialState} />
+  return <SPList listName={UUID} columnFiltering={true} initialState={initialState} downloadSelected={true} />
 }

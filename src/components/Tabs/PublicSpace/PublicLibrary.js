@@ -49,6 +49,7 @@ export const PublicLibrary = () => {
       columnFiltering={true}
       noRecordsText={'No documents have been made public yet'}
       initialState={initialState}
+      downloadSelected={true}
     />
   )
 }

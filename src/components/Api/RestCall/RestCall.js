@@ -8,6 +8,7 @@ export const RestCall = async ({
 	headers,
 	cache,
 	noReturn = false,
+	returnBlob = false
 }) => {
 	// eslint-disable-next-line
 	const webAbsoluteUrl = _spPageContextInfo.webAbsoluteUrl;
@@ -75,6 +76,6 @@ export const RestCall = async ({
 			);
 	}
 
-	fetchResponse = await DoFetch(webAbsoluteUrl, endPoint, options, noReturn);
+	fetchResponse = await DoFetch(webAbsoluteUrl, endPoint, options, noReturn, returnBlob);
 	return fetchResponse;
 };

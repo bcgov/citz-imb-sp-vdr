@@ -1,6 +1,4 @@
-import {Reauthenticate} from './Reauthenticate/Reauthenticate'
-
-export const DoFetch = async (url, endPoint, options, doNotReturnResponse = false) => {
+export const DoFetch = async (url, endPoint, options, doNotReturnResponse = false, returnBlob = false) => {
 	const response = await fetch(`${url}${endPoint}`, options);
 	if (response.ok) {
 		if (doNotReturnResponse) return null;
@@ -13,14 +11,9 @@ export const DoFetch = async (url, endPoint, options, doNotReturnResponse = fals
 			);
 			return response.json();
 		} else {
-			return response.json();
+			return returnBlob ? response.blob() : response.json();
 		}
 	} else {
-		if (response.status === 403) {
-			console.error('403 response :>> ', response);
-			Reauthenticate()
-		} else {
-			throw new Error(`${response.status} ${response.statusText} for ${url}${endPoint}`);
-		}
+		throw new Error(`${response.status} ${response.statusText} for ${url}${endPoint}`);
 	}
 };
