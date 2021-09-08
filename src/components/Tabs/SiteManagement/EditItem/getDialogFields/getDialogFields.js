@@ -92,19 +92,11 @@ export const getDialogFields = (originalRow) => {
 		case 'newDocumentEmail':
 			fields = emailFields
 			break
-		case 'ProponentDeleteDocumentEmail':
-			fields = emailFields
-			break
-		case 'withdrawQuestionEmail':
-			fields = emailFields
-			break
-		case 'allowSubmissions':
-			fields = []
+		case 'viewActivityLog':
 			break
 		default:
-			console.error(`Error: no fields defined for ${originalRow.Key}`)
 			fields = []
 	}
-
+	
 	return fields
 }
