@@ -9,6 +9,7 @@
 		<ElementFile Location="Files\Documents\Schema.xml" />
 		<ElementFile Location="Files\Lists\ActivityLog\Schema.xml" />
 		<ElementFile Location="Files\Lists\Config\Schema.xml" />
+		<ElementFile Location="Files\Lists\Notices\Schema.xml" />
 		<ElementFile Location="Files\Lists\Proponents\Schema.xml" />
 		<ElementFile Location="Files\Lists\Questions\Schema.xml" />
 		<ElementFile Location="Files\SiteAssets\Schema.xml" />
