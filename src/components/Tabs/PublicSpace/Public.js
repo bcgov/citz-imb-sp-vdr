@@ -3,6 +3,7 @@ import { VerticalTabPanel } from 'components/Reusable'
 import React, { useState } from 'react'
 import { PublicLibrary } from './PublicLibrary'
 import { PublicQuestionList } from './PublicQuestionList'
+import { Notices } from './Notices'
 
 function a11yProps(index) {
 	return {
@@ -38,13 +39,17 @@ export const Public = () => {
 				onChange={handleChange}
 				aria-label='Vertical tabs example'
 				className={classes.tabs}>
-				<Tab label='Public Documents' {...a11yProps(0)} />
-				<Tab label='Public Questions' {...a11yProps(1)} />
+				<Tab label='Notices' {...a11yProps(0)} />
+				<Tab label='Public Documents' {...a11yProps(1)} />
+				<Tab label='Public Questions' {...a11yProps(2)} />
 			</Tabs>
 			<VerticalTabPanel value={value} index={0}>
-				<PublicLibrary />
+				<Notices />
 			</VerticalTabPanel>
 			<VerticalTabPanel value={value} index={1}>
+				<PublicLibrary />
+			</VerticalTabPanel>
+			<VerticalTabPanel value={value} index={2}>
 				<PublicQuestionList />
 			</VerticalTabPanel>
 		</div>
