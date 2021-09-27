@@ -20,7 +20,7 @@ export const SiteManagement = () => {
       Footer: 'Edit',
       accessor: 'Edit',
       id: 'Edit',
-      Cell: ({row}) => <EditItem {...row} />,
+      Cell: ({ row }) => <EditItem {...row} />,
     },
   ]
 

@@ -2,7 +2,7 @@ import {
 	FormControl,
 	FormHelperText,
 	FormLabel,
-	Input,
+	Input
 } from '@material-ui/core';
 import { Field } from 'formik';
 import React from 'react';

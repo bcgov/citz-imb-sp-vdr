@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-  LinearProgress,
+  LinearProgress
 } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import { FormikControls } from 'components/Reusable/Formik'
@@ -101,7 +101,9 @@ export const FormikDialog = (props) => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}>
-        {({ submitForm, isSubmitting }) => {
+        {(props) => {
+          const { submitForm, isSubmitting } = props
+          console.log(`formik props`, props)
           return (
             <Form>
               <DialogTitle>{title}</DialogTitle>

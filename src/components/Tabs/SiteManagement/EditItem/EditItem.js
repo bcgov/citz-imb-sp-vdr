@@ -9,14 +9,14 @@ export const EditItem = (props) => {
   const { original, values } = props
   const [formOpen, setFormOpen] = useState(false)
 
-	const { update } = useConfig()
-	const logAction = useLogAction()
+  const { update } = useConfig()
+  const logAction = useLogAction()
 
   const handleSubmit = async (values, { setSubmitting }) => {
     const item = { ...values, Id: original.Id }
 
     await update(item)
-	  logAction(`updated '${original.Title}'`)
+    logAction(`updated '${original.Title}'`)
 
     setSubmitting(false)
     setFormOpen(false)
