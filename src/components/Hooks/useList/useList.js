@@ -158,10 +158,6 @@ export const useList = (listName, options = {}) => {
     uploadText,
   ])
 
-
-
-
-
   return {
     items,
     isFetching,

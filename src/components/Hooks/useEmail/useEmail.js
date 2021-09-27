@@ -1,8 +1,6 @@
-import { GetUser, SendEmail, GetUserByEmail } from 'components/Api'
+import { GetUser, GetUserByEmail, SendEmail } from 'components/Api'
 import { useConfig, useLogAction, useProponents } from 'components/Hooks'
-import { useCallback, useMemo, useState, useEffect } from 'react'
-// import { GetGroupMembers } from 'components/Api'
-// import { formatText } from './formatText'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 export const useEmail = () => {
 
@@ -14,17 +12,13 @@ export const useEmail = () => {
 
   useEffect(() => {
     getContactEmail()
-    return () => {
-
-    }
   }, [])
 
   const getContactEmail = async () => {
-    const emailAddress = config.items.filter((item) => item.Key === 'contactEmail')[0].TextValue
+    const emailAddress = config.itemFilter('contactEmail').TextValue
     setContactEmail(emailAddress)
     const user = await GetUserByEmail({ email: emailAddress })
     setContactEmailLogin(user[0].LoginName)
-
   }
 
   const replacementPairs = useMemo(() => {
@@ -65,6 +59,8 @@ export const useEmail = () => {
 
   const sendEmailToCurrentProponentMembers = useCallback(
     async (type, options = {}) => {
+      if (!config.itemFilter(type).YesNoValue) return
+
       const { currentUser } = options
 
       const proponentUsers = getProponent(currentUser.proponent).Users
@@ -74,10 +70,8 @@ export const useEmail = () => {
       switch (type) {
         case 'addQuestionEmail':
           emailContents = proponentUsers.map((user) => {
-            const subject = config.items.filter((item) => item.Key === type)[0]
-              .TextValue
-            const body = config.items.filter((item) => item.Key === type)[0]
-              .MultiTextValue
+            const subject = config.itemFilter(type).TextValue
+            const body = config.itemFilter(type).MultiTextValue
 
             const additionalPairValues = [
               {
@@ -112,10 +106,8 @@ export const useEmail = () => {
 
         case 'proponentDocumentEmail':
           emailContents = proponentUsers.map((user) => {
-            const subject = config.items.filter((item) => item.Key === type)[0]
-              .TextValue
-            const body = config.items.filter((item) => item.Key === type)[0]
-              .MultiTextValue
+            const subject = config.itemFilter(type).TextValue
+            const body = config.itemFilter(type).MultiTextValue
 
             const additionalPairValues = [
               {
@@ -142,10 +134,8 @@ export const useEmail = () => {
 
         case 'withdrawQuestionEmail':
           emailContents = proponentUsers.map((user) => {
-            const subject = config.items.filter((item) => item.Key === type)[0]
-              .TextValue
-            const body = config.items.filter((item) => item.Key === type)[0]
-              .MultiTextValue
+            const subject = config.itemFilter(type).TextValue
+            const body = config.itemFilter(type).MultiTextValue
 
             const additionalPairValues = [
               {
@@ -176,10 +166,8 @@ export const useEmail = () => {
 
         case 'ProponentDeleteDocumentEmail':
           emailContents = proponentUsers.map((user) => {
-            const subject = config.items.filter((item) => item.Key === type)[0]
-              .TextValue
-            const body = config.items.filter((item) => item.Key === type)[0]
-              .MultiTextValue
+            const subject = config.itemFilter(type).TextValue
+            const body = config.itemFilter(type).MultiTextValue
 
             const additionalPairValues = [
               {
@@ -238,15 +226,15 @@ export const useEmail = () => {
 
   const sendEmailToAllProponents = useCallback(
     async (type, options = {}) => {
+      if (type !== 'publicDocumentEmail' && !config.itemFilter(type).YesNoValue) return
+
       let emailContents = []
 
       switch (type) {
         case 'publicDocumentEmail':
           emailContents = allUserLoginNames.map((user) => {
-            const subject = config.items.filter((item) => item.Key === type)[0]
-              .TextValue
-            const body = config.items.filter((item) => item.Key === type)[0]
-              .MultiTextValue
+            const subject = config.itemFilter(type).TextValue
+            const body = config.itemFilter(type).MultiTextValue
 
             const newBody = replaceText(body)
 
@@ -262,10 +250,8 @@ export const useEmail = () => {
 
         case 'newAnswerEmail':
           emailContents = allUserLoginNames.map((user) => {
-            const subject = config.items.filter((item) => item.Key === type)[0]
-              .TextValue
-            const body = config.items.filter((item) => item.Key === type)[0]
-              .MultiTextValue
+            const subject = config.itemFilter(type).TextValue
+            const body = config.itemFilter(type).MultiTextValue
 
             const newBody = replaceText(body)
 
@@ -281,10 +267,8 @@ export const useEmail = () => {
 
         case 'updatedAnswerEmail':
           emailContents = allUserLoginNames.map((user) => {
-            const subject = config.items.filter((item) => item.Key === type)[0]
-              .TextValue
-            const body = config.items.filter((item) => item.Key === type)[0]
-              .MultiTextValue
+            const subject = config.itemFilter(type).TextValue
+            const body = config.itemFilter(type).MultiTextValue
 
             const newBody = replaceText(body)
 
@@ -322,6 +306,8 @@ export const useEmail = () => {
 
   const sendEmailToSiteContact = useCallback(
     async (type, options = {}) => {
+      if (!config.itemFilter(type).YesNoValue) return
+
       const { userId, proponentName, proponentId } = options
       let subject = '',
         body = '',
@@ -366,8 +352,8 @@ export const useEmail = () => {
           return
       }
 
-      subject = config.items.filter((item) => item.Key === type)[0].TextValue
-      body = config.items.filter((item) => item.Key === type)[0].MultiTextValue
+      subject = config.itemFilter(type).TextValue
+      body = config.itemFilter(type).MultiTextValue
 
       const newBody = replaceText(body, { additionalPairValues })
 
@@ -394,13 +380,13 @@ export const useEmail = () => {
 
   const sendEmailToNewMember = useCallback(
     async (options = {}) => {
+      const type = 'addUserEmail'
+      if (!config.itemFilter(type).YesNoValue) return
+
       const { member, proponentName } = options
 
-      const subject = config.items.filter(
-        (item) => item.Key === 'addUserEmail'
-      )[0].TextValue
-      const body = config.items.filter((item) => item.Key === 'addUserEmail')[0]
-        .MultiTextValue
+      const subject = config.itemFilter(type).TextValue
+      const body = config.itemFilter(type).MultiTextValue
 
       const additionalPairValues = [
         {
