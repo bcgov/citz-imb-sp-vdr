@@ -2,6 +2,7 @@ import { Button } from '@material-ui/core'
 import PublishIcon from '@material-ui/icons/Publish'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import { FormikDialog } from 'components/Reusable'
+import { useSendNotificationDefault } from 'components/Hooks'
 import React, { useState, useEffect } from 'react'
 import { DropZone } from './DropZone/DropZone'
 
@@ -12,14 +13,16 @@ export const DocumentUpload = (props) => {
   const [warningContent, setWarningContent] = useState(null)
   const [filesToUpload, setFilesToUpload] = useState([])
 
-  const uploadDocuments = async (filesToUpload) => {
+  const fields = useSendNotificationDefault('publicDocumentEmail')
+
+  const uploadDocuments = async (filesToUpload, values) => {
     const fileNames = filesToUpload.map((file) => file.name)
     try {
       await addDocuments(filesToUpload)
-      uploadCallback('success', fileNames)
+      uploadCallback('success', fileNames, values)
     } catch (error) {
       console.error(error)
-      uploadCallback('fail', fileNames)
+      uploadCallback('fail', fileNames, values)
     }
   }
 
@@ -35,7 +38,7 @@ export const DocumentUpload = (props) => {
       return
     }
 
-    await uploadDocuments(filesToUpload)
+    await uploadDocuments(filesToUpload, values)
     setSubmitting(false)
     handleFormClose()
   }
@@ -66,7 +69,8 @@ export const DocumentUpload = (props) => {
         open={formOpen}
         onSubmit={handleFormSubmit}
         close={handleFormClose}
-        title={title}>
+        title={title}
+        fields={fields}>
         {warningContent}
         <DropZone setAcceptedFiles={setFilesToUpload} />
       </FormikDialog>

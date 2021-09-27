@@ -101,9 +101,7 @@ export const FormikDialog = (props) => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}>
-        {(props) => {
-          const { submitForm, isSubmitting } = props
-          console.log(`formik props`, props)
+        {({ submitForm, isSubmitting }) => {
           return (
             <Form>
               <DialogTitle>{title}</DialogTitle>

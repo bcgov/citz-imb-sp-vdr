@@ -9,7 +9,7 @@ export const PublicLibrary = () => {
   const currentUser = useCurrentUser()
   const { sendEmailToAllProponents } = useEmail()
 
-  const uploadCallback = async (result, fileNames = []) => {
+  const uploadCallback = async (result, fileNames = [], values) => {
     if (result === 'success') {
       fileNames.map(fileName => {
         logAction(`uploaded ${fileName}`, {
@@ -20,7 +20,7 @@ export const PublicLibrary = () => {
         snackbarOnly: true,
       })
 
-      await sendEmailToAllProponents('publicDocumentEmail')
+      if (values.sendNotification) await sendEmailToAllProponents('publicDocumentEmail')
     } else {
       logAction(`failed to upload ${fileNames}`, { variant: 'error' })
     }
