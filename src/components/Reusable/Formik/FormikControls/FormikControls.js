@@ -5,6 +5,7 @@ import { InputFormikControl } from './Input/InputFormikControl'
 import { PeoplePickerFormikControl } from './PeoplePicker/PeoplePickerFormikControl'
 import { RadioFormikControl } from './Radio/RadioFormikControl'
 import { SelectFormikControl } from './Select/SelectFormikControl'
+import { SwitchFormikControl } from './SwitchFormikControl/SwitchFormikControl'
 import { TextAreaFormikControl } from './TextArea/TextAreaFormikControl'
 
 export const FormikControls = (props) => {
@@ -35,6 +36,9 @@ export const FormikControls = (props) => {
 			returnedControl = <HiddenFormikControl {...rest} />
 			break
 		case 'autocomplete':
+			break
+		case 'switch':
+			returnedControl = <SwitchFormikControl {...rest} />
 			break
 		case 'date':
 		default:

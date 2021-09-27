@@ -1,4 +1,4 @@
-import { FormikDialog } from 'components';
+import { FormikDialog } from '../../Reusable/Formik'
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 
@@ -6,6 +6,12 @@ export const FormikTest = ({ open, close }) => {
 	const [peoplePicker, setPeoplePicker] = useState();
 
 	const fields = [
+		{
+			name: 'switch',
+			label: 'Switch',
+			initialValue: true,
+			control: 'switch',
+		},
 		{
 			name: 'title',
 			label: 'Title',

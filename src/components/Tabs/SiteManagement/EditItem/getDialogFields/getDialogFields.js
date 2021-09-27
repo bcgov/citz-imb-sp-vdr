@@ -5,6 +5,13 @@ export const getDialogFields = (originalRow) => {
 
 	const emailFields = [
 		{
+			name: 'YesNoValue',
+			label: 'Default Send Email Notification',
+			initialValue: originalRow.YesNoValue,
+			control: 'checkbox',
+			options: [{value: true}]
+		},
+		{
 			name: 'TextValue',
 			label: 'Subject Line',
 			initialValue: originalRow.TextValue,

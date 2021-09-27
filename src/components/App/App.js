@@ -25,7 +25,7 @@ export const App = () => {
 
   useEffect(() => {
     prefetch()
-    return () => {}
+    return () => { }
   }, [prefetch])
 
   if (isLoading) return <LinearProgress />
