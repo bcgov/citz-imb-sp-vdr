@@ -852,6 +852,7 @@
 				<ViewFields>
 					<FieldRef Name="Question" />
 					<FieldRef Name="Answer" />
+					<FieldRef Name="Modified" />
 				</ViewFields>
 				<RowLimit Paged="TRUE">30</RowLimit>
 				<Aggregations Value="Off" />
