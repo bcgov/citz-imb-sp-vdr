@@ -15,11 +15,7 @@ export const RemoveItemsFromList = async ({ listName, listGUID, itemIds }) => {
 	itemIds.forEach(async (itemId) => {
 		const response = await RestCall({
 			endPoint: `${endPoint}(${itemId})/recycle`,
-			method: 'post',
-			headers: {
-				'x-http-method': 'delete',
-				'if-match': '*',
-			},
+			method: 'delete',
 		});
 
 		responses.push(response);

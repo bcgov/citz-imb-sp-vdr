@@ -3,6 +3,7 @@ import {
   AddItemsToList,
   GetFileBuffer,
   RemoveDocumentFromLibrary,
+  RemoveItemsFromList,
   UpdateListItem,
 } from 'components/Api'
 import { useCurrentUser } from 'components/Hooks'
@@ -12,7 +13,7 @@ import { useMutation, useQueryClient } from 'react-query'
 const libraryTemplate = 101
 
 export const useListMutations = (listName, options) => {
-  const { deleteCallback = () => {} } = options
+  const { deleteCallback = () => { } } = options
   const currentUser = useCurrentUser()
 
   const queryClient = useQueryClient()
@@ -43,6 +44,44 @@ export const useListMutations = (listName, options) => {
       onError: (error, newItem, context) =>
         queryClient.setQueryData(listName, context.previousValues),
       onSettled: async () => await queryClient.invalidateQueries(listName),
+    }
+  )
+
+  const deleteItemMutation = useMutation(
+    async (itemId) =>
+      await RemoveItemsFromList({ listName, itemIds: itemId }),
+    {
+      onMutate: async (id) => {
+        await queryClient.cancelQueries(listName)
+
+        const previousValues = queryClient.getQueryData(listName)
+
+        queryClient.setQueryData(listName, (oldValues) => {
+          return {
+            ...oldValues,
+            items: oldValues.items.filter((value) => value.Id !== id),
+          }
+        })
+
+        return { previousValues }
+      },
+      onError: async (err, variables, context) => {
+        console.error('{err, variables, context} :>> ', {
+          err,
+          variables,
+          context,
+        })
+        deleteCallback(false)
+        return queryClient.setQueryData(listName, context.previousValues)
+      },
+      onSuccess: (data, variables, context) => {
+        deleteCallback(
+          true,
+          context.previousValues.items.filter(
+            (item) => item.Id === variables
+          )[0].Notice
+        )
+      },
     }
   )
 
@@ -154,11 +193,12 @@ export const useListMutations = (listName, options) => {
 
   const remove = useCallback(
     (id) => {
-      if (status !== 'success') return () => {}
-      if (data.list.BaseTemplate === libraryTemplate)
+      if (status !== 'success') return () => { }
+
+      if (data.list.BaseTemplate === libraryTemplate) {
         return deleteDocumentMutation.mutateAsync(id)
-      return (id) => {
-        console.warn('not implemented')
+      } else {
+        return deleteItemMutation.mutateAsync(id)
       }
     },
     [data?.list?.BaseTemplate, deleteDocumentMutation, status]
@@ -167,15 +207,15 @@ export const useListMutations = (listName, options) => {
   const add = useMemo(() => {
     return data?.list?.BaseTemplate === libraryTemplate
       ? async (fileInput) => {
-          for (let i = 0; i < fileInput.length; i++) {
-            var arrayBuffer = await GetFileBuffer(fileInput[i])
+        for (let i = 0; i < fileInput.length; i++) {
+          var arrayBuffer = await GetFileBuffer(fileInput[i])
 
-            await addDocumentMutation.mutateAsync({
-              fileData: fileInput[i],
-              fileContents: arrayBuffer,
-            })
-          }
+          await addDocumentMutation.mutateAsync({
+            fileData: fileInput[i],
+            fileContents: arrayBuffer,
+          })
         }
+      }
       : addItemMutation.mutateAsync
   }, [
     addDocumentMutation,

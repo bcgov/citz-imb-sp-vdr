@@ -1,16 +1,27 @@
 import { SPList } from 'components/SharePoint';
 import React, { useMemo, useCallback } from 'react';
-import { useCurrentUser } from 'components/Hooks';
+import { useCurrentUser, useLogAction } from 'components/Hooks';
 import { AddNotice } from './AddNotice'
 
 export const Notices = () => {
 
 	const currentUser = useCurrentUser()
+	const logAction = useLogAction()
 
 	const uploadCallback = useCallback(
 		() => {
 
 		},
+		[],
+	)
+
+	const deleteCallback = useCallback(async (isSuccess, fileName) => {
+		if (isSuccess) {
+			logAction(`deleted ${fileName}`)
+		} else {
+			logAction(`failed to delete ${fileName}`, { variant: 'error' })
+		}
+	},
 		[],
 	)
 
@@ -33,5 +44,7 @@ export const Notices = () => {
 		columnFiltering={true}
 		noRecordsText={'No notices have been posted yet'}
 		initialState={initialState}
+		allowDelete={currentUser.isOwner}
+		deleteCallback={deleteCallback}
 	/>
 };
