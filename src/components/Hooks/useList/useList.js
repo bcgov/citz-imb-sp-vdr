@@ -27,6 +27,7 @@ export const useList = (listName, options = {}) => {
     initialState = {},
     additionalTableActions = [],
     downloadSelected = false,
+    showNotificationSwitch
   } = options
 
   if (listName === undefined)
@@ -137,7 +138,8 @@ export const useList = (listName, options = {}) => {
           <DocumentUpload
             title={`Upload to ${listName}`}
             addDocuments={add}
-            uploadCallback={uploadCallback}>
+            uploadCallback={uploadCallback}
+            showNotificationSwitch={showNotificationSwitch}>
             {uploadText}
           </DocumentUpload>)
       } else {

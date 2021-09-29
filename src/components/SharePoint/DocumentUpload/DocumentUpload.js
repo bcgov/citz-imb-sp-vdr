@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react'
 import { DropZone } from './DropZone/DropZone'
 
 export const DocumentUpload = (props) => {
-  const { addDocuments, children, uploadCallback = () => { }, title = 'Upload' } = props
+  const { addDocuments, children, uploadCallback = () => { }, title = 'Upload', showNotificationSwitch = true } = props
 
   const [formOpen, setFormOpen] = useState(false)
   const [warningContent, setWarningContent] = useState(null)
@@ -16,7 +16,7 @@ export const DocumentUpload = (props) => {
 
   let fields = useSendNotificationDefault('publicDocumentEmail')
 
-  if (!currentUser.isOwner) fields = []
+  if (!currentUser.isOwner || !showNotificationSwitch) fields = []
 
   const uploadDocuments = async (filesToUpload, values) => {
     const fileNames = filesToUpload.map((file) => file.name)
