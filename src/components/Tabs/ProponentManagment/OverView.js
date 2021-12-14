@@ -76,6 +76,9 @@ export const OverView = (props) => {
           <ListItemText id='overview-list-label-uuid'>Unique Id</ListItemText>
           <ListItemSecondaryAction>{UUID}</ListItemSecondaryAction>
         </ListItem>
+        {/*
+
+          //! inactivating causes errors
         <ListItem>
           <ListItemText id='overview-list-label-active'>
             {Active ? 'Active' : 'Inactive'}
@@ -91,6 +94,8 @@ export const OverView = (props) => {
             />
           </ListItemSecondaryAction>
         </ListItem>
+
+        */}
         <ListItem>
           <ListItemText id='overview-list-label-uuid'>
             Questions Asked
